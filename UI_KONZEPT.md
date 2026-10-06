@@ -272,7 +272,7 @@ Für alle Sozial-Ansichten gilt der gemeinsame Bestätigungsdialog (z. B. „Cla
 | Replays | /replays [name] | Moderator, Admin | Feld „Spieler oder Replay-ID“, „Suchen“; Zeilen „Map (Modus)“ mit Dauer und Alter; Klick öffnet die Replay-Ansicht |
 | Bühne | /buehne | Moderator, Admin (Events nur Admin) | Info Bühne, Event-Bonus; „Bühne stummschalten“ / „freigeben“; „Ankündigungen“ (Zeilen mit „Beenden“; Titel, Text, Art, Dauer, Banner; „Ankündigen“); „Events“ (Name, Beschreibung, Start, Dauer, XP-Faktor, Brix-Faktor; „Event planen“); „Map der Woche“ (Aktuell, Map, Für; „Festlegen“, „Wieder automatisch“); „Event-Hosts“ (Konto, Für; „Freischalten“ / „Entziehen“); „Auf die Bühne holen“ |
 | Entwickler | /entwickler, /asset-karte | Entwickler, Admin | „Inhalte, Instanzen und Werkzeuge“: Inhaltsversion, Waffen-Version, Overlay, Instanzen, Asset-Karte; „Asset-Karte betreten“, „Asset-Aufnahmen“, „Inhalte neu laden“ |
-| Verwaltung | /rolle | Admin | „Rolle setzen“ (Konto, Rolle player / moderator / developer / admin, Grund); „XP setzen“ (Konto, XP gesamt, Grund) |
+| Verwaltung | /rolle | Admin | „Rolle setzen“ (Konto, Rolle player / moderator / developer / admin / owner (**NEU**, admin und owner nur durch OWNER), Grund); „XP setzen“ (Konto, XP gesamt, Grund) |
 
 Der Renderer bekommt neue Skins für alle 8 Element-Arten: Heading, Text, Info (Label/Wert), Row (klickbare Karte), Button (Normal / Primary / Danger / Muted, gruppierbar), Field, Select (Stepper), Separator. Dazu kommen die Meldungszeile, die Bestätigung „Bist du sicher?“ (JA, AUSFÜHREN / ABBRECHEN, Ebene 50) und die Effekte Wechsel, Client-Werkzeug (Asset-Aufnahmen), Inhalte neu laden, Bühne aktualisieren und Replay ansehen. Das alte SCHLIESSEN ist Esc bzw. Gamepad-B.
 
@@ -603,7 +603,7 @@ Eine Komponente für alle Modi (**NEU**; `tablist_frame`, Ebene 31). Sie fasst d
 | Variante | Kopfzeile | Spalten | Besonderheiten |
 |---|---|---|---|
 | Plaza (P) | Titel = Map, Untertitel „n Spieler hier“ | Kennzeichen · Name „(du)“ · Rang · Party/Freund (Krone, Herz) · Sprecher · „•••“ | – |
-| Asset-Karte (A) | wie Plaza | wie Plaza | Rollen-Abzeichen MOD/DEV/ADMIN in den Kennzeichen |
+| Asset-Karte (A) | wie Plaza | wie Plaza | Rollen-Abzeichen MOD/DEV/ADMIN/OWNER in den Kennzeichen |
 | Bauplatz (B) | Titel = Map, Untertitel „Bauplatz von X · n Spieler hier“ | wie Plaza + Rolle „Inhaber“ / „Mitbauer“ / „Zu Besuch“ | „•••“ zeigt für den Inhaber den Block „BAUPLATZ“. |
 | Match, Team-Modi | „Punktestand“, „Modus · Map · Runde/noch · Ziel“, Score „Team n : n Team“ | zwei Team-Spalten (Blau links, Rot rechts): ZIEL / PUNKTE / K / T / A / PING / RANG | Krone (Raumleiter), „(aus)“ für getrennte Spieler |
 | Match, Jeder gegen jeden | „Punktestand“, Untertitel wie oben, dazu „Führung: X (n)“ | eine Rangliste: PLATZ / SPIELER / PUNKTE / K / T / A / PING / RANG | Platz 1–3 mit `medal_place_1–3` |
@@ -1037,13 +1037,15 @@ Kontrast berechnet nach WCAG 2.x gegen `bg.panel` `#0B0B0D`, sofern nicht anders
 
 | Badge | Farbe | Glyphe | Rolle | Asset |
 |---|---|---|---|---|
-| Krone | Bronze `#9C4D01` | goldene Krone | Leiter / Inhaber / Master | `role_leader` |
+| Krone | Bronze `#9C4D01` | goldene Krone | **OWNER (Inhaber)**, höchster Rang (**NEU**) | `role_owner` |
 | Schild | Rot `#AE4033` → `#7C100B` | goldener Schild-Umriss | ADMIN | `role_admin` |
 | `</>` | Lila `#7543A4` → `#3B116A` | helles `</>` | DEV | `role_dev` |
 | Schild mit Haken | Grün `#66842E` → `#1E3A01` | goldener Schild mit Haken | MOD | `role_mod` |
 | Person | Blau `#5C83A8` → `#15406C` | helle Büste | Spieler | `role_player` |
 
 Das TEAM-Schild der Top-Leiste nutzt die rote ADMIN-Platte für alle Staff-Rollen.
+
+**OWNER (Inhaber, NEU):** höchster Rang über ADMIN. Sieht alle TEAM-Menüs und ist als einzige Rolle berechtigt, ADMIN oder OWNER zu vergeben (Verwaltung › „Rolle setzen“). ADMIN vergibt nur noch player, moderator und developer. Party-Leiter, Raum-Master, Clan-Leitung und Bauplatz-Inhaber bekommen kein Rollen-Badge, sondern die kleine Krone `icon_crown` vor dem Namen. So bleibt die Kronen-Platte eindeutig dem OWNER vorbehalten.
 
 ### 11.4 Stufen
 Namen aus dem Glücksbrett. Eine Stufe erscheint nie nur als Farbe, sondern immer mit Name **und** Symbol (passt zur Farbseh-Einstellung).
@@ -1229,7 +1231,7 @@ Zustände: **N** normal · **H** hover · **G** gedrückt · **D** deaktiviert �
 | Währungs-Pille | `pill_resource` + `cur_*` + Zahl (rollt), optional `btn_plus` | N H | `BalancePill`, Währungssymbole und -farben |
 | Rang-Abzeichen | `rank_t1` … `rank_t6` + Zahl | – | `RankBadge`, `RankColor` |
 | Profil-Chip | Rang-Abzeichen, Name, XP-Ring | N H G F | – (**NEU**) |
-| Namens-Kennzeichen | Rollen-Badge (MOD/DEV/ADMIN), Rang, „[TAG]“ mit Emblem, Party, Freund-Herz | – | `UiNameBadges` |
+| Namens-Kennzeichen | Rollen-Badge (MOD/DEV/ADMIN/OWNER), Rang, „[TAG]“ mit Emblem, Party, Freund-Herz | – | `UiNameBadges` |
 | Listenzeile | `list_row`: Avatar/Icon, Text, Werte, Zeilen-Knöpfe (S), „•••“ mit Sprecher-Punkt | N H G D F A | `PlayerActionsPanel.AddRowButton` |
 | Vorschaubild-Fläche | gefaste Maske mit Rahmen, Ladeschimmer | lädt / da | `MapThumbnailCache.PlotPicture` |
 | Emblem-Editor | 16×16-Raster, Palette, Werkzeuge Stift / Füllen / Spiegeln, LEEREN | – | `UiEmblemEditor` |
@@ -1450,8 +1452,8 @@ Auf dem Bauplatz (B) und in der Bauphase im Match (M). Ersetzt die Brick-Leiste 
 ### 14.2 Brick-Leiste (unten Mitte)
 | Teil | Inhalt (Inventar) | Regel |
 |---|---|---|
-| 9 Plätze | `build_slot` 64×64 mit Brick-Symbol, Ziffer 1–9 (`build_key_label`) und Limit-Zähler „n/Limit“ (`build_limit_badge`) | Wahl mit 1–9 oder Mausrad; der aktive Platz ist goldgerahmt und 8 px angehoben (72×72) |
-| Statuszeile | „\<Brick\> · Einzeln/Linie/Ersetzen · Norden/Osten/Süden/Westen · n/Limit“ auf `build_status_plate` | schaltet sofort mit jeder Änderung |
+| 9 Plätze | `build_slot` 64×64 mit Brick-Symbol, Ziffer 1–9 (`build_key_label`); Limit-Zähler „n/Limit“ (`build_limit_badge`) nur bei begrenzten Bricks | Wahl mit 1–9 oder Mausrad; der aktive Platz ist goldgerahmt und 8 px angehoben (72×72) |
+| Statuszeile | nur der Brick-Name „\<Brick\>“, bei begrenzten Bricks „\<Brick\> · n/Limit“, auf `build_status_plate`. Werkzeug-Modus und Richtung zeigt die Werkzeugleiste (**NEU**: früher „\<Brick\> · Einzeln/Linie/Ersetzen · Norden/Osten/Süden/Westen · n/Limit“) | schaltet sofort mit jeder Änderung |
 | Belegen | Palette (Q), Reihe „LEISTE“ mit 9 Plätzen (Ziffern 1–9 belegen) | wie heute |
 
 **Palette** (`BrickPalettePanel`, Taste Q, nur B, Ebene 34): Suchfeld „Suchen …“; Seitenleiste Allgemein · Farbbox · Deko · Funktion · Zuletzt; Raster mit Limit-Abzeichen; Info-Karte (Name, Gruppe, „Drehbar …“, „Zerstörbar …“); Reihe „LEISTE“ mit 9 Plätzen (Ziffern 1–9 belegen); SCHLIESSEN (auch Esc bzw. Gamepad-B).
