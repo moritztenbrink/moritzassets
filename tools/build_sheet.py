@@ -1,4 +1,4 @@
-"""Baut artifact/waffenkammer.html aus artifact/waffenkammer.template.html und data/*.csv.
+"""Baut die Artefakte in artifact/ aus ihren *.template.html und data/*.csv.
 
 Aufruf:  python3 tools/build_sheet.py
 """
@@ -8,8 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data"
-TEMPLATE = ROOT / "artifact" / "waffenkammer.template.html"
-OUTPUT = ROOT / "artifact" / "waffenkammer.html"
+PAGES = ["waffenkammer", "asset-katalog"]
 
 FILES = {
     "guns": "schusswaffen.csv",
@@ -18,6 +17,7 @@ FILES = {
     "scopes": "visiere.csv",
     "cons": "consumables.csv",
     "list": "waffenliste.csv",
+    "assets": "assets.csv",
 }
 
 
@@ -36,9 +36,12 @@ def load(name):
 def main():
     data = {key: load(name) for key, name in FILES.items()}
     payload = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
-    html = TEMPLATE.read_text(encoding="utf-8").replace("/*__DATA__*/null", payload)
-    OUTPUT.write_text(html, encoding="utf-8")
-    print(f"{OUTPUT.relative_to(ROOT)} geschrieben ({len(html) // 1024} KB)")
+    for page in PAGES:
+        template = ROOT / "artifact" / f"{page}.template.html"
+        output = ROOT / "artifact" / f"{page}.html"
+        html = template.read_text(encoding="utf-8").replace("/*__DATA__*/null", payload)
+        output.write_text(html, encoding="utf-8")
+        print(f"{output.relative_to(ROOT)} geschrieben ({len(html) // 1024} KB)")
 
 
 if __name__ == "__main__":

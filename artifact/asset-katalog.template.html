@@ -1,0 +1,359 @@
+<title>Brick-Force Asset-Katalog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: Produktionsliste – Steuerleiste oben (Stil, Generator), darunter Assets nach Kategorie gruppiert;
+   jede Zeile klappt zu Dateiliste + Prompts auf. Gleiche Welt wie die Waffenkammer: brünierter Stahl + Messing, bewusst nur dunkel. */
+:root{
+  --bg:#121419; --panel:#191c23; --panel-2:#20242d; --line:#2c313c; --line-2:#3a404d;
+  --fg:#e8e4da; --muted:#9097a5; --faint:#5d6371;
+  --brass:#d6a54e; --brass-2:#8f6328; --info:#5fa8e6; --good:#62c27a; --warn:#e3a63c; --bad:#e2584b; --violet:#a98be0;
+  --f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --f-body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;justify-content:space-between;padding-block:18px 14px}
+h1{margin:0;font-family:var(--f-display);font-weight:700;font-size:30px;letter-spacing:.04em;text-transform:uppercase;line-height:1}
+.eyebrow{font-family:var(--f-display);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.counts{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.counts b{color:var(--brass);font-weight:500}
+main.wrap{padding-block:20px 64px}
+.intro{color:var(--muted);max-width:76ch;margin:0 0 18px}
+
+/* Steuerleiste */
+.controls{position:static;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:6px;padding:12px;display:grid;gap:10px;margin-bottom:24px}
+.crow{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:end}
+.field{display:flex;flex-direction:column;gap:3px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);min-width:0}
+.field select,.field input{background:var(--panel);border:1px solid var(--line-2);border-radius:5px;padding:6px 9px;font-size:14px;text-transform:none;letter-spacing:0;min-width:0}
+.field.grow{flex:1 1 220px}
+.cats{display:flex;gap:4px;flex-wrap:wrap}
+.cat{background:var(--panel);border:1px solid var(--line-2);border-radius:999px;padding:4px 11px;font-family:var(--f-display);font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);cursor:pointer}
+.cat span{font-family:var(--f-mono);font-weight:400;font-size:11px;margin-left:5px;color:var(--faint)}
+.cat[aria-pressed="true"]{color:#1a1307;background:var(--brass);border-color:var(--brass)}
+.cat[aria-pressed="true"] span{color:#3d2b0c}
+.btn{background:var(--brass);color:#1a1307;border:0;border-radius:5px;padding:7px 14px;font-family:var(--f-display);font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
+.btn:hover{filter:brightness(1.08)}
+.toast{font-size:13px;color:var(--good)}
+.toast:empty{display:none}
+@media (min-width:861px){.controls{position:sticky}}
+
+/* Gruppen + Zeilen */
+section.group{margin-bottom:28px}
+.group > h2{display:flex;align-items:baseline;gap:10px;margin:0 0 10px;font-family:var(--f-display);font-weight:700;font-size:24px;letter-spacing:.06em;text-transform:uppercase}
+.group > h2 span{font-family:var(--f-mono);font-size:12px;font-weight:400;color:var(--muted);letter-spacing:0}
+.rows{border:1px solid var(--line);border-radius:6px;background:var(--panel);overflow:hidden}
+details.asset{border-bottom:1px solid var(--line)}
+details.asset:last-child{border-bottom:0}
+details.asset > summary{list-style:none;display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:9px 12px;cursor:pointer}
+details.asset > summary::-webkit-details-marker{display:none}
+details.asset > summary:hover{background:var(--panel-2)}
+details.asset[open] > summary{background:var(--panel-2);box-shadow:inset 3px 0 0 var(--brass)}
+.code{width:38px;height:28px;border-radius:4px;display:grid;place-items:center;font-family:var(--f-mono);font-size:11px;font-weight:500;color:var(--bg)}
+.ttl{min-width:0}
+.ttl b{font-family:var(--f-display);font-weight:600;font-size:17px;letter-spacing:.05em;text-transform:uppercase;line-height:1.15;margin-right:8px}
+.ttl .id{font-family:var(--f-mono);font-size:11px;color:var(--faint)}
+.ttl small{display:block;color:var(--muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.quick{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+.qb{background:none;border:1px solid var(--line-2);border-radius:4px;padding:2px 8px;font-family:var(--f-mono);font-size:11px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.qb:hover{border-color:var(--brass);color:var(--brass)}
+.qb.done{border-color:var(--good);color:var(--good)}
+@media (max-width:700px){details.asset > summary{grid-template-columns:38px minmax(0,1fr)}.quick{grid-column:1 / -1;justify-content:flex-start}}
+
+.body{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:20px;padding:14px 16px 18px;border-top:1px solid var(--line)}
+@media (max-width:860px){.body{grid-template-columns:minmax(0,1fr)}}
+.body h3{margin:0 0 6px;font-family:var(--f-display);font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass)}
+.motiv{font-size:14px;margin:0 0 14px}
+.files{list-style:none;margin:0;padding:0;display:grid;gap:3px;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.files li span{color:var(--fg)}
+.prompts{display:grid;gap:12px;min-width:0}
+.pblock{border:1px solid var(--line);border-radius:5px;background:var(--bg);min-width:0}
+.phead{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 10px;border-bottom:1px solid var(--line)}
+.phead b{font-family:var(--f-display);font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase}
+.phead em{font-style:normal;font-size:12px;color:var(--muted);margin-left:8px}
+pre.ptext{margin:0;padding:10px;font-family:var(--f-mono);font-size:12.5px;line-height:1.55;white-space:pre-wrap;word-break:break-word;color:var(--fg)}
+.empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line-2);border-radius:6px}
+#bulk-out{display:grid;gap:8px}
+#bulk-out textarea{width:100%;min-height:160px;background:var(--panel);border:1px solid var(--line-2);border-radius:5px;padding:10px;font-family:var(--f-mono);font-size:12px}
+.note{font-size:13px;color:var(--muted);border-left:2px solid var(--line-2);padding-left:10px;margin:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="top"><div class="wrap">
+  <div><div class="eyebrow">Brick-Force · Basis-Assets &amp; Prompts</div><h1>Asset-Katalog</h1></div>
+  <div class="counts" id="counts"></div>
+</div></header>
+
+<main class="wrap">
+  <p class="intro">Alle Basis-Waffen, Nahkampfwaffen, Granaten, Visiere, Items, Projektile und Effekte. Skin-Varianten wie <span style="font-family:var(--f-mono)">_G</span>, <span style="font-family:var(--f-mono)">_MAX</span> oder <span style="font-family:var(--f-mono)">Q_…</span> sind nicht extra aufgeführt, weil sie dasselbe Modell nutzen. Die Prompts sind auf Englisch, weil Bild- und 3D-Generatoren damit am besten arbeiten. Stil, Hintergrund und Generator oben gelten für alle Prompts.</p>
+
+  <div class="controls" id="controls">
+    <div class="crow">
+      <div class="field grow"><label for="q">Suchen</label><input id="q" type="search" placeholder="AK47, Trank, Explosion …"></div>
+      <div class="field"><label for="style">Stil</label><select id="style"></select></div>
+      <div class="field"><label for="bg">Hintergrund</label><select id="bg"></select></div>
+      <div class="field"><label for="gen">Generator</label><select id="gen"></select></div>
+      <div class="field grow"><label for="extra">Eigener Zusatz</label><input id="extra" type="text" placeholder="z. B. Unreal Engine render, 4k"></div>
+    </div>
+    <div class="crow" style="justify-content:space-between">
+      <div class="cats" id="cats" role="group" aria-label="Kategorie"></div>
+      <div class="crow">
+        <div class="field"><label for="btype">Alle sichtbaren</label><select id="btype"></select></div>
+        <button class="btn" id="bulk">Kopieren</button>
+      </div>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+    <div id="bulk-out" hidden></div>
+  </div>
+
+  <div id="list"></div>
+  <p class="note" style="margin-top:24px">Echte Waffennamen stehen als „style“ im Prompt, damit Generatoren die Form treffen. Logos, Schriftzüge und Herstellerzeichen sind über den Negativ-Prompt ausgeschlossen. Dateinamen und Größen folgen dem Waffen-Sheet: Icons 256×128 (Waffen) bzw. 128×128, Texturen 2048², Sounds als WAV mit 44.1 kHz.</p>
+</main>
+
+<script>
+const DATA = /*__DATA__*/null;
+const ASSETS = DATA.assets;
+
+const CATS = [["ALLE","Alle"],["WAFFE","Schusswaffen"],["NAHKAMPF","Nahkampf"],["GRANATE","Granaten"],["VISIER","Visiere"],["ITEM","Items"],["PROJEKTIL","Projektile"],["FX","Effekte"]];
+const GROUPS = [
+  ["WAFFE","PISTOLE","Pistolen"],["WAFFE","MP","Maschinenpistolen"],["WAFFE","STURMGEWEHR","Sturmgewehre"],["WAFFE","KAMPFGEWEHR","Kampfgewehre"],
+  ["WAFFE","SCHARFSCHUETZE","Scharfschützengewehre"],["WAFFE","SCHROTFLINTE","Schrotflinten"],["WAFFE","SCHWER","Schwere Waffen"],["WAFFE","WERFER","Werfer & Armbrüste"],
+  ["NAHKAMPF","MESSER","Messer"],["NAHKAMPF","WERKZEUG","Werkzeug & Sticks"],["NAHKAMPF","SCHWER","Hämmer & Schwere"],["NAHKAMPF","ENERGIE","Energieklingen"],
+  ["GRANATE","SPLITTER","Splittergranaten"],["GRANATE","ZEITBOMBE","Zeitbomben"],["GRANATE","SENSOR","Minen"],["GRANATE","FERNZUENDER","Fernzünder"],
+  ["GRANATE","BLEND","Blendgranaten"],["GRANATE","RAUCH","Rauchgranaten"],["GRANATE","GIFT","Giftgranaten"],
+  ["VISIER","VISIER","Visiere"],["ITEM","CONSUMABLE","Consumables"],["PROJEKTIL",null,"Projektile"],["FX","FX","Effekte"]
+];
+const CODE = {PISTOLE:["PI","--brass"],MP:["MP","--brass"],STURMGEWEHR:["AR","--brass"],KAMPFGEWEHR:["BR","--brass"],SCHARFSCHUETZE:["SN","--brass"],SCHROTFLINTE:["SG","--brass"],
+  "WAFFE:SCHWER":["HV","--brass"],WERFER:["LA","--brass"],MESSER:["KN","--info"],WERKZEUG:["TL","--info"],"NAHKAMPF:SCHWER":["HM","--info"],ENERGIE:["EN","--info"],
+  SPLITTER:["FR","--bad"],ZEITBOMBE:["C4","--bad"],SENSOR:["MI","--bad"],FERNZUENDER:["RC","--bad"],BLEND:["FL","--bad"],RAUCH:["SM","--bad"],GIFT:["PO","--bad"],
+  VISIER:["SC","--violet"],CONSUMABLE:["IT","--good"],PROJEKTIL:["PR","--warn"],FX:["FX","--warn"]};
+
+const STYLES = {
+  real:{name:"Realistisch",lead:"Photorealistic",detail:"high detail, realistic materials, subtle wear on the edges",light:"soft studio key light with a subtle rim light",model:"Realistic PBR"},
+  brick:{name:"Brick-Force (stilisiert)",lead:"Stylized, chunky, toy-like",detail:"simplified shapes, bold readable silhouette, beveled edges, slightly oversized proportions, saturated colors, plastic toy-brick aesthetic",light:"bright even lighting with soft shadows",model:"Stylized hand-painted"},
+  lowpoly:{name:"Low-Poly",lead:"Low-poly flat-shaded",detail:"faceted geometry, flat colors, no textures",light:"soft ambient light",model:"Low-poly flat-color"}
+};
+const BGS = {
+  dark:{name:"Dunkel (wie Referenz-Sheet)",txt:"isolated on a dark charcoal background (#121419)"},
+  trans:{name:"Transparent",txt:"isolated on a transparent background"},
+  white:{name:"Weiß",txt:"isolated on a plain white background"}
+};
+const GENS = {
+  generic:{name:"Allgemein (mit Negativ-Prompt)"},
+  mj:{name:"Midjourney"},
+  natural:{name:"ChatGPT / DALL·E (Satzform)"}
+};
+const TYPES = {
+  icon:{l:"Icon",img:true}, render:{l:"Render",img:true}, sprite:{l:"Sprite",img:true}, fx:{l:"VFX",img:true}, overlay:{l:"Overlay",img:true},
+  model:{l:"3D-Modell",img:false,hint:"für Meshy, Tripo, Rodin o. Ä."}, sound:{l:"Sound",img:false,hint:"für ElevenLabs SFX o. Ä."}
+};
+const TYPES_BY_CAT = {WAFFE:["icon","render","model","sound"],NAHKAMPF:["icon","render","model","sound"],GRANATE:["icon","render","model","fx","sound"],
+  VISIER:["icon","render","model","overlay"],ITEM:["icon","render","model","sound"],PROJEKTIL:["sprite","model"],FX:["fx","sound"]};
+
+/* ---------- Einstellungen ---------- */
+const S = {cat:"ALLE",q:"",style:"brick",bg:"dark",gen:"generic",extra:"",btype:"icon"};
+try{Object.assign(S,JSON.parse(localStorage.getItem("ak-settings")||"{}"));S.q="";}catch(e){}
+const save=()=>{try{localStorage.setItem("ak-settings",JSON.stringify(S));}catch(e){}};
+const $=(s,el=document)=>el.querySelector(s), $$=(s,el=document)=>[...el.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------- Prompt-Bausteine ---------- */
+const NEG = "text, letters, numbers, logo, brand marking, watermark, signature, hands, people, blurry, cropped, multiple objects, frame, border";
+const SCALE = {PISTOLE:"about 21 cm long",MP:"about 45–65 cm long",STURMGEWEHR:"about 85–95 cm long",KAMPFGEWEHR:"about 100 cm long",SCHARFSCHUETZE:"about 115–125 cm long",
+  SCHROTFLINTE:"about 100 cm long","WAFFE:SCHWER":"about 110–125 cm long",WERFER:"about 100–120 cm long",MESSER:"about 30 cm long",WERKZEUG:"about 45–60 cm long",
+  "NAHKAMPF:SCHWER":"about 80–110 cm long",ENERGIE:"about 100 cm long",GRANATE:"about 10–15 cm tall",VISIER:"about 10–35 cm long",ITEM:"about 15–25 cm tall",PROJEKTIL:"true scale"};
+const TRIS = {WAFFE:"6,000–10,000",NAHKAMPF:"2,000–4,000",GRANATE:"1,000–2,000",VISIER:"1,500–3,000",ITEM:"1,000–2,000",PROJEKTIL:"300–800"};
+const key = a => (a.klasse==="SCHWER") ? a.kategorie+":SCHWER" : a.klasse;
+const isSciFi = a => /sci-fi|energy|laser|plasma|futuristic|glowing/.test(a.motiv_en);
+const isWater = a => /water/.test(a.motiv_en);
+const isToy = a => /toy|piggy|inflatable|plastic/.test(a.motiv_en) && !/toy-brick/.test(a.motiv_en);
+
+function parts(a){
+  if(a.kategorie==="WAFFE"){
+    if(a.klasse==="SCHROTFLINTE") return "receiver, pump or fore-end, shells";
+    if(a.klasse==="SCHWER") return /minigun|rotary/.test(a.motiv_en) ? "body, rotating barrel cluster, ammo feed" : "receiver, feed cover, ammo belt or box, bipod";
+    if(a.klasse==="WERFER") return /crossbow|ballista/.test(a.motiv_en) ? "stock, limbs, string, bolt" : (/staff/.test(a.motiv_en)?"staff, orb (separate emissive material)":"tube or body, projectile");
+    if(a.klasse==="PISTOLE"&&/revolver/.test(a.motiv_en)) return "frame, cylinder (swings out), hammer, trigger";
+    return "receiver, detachable magazine, bolt or slide, trigger";
+  }
+  return {NAHKAMPF:"single mesh, blade or head as separate material",GRANATE:"body, pull ring or pin, spoon lever or fuse",VISIER:"body, lens (separate glass material)",ITEM:"container, lid or cork",PROJEKTIL:"single mesh"}[a.kategorie]||"single mesh";
+}
+const PIVOT = {WAFFE:"at the pistol grip",NAHKAMPF:"at the center of the grip",GRANATE:"at the center of mass",VISIER:"at the rail mount base",ITEM:"at the bottom center",PROJEKTIL:"at the tail"};
+
+function soundLines(a){
+  const lines=[];
+  if(a.kategorie==="WAFFE"){
+    if(isWater(a)) return ["fire: toy water gun squirt with a plastic pump sound","dry fire: empty plastic pump wheeze","refill: water sloshing into a plastic tank"];
+    const fire = isSciFi(a) ? "futuristic energy weapon shot, laser zap with a bass punch" :
+      {PISTOLE:/revolver|Magnum/.test(a.motiv_en)?"heavy revolver gunshot, loud boom with metallic ring":"sharp 9mm pistol gunshot, punchy, short tail",
+       MP:"fast submachine gun single shot, snappy and light",STURMGEWEHR:"assault rifle gunshot, punchy crack with medium tail",
+       KAMPFGEWEHR:"powerful 7.62 battle rifle gunshot, deep crack",SCHARFSCHUETZE:"very loud sniper rifle shot, booming crack with long echo tail",
+       SCHROTFLINTE:"shotgun blast, wide heavy boom",SCHWER:/minigun|rotary/.test(a.motiv_en)?"minigun firing loop, continuous buzzing roar, seamless loop":"heavy machine gun single shot, deep thump",
+       WERFER:/crossbow|ballista/.test(a.motiv_en)?"crossbow release, string twang and bolt whoosh":(/staff/.test(a.motiv_en)?"magic orb cast, shimmering whoosh":"rocket launch, whoosh with ignition burst")}[a.klasse];
+    lines.push("fire: "+fire);
+    if(isToy(a)) lines.push("character: playful plastic squeak layered on each shot");
+    lines.push("dry fire: dry click of an empty trigger");
+    if(a.klasse==="SCHROTFLINTE") lines.push("clip in: shotgun shell pushed into tube magazine","bolt up: pump-action rack, back and forward");
+    else if(a.klasse==="SCHARFSCHUETZE") lines.push("clip out: magazine release and pull","clip in: magazine inserted with a firm click","bolt up: bolt-action cycle, lift, pull back, push forward, lock");
+    else if(a.klasse==="WERFER") lines.push("clip in: projectile loaded into the tube with a metal clunk");
+    else if(a.klasse==="SCHWER"&&!/minigun|rotary/.test(a.motiv_en)) lines.push("clip out: feed cover opens, belt pulled out","clip in: new ammo belt laid in, feed cover slams shut","bolt up: heavy charging handle pulled");
+    else if(/revolver/.test(a.motiv_en)) lines.push("clip out: cylinder swings out, empty casings drop","clip in: speed loader, cylinder snaps shut","bolt up: hammer cocked");
+    else lines.push("clip out: magazine release and pull out","clip in: magazine inserted and seated with a click","bolt up: slide or charging handle racked forward");
+  } else if(a.kategorie==="NAHKAMPF"){
+    if(a.klasse==="ENERGIE") lines.push("ignite: energy blade ignites with an electric hum","idle: low humming loop","swing: humming whoosh with doppler","hit: sizzling impact");
+    else if(/squeaky/.test(a.motiv_en)) lines.push("swing: light whoosh","hit: loud plastic squeak and bonk");
+    else lines.push("swing light: quick whoosh","swing heavy: slower deep whoosh","hit body: dull thud","hit brick: plastic brick clack");
+  } else if(a.kategorie==="GRANATE"){
+    lines.push("pin: grenade pin pull with spring ping","throw: short whoosh","bounce: object bouncing on hard ground");
+    lines.push("detonate: "+({SPLITTER:isWater(a)?"water balloon burst splash":"fragmentation explosion, sharp boom with debris",ZEITBOMBE:"large explosion with deep rumble, preceded by clock ticking",SENSOR:"proximity beeping speeding up, then explosion",FERNZUENDER:"remote button click and radio beep, then large explosion",BLEND:"stun grenade bang followed by high-pitched ringing",RAUCH:"smoke canister pop and long hiss",GIFT:"glass break and bubbling toxic gas hiss"})[a.klasse]);
+  } else if(a.kategorie==="ITEM"){
+    if(/potion|vial/.test(a.motiv_en)) lines.push("use: cork pop, quick drinking gulp, then a magical sparkle chime");
+    else if(/ammo|crate/.test(a.motiv_en)) lines.push("use: metal ammo box opening, magazines rattling");
+    else if(/injector/.test(a.motiv_en)) lines.push("use: auto-injector click and hiss, heartbeat thump");
+    else lines.push("use: short electronic confirmation beep with a soft whoosh");
+    lines.push("error: short low buzz meaning not possible");
+  } else if(a.kategorie==="FX"){
+    lines.push("sound to accompany: "+a.motiv_en);
+  }
+  return lines;
+}
+
+const ICON_VIEW = {WAFFE:"side view facing right",NAHKAMPF:"diagonal side view, tip pointing to the upper right",GRANATE:"front view",VISIER:"side view",ITEM:"front three-quarter view"};
+const RENDER_VIEW = {WAFFE:"orthographic full side view facing right",NAHKAMPF:"full side view, diagonal composition",GRANATE:"three-quarter view",VISIER:"side view",ITEM:"front three-quarter view"};
+const RETICLE = {REDDOT:"single glowing red dot",HOLO:"red holographic circle with a center dot",ACOG2:"simple black post with a chevron tip",ACOG4:"red illuminated chevron with bullet drop marks below",
+  SNIPER6:"thin black duplex crosshair with mil-dots",SNIPER_2STUFEN:"fine black crosshair with mil-dots and a range ladder",ANTIMAT:"thick black crosshair with range markings"};
+const FX_BY_CLASS = {SPLITTER:"fiery fragmentation explosion with debris and plastic brick fragments",ZEITBOMBE:"large explosion with a shockwave ring and many brick fragments",
+  SENSOR:"sharp explosion with a bright flash and dust",FERNZUENDER:"large explosion with a shockwave ring",BLEND:"blinding white flash burst with lens glare",RAUCH:"thick grey-white smoke cloud expanding, looping",GIFT:"toxic green gas cloud with bubbles, looping"};
+
+function fmt(type,a,core,neg,ar){
+  const ex=S.extra.trim()?", "+S.extra.trim():"";
+  if(!TYPES[type].img) return core+(S.extra.trim()?"\nNote: "+S.extra.trim():"");
+  if(S.gen==="mj") return `${core}${ex} --ar ${ar} --style raw --no ${neg}`;
+  if(S.gen==="natural") return `Create an image: ${core}${ex}. Avoid: ${neg}.`;
+  return `${core}${ex}\n\nNegative prompt: ${neg}`;
+}
+function prompt(type,a){
+  const st=STYLES[S.style], bg=BGS[S.bg].txt, k=a.kategorie;
+  const wide = k==="WAFFE" ? (a.klasse==="PISTOLE"?"2:1":"3:1") : (k==="NAHKAMPF"?"1:1":"1:1");
+  switch(type){
+    case "icon":{
+      if(k==="ITEM") return fmt(type,a,`Game UI item icon of a ${a.motiv_en}, ${ICON_VIEW.ITEM}, ${st.lead.toLowerCase()} style, bold readable shapes, centered with even padding, transparent background, readable at 64 pixels. Also make a fully desaturated grey copy for the disabled state`,NEG,"1:1");
+      return fmt(type,a,`Game UI weapon icon of a ${a.motiv_en}, ${ICON_VIEW[k]}, flat solid white silhouette, crisp clean edges, no interior detail, centered with even padding, transparent background, readable at 64 pixels`,NEG+", shading, gradient, background, perspective",k==="WAFFE"?"2:1":"1:1");
+    }
+    case "render": return fmt(type,a,`${st.lead} game asset of a ${a.motiv_en}, ${RENDER_VIEW[k]}, ${bg}, ${st.light}, ${st.detail}, sharp focus, whole object in frame, centered`,NEG+", busy background",wide);
+    case "model": return [
+      `${st.model} game-ready 3D model: ${a.motiv_en}.`,
+      `Scale: ${SCALE[key(a)]||SCALE[k]||"true scale"}.`,
+      `Topology: clean quads, ${TRIS[k]} triangles for LOD0, LOD1 at 50 %.`,
+      `Textures: 2048×2048 PBR set (BaseColor, Normal, ORM). No text, no logos.`,
+      `Separate parts for animation: ${parts(a)}.`,
+      `Pivot ${PIVOT[k]}. Forward along +Z, up along +Y.`
+    ].join("\n")+(S.extra.trim()?"\nNote: "+S.extra.trim():"");
+    case "sound": return "Game sound effects, mono WAV, 44.1 kHz, dry with a short natural tail, each under 2 seconds unless it is a loop:\n"+soundLines(a).map(l=>"- "+l).join("\n")+(S.extra.trim()?"\nNote: "+S.extra.trim():"");
+    case "sprite": return fmt(type,a,`2D game sprite of a ${a.motiv_en} in flight, side view facing right, motion-blur trail to the left, pure black background for additive blending, ${st.detail}, 1024×256`,NEG,"4:1");
+    case "fx":{
+      const m = k==="GRANATE" ? (/water/.test(a.motiv_en)?"big water balloon splash with droplets":(/Christmas|ornament|gift/.test(a.motiv_en)?"festive explosion of confetti, snowflakes and sparkles":FX_BY_CLASS[a.klasse])) : a.motiv_en;
+      return fmt(type,a,`2D game VFX flipbook sprite sheet: ${m}. 8×8 grid with 64 frames, 2048×2048, frames read left to right and top to bottom, clean start and end, pure black background for additive blending, ${st.lead.toLowerCase()} look`,NEG,"1:1");
+    }
+    case "overlay":{
+      const full=/SNIPER|ANTIMAT|ACOG/.test(a.id);
+      return fmt(type,a, full
+        ? `Scope overlay texture, 2048×2048: ${RETICLE[a.id]}, circular lens fully transparent in the middle, pure black outside the lens, subtle dark vignette and thin chromatic ring at the lens edge`
+        : `Weapon sight reticle texture, 1024×1024: ${RETICLE[a.id]}, centered, soft glow, transparent background`, NEG,"1:1");
+    }
+  }
+}
+
+function files(a){
+  const id=a.id.toLowerCase(), k=a.kategorie, f=[];
+  if(k==="WAFFE"){ f.push(["Icon",`ico_${id}.png · ico_${id}_off.png`,"256×128"],["Modell 1st Person",`mdl_${id}_fp.fbx`,""],["Modell 3rd Person",`mdl_${id}_tp.fbx`,""],["Texturen",`tex_${id}_basecolor/normal/orm.png`,"2048²"],
+    ["Animationen","idle, idle1, idle2, fire, empty"+(a.klasse==="WERFER"||a.id==="B11"?", bigfire":""),""],["Sounds",`snd_${id}_fire/dry/clipout/clipin/boltup.wav`,""]); }
+  else if(k==="NAHKAMPF"){ f.push(["Icon",`ico_${id}.png`,"128×128"],["Modell",`mdl_${id}.fbx`,""],["Texturen",`tex_${id}_*.png`,"1024²"],["Animationen","slash_h, slash_big_h (Figur)",""],["Sounds",`snd_${id}_swing/hit.wav`,""],["Trail",a.klasse==="ENERGIE"?"fx_energy_trail":"fx_slash_trail",""]); }
+  else if(k==="GRANATE"){ f.push(["Icon",`ico_${id}.png`,"128×128"],["Modell",`mdl_${id}.fbx`,""],["Texturen",`tex_${id}_*.png`,"1024²"],["Explosion",`fx_${id}_boom.png`,"Flipbook 8×8"],["Sounds",`snd_${id}_pin/throw/bounce/boom.wav`,""]); }
+  else if(k==="VISIER"){ f.push(["Icon",`ico_${id}.png`,"128×128"],["Modell",`mdl_${id}.fbx`,""],["Overlay",`ovl_${id}.png`,/REDDOT|HOLO/.test(a.id)?"1024²":"2048²"]); }
+  else if(k==="ITEM"){ f.push(["Icon an",`ico_${id}_enable.png`,"128×128"],["Icon aus",`ico_${id}_disable.png`,"128×128"],["Modell",`mdl_${id}.fbx`,""],["Sounds",`snd_${id}_use/error.wav`,""]); }
+  else if(k==="PROJEKTIL"){ f.push(["Sprite",`prj_${a.klasse.toLowerCase()}.png`,"1024×256"],["Modell",`mdl_prj_${a.klasse.toLowerCase()}.fbx`,"für Werfer/Armbrust"]); }
+  else f.push(["Flipbook",`${id}.png`,"2048², 8×8"],["Sound",`snd_${id}.wav`,""]);
+  return f;
+}
+
+/* ---------- Rendering ---------- */
+const visible=()=>{const q=S.q.toLowerCase().trim(); return ASSETS.filter(a=>(S.cat==="ALLE"||a.kategorie===S.cat)&&(!q||[a.id,a.name,a.kurz_de,a.motiv_en,a.klasse].join(" ").toLowerCase().includes(q)));};
+function codeOf(a){const c=CODE[a.kategorie==="WAFFE"||a.kategorie==="NAHKAMPF"?(CODE[key(a)]?key(a):a.klasse):(a.kategorie==="GRANATE"?a.klasse:(a.kategorie==="ITEM"?"CONSUMABLE":a.kategorie))]||["??","--muted"];return c;}
+
+function renderControls(){
+  const opts=(o,cur)=>Object.entries(o).map(([k,v])=>`<option value="${k}" ${k===cur?"selected":""}>${esc(v.name||v.l)}</option>`).join("");
+  $("#style").innerHTML=opts(STYLES,S.style); $("#bg").innerHTML=opts(BGS,S.bg); $("#gen").innerHTML=opts(GENS,S.gen);
+  $("#btype").innerHTML=Object.entries(TYPES).map(([k,v])=>`<option value="${k}" ${k===S.btype?"selected":""}>${v.l}-Prompts</option>`).join("");
+  $("#extra").value=S.extra;
+  const counts=Object.fromEntries(CATS.map(([k])=>[k,k==="ALLE"?ASSETS.length:ASSETS.filter(a=>a.kategorie===k).length]));
+  $("#cats").innerHTML=CATS.map(([k,l])=>`<button class="cat" data-cat="${k}" aria-pressed="${S.cat===k}">${l}<span>${counts[k]}</span></button>`).join("");
+  const nPrompts=ASSETS.reduce((s,a)=>s+TYPES_BY_CAT[a.kategorie].length,0);
+  $("#counts").innerHTML=`<b>${ASSETS.length}</b> Assets · <b>${nPrompts}</b> Prompts`;
+}
+function renderList(){
+  const vis=visible(), list=$("#list");
+  if(!vis.length){list.innerHTML=`<div class="empty">Keine Assets gefunden. Ändere den Suchbegriff oder wähle „Alle“.</div>`;return;}
+  list.innerHTML=GROUPS.map(([kat,kl,title])=>{
+    const items=vis.filter(a=>a.kategorie===kat&&(kl===null||a.klasse===kl)); if(!items.length) return "";
+    return `<section class="group"><h2>${title}<span>${items.length}</span></h2><div class="rows">${items.map(a=>{const [c,col]=codeOf(a);return `
+      <details class="asset" data-id="${esc(a.id)}"><summary>
+        <span class="code" style="background:var(${col})">${c}</span>
+        <span class="ttl"><b>${esc(a.name)}</b><span class="id">${esc(a.id)}</span><small>${esc(a.kurz_de)}</small></span>
+        <span class="quick">${TYPES_BY_CAT[a.kategorie].map(t=>`<button class="qb" type="button" data-q="${t}">${TYPES[t].l}</button>`).join("")}</span>
+      </summary><div class="body"></div></details>`;}).join("")}</div></section>`;
+  }).join("");
+}
+function renderBody(det){
+  const a=ASSETS.find(x=>x.id===det.dataset.id);
+  $(".body",det).innerHTML=`
+    <div><h3>Motiv</h3><p class="motiv">${esc(a.motiv_en)}</p>
+      <h3>Benötigte Dateien</h3><ul class="files">${files(a).map(([l,n,s])=>`<li>${esc(l)}: <span>${esc(n)}</span>${s?` · ${esc(s)}`:""}</li>`).join("")}</ul></div>
+    <div class="prompts">${TYPES_BY_CAT[a.kategorie].map(t=>`<div class="pblock"><div class="phead"><span><b>${TYPES[t].l}</b>${TYPES[t].hint?`<em>${TYPES[t].hint}</em>`:""}</span><button class="qb" type="button" data-copy="${t}">Kopieren</button></div><pre class="ptext">${esc(prompt(t,a))}</pre></div>`).join("")}</div>`;
+}
+const refreshOpen=()=>$$("details.asset[open]").forEach(renderBody);
+
+let toastT;
+function toast(m){const el=$("#toast");el.textContent=m;clearTimeout(toastT);toastT=setTimeout(()=>el.textContent="",2600);}
+function copy(text,btn,fallbackEl){
+  const ok=()=>{if(btn){const o=btn.textContent;btn.textContent="Kopiert";btn.classList.add("done");setTimeout(()=>{btn.textContent=o;btn.classList.remove("done");},1300);}};
+  const fail=()=>{ if(fallbackEl){const r=document.createRange();r.selectNodeContents(fallbackEl);const s=getSelection();s.removeAllRanges();s.addRange(r);} toast("Kopieren nicht erlaubt. Der Text ist markiert, kopiere ihn mit Strg+C."); };
+  try{navigator.clipboard.writeText(text).then(ok,fail);}catch(e){fail();}
+}
+
+/* ---------- Ereignisse ---------- */
+$("#controls").addEventListener("change",e=>{
+  const id=e.target.id; if(["style","bg","gen","btype"].includes(id)){S[id]=e.target.value;save();refreshOpen();}
+});
+$("#extra").addEventListener("input",e=>{S.extra=e.target.value;save();refreshOpen();});
+$("#q").addEventListener("input",e=>{S.q=e.target.value;renderList();});
+$("#cats").addEventListener("click",e=>{const b=e.target.closest("[data-cat]");if(!b)return;S.cat=b.dataset.cat;save();renderControls();renderList();});
+$("#list").addEventListener("toggle",e=>{const d=e.target; if(d.matches("details.asset")&&d.open) renderBody(d);},true);
+$("#list").addEventListener("click",e=>{
+  const q=e.target.closest("[data-q]");
+  if(q){e.preventDefault();e.stopPropagation();const a=ASSETS.find(x=>x.id===q.closest("details").dataset.id);copy(prompt(q.dataset.q,a),q);toast(`${TYPES[q.dataset.q].l}-Prompt für ${a.name} kopiert.`);return;}
+  const c=e.target.closest("[data-copy]");
+  if(c){const a=ASSETS.find(x=>x.id===c.closest("details").dataset.id);copy(prompt(c.dataset.copy,a),c,$(".ptext",c.closest(".pblock")));}
+});
+$("#bulk").addEventListener("click",()=>{
+  const t=S.btype, items=visible().filter(a=>TYPES_BY_CAT[a.kategorie].includes(t));
+  const out=$("#bulk-out");
+  if(!items.length){out.hidden=true;toast(`Keine sichtbaren Assets haben ${TYPES[t].l}-Prompts.`);return;}
+  const text=items.map(a=>`### ${a.name} (${a.id})\n${prompt(t,a)}`).join("\n\n");
+  out.hidden=false; out.innerHTML=`<textarea id="bulk-text" readonly aria-label="Alle Prompts"></textarea><button class="qb" type="button" id="bulk-close" style="justify-self:start">Schließen</button>`;
+  $("#bulk-text").value=text; $("#bulk-close").onclick=()=>out.hidden=true;
+  try{navigator.clipboard.writeText(text).then(()=>toast(`${items.length} ${TYPES[t].l}-Prompts kopiert.`),()=>{$("#bulk-text").select();toast("Kopieren nicht erlaubt. Der Text ist markiert, kopiere ihn mit Strg+C.");});}
+  catch(e){$("#bulk-text").select();}
+});
+
+renderControls(); renderList();
+const first=$("details.asset"); if(first){first.open=true;renderBody(first);}
+</script>
