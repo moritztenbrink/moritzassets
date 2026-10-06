@@ -22,7 +22,7 @@ SKELETON = ROOT / "data" / "ui_migration.skeleton.csv"
 
 COLUMNS = ["bereich", "titel", "klasse", "knoepfe", "unterdialoge", "neuer_ort", "zugang_alt", "zugang_neu",
            "modi", "bedingungen", "ebene_alt", "ebene_neu", "status"]
-STATUS = {"bleibt", "verschoben", "zusammengelegt", "aufgeteilt", "NEU-Teil"}
+STATUS = {"bleibt", "verschoben", "zusammengelegt", "aufgeteilt", "NEU-Teil", "entfällt"}
 SEP = " | "
 
 
