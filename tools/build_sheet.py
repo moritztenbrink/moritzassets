@@ -2,12 +2,14 @@
 
 Jede Seite bekommt nur die Daten-Keys, die sie braucht (PAGES). Templates mit dem
 Platzhalter /*__SHEET__*/"" bekommen zusätzlich das UI-Asset-Sheet als data:-URI.
+Fehlt eine CSV, wird nur die Seite übersprungen, die sie braucht (Exit-Code 1).
 
 Aufruf:  python3 tools/build_sheet.py
 """
 import base64
 import csv
 import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -54,8 +56,14 @@ def sheet_uri():
 
 def main():
     keys = list(dict.fromkeys(k for page_keys in PAGES.values() for k in page_keys))
-    data = {key: load(FILES[key]) for key in keys}
+    data = {key: load(FILES[key]) for key in keys if (DATA_DIR / FILES[key]).exists()}
+    skipped = 0
     for page, page_keys in PAGES.items():
+        missing = [FILES[k] for k in page_keys if k not in data]
+        if missing:
+            print(f"artifact/{page}.html übersprungen: data/{', data/'.join(missing)} fehlt")
+            skipped += 1
+            continue
         template = ROOT / "artifact" / f"{page}.template.html"
         output = ROOT / "artifact" / f"{page}.html"
         payload = json.dumps({k: data[k] for k in page_keys}, ensure_ascii=False, separators=(",", ":"))
@@ -64,7 +72,8 @@ def main():
             html = html.replace(SHEET_MARK, sheet_uri())
         output.write_text(html, encoding="utf-8")
         print(f"{output.relative_to(ROOT)} geschrieben ({len(html) // 1024} KB)")
+    return 1 if skipped else 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

@@ -119,6 +119,23 @@ details.asset[open] > summary,details.mig[open] > summary{background:var(--panel
 .code.t-icon{border-radius:4px}
 .code.t-particle{background:radial-gradient(circle at 50% 50%,#fff6d8 0,var(--gold-hi) 18%,rgba(251,178,29,.35) 45%,#000 72%);color:#000;border:1px solid #1d1d1d}
 .code.t-background{background:linear-gradient(135deg,#0d1424,#00040A 60%);color:var(--frame-hi);border:1px solid var(--line-2)}
+.code.t-mockup{background:linear-gradient(180deg,#1a1d26 0 22%,#0B0B0D 22%);color:var(--gold);border:1px solid var(--frame)}
+.concept{display:inline-block;font-family:var(--f-mono);font-size:10px;letter-spacing:.04em;color:var(--blue);border:1px solid currentColor;border-radius:3px;padding:0 5px;margin-right:8px;vertical-align:2px}
+.hfset{display:flex;flex-wrap:wrap;gap:4px 6px;margin:0 0 2px;font-size:12.5px}
+.hfset .hk{font-family:var(--f-display);font-weight:600;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);flex-basis:100%}
+.hfset span{background:var(--track);border:1px solid var(--line-2);border-radius:4px;corner-shape:bevel;padding:1px 7px;color:var(--fg);overflow-wrap:anywhere}
+.hfset span i{font-style:normal;color:var(--muted);margin-right:4px}
+.howto{padding:12px 14px 14px;margin-bottom:18px;font-size:13.5px;color:var(--muted)}
+.howto h3{margin:0 0 8px;font-family:var(--f-display);font-weight:600;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.howto ol{margin:0;padding-left:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:5px 28px}
+.howto li::marker{color:var(--gold);font-family:var(--f-mono);font-size:12px}
+.howto b{color:var(--fg);font-weight:600}
+.howto code{font-family:var(--f-mono);font-size:12px;color:var(--frame-hi)}
+footer.sources{padding-block:0 40px;font-size:12.5px;color:var(--faint)}
+footer.sources h2{margin:0 0 6px;font-family:var(--f-display);font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+footer.sources ul{margin:0;padding-left:18px;display:grid;gap:2px}
+footer.sources a{color:var(--frame-hi);overflow-wrap:anywhere}
+footer.sources a:hover{color:var(--gold-hi)}
 .ttl{min-width:0}
 .ttl b{font-family:var(--f-display);font-weight:600;font-size:17px;letter-spacing:.04em;text-transform:uppercase;line-height:1.15;margin-right:8px}
 .ttl .id{font-family:var(--f-mono);font-size:11.5px;color:var(--faint);overflow-wrap:anywhere}
@@ -216,11 +233,24 @@ mark{background:#6a4a07;color:#fff3d1;border-radius:2px;padding:0 1px}
           <li><b>Erzeugen:</b> Grundzustand und nur die genannten Varianten (<code>_disabled</code>, <code>_hover</code>, <code>_active</code>, <code>_limit</code>).</li>
           <li><b>Nicht erzeugen:</b> Hover und Gedrückt macht die Engine per Tint (hover <code>#FFC21F</code>, gedrückt <code>#C26D02</code>, Scale 0,96, Lippe weg).</li>
           <li><b>9-Slice:</b> Ränder L,T,R,B in px als Sprite Border eintragen. Die Mitte bleibt leer.</li>
-          <li><b>Higgsfield:</b> In Higgsfield ein Bildmodell mit Referenzbild wählen (z. B. Nano Banana oder Seedream), das Asset-Sheet als Referenz hochladen, Seitenverhältnis wie angegeben; für 9-Slice-Rahmen leere Mitte, für Partikel schwarzer Hintergrund.</li>
           <li><b>Skalierung:</b> Referenz 1920×1080, Faktor 0,6–2,0 mal UI-Größe. Icons entstehen in 128 px, also 2× für 64 px. Glyphen vektorartig („crisp at 2x“).</li>
         </ul>
       </div>
     </div>
+  </div>
+
+  <div class="dframe howto">
+    <h3>So arbeitest du mit Higgsfield + GPT Image 2</h3>
+    <ol>
+      <li><b>Sheet hochladen:</b> <code>ref/ui-asset-sheet.webp</code> ist immer Image 1, die Stilreferenz.</li>
+      <li><b>Basis-Set zuerst:</b> Erzeuge die Elemente mit „Basis“, bevor Varianten und Extras kommen.</li>
+      <li><b>Je Gruppe ein Asset freigeben</b> und es für den Rest der Gruppe als Image 2 anhängen (Schalter „Image 2“ unten).</li>
+      <li><b>Familien in einem Rutsch</b>, wo es passt: z. B. „a 3×3 grid sheet of 9 tab icons, evenly spaced, same size“, danach zerschneiden.</li>
+      <li><b>Nachbessern mit</b> „change only …, keep everything else the same“ und die Liste, was bleiben soll, jedes Mal wiederholen.</li>
+      <li><b>Alpha-Kanten prüfen:</b> Transparenz ist bei GPT Image 2 ein Neuzeichnen, Säume und Halos kommen vor.</li>
+      <li><b>Als PNG in 2× exportieren</b> und in Unity die 9-Slice-Ränder als Sprite Border setzen.</li>
+      <li><b>Kein Text in Sprites:</b> Beschriftungen rendert die Engine, damit sie übersetzbar bleiben.</li>
+    </ol>
   </div>
 
   <div class="controls dframe" id="controls">
@@ -228,6 +258,7 @@ mark{background:#6a4a07;color:#fff3d1;border-radius:2px;padding:0 1px}
       <div class="field"><label for="gen">Generator</label><select id="gen"></select></div>
       <div class="field"><label for="bg">Hintergrund</label><select id="bg"></select></div>
       <div class="field"><label for="glyph">Glyphen-Farbe (Icons)</label><select id="glyph"></select></div>
+      <div class="field" id="img2-field"><label for="img2">Image 2</label><select id="img2"></select></div>
       <div class="field grow" id="sref-field"><label for="sref">Sheet-URL für --sref</label><input id="sref" type="url" inputmode="url" placeholder="https://… (öffentliche Bild-URL des Sheets)"></div>
     </div>
     <div class="crow">
@@ -249,7 +280,7 @@ mark{background:#6a4a07;color:#fff3d1;border-radius:2px;padding:0 1px}
   </div>
 
   <div id="list"></div>
-  <p class="note">Dateien liegen unter <code>ui/&lt;gruppe&gt;/&lt;id&gt;.png</code>. Midjourney kann keine Transparenz: Dort wird auf flachem Schwarz erzeugt und danach freigestellt. Bei sehr schmalen Elementen (z. B. Slider 16:1) nennen Midjourney- und Higgsfield-Prompts 4:1, danach auf die Zielgröße zuschneiden.</p>
+  <p class="note">Dateien liegen unter <code>ui/&lt;gruppe&gt;/&lt;id&gt;.png</code>. Midjourney kann keine Transparenz: Dort wird auf flachem Schwarz erzeugt und danach freigestellt. Bei sehr schmalen Elementen (z. B. Slider 16:1) nennt der Prompt das nächstmögliche Seitenverhältnis, danach auf die Zielgröße zuschneiden. Screen-Mockups sind Konzepte zur Abstimmung des Layouts und werden nicht exportiert.</p>
 </section>
 
 <!-- ======================================================= Struktur -->
@@ -267,6 +298,15 @@ mark{background:#6a4a07;color:#fff3d1;border-radius:2px;padding:0 1px}
   <div id="mlist"></div>
 </section>
 </main>
+<footer class="wrap sources">
+  <h2>Quellen</h2>
+  <ul>
+    <li><a href="https://github.com/higgsfield-ai/cli/blob/main/MODELS.md" target="_blank" rel="noopener">Higgsfield CLI: MODELS.md (GPT Image 2, Seitenverhältnisse, Qualität, Auflösung, Hintergrund)</a></li>
+    <li><a href="https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide" target="_blank" rel="noopener">OpenAI Cookbook: Prompting-Guide für Bildmodelle</a></li>
+    <li><a href="https://fal.ai/learn/tools/prompting-gpt-image-2" target="_blank" rel="noopener">fal.ai: Prompting GPT Image 2</a></li>
+    <li><a href="https://docs.apiyi.com/en/live/2026-08/gpt-image-2-transparent-background" target="_blank" rel="noopener">APIYI: GPT Image 2 mit transparentem Hintergrund (Preview, August 2026)</a></li>
+  </ul>
+</footer>
 
 <script>
 const DATA = /*__DATA__*/null;
@@ -279,7 +319,7 @@ const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",
 const str=v=>v==null?"":String(v);
 
 /* ---------- Einstellungen (nur Komfort, darf fehlen) ---------- */
-const S = {view:"prompts",gen:"higgs",bg:"auto",glyph:"brown",sref:"",extra:"",cat:"ALLE",basis:true,q:"",mstatus:"ALLE",mq:""};
+const S = {view:"prompts",gen:"higgs",bg:"auto",glyph:"brown",img2:"ohne",sref:"",extra:"",cat:"ALLE",basis:true,q:"",mstatus:"ALLE",mq:""};
 try{Object.assign(S,JSON.parse(localStorage.getItem("uik-settings")||"{}"));}catch(e){}
 S.q=""; S.mq="";
 const save=()=>{try{const {q,mq,...keep}=S;localStorage.setItem("uik-settings",JSON.stringify(keep));}catch(e){}};
@@ -290,25 +330,25 @@ const GROUPS = [
   ["Rahmen & Panels","rahmen"],["Esc-Menü & Tab-Liste","menue"],["Buttons","buttons"],["Tastenhinweise","tasten"],["Eingaben","eingaben"],
   ["Balken & Fortschritt","balken"],["Reiter-Icons","reiter"],["Funktions-Icons","icons"],["Lobby & Modi","lobby"],
   ["Währungen","waehrung"],["Rang-Abzeichen","rang"],["Rollen-Badges","rollen"],["Stufen-Rahmen","stufen"],["Kampf-HUD","kampf"],["Bau-HUD","bau"],["HUD","hud"],
-  ["Belohnung","belohnung"],["Partikel","partikel"],["Hintergründe","hintergrund"]
+  ["Belohnung","belohnung"],["Partikel","partikel"],["Hintergründe","hintergrund"],["Screen-Mockups","mockups"]
 ];
 for(const a of UI){ if(!GROUPS.some(g=>g[0]===a.gruppe)) GROUPS.push([a.gruppe,str(a.gruppe).toLowerCase().replace(/[^a-z0-9]+/g,"-")]); }
 const SLUG=Object.fromEntries(GROUPS);
-const TYPES = {nineslice:["9S","9-Slice"],sprite:["SP","Sprite"],icon:["IC","Icon"],particle:["FX","Partikel"],background:["BG","Hintergrund"]};
+const TYPES = {nineslice:["9S","9-Slice"],sprite:["SP","Sprite"],icon:["IC","Icon"],particle:["FX","Partikel"],background:["BG","Hintergrund"],mockup:["MK","Konzept-Mockup"]};
 
 const TOKENS = [["Grund","#00040A"],["Panel","#0B0B0D"],["Panel-Rahmen","#AE5F00"],["Rahmen-Licht","#D4B55C"],["Gold-Körper","#FBB21D"],["Oberlicht","#FFD148"],
   ["Innenlinie","#C27200"],["Unterkante","#A85200"],["Kontur","#3A1400"],["Glyphe","#562C00"],["Deaktiviert","#A76919"],["Toggle an","#192F01"],["Gefahr","#7C1F17"]];
 
 /* ---------- Prompt-Bausteine ---------- */
 const GENS = {
-  higgs:{name:"Higgsfield",hint:"Bildmodell mit Referenzbild wählen, Sheet hochladen, Seitenverhältnis wie angegeben."},
+  higgs:{name:"Higgsfield · GPT Image 2",hint:"Modell GPT Image 2, Sheet als Image 1; Einstellungen stehen je Element über dem Prompt."},
   gpt:{name:"ChatGPT / GPT-Image",hint:"Sheet als Bild anhängen, dann den Prompt einfügen."},
   mj:{name:"Midjourney",hint:"Sheet-URL eintragen: --sref nutzt sie, --sw 300 hält den Stil eng."},
   firefly:{name:"Adobe Firefly",hint:"Sheet unter Stil › Referenzbild hochladen, Stärke hoch."},
   sd:{name:"Stable Diffusion / Flux + IP-Adapter",hint:"Sheet als IP-Adapter-Bild, Gewicht 0,6–0,8."}
 };
 const BGS = {
-  auto:{name:"Automatisch (transparent, Partikel auf Schwarz)"},
+  auto:{name:"Automatisch je Typ"},
   trans:{name:"Transparent"},
   black:{name:"Reines Schwarz"}
 };
@@ -317,7 +357,15 @@ const GLYPHS = {
   gold:{name:"Gold (für dunkle Flächen)",suf:"_gold",txt:"golden-yellow (#FBB21D) glyph with a bright top highlight (#FFD148) and a thin dark-brown outline"},
   white:{name:"Weiß (zum Einfärben)",suf:"_white",txt:"pure white flat glyph with a thin dark outline, made to be tinted in the engine"}
 };
-for(const [k,o] of [["gen",GENS],["bg",BGS],["glyph",GLYPHS]]) if(!o[S[k]]) S[k]=Object.keys(o)[0];
+const IMG2 = {ohne:{name:"Nur Image 1 (Sheet)"},gruppe:{name:"+ freigegebenes Asset der Gruppe"}};
+for(const [k,o] of [["gen",GENS],["bg",BGS],["glyph",GLYPHS],["img2",IMG2]]) if(!o[S[k]]) S[k]=Object.keys(o)[0];
+/* Konsistenz-Referenz (Image 2) je Gruppe: das zuerst freigegebene Asset */
+const ANCHOR = {"Rahmen & Panels":"frame_window","Esc-Menü & Tab-Liste":"esc_panel","Buttons":"btn_gold_m","Tastenhinweise":"key_plate","Eingaben":"input_text",
+  "Balken & Fortschritt":"bar_track","Reiter-Icons":"icon_tab_lobby","Funktions-Icons":"icon_settings","Lobby & Modi":"mode_tdm","Währungen":"cur_brix",
+  "Rang-Abzeichen":"rank_t1","Rollen-Badges":"role_player","Stufen-Rahmen":"tier_frame_common","Kampf-HUD":"hud_hp_frame","Bau-HUD":"build_slot","HUD":"hud_killfeed_plate",
+  "Belohnung":"reward_banner","Partikel":"fx_sparkle"};
+const noImg2=a=>a.typ==="mockup"||a.typ==="background";
+const anchorOf=a=>ANCHOR[a.gruppe]||(UI.find(x=>x.gruppe===a.gruppe&&x.basis==="ja")||UI.find(x=>x.gruppe===a.gruppe)||a).id;
 const STATES = {
   normal:{suf:"",l:"Grundzustand"},
   deaktiviert:{suf:"_disabled",l:"Deaktiviert",txt:"Disabled state of this element: identical shape, size and framing; colors muted and desaturated toward dull ochre (#A76919), weaker top highlight, any glyph faded"},
@@ -337,7 +385,7 @@ const ratio=(w,h)=>{const g=gcd(w,h);return `${w/g}:${h/g}`;};
 function genRatio(a){const [w,h]=dims(a),r=w/h;if(r>4)return "4:1";if(r<.25)return "1:4";return ratio(w,h);}
 const clamped=a=>{const [w,h]=dims(a);return w/h>4||h/w>4;};
 const isAlpha=a=>/Blend Alpha/i.test(str(a.zustaende));
-const lettered=a=>/(letters?|numeral) "/.test(str(a.motiv_en));
+const lettered=a=>a.typ==="mockup"||/(letters?|numeral) "/.test(str(a.motiv_en));
 const threeQ=a=>/three-quarter|in perspective/.test(str(a.motiv_en));
 function statesOf(a){
   const head=str(a.zustaende).split("(")[0];
@@ -346,8 +394,8 @@ function statesOf(a){
   return [...new Set(["normal",...s])];
 }
 function bgMode(a){
-  if(a.typ==="background") return "none";
-  if(S.bg==="auto") return a.typ==="particle"&&!isAlpha(a) ? "black" : "trans";
+  if(a.typ==="background"||a.typ==="mockup") return "none";
+  if(S.bg==="auto") return a.typ==="particle"&&!isAlpha(a)&&S.gen!=="higgs" ? "black" : "trans";
   return S.bg;
 }
 function bgText(a){
@@ -379,15 +427,98 @@ function spec(a,state){
       subject=`game UI background: ${m}`;
       must=/tileable|seamless/.test(m)?"seamless tileable texture, no visible seams, even lighting":"calm composition, no UI elements, no characters in the foreground";
       style=STYLE_BG; break;
+    case "mockup":
+      subject=`concept screen mockup of a game UI: ${m}`;
+      must="full 16:9 game screen, every UI element in the style of the reference sheet, German labels exactly as written in quotes";
+      break;
     default:
       subject=`game UI sprite: ${m}`;
       if(/^(cur|rank|role|tier|medal|mode|reward)_/.test(a.id)) must="crisp at 2x, designed for scaling";
   }
   const view = a.typ==="background" ? "game UI background art, no text, no logo"
+    : a.typ==="mockup" ? "straight-on screenshot view, crisp UI on a clean grid, no other text"
     : `${threeQ(a)?"slight three-quarter view":"flat front orthographic view"}, centered, clean edges, game UI asset, ${noText}`;
   return {subject,must,style,view,bg:bgText(a),w,h,ar:ratio(w,h),gar:genRatio(a),state:state&&state!=="normal"?STATES[state].txt:"",neg};
 }
 const cap=s=>s?s[0].toUpperCase()+s.slice(1):s, low=s=>s?s[0].toLowerCase()+s.slice(1):s;
+
+/* GPT Image 2 (Higgsfield): beschriftetes Briefing, eine Zeile je Abschnitt */
+const H_STYLE = "chunky golden-yellow plates (body #FBB21D to #F9A50E, top highlight #FFD148) with chamfered corners, thin dark-brown outline #3A1400, inner inset line #C27200, thick darker bottom lip #A85200 for a 3D look, subtle hand-painted texture, small corner rivets on large plates; glyphs dark brown #562C00 with chunky rounded shapes; dark panels #0B0B0D with thin gold double border #AE5F00/#D4B55C; red #7C1F17, purple #3B116A, green #1E3A01, blue #15406C only where the subject asks for them";
+const H_STYLE_FX = "only the warm gold light of Image 1: white core, highlight #FFD148, body #FBB21D, soft glowing edges";
+const H_STYLE_FX_ALPHA = "palette of Image 1: gold #FBB21D to #F9A50E, highlight #FFD148, outline #3A1400, chunky hand-painted shapes; other colors only where the subject names them";
+const H_STYLE_BG = "palette of Image 1: deep blue-black #00040A, panels #0B0B0D, warm gold accents #FBB21D and #FFD148, subtle hand-painted texture, soft painterly light";
+const H_VARIANT = {
+  deaktiviert:"Variant: disabled — desaturated brown #A76919 body, lighter glyph, no highlight.",
+  hover:"Variant: hover — body lit with a warm gold gradient #FFC21F from the left, brighter border, soft golden outer glow.",
+  aktiv:"Variant: active — thick bright gold frame, slightly raised with a stronger bottom lip and a soft golden glow.",
+  limit:"Variant: limit reached — border and glow turned warning red #D93233, body slightly darker."
+};
+const HF_RATIOS = [[1,1],[4,3],[3,4],[16,9],[21,9],[9,16],[3,2],[2,3],[4,5],[5,4]];
+function hfRatio(a){
+  const [w,h]=dims(a), r=Math.log(w/h); let best=HF_RATIOS[0], d=Infinity;
+  for(const q of HF_RATIOS){const x=Math.abs(Math.log(q[0]/q[1])-r); if(x<d){d=x;best=q;}}
+  return {r:best.join(":"),exact:d<1e-9};
+}
+const hfRes=a=>a.typ==="icon"||a.typ==="particle"?"1k":(a.typ==="background"||a.typ==="mockup"?"4k":"2k");
+function hfBg(a){
+  if(a.typ==="background"||a.typ==="mockup") return "opaque";
+  if(bgMode(a)==="black") return "opaque (reines Schwarz)";
+  return "transparent"+(a.typ==="particle"&&!isAlpha(a)?" (alternativ opaque Schwarz für additives Blending)":"");
+}
+function hfSettings(a){
+  const r=hfRatio(a), [w,h]=dims(a), anc=anchorOf(a);
+  return [
+    ["Modell","GPT Image 2"],
+    ["Referenz","Image 1 = ref/ui-asset-sheet.webp"+(noImg2(a)?"":anc===a.id?" · dieses Asset ist Image 2 für die Gruppe":` · optional Image 2 = ${anc}.png`)],
+    ["Hintergrund",hfBg(a)],
+    ["Seitenverhältnis",r.r+(r.exact?"":` → auf ${w}×${h} px zuschneiden bzw. auffüllen`)],
+    ["Auflösung",hfRes(a)],
+    ["Qualität","high"]
+  ];
+}
+function higgsPrompt(a,state){
+  const [w,h]=dims(a), m=str(a.motiv_en), anc=anchorOf(a), ex=S.extra.trim(), mock=a.typ==="mockup";
+  const use2=S.img2==="gruppe"&&!noImg2(a)&&anc!==a.id;
+  const fxAdd=a.typ==="particle"&&!isAlpha(a);
+  const style=mock||a.typ==="nineslice"||a.typ==="icon"||a.typ==="sprite"?H_STYLE:a.typ==="background"?H_STYLE_BG:fxAdd?H_STYLE_FX:H_STYLE_FX_ALPHA;
+  const comp = mock ? "one full 16:9 game screen, straight-on screenshot view, clean grid with generous spacing, every element sharp and aligned, no perspective tilt of the UI"
+    : a.typ==="background" ? "full-bleed image that fills the whole canvas edge to edge, no border"
+    : a.typ==="particle" ? "single sprite, centered, fills about 80 % of the canvas, nothing touches the edges, no cast shadow"
+    : threeQ(a) ? "single asset, centered, slight three-quarter view as described in the subject, fills about 90 % of the canvas with even margins, no cast shadow outside the asset"
+    : "single asset, centered, flat front orthographic view, fills about 90 % of the canvas with even margins, no perspective, no cast shadow outside the asset";
+  let details;
+  switch(a.typ){
+    case "nineslice": details="uniform corners and borders, flat empty center without gradient or ornament so it can stretch, border thickness consistent on all sides"; break;
+    case "icon": details=`single glyph, bold silhouette readable at 32 px, crisp at 2x, centered on its own plate only if the subject says plate; glyph color: ${GLYPHS[S.glyph].txt}`; break;
+    case "particle": details=fxAdd?"soft glowing sprite, white-gold core fading to transparent; alternative for additive blending: the same sprite on an opaque pure black background":"crisp cut-out sprite with clean anti-aliased edges, no glow halo"; break;
+    case "background": details=/tileable|seamless/.test(m)?"seamless tileable on all four sides, even lighting, no focal point":"the scene as described, calm center for UI on top, no UI elements, no characters in the foreground"; break;
+    case "mockup": details="every UI element drawn in the Image 1 style (gold plates with chamfered corners and bottom lip, dark panels with gold double borders, dark brown glyphs); German UI labels exactly as written in quotes and nothing else written; the game world behind the UI is blocky toy-brick 3D, softly lit"; break;
+    default: details="clean readable silhouette, crisp at 2x, designed for scaling"+(lettered(a)?"; render only the quoted characters, large and centered":"");
+  }
+  const useCase = mock ? "concept mockup for layout review at 3840×2160 px, not exported to the game"
+    : a.typ==="nineslice" ? `Unity uGUI sprite, final size ${w}×${h} px, 9-slice borders L,T,R,B = ${str(a.slice)} px`
+    : a.typ==="particle" ? `Unity UI particle sprite, final size ${w}×${h} px`
+    : a.typ==="background" ? `Unity uGUI background image, final size ${w}×${h} px`
+    : `Unity uGUI sprite, final size ${w}×${h} px`;
+  const bgC = mock||a.typ==="background" ? "opaque background" : bgMode(a)==="black" ? "opaque pure black background" : "transparent background";
+  const txtC = mock ? "no text except the quoted German labels, spelled exactly" : lettered(a) ? "no text except the quoted characters" : "no text, letters or numbers";
+  const variant = state&&state!=="normal" ? H_VARIANT[state]+" Keep everything else identical to the normal state: shape, size, outline weight, corners, rivets, canvas and margins." : "";
+  return [
+    (mock?"Use Image 1 (Brixel UI asset sheet) as the STYLE reference for every UI element — match its rendering exactly, do not copy its layout."
+         :"Use Image 1 (Brixel UI asset sheet) as the STYLE reference only — match its rendering exactly, do not copy its layout or any single element.")
+      +(use2?` Use Image 2 (${anc}.png) as the CONSISTENCY reference for shape, outline weight and lighting.`:""),
+    mock?`Goal: one concept screen mockup for the PC game Brixel: ${a.name_en||a.name} (layout review only, not a production asset).`
+        :`Goal: one production-ready game UI asset for the PC game Brixel: ${a.name_en||a.name}.`,
+    `Subject: ${m.replace(/\.$/,"")}.`,
+    `Style: ${style}.`,
+    `Composition: ${comp}.`,
+    `Details: ${details}.`,
+    variant,
+    `Use case: ${useCase}.`,
+    `Constraints: ${bgC}; ${txtC}; no logo, no watermark, no extra objects; only the palette above; clean anti-aliased edges, no halos or fringing.`,
+    ex?`Note: ${ex}.`:""
+  ].filter(Boolean).join("\n");
+}
 const parts=arr=>arr.filter(Boolean);
 function prompt(a,state){
   const p=spec(a,state), ex=S.extra.trim();
@@ -398,22 +529,7 @@ function prompt(a,state){
       return parts([p.subject,p.must,low(p.state),p.style,p.view,p.bg,ex]).join(", ").replace(/\s*\.\s*,/g,",")
         +` --sref ${url} --sw 300 --ar ${p.gar} --style raw --no ${p.neg.join(", ")}`;
     }
-    case "higgs":{
-      const avoid=["text","letters","numbers","logos","watermark","extra objects","perspective","drop shadow outside the asset"]
-        .filter(x=>!(lettered(a)&&["text","letters","numbers"].includes(x))&&!(threeQ(a)&&x==="perspective"));
-      if(lettered(a)) avoid.unshift("any other text");
-      return [
-        "Use the attached reference image (Brixel UI asset sheet) as the exact style reference.",
-        `Create exactly one new asset, a ${p.subject}.`,
-        p.must?`${cap(p.must)}.`:"",
-        p.state?`${p.state}.`:"",
-        `Style: ${p.style}${usesPalette?"; "+PALETTE:""}.`,
-        parts([cap(p.view),cap(p.bg),`Final size ${p.w}×${p.h} px`]).join(". ")+".",
-        ex?`${cap(ex)}.`:"",
-        `Avoid: ${avoid.join(", ")}.`,
-        `Aspect ratio ${p.gar}.`
-      ].filter(Boolean).join(" ");
-    }
+    case "higgs": return higgsPrompt(a,state);
     case "firefly":
       return parts([cap(p.subject),cap(p.must),p.state,cap(p.style),cap(p.view),cap(p.bg),ex]).join(". ")+`. Final size ${p.w}×${p.h} px. Avoid ${p.neg.join(", ")}.`;
     case "sd":
@@ -433,13 +549,15 @@ function prompt(a,state){
 }
 function genHint(a){
   const h=[];
-  if(S.gen==="mj"||S.gen==="higgs"){h.push(S.gen==="mj"?`--ar ${genRatio(a)}`:`Seitenverhältnis ${genRatio(a)}`); if(clamped(a)) h.push(`auf ${dims(a).join("×")} zuschneiden`);}
+  if(S.gen==="higgs"){const r=hfRatio(a);h.push(`${r.r} · ${hfRes(a)} · ${hfBg(a).split(" (")[0]}`);}
+  else if(S.gen==="mj"){h.push(`--ar ${genRatio(a)}`); if(clamped(a)) h.push(`auf ${dims(a).join("×")} zuschneiden`);}
   else if(S.gen==="sd"){h.push("IP-Adapter 0,6–0,8"); if(bgMode(a)==="trans") h.push("Transparenz: LayerDiffuse oder freistellen");}
   else if(S.gen==="firefly"){h.push("Stil-Referenz: Sheet");}
   else h.push("Sheet anhängen");
   return h.join(" · ");
 }
 function filesOf(a){
+  if(a.typ==="mockup") return [["Konzept-Mockup",`mockups/${a.id}.png`]];
   const dir=`ui/${SLUG[a.gruppe]||"ui"}/`, ext=a.typ==="background"&&dims(a)[0]>=1920?".jpg":".png";
   const gsuf=a.typ==="icon"?GLYPHS[S.glyph].suf:"";
   return statesOf(a).map(s=>[STATES[s].l,`${dir}${a.id}${gsuf}${STATES[s].suf}${ext}`]);
@@ -451,10 +569,11 @@ function visible(){
   const q=S.q.toLowerCase().trim();
   return pool().filter(a=>(S.cat==="ALLE"||a.gruppe===S.cat)&&(!q||[a.id,a.name,a.gruppe,a.typ,a.motiv_en,a.verwendung].join(" ").toLowerCase().includes(q)));
 }
-const fileCount=list=>list.reduce((n,a)=>n+statesOf(a).length,0);
+const fileCount=list=>list.filter(a=>a.typ!=="mockup").reduce((n,a)=>n+statesOf(a).length,0);
 function renderControls(){
   const opts=(o,cur)=>Object.entries(o).map(([k,v])=>`<option value="${k}" ${k===cur?"selected":""}>${esc(v.name)}</option>`).join("");
-  $("#gen").innerHTML=opts(GENS,S.gen); $("#bg").innerHTML=opts(BGS,S.bg); $("#glyph").innerHTML=opts(GLYPHS,S.glyph);
+  $("#gen").innerHTML=opts(GENS,S.gen); $("#bg").innerHTML=opts(BGS,S.bg); $("#glyph").innerHTML=opts(GLYPHS,S.glyph); $("#img2").innerHTML=opts(IMG2,S.img2);
+  $("#img2-field").hidden=S.gen!=="higgs";
   $("#extra").value=S.extra; $("#sref").value=S.sref;
   $("#sref-field").hidden=S.gen!=="mj";
   $("#gen-hint").textContent=GENS[S.gen].hint;
@@ -465,7 +584,8 @@ function renderControls(){
 }
 function renderCounts(){
   const b=UI.filter(a=>a.basis==="ja");
-  $("#counts").innerHTML=`Basis-Set <b>${b.length}</b> Elemente · <b>${fileCount(b)}</b> Dateien<br>Gesamt ${UI.length} Elemente · ${fileCount(UI)} Dateien · Migration ${MIG.length} Einträge`;
+  const mk=UI.filter(a=>a.typ==="mockup").length;
+  $("#counts").innerHTML=`Basis-Set <b>${b.length}</b> Elemente · <b>${fileCount(b)}</b> Dateien<br>Gesamt ${UI.length-mk} Elemente · ${fileCount(UI)} Dateien${mk?` · ${mk} Mockups`:""} · Migration ${MIG.length} Einträge`;
   $("#n-prompts").textContent=UI.length; $("#n-struktur").textContent=MIG.length;
 }
 function renderList(){
@@ -474,11 +594,11 @@ function renderList(){
   if(!vis.length){list.innerHTML=`<div class="empty">Nichts gefunden. Ändere den Suchbegriff, wähle „Alle“ oder schalte „Nur Basis-Set“ aus.</div>`;return;}
   list.innerHTML=GROUPS.map(([g])=>{
     const items=vis.filter(a=>a.gruppe===g); if(!items.length) return "";
-    return `<section class="group"><h2>${esc(g)}<span>${items.length}</span><small>ui/${esc(SLUG[g])}/</small></h2><div class="rows dframe">${items.map(a=>{
+    return `<section class="group"><h2>${esc(g)}<span>${items.length}</span><small>${g==="Screen-Mockups"?"Konzept, kein Export":`ui/${esc(SLUG[g])}/`}</small></h2><div class="rows dframe">${items.map(a=>{
       const [code,tl]=TYPES[a.typ]||["??",a.typ];
       return `<details class="asset" data-id="${esc(a.id)}"><summary>
         <span class="code t-${esc(a.typ)}" title="${esc(tl)}">${code}</span>
-        <span class="ttl">${a.basis==="ja"&&!S.basis?'<span class="basis">Basis</span>':""}<b>${esc(a.name)}</b><span class="id">${esc(a.id)}</span><small>${esc(a.verwendung)}</small></span>
+        <span class="ttl">${a.basis==="ja"&&!S.basis?'<span class="basis">Basis</span>':""}${a.typ==="mockup"?'<span class="concept">Konzept-Mockup, nicht für den Export</span>':""}<b>${esc(a.name)}</b><span class="id">${esc(a.id)}</span><small>${esc(a.verwendung)}</small></span>
         <span class="quick"><span class="dim">${esc(str(a.groesse).replace("x","×"))}${statesOf(a).length>1?` · ${statesOf(a).length} Dateien`:""}</span><button class="qb" type="button" data-q="normal">Prompt</button></span>
       </summary><div class="body"></div></details>`;}).join("")}</div></section>`;
   }).join("");
@@ -510,7 +630,7 @@ function renderBody(det){
       <h3>Zustände</h3><p>${esc(a.zustaende)}</p>
       ${a.typ==="nineslice"?`<h3>9-Slice</h3>${sliceSvg(a)}`:""}
     </div>
-    <div class="prompts">${st.map(s=>`<div class="pblock"><div class="phead"><span><b>${esc(STATES[s].l)}</b><em>${esc(genHint(a))}</em></span><button class="qb" type="button" data-copy="${s}">Kopieren</button></div><pre class="ptext">${esc(prompt(a,s))}</pre></div>`).join("")}</div>`;
+    <div class="prompts">${S.gen==="higgs"?`<div class="hfset"><span class="hk">Higgsfield-Einstellungen</span>${hfSettings(a).map(([k,v])=>`<span><i>${esc(k)}</i>${esc(v)}</span>`).join("")}</div>`:""}${st.map(s=>`<div class="pblock"><div class="phead"><span><b>${esc(STATES[s].l)}</b><em>${esc(genHint(a))}</em></span><button class="qb" type="button" data-copy="${s}">Kopieren</button></div><pre class="ptext">${esc(prompt(a,s))}</pre></div>`).join("")}</div>`;
 }
 const refreshOpen=()=>$$("details.asset[open]").forEach(renderBody);
 
@@ -534,9 +654,9 @@ const ESC_MENUS = [
   {n:"Asset-Karte (A)",key:"Esc-Menü",items:["ZURÜCK INS SPIEL","TEAM (nur Staff)","SOZIAL","EINSTELLUNGEN","ZUR PLAZA","SPIEL BEENDEN"]}
 ];
 const MORE = [
-  {n:"Bauplatz-Fenster (B)",items:["Map-Slots","Himmel","Mitbauer","Sprachchat","Veröffentlichen (Inhaber)","Bauvorlagen","Vorlagen-Galerie"]},
-  {n:"Bau-HUD (B, Bauphase M)",items:["unten Mitte: 9 Brick-Plätze (1–9, Mausrad) mit „n/Limit“","darüber Statuszeile: Brick · Einzeln/Linie/Ersetzen · Richtung · n/Limit","unten rechts: Werkzeug-Plätze T · R · Aufnehmen · F · Q · X · Z/Y · Bau-Werkzeuge|NEU","oben links: Bauplatz-Info, Symmetrie, Auswahl-Info","Ablehnung: roter Puls + Toast; Limit: Platz rot + Shake"]},
-  {n:"Tab-Liste je Modus",items:["Plaza/Asset-Karte: Spielerliste","Bauplatz: + Rolle Inhaber/Mitbauer/Zu Besuch","Match Team-Modi: 2 Team-Spalten mit Score-Kopf","Jeder gegen jeden: Rangliste mit Platz","Verteidigung/Zombie: Welle/Infiziert","Warteraum: eigenes Fenster wie heute"]},
+  {n:"Bauplatz-Fenster (B)",key:"Bauplatz-Fenster",items:["Map-Slots","Himmel","Mitbauer","Sprachchat","Veröffentlichen (Inhaber)","Bauvorlagen","Vorlagen-Galerie"]},
+  {n:"Bau-HUD (B, Bauphase M)",key:"Bau-HUD",items:["unten Mitte: 9 Brick-Plätze (1–9, Mausrad) mit „n/Limit“","darüber Statuszeile: Brick · Einzeln/Linie/Ersetzen · Richtung · n/Limit","unten rechts: Werkzeug-Plätze T · R · Aufnehmen · F · Q · X · Z/Y · Bau-Werkzeuge|NEU","oben links: Bauplatz-Info, Symmetrie, Auswahl-Info","Ablehnung: roter Puls + Toast; Limit: Platz rot + Shake"]},
+  {n:"Tab-Liste je Modus",key:"Tab-Liste",items:["Plaza/Asset-Karte: Spielerliste","Bauplatz: + Rolle Inhaber/Mitbauer/Zu Besuch","Match Team-Modi: 2 Team-Spalten mit Score-Kopf","Jeder gegen jeden: Rangliste mit Platz","Verteidigung/Zombie: Welle/Infiziert","Warteraum: eigenes Fenster wie heute"]},
   {n:"Eigenständige Screens",items:["Einstellungen mit Kategorie-Reitern","Barrierefreiheit: Animationen reduzieren|NEU","UI-Größe 85/100/120 %|NEU","Ladebildschirm/Fehler","Kampf-HUD, Match-Kopf, Ziele, Radar","Funkrad (Z), Palette (Q), Bauvorlagen (X)","Warteraum, Ergebnis-Sequenz, Ergebnis","Foto-Modus, ReplayViewer","Popups, Benachrichtigungen, Toasts"]}
 ];
 const caseSens=q=>q.length>=3&&q===q.toUpperCase()&&q!==q.toLowerCase();
@@ -602,14 +722,14 @@ function renderMList(){
       const rows2=[
         ["Knöpfe",labels(r.knoepfe,q)],
         ["Unterdialoge",labels(r.unterdialoge,q,"sub")],
-        ["Neuer Ort",hl(r.neuer_ort,q)],
+        ["Neuer Ort",hl(pipes(r.neuer_ort),q)],
         ["Zugang",pair(r.zugang_alt,r.zugang_neu,q)],
         ["Modi",hl(pipes(r.modi),q)],
         ["Bedingungen",hl(pipes(r.bedingungen),q)],
         ["Ebene",pair(r.ebene_alt,r.ebene_neu,q)]
       ].filter(([,v])=>v);
       return `<details class="mig"${q?" open":""}><summary>
-        <span class="mt"><b>${hl(r.titel,q)}</b><span class="cls">${hl(r.klasse,q)}</span><small><i aria-hidden="true">→ </i>${r.neuer_ort?hl(r.neuer_ort,q):'<span style="color:var(--bad)">neuer Ort fehlt</span>'}</small></span>
+        <span class="mt"><b>${hl(r.titel,q)}</b><span class="cls">${hl(r.klasse,q)}</span><small><i aria-hidden="true">→ </i>${r.neuer_ort?hl(pipes(r.neuer_ort),q):'<span style="color:var(--bad)">neuer Ort fehlt</span>'}</small></span>
         <span class="st ${stClass(str(r.status))}">${esc(str(r.status)||"ohne Status")}</span>
       </summary><div class="mbody"><dl class="kv">${rows2.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl></div></details>`;}).join("")}</div></section>`;
   }).join("");
@@ -637,7 +757,7 @@ $$("[data-view]").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.vi
 $(".views").addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key==="ArrowLeft"){const v=S.view==="prompts"?"struktur":"prompts";setView(v);$("#tab-"+v).focus();}});
 $("#controls").addEventListener("change",e=>{
   const id=e.target.id;
-  if(["gen","bg","glyph"].includes(id)){S[id]=e.target.value;save();$("#sref-field").hidden=S.gen!=="mj";$("#gen-hint").textContent=GENS[S.gen].hint;refreshOpen();}
+  if(["gen","bg","glyph","img2"].includes(id)){S[id]=e.target.value;save();$("#sref-field").hidden=S.gen!=="mj";$("#img2-field").hidden=S.gen!=="higgs";$("#gen-hint").textContent=GENS[S.gen].hint;refreshOpen();}
 });
 $("#extra").addEventListener("input",e=>{S.extra=e.target.value;save();refreshOpen();});
 $("#sref").addEventListener("input",e=>{S.sref=e.target.value;save();refreshOpen();});
