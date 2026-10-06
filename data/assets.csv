@@ -1,230 +1,230 @@
-id,name,kategorie,klasse,kurz_de,motiv_en
-BM9,Beretta M9,WAFFE,PISTOLE,Standard-Pistole,"Beretta M9 style 9mm semi-automatic pistol with open-top slide, matte black finish, textured grip panels"
-BWP38,Walther P38,WAFFE,PISTOLE,Klassische Weltkriegspistole,"Walther P38 style WWII 9mm service pistol, blued steel slide, brown bakelite grip"
-BWPP,Walther PP,WAFFE,PISTOLE,Kleine Taschenpistole,"Walther PP style compact 7.65mm pocket pistol, blued steel, black grip"
-LUGER_P08,Luger P08,WAFFE,PISTOLE,Kniegelenk-Pistole,"Luger P08 style toggle-lock pistol, blued steel, checkered walnut grip"
-BC1900,Colt M1900,WAFFE,PISTOLE,Frühe Selbstladepistole,"early 1900s Colt M1900 style semi-automatic pistol, blued steel, smooth wooden grip"
-GLOCK18,Glock 18,WAFFE,PISTOLE,Vollautomatische Pistole,Glock 18 style polymer machine pistol with extended 33-round magazine and fire selector switch
-ANACONDA,Colt Anaconda,WAFFE,PISTOLE,Magnum-Revolver,"Colt Anaconda style .44 Magnum double-action revolver, stainless steel, long ribbed barrel, black rubber grip"
-DESERTEAGLE,Desert Eagle,WAFFE,PISTOLE,Schwere Pistole,".50 AE Desert Eagle style heavy semi-automatic pistol, brushed chrome, triangular barrel profile"
-TASER_SPECIAL,Taser,WAFFE,PISTOLE,Elektroschocker,"law-enforcement stun gun pistol, yellow and black polymer body, replaceable cartridge at the muzzle"
-SHOOTINGSTAR,Shooting Star,WAFFE,PISTOLE,Western-Revolver,"wild west single-action revolver with star engravings, nickel finish, ivory grip"
-ROLLER,Roller,WAFFE,PISTOLE,Western-Revolver,"wild west single-action revolver with rolling scroll engravings on the cylinder, dark steel, walnut grip"
-GOLDBADGE,Gold Badge,WAFFE,PISTOLE,Sheriff-Revolver,wild west sheriff revolver with gold inlays and a small sheriff star emblem on the grip
-UZI,Uzi,WAFFE,MP,Kompakte MP,"Uzi style compact 9mm submachine gun, stamped steel receiver, folding stock, magazine in pistol grip"
-MP40,MP 40,WAFFE,MP,Weltkriegs-MP,"MP 40 style WWII submachine gun, black steel, folding metal stock, long straight magazine"
-PPSH41,PPSh-41,WAFFE,MP,Trommel-MP,"PPSh-41 style submachine gun with 71-round drum magazine, wooden stock, ventilated barrel shroud"
-K1,Daewoo K1,WAFFE,MP,Karabiner-MP,Daewoo K1A style compact carbine with collapsible wire stock and short barrel
-MP7_SPECIAL,HK MP7,WAFFE,MP,Moderne PDW,"HK MP7 style compact personal defense weapon, black polymer, folding foregrip, retractable stock"
-DELTA,Delta,WAFFE,MP,Event-MP,modern compact submachine gun with angular tan polymer body and integrated red-dot sight
-NEEDLE,Needle,WAFFE,MP,Sci-Fi-MP,"sci-fi needle submachine gun, white and teal shell, glowing crystal needles in a transparent magazine"
-DEVILWEAPON,Teufels-MP,WAFFE,MP,Halloween-MP,"Halloween devil-themed submachine gun, deep red body with small horns and flame decals"
-HORSEHAIR,Horsehair,WAFFE,MP,Western-MP,"1920s drum-fed submachine gun with wild west styling, polished wood furniture and horsehair tassels"
-WATERGUN,Wasserpistole,WAFFE,MP,Wasser-Event,"toy water pistol, glossy blue and orange plastic, clear water tank on top"
-WATERDUCK,Wasser-Ente,WAFFE,MP,Wasser-Event,"toy water gun shaped like a yellow rubber duck, orange beak as the nozzle"
-SUMMER_WATER_TURTLE_GUN,Schildkröten-Spritze,WAFFE,MP,Wasser-Event,"toy water gun shaped like a green sea turtle, shell as the water tank"
-SUMMER_WATER_OCTOPUS_GUN,Oktopus-Spritze,WAFFE,MP,Wasser-Event,"toy water gun shaped like a pink octopus, tentacles wrapped around the grip"
-SUMMER_WATER_BANANA_GUN,Bananen-Spritze,WAFFE,MP,Wasser-Event,"toy water gun shaped like a ripe banana, peel flaps as the stock"
-M16,M16A2,WAFFE,STURMGEWEHR,Burst-Sturmgewehr,"M16A2 style assault rifle with carry handle, triangular handguard, fixed black stock"
-AK47,AK-47,WAFFE,STURMGEWEHR,Klassiker,"AK-47 style assault rifle, wooden stock and handguard, curved steel magazine"
-M4,M4A1,WAFFE,STURMGEWEHR,Karabiner,"M4A1 style carbine, flat-top rail with red-dot sight, collapsible stock, quad-rail handguard"
-STG44,StG 44,WAFFE,STURMGEWEHR,Weltkriegs-Sturmgewehr,"StG 44 style WWII assault rifle, stamped steel receiver, wooden stock, long curved magazine"
-K2,Daewoo K2,WAFFE,STURMGEWEHR,Sturmgewehr,"Daewoo K2 style assault rifle, black polymer, side-folding stock"
-FAMAS,FAMAS F1,WAFFE,STURMGEWEHR,Bullpup,FAMAS F1 style bullpup assault rifle with long carry handle on top
-G36K,G36K,WAFFE,STURMGEWEHR,Kurzes Sturmgewehr,"G36K style short assault rifle, black polymer, integrated carry handle optic, translucent magazine"
-HK416,HK416,WAFFE,STURMGEWEHR,Modernes Sturmgewehr,"HK416 style assault rifle, rail system, holographic sight, adjustable stock"
-L85A2,L85A2,WAFFE,STURMGEWEHR,Bullpup mit Optik,"L85A2 style bullpup rifle with 4x SUSAT-like optic, black finish"
-WZ96_Beryl,wz.96 Beryl,WAFFE,STURMGEWEHR,Sturmgewehr,"wz.96 Beryl style assault rifle, AK-pattern receiver, folding wire stock, black finish"
-C8A1_CARBINE,C8A1 Carbine,WAFFE,STURMGEWEHR,Karabiner,"C8A1 style carbine, short barrel, telescoping stock, red-dot sight"
-BN2000,FN F2000,WAFFE,STURMGEWEHR,Bullpup,FN F2000 style futuristic bullpup rifle with smooth rounded polymer body and 1.6x optic
-B11,Daewoo K11,WAFFE,STURMGEWEHR,Gewehr mit Granatwerfer,Daewoo K11 style dual-barrel rifle with integrated 20mm airburst grenade launcher and large fire-control optic
-STEYRAUG_WHITE,Steyr AUG (Weiß),WAFFE,STURMGEWEHR,Bullpup,"Steyr AUG style bullpup rifle with integrated 1.5x optic, white polymer finish"
-STEYRAUG_BLACK,Steyr AUG (Schwarz),WAFFE,STURMGEWEHR,Bullpup,"Steyr AUG style bullpup rifle with integrated 1.5x optic, black polymer finish"
-STEYRAUG_DESERT,Steyr AUG (Wüste),WAFFE,STURMGEWEHR,Bullpup,"Steyr AUG style bullpup rifle with integrated 1.5x optic, desert tan finish"
-PREDATOR,Predator,WAFFE,STURMGEWEHR,Energie-Sturmgewehr,"futuristic energy assault rifle, dark gunmetal body with glowing blue coils along the barrel"
-ECO,Eco,WAFFE,STURMGEWEHR,Event-Sturmgewehr,eco-themed assault rifle in olive green and light wood with leaf-shaped decals
-GAMMA,Gamma,WAFFE,STURMGEWEHR,Sci-Fi-Sturmgewehr,sci-fi assault rifle with a glowing green gamma core visible through a side window
-PUMPKINWEAPON,Kürbis-Gewehr,WAFFE,STURMGEWEHR,Halloween-Gewehr,Halloween assault rifle with an orange carved-pumpkin drum magazine and vine-wrapped handguard
-W_INDEPENDENCE_GUN,Independence Gun,WAFFE,STURMGEWEHR,Event-Gewehr,"patriotic assault rifle with a red, white and blue star-spangled finish"
-SUNDANCE,Sundance,WAFFE,STURMGEWEHR,Western-Karabiner,wild west lever-action carbine with brass receiver engraved with a rising sun
-SCAR_SPECIAL,FN SCAR-H,WAFFE,KAMPFGEWEHR,Kampfgewehr,"FN SCAR-H style battle rifle, tan finish, folding stock, holographic sight"
-HK417_SPECIAL,HK417,WAFFE,KAMPFGEWEHR,Präzisionsgewehr,HK417 style designated marksman rifle with 4x scope and bipod
-BARD,Bard,WAFFE,KAMPFGEWEHR,Fantasy-Kampfgewehr,fantasy battle rifle with ornate bronze filigree and a small lyre emblem on the stock
-XWING,X-Wing,WAFFE,KAMPFGEWEHR,Sci-Fi-Kampfgewehr,"sci-fi battle rifle with X-shaped wing fins along the sides, white and red panels"
-CAVALRY,Cavalry,WAFFE,KAMPFGEWEHR,Unterhebel-Gewehr,"wild west cavalry lever-action rifle, long octagonal barrel, saddle ring, walnut stock"
-SSG69,Steyr SSG 69,WAFFE,SCHARFSCHUETZE,Leichter Sniper,"Steyr SSG 69 style bolt-action sniper rifle, green synthetic stock, 6x scope"
-BMN91,Mosin-Nagant M91,WAFFE,SCHARFSCHUETZE,Klassiker,"Mosin-Nagant M91/30 style bolt-action rifle with side-mounted PU scope, long wooden stock"
-AWP,AWM,WAFFE,SCHARFSCHUETZE,Schwerer Sniper,"AWM style .338 bolt-action sniper rifle, olive green thumbhole stock, large variable scope, bipod"
-JNG90,JNG-90,WAFFE,SCHARFSCHUETZE,Moderner Sniper,"JNG-90 style bolt-action sniper rifle, black aluminum chassis, adjustable stock, large scope"
-BRG42,TRG-42,WAFFE,SCHARFSCHUETZE,Präzisions-Sniper,"Sako TRG-42 style bolt-action sniper rifle, dark green stock, muzzle brake, large scope"
-BARRETT_M82A1,Barrett M82A1,WAFFE,SCHARFSCHUETZE,Anti-Material,"Barrett M82A1 style .50 caliber anti-materiel rifle with arrow-shaped muzzle brake, bipod, 8x scope"
-ERASER,Eraser,WAFFE,SCHARFSCHUETZE,Laser-Sniper,"sci-fi laser sniper rifle, white shell, red laser emitter at the muzzle, long rail scope"
-MOONLIGHT,Moonlight,WAFFE,SCHARFSCHUETZE,Event-Sniper,sleek sniper rifle with silver crescent moon motifs and soft blue glowing accents
-OBLIVIONGUN_WHITE,Oblivion Gun (Weiß),WAFFE,SCHARFSCHUETZE,Sci-Fi-Sniper,"futuristic heavy energy rifle with segmented barrel and power cell, white finish"
-OBLIVIONGUN_BLACK,Oblivion Gun (Schwarz),WAFFE,SCHARFSCHUETZE,Sci-Fi-Sniper,"futuristic heavy energy rifle with segmented barrel and power cell, black finish"
-OBLIVIONGUN_DESERT,Oblivion Gun (Wüste),WAFFE,SCHARFSCHUETZE,Sci-Fi-Sniper,"futuristic heavy energy rifle with segmented barrel and power cell, desert tan finish"
-SKELETON_SNIPER,Skelett-Sniper,WAFFE,SCHARFSCHUETZE,Halloween-Sniper,bone-themed sniper rifle with a skull-shaped stock and rib-cage handguard
-HALFMOON,Halfmoon,WAFFE,SCHARFSCHUETZE,Western-Sniper,wild west long-range buffalo rifle with crescent moon engravings and a long brass tube scope
-W1893,Winchester 1893,WAFFE,SCHROTFLINTE,Pump-Schrotflinte,"Winchester 1893 style pump-action shotgun, exposed hammer, walnut stock, long tube magazine"
-MATIAZO,Matiazo,WAFFE,SCHROTFLINTE,Taktische Schrotflinte,"modern tactical semi-automatic shotgun, black finish, extended tube magazine, ghost-ring sights"
-CACTUS_GUN,Kaktus-Flinte,WAFFE,SCHROTFLINTE,Western-Event,"cactus-themed shotgun, green body covered in small spines, wooden stock"
-XMAS_PIGGUN,Schweinchen-Flinte,WAFFE,SCHROTFLINTE,Weihnachts-Event,"toy shotgun shaped like a pink piggy bank wearing a santa hat, coin slot on top"
-BULLOCK,Bullock,WAFFE,SCHROTFLINTE,Doppellauf,double-barrel coach gun with bull horn decorations on the stock
-HORSESHOE,Horseshoe,WAFFE,SCHROTFLINTE,Western-Flinte,lever-action shotgun with horseshoe engravings on the receiver
-SUMMER_WATER_SPRAY_PUMP,Wasser-Pumpgun,WAFFE,SCHROTFLINTE,Wasser-Event,"pump-action water blaster, bright yellow and blue plastic, large water tank"
-MG42,MG 42,WAFFE,SCHWER,Maschinengewehr,"MG 42 style belt-fed machine gun, perforated barrel jacket, bipod, ammunition belt"
-M60_SPECIAL,M60,WAFFE,SCHWER,Maschinengewehr,"M60 style belt-fed machine gun, carry handle, bipod, ammunition belt"
-M1918,M1918 BAR,WAFFE,SCHWER,Leichtes MG,"M1918 BAR style automatic rifle, wooden stock, 20-round box magazine, bipod"
-VULCAN,M134 Vulcan,WAFFE,SCHWER,Minigun,M134 style six-barrel rotary minigun with carry handle and ammunition backpack feed
-RAVAGER,Ravager,WAFFE,SCHWER,Sci-Fi-MG,heavy sci-fi machine gun with dark red armor plates and a glowing ammo drum
-HELLGATE,Hellgate,WAFFE,SCHWER,Event-MG,"heavy belt-fed machine gun with demonic engravings, black metal with ember-red glow"
-TSUNAMIRAMA,Tsunamirama,WAFFE,SCHWER,Wasser-Minigun,"toy water minigun with rotating barrels, blue plastic with wave decals, big water backpack"
-XMAS_ROLLINGGUN,Weihnachts-Minigun,WAFFE,SCHWER,Weihnachts-Event,Christmas rotary minigun with candy-cane striped barrels and a gift-box ammo drum
-XMAS_BAZOOKA,Weihnachts-Bazooka,WAFFE,WERFER,Raketenwerfer,"Christmas bazooka wrapped like a present with ribbon, firing gift-box rockets"
-BRICK_BOOMER,Brick Boomer,WAFFE,WERFER,Granatwerfer,chunky toy-like grenade launcher with a revolving drum that fires explosive toy bricks
-AIR_CANNON,Luftkanone,WAFFE,WERFER,Druckluft-Werfer,"pneumatic air cannon with a brass pressure tank, gauge and wide bell-shaped muzzle"
-DRAKE3000,Drake 3000,WAFFE,WERFER,Raketenwerfer,dragon-themed rocket launcher with a dragon head at the muzzle and scale-pattern tube
-HELLFIRE,Hellfire,WAFFE,WERFER,Raketenwerfer,shoulder rocket launcher with flame decals and a glowing orange rear vent
-CROSSBOW_LAUNCHER,Armbrust,WAFFE,WERFER,Armbrust,"modern hunting crossbow, black limbs, wooden stock, steel string"
-CROSSBOW_CONDOR,Armbrust Condor,WAFFE,WERFER,Präzisions-Armbrust,precision crossbow with a scope and bird-of-prey wing-shaped limbs
-CROSSBOW_HORNET,Armbrust Hornet,WAFFE,WERFER,Repetier-Armbrust,"repeating crossbow with a top box magazine, yellow and black hornet stripes"
-CROSSBOW_HYDRA,Armbrust Hydra,WAFFE,WERFER,Spreng-Armbrust,three-headed crossbow with three stacked limbs and explosive-tipped bolts
-STAFF01,Magierstab,WAFFE,WERFER,Magie-Waffe,wooden magic staff with a glowing blue crystal orb held by twisted branches
-SHAFT,Shaft,WAFFE,WERFER,Schwere Armbrust,"heavy ballista-style crossbow, dark steel frame, thick bolts"
-BMK,Kampfmesser,NAHKAMPF,MESSER,Messer,"military combat knife, black clip-point blade, rubber grip"
-M7,M7 Bajonett,NAHKAMPF,MESSER,Bajonett,"M7 bayonet, parkerized steel blade, ribbed black grip, muzzle ring"
-THIEF_STICK,Diebes-Dolch,NAHKAMPF,MESSER,Event-Dolch,curved thief dagger with a wrapped leather grip and small green gem
-WRENCH,Schraubenschlüssel,NAHKAMPF,WERKZEUG,Werkzeug,"large steel open-end wrench, chrome finish, worn red rubber handle"
-PIPE_WRENCH,Rohrzange,NAHKAMPF,WERKZEUG,Werkzeug,heavy red pipe wrench with steel jaws
-BILLY_CLUB,Schlagstock,NAHKAMPF,WERKZEUG,Knüppel,"police baton, black hardwood with leather wrist strap"
-FRYPAN,Bratpfanne,NAHKAMPF,WERKZEUG,Event,cast-iron frying pan with a dented black pan and wooden handle
-XMASWINEBOTTLE,Weinflasche,NAHKAMPF,WERKZEUG,Event,green glass wine bottle with a festive red ribbon and cork
-XMAS_STICK01,Zuckerstange,NAHKAMPF,WERKZEUG,Weihnachts-Stick,giant red and white candy cane
-XMAS_STICK02,Christbaum-Stick,NAHKAMPF,WERKZEUG,Weihnachts-Stick,small decorated Christmas tree on a wooden handle
-XMAS_STICK03,Lebkuchen-Stick,NAHKAMPF,WERKZEUG,Weihnachts-Stick,giant gingerbread man on a stick with icing details
-WINTER_STICK01,Eiszapfen,NAHKAMPF,WERKZEUG,Winter-Stick,sharp blue ice icicle club with frost details
-WINTER_STICK02,Schneeschaufel,NAHKAMPF,WERKZEUG,Winter-Stick,red snow shovel with a wooden handle
-VALENTINESTICK,Herz-Stick,NAHKAMPF,WERKZEUG,Valentins-Stick,pink heart-shaped mallet on a white handle
-EVENT19_STICK,Event-Stick 19,NAHKAMPF,WERKZEUG,Event-Stick,festive event baton with colorful ribbons and a star on top
-EASTER02_STICK,Oster-Stick,NAHKAMPF,WERKZEUG,Oster-Stick,giant carrot club with green leaves
-WAL01_STICK,Halloween-Stick 1,NAHKAMPF,WERKZEUG,Halloween-Stick,witch broom with twisted wooden handle
-WAL02_STICK,Halloween-Stick 2,NAHKAMPF,WERKZEUG,Halloween-Stick,spooky bone club with a small skull at the end
-ARCHER_STICK,Bogenschützen-Stick,NAHKAMPF,WERKZEUG,Fantasy-Stick,elven short sword with leaf-shaped blade
-MAGE_STICK,Magier-Stick,NAHKAMPF,WERKZEUG,Fantasy-Stick,short magic wand with a purple crystal tip
-KING_STICK,Königs-Zepter,NAHKAMPF,WERKZEUG,Fantasy-Stick,golden royal scepter with a red jewel and crown top
-PRINCESS_STICK,Prinzessinnen-Stab,NAHKAMPF,WERKZEUG,Fantasy-Stick,pink princess wand with a heart and sparkling star
-WATERSTICK,Wasser-Stick,NAHKAMPF,WERKZEUG,Sommer-Stick,"inflatable pool noodle club, bright blue"
-SUM02STICK,Sommer-Stick,NAHKAMPF,WERKZEUG,Sommer-Stick,"inflatable palm tree club, green and yellow"
-SUMMER_WATER_STICK02,Wasser-Stick 2,NAHKAMPF,WERKZEUG,Sommer-Stick,"inflatable shark club, grey and white"
-W_INDEPENDENCE_STICK,Independence-Stick,NAHKAMPF,WERKZEUG,Event-Stick,patriotic baton with stars and stripes and a small flag
-YD_STICK,YD-Stick,NAHKAMPF,WERKZEUG,Event-Stick,decorated wooden event club with painted patterns
-DRAGON_STICK,Drachen-Stick,NAHKAMPF,WERKZEUG,Fantasy-Stick,dragon bone sword with scale-textured grip
-CENTAURUS_STICK,Centaurus-Stick,NAHKAMPF,WERKZEUG,Fantasy-Stick,bronze spear-club with a horse head pommel
-DARKKNIGHT_STICK,Dunkelritter-Stick,NAHKAMPF,WERKZEUG,Fantasy-Stick,black knight greatsword with red runes
-GRIFFON_STICK,Greifen-Stick,NAHKAMPF,WERKZEUG,Fantasy-Stick,golden saber with griffon wing guard
-ORC_STICK,Ork-Stick,NAHKAMPF,WERKZEUG,Fantasy-Stick,crude orc cleaver with a spiked wooden handle
-WARLOCK_STICK,Hexer-Stick,NAHKAMPF,WERKZEUG,Fantasy-Stick,warlock rod with a green glowing skull
-FRENCH_COSTUME_STICK,Französischer Säbel,NAHKAMPF,WERKZEUG,Kostüm-Stick,french baguette club with a red-white-blue ribbon
-LOLLIPOP_STICK,Lutscher,NAHKAMPF,WERKZEUG,Event-Stick,giant swirl lollipop in rainbow colors
-BAMBUSOIDEAE_STICK,Bambus-Stick,NAHKAMPF,WERKZEUG,Event-Stick,green bamboo staff with leaves
-ROSE_STICK,Rosen-Stick,NAHKAMPF,WERKZEUG,Event-Stick,long-stemmed red rose with thorns
-DEVILSTICK,Teufels-Stick,NAHKAMPF,WERKZEUG,Halloween-Stick,red devil pitchfork
-PUMPKINSTICK,Kürbis-Stick,NAHKAMPF,WERKZEUG,Halloween-Stick,jack-o-lantern mace on a wooden handle
-SKULLSTICK,Schädel-Stick,NAHKAMPF,WERKZEUG,Halloween-Stick,skull-topped bone scepter
-PSYCHOPATH_STICK,Psychopath-Stick,NAHKAMPF,WERKZEUG,Halloween-Stick,"rusty meat cleaver with a taped handle, cartoonish not gory"
-TOY_HAMMER,Spielzeughammer,NAHKAMPF,SCHWER,Squeak-Hammer,oversized red and yellow plastic toy squeaky hammer
-TOYHAMMER_BLUE,Spielzeughammer (Blau),NAHKAMPF,SCHWER,Squeak-Hammer,oversized blue and white plastic toy squeaky hammer
-EVENT_HAMMER,Event-Hammer,NAHKAMPF,SCHWER,Event-Hammer,festive oversized mallet with colorful confetti pattern
-CONTEST_HAMMER,Turnier-Hammer,NAHKAMPF,SCHWER,Trophäen-Hammer,golden trophy war hammer with laurel engravings
-FIELD_SHOVEL,Feldspaten,NAHKAMPF,SCHWER,Spaten,"military folding field shovel, olive drab steel blade, wooden handle"
-KNIGHT_STICK,Ritterschwert,NAHKAMPF,SCHWER,Fantasy-Schwert,medieval knight longsword with crossguard and leather-wrapped grip
-REAPER_STICK,Sense,NAHKAMPF,SCHWER,Halloween-Sense,grim reaper scythe with a long curved blade and dark wooden shaft
-LIGHT_SAVER,Lichtschwert,NAHKAMPF,ENERGIE,Energieklinge,energy sword with a glowing blue plasma blade and metal hilt
-LIGHT_SAVER_R,Lichtschwert (Rot),NAHKAMPF,ENERGIE,Energieklinge,energy sword with a glowing red plasma blade and dark metal hilt
-GRENADE,Granate,GRANATE,SPLITTER,Splittergranate,round olive-green fragmentation hand grenade with spoon lever and pull ring
-KG400,KG-400,GRANATE,SPLITTER,Splittergranate,"modern oval fragmentation grenade, dark grey body, yellow marking band"
-KG440,KGS-440,GRANATE,SPLITTER,Große Splittergranate,"large cylindrical high-explosive grenade, olive drab with stenciled stripes"
-WATERBOMB,Wasserbombe,GRANATE,SPLITTER,Wasser-Event,blue water balloon tied with a knot
-XMASBOMB01,Christbaumkugel-Bombe,GRANATE,SPLITTER,Weihnachts-Event,shiny red Christmas ornament bauble with a fuse on top
-XMASBOMB02,Geschenk-Bombe,GRANATE,SPLITTER,Weihnachts-Event,small wrapped gift box with a ribbon bow and a lit fuse
-DEVILBOMB,Teufels-Bombe,GRANATE,SPLITTER,Halloween-Event,round red bomb with devil horns and a tail fuse
-PUMPKINBOMB,Kürbis-Bombe,GRANATE,SPLITTER,Halloween-Event,jack-o-lantern pumpkin bomb with a stem fuse
-EGGBOMB,Oster-Bombe,GRANATE,SPLITTER,Oster-Event,painted easter egg bomb with colorful stripes and a fuse
-CARROT_BOMB,Karotten-Bombe,GRANATE,SPLITTER,Event,carrot-shaped grenade with leafy pull ring
-CACTUS_BOMB,Kaktus-Bombe,GRANATE,SPLITTER,Western-Event,small potted cactus bomb with a fuse
-PSYCHOPATH_BOMB,Psychopath-Bombe,GRANATE,SPLITTER,Halloween-Event,cartoon jar of mysterious green goo with a fuse lid
-S3_BOMB01,Saison-Bombe 1,GRANATE,SPLITTER,Event,classic black cartoon bomb with a white skull label and fuse
-S3_BOMB02,Saison-Bombe 2,GRANATE,SPLITTER,Event,classic black cartoon bomb with a gold star label and fuse
-SPACEBOMB_SPECIAL,Weltraum-Bombe,GRANATE,SPLITTER,Sci-Fi-Event,"sci-fi plasma grenade, silver sphere with glowing cyan rings"
-CLOCKBOMB,Zeitbombe,GRANATE,ZEITBOMBE,Zeitzünder,time bomb: bundle of red dynamite sticks with an analog alarm clock and wires
-TNT_BOMB,TNT,GRANATE,ZEITBOMBE,Zeitzünder,wooden crate of TNT with stenciled letters and a long fuse
-SENSBOMB,Sensorbombe,GRANATE,SENSOR,Annäherungsmine,"flat proximity mine, grey metal disc with a blinking red sensor light"
-REMOCON_SPECIAL,Fernzünder,GRANATE,FERNZUENDER,Fernzündung,remote detonator with an antenna and a red push button
-RIG_BOMB_SPECIAL,Rig-Bombe,GRANATE,FERNZUENDER,Fernzündung,sticky explosive charge pack with a blinking receiver and antenna
-FLASHBANG,Blendgranate,GRANATE,BLEND,Blendgranate,"cylindrical stun grenade, light grey with perforated holes and pull ring"
-FLASH_SPECIAL,Blendgranate Spezial,GRANATE,BLEND,Blendgranate,"special-edition stun grenade, white body with blue stripe and perforated holes"
-SMOKE,Rauchgranate,GRANATE,RAUCH,Rauchgranate,"cylindrical smoke grenade, green-grey can with spoon lever and stenciled label"
-POISON,Giftgranate,GRANATE,GIFT,Giftgranate,"toxic gas grenade, green glass canister with a hazard ring, cartoonish"
-REDDOT,Rotpunkt,VISIER,VISIER,1.3x Reflexvisier,compact red dot reflex sight with a tube body and rail mount
-HOLO,Holo-Visier,VISIER,VISIER,1.5x Holografisch,holographic weapon sight with a rectangular window and rail mount
-ACOG2,Zielfernrohr 2x,VISIER,VISIER,2x Optik,short 2x prism rifle scope with rail mount
-ACOG4,Zielfernrohr 4x,VISIER,VISIER,4x Optik,4x ACOG-style combat optic with fiber-optic on top
-SNIPER6,Sniper-Zielfernrohr 6x,VISIER,VISIER,6x Sniper,"6x sniper scope, matte black tube, turrets, rings"
-SNIPER_2STUFEN,Sniper 4x/10x,VISIER,VISIER,Zweistufig,variable 4-10x long-range sniper scope with large objective lens and adjustable turrets
-ANTIMAT,Anti-Material 8x,VISIER,VISIER,8x schwer,heavy 8x anti-materiel scope with thick tube and sunshade
-heal30,Heiltrank (klein),ITEM,CONSUMABLE,+30 HP,small round glass potion bottle with bright green glowing liquid and cork
-heal50,Heiltrank (mittel),ITEM,CONSUMABLE,+50 HP,"medium glass potion bottle with bright green glowing liquid, cork and leather strap"
-heal,Heiltrank (groß),ITEM,CONSUMABLE,+100 HP,"large glass potion flask with bright green glowing liquid, cork and a golden label"
-auto_heal,Regenerations-Elixier,ITEM,CONSUMABLE,Passive Heilung,tall slim vial with swirling pale green liquid and a leaf emblem
-speedup,Tempo-Trank,ITEM,CONSUMABLE,Laufen ×1.75,glass potion bottle with electric blue fizzy liquid and a lightning bolt label
-armor_potion,Rüstungstrank,ITEM,CONSUMABLE,+25 Schild,sturdy glass potion with golden-yellow liquid and a small metal shield emblem
-antidote,Gegengift,ITEM,CONSUMABLE,Heilt Gift und Blendung,small vial with milky white liquid and a green cross label
-adrenaline,Adrenalin-Spritze,ITEM,CONSUMABLE,Keine Verlangsamung,"medical auto-injector pen, white with red cap and a heartbeat symbol"
-heartbeat_radar,Herzschlag-Sensor,ITEM,CONSUMABLE,Gegner auf Minimap,handheld heartbeat sensor device with a green radar screen
-pistol_ammo,Munitionskiste Pistole,ITEM,CONSUMABLE,+2 Magazine,small olive ammo box with a pistol cartridge symbol
-submachine_ammo,Munitionskiste MP,ITEM,CONSUMABLE,+2 Magazine,olive ammo box with an SMG magazine symbol
-assault_ammo,Munitionskiste Sturmgewehr,ITEM,CONSUMABLE,+2 Magazine,olive metal ammo can with a rifle cartridge symbol
-sniper_ammo,Munitionskiste Sniper,ITEM,CONSUMABLE,+2 Magazine,long olive ammo case with a long rifle cartridge symbol
-heavy_ammo,Munitionskiste Schwer,ITEM,CONSUMABLE,+1 Magazin,large olive ammo crate with ammunition belt hanging out
-grenade_ammo,Granaten-Nachschub,ITEM,CONSUMABLE,+1 Granate,small wooden crate with two hand grenades in foam slots
-auto_reload,Auto-Nachladen,ITEM,CONSUMABLE,Passiv,icon of a magazine with a circular reload arrow
-respawn,Sofort-Respawn,ITEM,CONSUMABLE,Respawn sofort,"glowing respawn beacon token, golden ring with upward arrow"
-just_respawn,Direkt-Respawn,ITEM,CONSUMABLE,Respawn automatisch,glowing golden phoenix feather token
-PRJ_PISTOLE,Pistole,PROJEKTIL,PISTOLE,9×19 mm,short round-nose brass 9mm pistol bullet
-PRJ_MP,Maschinenpistole,PROJEKTIL,MP,9×19 mm,short round-nose brass 9mm bullet with faint tracer
-PRJ_STURMGEWEHR,Sturmgewehr,PROJEKTIL,STURMGEWEHR,5.56×45 mm,pointed brass 5.56mm rifle bullet with yellow-orange tracer
-PRJ_KAMPFGEWEHR,Kampfgewehr,PROJEKTIL,KAMPFGEWEHR,7.62×51 mm,long pointed brass 7.62mm rifle bullet with bright tracer
-PRJ_SCHARFSCHUETZE,Scharfschütze,PROJEKTIL,SCHARFSCHUETZE,.338 / .50 BMG,long heavy brass sniper bullet with long white tracer and air distortion
-PRJ_SCHROTFLINTE,Schrotflinte,PROJEKTIL,SCHROTFLINTE,12 Gauge,red 12 gauge shotgun shell with brass head and a spray of small pellets
-PRJ_MG,Maschinengewehr,PROJEKTIL,MG,7.92×57 mm,long brass machine gun bullet with red-orange tracer
-PRJ_LMG,Leichtes MG,PROJEKTIL,LMG,5.56 / .30-06,pointed brass rifle bullet with yellow tracer
-PRJ_MINIGUN,Minigun,PROJEKTIL,MINIGUN,7.62×51 mm,stream of brass bullets forming a continuous orange tracer beam
-PRJ_WERFER,Rakete,PROJEKTIL,WERFER,Rakete / 40 mm,"olive-green rocket with fins, bright exhaust flame and grey smoke trail"
-PRJ_ARMBRUST,Armbrustbolzen,PROJEKTIL,ARMBRUST,Bolzen,crossbow bolt with steel broadhead tip and red fletching
-FX_MUZZLE_S,Mündungsfeuer S,FX,FX,"Pistole, MP","small muzzle flash, side view, three-pointed star burst, warm yellow-white"
-FX_MUZZLE_M,Mündungsfeuer M,FX,FX,Gewehre,"medium muzzle flash, side view, star burst with short flame tongues, orange-yellow"
-FX_MUZZLE_L,Mündungsfeuer L,FX,FX,"Sniper, Schrot, MG","large muzzle flash with smoke puff, side view, bright orange core"
-FX_MUZZLE_XL,Mündungsfeuer XL,FX,FX,Minigun,"rotating ring of muzzle flashes, very bright, orange-white"
-FX_SHELL,Hülsenauswurf,FX,FX,Alle Schusswaffen,"ejected brass shell casings tumbling, small, medium and large sizes"
-FX_IMPACT_BRICK,Einschlag Brick,FX,FX,Brick-Oberfläche,bullet impact on a plastic toy brick: chips of colored plastic and dust puff
-FX_IMPACT_METAL,Einschlag Metall,FX,FX,Metall,bullet impact on metal: bright sparks and small smoke puff
-FX_IMPACT_GLASS,Einschlag Glas,FX,FX,Glas,bullet impact on glass: cracked glass shards flying
-FX_IMPACT_WOOD,Einschlag Holz,FX,FX,Holz,bullet impact on wood: splinters and sawdust
-FX_IMPACT_WATER,Einschlag Wasser,FX,FX,Wasser,bullet impact on water: small splash column and droplets
-FX_IMPACT_PLAYER,Treffer Spieler,FX,FX,Spieler,"stylized hit effect on a character: short red spark burst, non-gory"
-FX_IMPACT_CHILD,Treffer Spieler (unter 12),FX,FX,Jugendversion,"cartoon hit effect: yellow stars and white sparkles, no blood"
-FX_IMPACT_LUCKY,Glückstreffer,FX,FX,Lucky-Treffer,golden star burst with sparkles
-FX_DECAL_HOLE,Einschussloch,FX,FX,Decal,"bullet hole decal with radial cracks, sizes small, medium, large"
-FX_EXPLOSION,Explosion,FX,FX,"Granate, Rakete","fiery explosion with debris and toy brick fragments, orange core and dark smoke"
-FX_EXPLOSION_C4,Große Explosion,FX,FX,"Zeitbombe, Fernzünder",large explosion with shockwave ring and many brick fragments
-FX_FLASH,Blendblitz,FX,FX,Blendgranate,blinding white flash burst with lens glare
-FX_SMOKE,Rauchwolke,FX,FX,Rauchgranate,"thick billowing grey-white smoke cloud, looping"
-FX_POISON,Giftwolke,FX,FX,Giftgranate,"toxic green gas cloud with bubbles, looping"
-FX_WATER_SPLASH,Wasserexplosion,FX,FX,Wasser-Event,big water balloon splash with droplets
-FX_SLASH_TRAIL,Schlag-Trail,FX,FX,Nahkampf,"curved melee swing trail, white arc fading out"
-FX_ENERGY_TRAIL,Energie-Trail,FX,FX,Lichtschwert,"glowing plasma blade swing trail, blue and red variants"
-FX_HEAL,Heil-Effekt,FX,FX,Heiltränke,"green healing sparkles rising in a spiral around a character, ring on the ground"
-FX_SPEED,Tempo-Effekt,FX,FX,Tempo-Trank,blue speed lines and wind streaks
-FX_SHIELD,Schild-Effekt,FX,FX,Rüstungstrank,golden translucent energy shell around a character
-FX_RADAR,Radar-Puls,FX,FX,Herzschlag-Sensor,expanding red radar pulse ring
-FX_SPAWN,Spawn-Blitz,FX,FX,Respawn,vertical beam of light with sparkles for respawn
+id,name,kategorie,klasse,kurz_de,motiv_en,basis,basis_grund
+BM9,Beretta M9,WAFFE,PISTOLE,Standard-Pistole,"Beretta M9 style 9mm semi-automatic pistol with open-top slide, matte black finish, textured grip panels",ja,"Pistole, Halbautomatik, Zweitwaffen-Slot"
+BWP38,Walther P38,WAFFE,PISTOLE,Klassische Weltkriegspistole,"Walther P38 style WWII 9mm service pistol, blued steel slide, brown bakelite grip",,
+BWPP,Walther PP,WAFFE,PISTOLE,Kleine Taschenpistole,"Walther PP style compact 7.65mm pocket pistol, blued steel, black grip",,
+LUGER_P08,Luger P08,WAFFE,PISTOLE,Kniegelenk-Pistole,"Luger P08 style toggle-lock pistol, blued steel, checkered walnut grip",,
+BC1900,Colt M1900,WAFFE,PISTOLE,Frühe Selbstladepistole,"early 1900s Colt M1900 style semi-automatic pistol, blued steel, smooth wooden grip",,
+GLOCK18,Glock 18,WAFFE,PISTOLE,Vollautomatische Pistole,Glock 18 style polymer machine pistol with extended 33-round magazine and fire selector switch,,
+ANACONDA,Colt Anaconda,WAFFE,PISTOLE,Magnum-Revolver,"Colt Anaconda style .44 Magnum double-action revolver, stainless steel, long ribbed barrel, black rubber grip",,
+DESERTEAGLE,Desert Eagle,WAFFE,PISTOLE,Schwere Pistole,".50 AE Desert Eagle style heavy semi-automatic pistol, brushed chrome, triangular barrel profile",,
+TASER_SPECIAL,Taser,WAFFE,PISTOLE,Elektroschocker,"law-enforcement stun gun pistol, yellow and black polymer body, replaceable cartridge at the muzzle",,
+SHOOTINGSTAR,Shooting Star,WAFFE,PISTOLE,Western-Revolver,"wild west single-action revolver with star engravings, nickel finish, ivory grip",,
+ROLLER,Roller,WAFFE,PISTOLE,Western-Revolver,"wild west single-action revolver with rolling scroll engravings on the cylinder, dark steel, walnut grip",,
+GOLDBADGE,Gold Badge,WAFFE,PISTOLE,Sheriff-Revolver,wild west sheriff revolver with gold inlays and a small sheriff star emblem on the grip,,
+UZI,Uzi,WAFFE,MP,Kompakte MP,"Uzi style compact 9mm submachine gun, stamped steel receiver, folding stock, magazine in pistol grip",ja,"Maschinenpistole, Vollautomatik mit hoher Feuerrate"
+MP40,MP 40,WAFFE,MP,Weltkriegs-MP,"MP 40 style WWII submachine gun, black steel, folding metal stock, long straight magazine",,
+PPSH41,PPSh-41,WAFFE,MP,Trommel-MP,"PPSh-41 style submachine gun with 71-round drum magazine, wooden stock, ventilated barrel shroud",,
+K1,Daewoo K1,WAFFE,MP,Karabiner-MP,Daewoo K1A style compact carbine with collapsible wire stock and short barrel,,
+MP7_SPECIAL,HK MP7,WAFFE,MP,Moderne PDW,"HK MP7 style compact personal defense weapon, black polymer, folding foregrip, retractable stock",,
+DELTA,Delta,WAFFE,MP,Event-MP,modern compact submachine gun with angular tan polymer body and integrated red-dot sight,,
+NEEDLE,Needle,WAFFE,MP,Sci-Fi-MP,"sci-fi needle submachine gun, white and teal shell, glowing crystal needles in a transparent magazine",,
+DEVILWEAPON,Teufels-MP,WAFFE,MP,Halloween-MP,"Halloween devil-themed submachine gun, deep red body with small horns and flame decals",,
+HORSEHAIR,Horsehair,WAFFE,MP,Western-MP,"1920s drum-fed submachine gun with wild west styling, polished wood furniture and horsehair tassels",,
+WATERGUN,Wasserpistole,WAFFE,MP,Wasser-Event,"toy water pistol, glossy blue and orange plastic, clear water tank on top",,
+WATERDUCK,Wasser-Ente,WAFFE,MP,Wasser-Event,"toy water gun shaped like a yellow rubber duck, orange beak as the nozzle",,
+SUMMER_WATER_TURTLE_GUN,Schildkröten-Spritze,WAFFE,MP,Wasser-Event,"toy water gun shaped like a green sea turtle, shell as the water tank",,
+SUMMER_WATER_OCTOPUS_GUN,Oktopus-Spritze,WAFFE,MP,Wasser-Event,"toy water gun shaped like a pink octopus, tentacles wrapped around the grip",,
+SUMMER_WATER_BANANA_GUN,Bananen-Spritze,WAFFE,MP,Wasser-Event,"toy water gun shaped like a ripe banana, peel flaps as the stock",,
+M16,M16A2,WAFFE,STURMGEWEHR,Burst-Sturmgewehr,"M16A2 style assault rifle with carry handle, triangular handguard, fixed black stock",ja,3-Schuss-Salve (semiAuto)
+AK47,AK-47,WAFFE,STURMGEWEHR,Klassiker,"AK-47 style assault rifle, wooden stock and handguard, curved steel magazine",,
+M4,M4A1,WAFFE,STURMGEWEHR,Karabiner,"M4A1 style carbine, flat-top rail with red-dot sight, collapsible stock, quad-rail handguard",ja,"Sturmgewehr, Vollautomatik, Rotpunkt-Visier"
+STG44,StG 44,WAFFE,STURMGEWEHR,Weltkriegs-Sturmgewehr,"StG 44 style WWII assault rifle, stamped steel receiver, wooden stock, long curved magazine",,
+K2,Daewoo K2,WAFFE,STURMGEWEHR,Sturmgewehr,"Daewoo K2 style assault rifle, black polymer, side-folding stock",,
+FAMAS,FAMAS F1,WAFFE,STURMGEWEHR,Bullpup,FAMAS F1 style bullpup assault rifle with long carry handle on top,,
+G36K,G36K,WAFFE,STURMGEWEHR,Kurzes Sturmgewehr,"G36K style short assault rifle, black polymer, integrated carry handle optic, translucent magazine",,
+HK416,HK416,WAFFE,STURMGEWEHR,Modernes Sturmgewehr,"HK416 style assault rifle, rail system, holographic sight, adjustable stock",,
+L85A2,L85A2,WAFFE,STURMGEWEHR,Bullpup mit Optik,"L85A2 style bullpup rifle with 4x SUSAT-like optic, black finish",,
+WZ96_Beryl,wz.96 Beryl,WAFFE,STURMGEWEHR,Sturmgewehr,"wz.96 Beryl style assault rifle, AK-pattern receiver, folding wire stock, black finish",,
+C8A1_CARBINE,C8A1 Carbine,WAFFE,STURMGEWEHR,Karabiner,"C8A1 style carbine, short barrel, telescoping stock, red-dot sight",,
+BN2000,FN F2000,WAFFE,STURMGEWEHR,Bullpup,FN F2000 style futuristic bullpup rifle with smooth rounded polymer body and 1.6x optic,,
+B11,Daewoo K11,WAFFE,STURMGEWEHR,Gewehr mit Granatwerfer,Daewoo K11 style dual-barrel rifle with integrated 20mm airburst grenade launcher and large fire-control optic,ja,"Unterlauf-Granatwerfer (Rechtsklick, Granate im Bogen)"
+STEYRAUG_WHITE,Steyr AUG (Weiß),WAFFE,STURMGEWEHR,Bullpup,"Steyr AUG style bullpup rifle with integrated 1.5x optic, white polymer finish",,
+STEYRAUG_BLACK,Steyr AUG (Schwarz),WAFFE,STURMGEWEHR,Bullpup,"Steyr AUG style bullpup rifle with integrated 1.5x optic, black polymer finish",,
+STEYRAUG_DESERT,Steyr AUG (Wüste),WAFFE,STURMGEWEHR,Bullpup,"Steyr AUG style bullpup rifle with integrated 1.5x optic, desert tan finish",,
+PREDATOR,Predator,WAFFE,STURMGEWEHR,Energie-Sturmgewehr,"futuristic energy assault rifle, dark gunmetal body with glowing blue coils along the barrel",,
+ECO,Eco,WAFFE,STURMGEWEHR,Event-Sturmgewehr,eco-themed assault rifle in olive green and light wood with leaf-shaped decals,,
+GAMMA,Gamma,WAFFE,STURMGEWEHR,Sci-Fi-Sturmgewehr,sci-fi assault rifle with a glowing green gamma core visible through a side window,,
+PUMPKINWEAPON,Kürbis-Gewehr,WAFFE,STURMGEWEHR,Halloween-Gewehr,Halloween assault rifle with an orange carved-pumpkin drum magazine and vine-wrapped handguard,,
+W_INDEPENDENCE_GUN,Independence Gun,WAFFE,STURMGEWEHR,Event-Gewehr,"patriotic assault rifle with a red, white and blue star-spangled finish",,
+SUNDANCE,Sundance,WAFFE,STURMGEWEHR,Western-Karabiner,wild west lever-action carbine with brass receiver engraved with a rising sun,,
+SCAR_SPECIAL,FN SCAR-H,WAFFE,KAMPFGEWEHR,Kampfgewehr,"FN SCAR-H style battle rifle, tan finish, folding stock, holographic sight",ja,"Kampfgewehr, Halbautomatik mit hohem Schaden"
+HK417_SPECIAL,HK417,WAFFE,KAMPFGEWEHR,Präzisionsgewehr,HK417 style designated marksman rifle with 4x scope and bipod,,
+BARD,Bard,WAFFE,KAMPFGEWEHR,Fantasy-Kampfgewehr,fantasy battle rifle with ornate bronze filigree and a small lyre emblem on the stock,,
+XWING,X-Wing,WAFFE,KAMPFGEWEHR,Sci-Fi-Kampfgewehr,"sci-fi battle rifle with X-shaped wing fins along the sides, white and red panels",,
+CAVALRY,Cavalry,WAFFE,KAMPFGEWEHR,Unterhebel-Gewehr,"wild west cavalry lever-action rifle, long octagonal barrel, saddle ring, walnut stock",,
+SSG69,Steyr SSG 69,WAFFE,SCHARFSCHUETZE,Leichter Sniper,"Steyr SSG 69 style bolt-action sniper rifle, green synthetic stock, 6x scope",,
+BMN91,Mosin-Nagant M91,WAFFE,SCHARFSCHUETZE,Klassiker,"Mosin-Nagant M91/30 style bolt-action rifle with side-mounted PU scope, long wooden stock",,
+AWP,AWM,WAFFE,SCHARFSCHUETZE,Schwerer Sniper,"AWM style .338 bolt-action sniper rifle, olive green thumbhole stock, large variable scope, bipod",ja,"Repetier-Sniper, zweistufiges Zielfernrohr, Herauszoomen nach dem Schuss"
+JNG90,JNG-90,WAFFE,SCHARFSCHUETZE,Moderner Sniper,"JNG-90 style bolt-action sniper rifle, black aluminum chassis, adjustable stock, large scope",,
+BRG42,TRG-42,WAFFE,SCHARFSCHUETZE,Präzisions-Sniper,"Sako TRG-42 style bolt-action sniper rifle, dark green stock, muzzle brake, large scope",,
+BARRETT_M82A1,Barrett M82A1,WAFFE,SCHARFSCHUETZE,Anti-Material,"Barrett M82A1 style .50 caliber anti-materiel rifle with arrow-shaped muzzle brake, bipod, 8x scope",,
+ERASER,Eraser,WAFFE,SCHARFSCHUETZE,Laser-Sniper,"sci-fi laser sniper rifle, white shell, red laser emitter at the muzzle, long rail scope",,
+MOONLIGHT,Moonlight,WAFFE,SCHARFSCHUETZE,Event-Sniper,sleek sniper rifle with silver crescent moon motifs and soft blue glowing accents,,
+OBLIVIONGUN_WHITE,Oblivion Gun (Weiß),WAFFE,SCHARFSCHUETZE,Sci-Fi-Sniper,"futuristic heavy energy rifle with segmented barrel and power cell, white finish",,
+OBLIVIONGUN_BLACK,Oblivion Gun (Schwarz),WAFFE,SCHARFSCHUETZE,Sci-Fi-Sniper,"futuristic heavy energy rifle with segmented barrel and power cell, black finish",,
+OBLIVIONGUN_DESERT,Oblivion Gun (Wüste),WAFFE,SCHARFSCHUETZE,Sci-Fi-Sniper,"futuristic heavy energy rifle with segmented barrel and power cell, desert tan finish",,
+SKELETON_SNIPER,Skelett-Sniper,WAFFE,SCHARFSCHUETZE,Halloween-Sniper,bone-themed sniper rifle with a skull-shaped stock and rib-cage handguard,,
+HALFMOON,Halfmoon,WAFFE,SCHARFSCHUETZE,Western-Sniper,wild west long-range buffalo rifle with crescent moon engravings and a long brass tube scope,,
+W1893,Winchester 1893,WAFFE,SCHROTFLINTE,Pump-Schrotflinte,"Winchester 1893 style pump-action shotgun, exposed hammer, walnut stock, long tube magazine",ja,"Schrotflinte, 8 bis 11 Kugeln pro Schuss, Pump-Action"
+MATIAZO,Matiazo,WAFFE,SCHROTFLINTE,Taktische Schrotflinte,"modern tactical semi-automatic shotgun, black finish, extended tube magazine, ghost-ring sights",,
+CACTUS_GUN,Kaktus-Flinte,WAFFE,SCHROTFLINTE,Western-Event,"cactus-themed shotgun, green body covered in small spines, wooden stock",,
+XMAS_PIGGUN,Schweinchen-Flinte,WAFFE,SCHROTFLINTE,Weihnachts-Event,"toy shotgun shaped like a pink piggy bank wearing a santa hat, coin slot on top",,
+BULLOCK,Bullock,WAFFE,SCHROTFLINTE,Doppellauf,double-barrel coach gun with bull horn decorations on the stock,,
+HORSESHOE,Horseshoe,WAFFE,SCHROTFLINTE,Western-Flinte,lever-action shotgun with horseshoe engravings on the receiver,,
+SUMMER_WATER_SPRAY_PUMP,Wasser-Pumpgun,WAFFE,SCHROTFLINTE,Wasser-Event,"pump-action water blaster, bright yellow and blue plastic, large water tank",,
+MG42,MG 42,WAFFE,SCHWER,Maschinengewehr,"MG 42 style belt-fed machine gun, perforated barrel jacket, bipod, ammunition belt",ja,"Maschinengewehr, Gurt, Ducken als Zweibein"
+M60_SPECIAL,M60,WAFFE,SCHWER,Maschinengewehr,"M60 style belt-fed machine gun, carry handle, bipod, ammunition belt",,
+M1918,M1918 BAR,WAFFE,SCHWER,Leichtes MG,"M1918 BAR style automatic rifle, wooden stock, 20-round box magazine, bipod",,
+VULCAN,M134 Vulcan,WAFFE,SCHWER,Minigun,M134 style six-barrel rotary minigun with carry handle and ammunition backpack feed,ja,"Minigun, Anlauf und Dauerfeuer-Sound als Schleife"
+RAVAGER,Ravager,WAFFE,SCHWER,Sci-Fi-MG,heavy sci-fi machine gun with dark red armor plates and a glowing ammo drum,,
+HELLGATE,Hellgate,WAFFE,SCHWER,Event-MG,"heavy belt-fed machine gun with demonic engravings, black metal with ember-red glow",,
+TSUNAMIRAMA,Tsunamirama,WAFFE,SCHWER,Wasser-Minigun,"toy water minigun with rotating barrels, blue plastic with wave decals, big water backpack",,
+XMAS_ROLLINGGUN,Weihnachts-Minigun,WAFFE,SCHWER,Weihnachts-Event,Christmas rotary minigun with candy-cane striped barrels and a gift-box ammo drum,,
+XMAS_BAZOOKA,Weihnachts-Bazooka,WAFFE,WERFER,Raketenwerfer,"Christmas bazooka wrapped like a present with ribbon, firing gift-box rockets",,
+BRICK_BOOMER,Brick Boomer,WAFFE,WERFER,Granatwerfer,chunky toy-like grenade launcher with a revolving drum that fires explosive toy bricks,,
+AIR_CANNON,Luftkanone,WAFFE,WERFER,Druckluft-Werfer,"pneumatic air cannon with a brass pressure tank, gauge and wide bell-shaped muzzle",,
+DRAKE3000,Drake 3000,WAFFE,WERFER,Raketenwerfer,dragon-themed rocket launcher with a dragon head at the muzzle and scale-pattern tube,,
+HELLFIRE,Hellfire,WAFFE,WERFER,Raketenwerfer,shoulder rocket launcher with flame decals and a glowing orange rear vent,ja,"Raketenwerfer, echtes Projektil mit Explosion"
+CROSSBOW_LAUNCHER,Armbrust,WAFFE,WERFER,Armbrust,"modern hunting crossbow, black limbs, wooden stock, steel string",ja,"Armbrust, Bolzen mit Schwerkraft, bleibt stecken"
+CROSSBOW_CONDOR,Armbrust Condor,WAFFE,WERFER,Präzisions-Armbrust,precision crossbow with a scope and bird-of-prey wing-shaped limbs,,
+CROSSBOW_HORNET,Armbrust Hornet,WAFFE,WERFER,Repetier-Armbrust,"repeating crossbow with a top box magazine, yellow and black hornet stripes",,
+CROSSBOW_HYDRA,Armbrust Hydra,WAFFE,WERFER,Spreng-Armbrust,three-headed crossbow with three stacked limbs and explosive-tipped bolts,,
+STAFF01,Magierstab,WAFFE,WERFER,Magie-Waffe,wooden magic staff with a glowing blue crystal orb held by twisted branches,,
+SHAFT,Shaft,WAFFE,WERFER,Schwere Armbrust,"heavy ballista-style crossbow, dark steel frame, thick bolts",,
+BMK,Kampfmesser,NAHKAMPF,MESSER,Messer,"military combat knife, black clip-point blade, rubber grip",ja,"Messer, schnell, Rückentreffer"
+M7,M7 Bajonett,NAHKAMPF,MESSER,Bajonett,"M7 bayonet, parkerized steel blade, ribbed black grip, muzzle ring",,
+THIEF_STICK,Diebes-Dolch,NAHKAMPF,MESSER,Event-Dolch,curved thief dagger with a wrapped leather grip and small green gem,,
+WRENCH,Schraubenschlüssel,NAHKAMPF,WERKZEUG,Werkzeug,"large steel open-end wrench, chrome finish, worn red rubber handle",ja,"Werkzeug, mittlere Reichweite"
+PIPE_WRENCH,Rohrzange,NAHKAMPF,WERKZEUG,Werkzeug,heavy red pipe wrench with steel jaws,,
+BILLY_CLUB,Schlagstock,NAHKAMPF,WERKZEUG,Knüppel,"police baton, black hardwood with leather wrist strap",,
+FRYPAN,Bratpfanne,NAHKAMPF,WERKZEUG,Event,cast-iron frying pan with a dented black pan and wooden handle,,
+XMASWINEBOTTLE,Weinflasche,NAHKAMPF,WERKZEUG,Event,green glass wine bottle with a festive red ribbon and cork,,
+XMAS_STICK01,Zuckerstange,NAHKAMPF,WERKZEUG,Weihnachts-Stick,giant red and white candy cane,,
+XMAS_STICK02,Christbaum-Stick,NAHKAMPF,WERKZEUG,Weihnachts-Stick,small decorated Christmas tree on a wooden handle,,
+XMAS_STICK03,Lebkuchen-Stick,NAHKAMPF,WERKZEUG,Weihnachts-Stick,giant gingerbread man on a stick with icing details,,
+WINTER_STICK01,Eiszapfen,NAHKAMPF,WERKZEUG,Winter-Stick,sharp blue ice icicle club with frost details,,
+WINTER_STICK02,Schneeschaufel,NAHKAMPF,WERKZEUG,Winter-Stick,red snow shovel with a wooden handle,,
+VALENTINESTICK,Herz-Stick,NAHKAMPF,WERKZEUG,Valentins-Stick,pink heart-shaped mallet on a white handle,,
+EVENT19_STICK,Event-Stick 19,NAHKAMPF,WERKZEUG,Event-Stick,festive event baton with colorful ribbons and a star on top,,
+EASTER02_STICK,Oster-Stick,NAHKAMPF,WERKZEUG,Oster-Stick,giant carrot club with green leaves,,
+WAL01_STICK,Halloween-Stick 1,NAHKAMPF,WERKZEUG,Halloween-Stick,witch broom with twisted wooden handle,,
+WAL02_STICK,Halloween-Stick 2,NAHKAMPF,WERKZEUG,Halloween-Stick,spooky bone club with a small skull at the end,,
+ARCHER_STICK,Bogenschützen-Stick,NAHKAMPF,WERKZEUG,Fantasy-Stick,elven short sword with leaf-shaped blade,,
+MAGE_STICK,Magier-Stick,NAHKAMPF,WERKZEUG,Fantasy-Stick,short magic wand with a purple crystal tip,,
+KING_STICK,Königs-Zepter,NAHKAMPF,WERKZEUG,Fantasy-Stick,golden royal scepter with a red jewel and crown top,,
+PRINCESS_STICK,Prinzessinnen-Stab,NAHKAMPF,WERKZEUG,Fantasy-Stick,pink princess wand with a heart and sparkling star,,
+WATERSTICK,Wasser-Stick,NAHKAMPF,WERKZEUG,Sommer-Stick,"inflatable pool noodle club, bright blue",,
+SUM02STICK,Sommer-Stick,NAHKAMPF,WERKZEUG,Sommer-Stick,"inflatable palm tree club, green and yellow",,
+SUMMER_WATER_STICK02,Wasser-Stick 2,NAHKAMPF,WERKZEUG,Sommer-Stick,"inflatable shark club, grey and white",,
+W_INDEPENDENCE_STICK,Independence-Stick,NAHKAMPF,WERKZEUG,Event-Stick,patriotic baton with stars and stripes and a small flag,,
+YD_STICK,YD-Stick,NAHKAMPF,WERKZEUG,Event-Stick,decorated wooden event club with painted patterns,,
+DRAGON_STICK,Drachen-Stick,NAHKAMPF,WERKZEUG,Fantasy-Stick,dragon bone sword with scale-textured grip,,
+CENTAURUS_STICK,Centaurus-Stick,NAHKAMPF,WERKZEUG,Fantasy-Stick,bronze spear-club with a horse head pommel,,
+DARKKNIGHT_STICK,Dunkelritter-Stick,NAHKAMPF,WERKZEUG,Fantasy-Stick,black knight greatsword with red runes,,
+GRIFFON_STICK,Greifen-Stick,NAHKAMPF,WERKZEUG,Fantasy-Stick,golden saber with griffon wing guard,,
+ORC_STICK,Ork-Stick,NAHKAMPF,WERKZEUG,Fantasy-Stick,crude orc cleaver with a spiked wooden handle,,
+WARLOCK_STICK,Hexer-Stick,NAHKAMPF,WERKZEUG,Fantasy-Stick,warlock rod with a green glowing skull,,
+FRENCH_COSTUME_STICK,Französischer Säbel,NAHKAMPF,WERKZEUG,Kostüm-Stick,french baguette club with a red-white-blue ribbon,,
+LOLLIPOP_STICK,Lutscher,NAHKAMPF,WERKZEUG,Event-Stick,giant swirl lollipop in rainbow colors,,
+BAMBUSOIDEAE_STICK,Bambus-Stick,NAHKAMPF,WERKZEUG,Event-Stick,green bamboo staff with leaves,,
+ROSE_STICK,Rosen-Stick,NAHKAMPF,WERKZEUG,Event-Stick,long-stemmed red rose with thorns,,
+DEVILSTICK,Teufels-Stick,NAHKAMPF,WERKZEUG,Halloween-Stick,red devil pitchfork,,
+PUMPKINSTICK,Kürbis-Stick,NAHKAMPF,WERKZEUG,Halloween-Stick,jack-o-lantern mace on a wooden handle,,
+SKULLSTICK,Schädel-Stick,NAHKAMPF,WERKZEUG,Halloween-Stick,skull-topped bone scepter,,
+PSYCHOPATH_STICK,Psychopath-Stick,NAHKAMPF,WERKZEUG,Halloween-Stick,"rusty meat cleaver with a taped handle, cartoonish not gory",,
+TOY_HAMMER,Spielzeughammer,NAHKAMPF,SCHWER,Squeak-Hammer,oversized red and yellow plastic toy squeaky hammer,,
+TOYHAMMER_BLUE,Spielzeughammer (Blau),NAHKAMPF,SCHWER,Squeak-Hammer,oversized blue and white plastic toy squeaky hammer,,
+EVENT_HAMMER,Event-Hammer,NAHKAMPF,SCHWER,Event-Hammer,festive oversized mallet with colorful confetti pattern,,
+CONTEST_HAMMER,Turnier-Hammer,NAHKAMPF,SCHWER,Trophäen-Hammer,golden trophy war hammer with laurel engravings,,
+FIELD_SHOVEL,Feldspaten,NAHKAMPF,SCHWER,Spaten,"military folding field shovel, olive drab steel blade, wooden handle",ja,"Schwere Nahkampfwaffe, breiter Schwung, Brick-Schaden"
+KNIGHT_STICK,Ritterschwert,NAHKAMPF,SCHWER,Fantasy-Schwert,medieval knight longsword with crossguard and leather-wrapped grip,,
+REAPER_STICK,Sense,NAHKAMPF,SCHWER,Halloween-Sense,grim reaper scythe with a long curved blade and dark wooden shaft,,
+LIGHT_SAVER,Lichtschwert,NAHKAMPF,ENERGIE,Energieklinge,energy sword with a glowing blue plasma blade and metal hilt,,
+LIGHT_SAVER_R,Lichtschwert (Rot),NAHKAMPF,ENERGIE,Energieklinge,energy sword with a glowing red plasma blade and dark metal hilt,,
+GRENADE,Granate,GRANATE,SPLITTER,Splittergranate,round olive-green fragmentation hand grenade with spoon lever and pull ring,ja,"Zeitzünder, Splitterschaden"
+KG400,KG-400,GRANATE,SPLITTER,Splittergranate,"modern oval fragmentation grenade, dark grey body, yellow marking band",,
+KG440,KGS-440,GRANATE,SPLITTER,Große Splittergranate,"large cylindrical high-explosive grenade, olive drab with stenciled stripes",,
+WATERBOMB,Wasserbombe,GRANATE,SPLITTER,Wasser-Event,blue water balloon tied with a knot,,
+XMASBOMB01,Christbaumkugel-Bombe,GRANATE,SPLITTER,Weihnachts-Event,shiny red Christmas ornament bauble with a fuse on top,,
+XMASBOMB02,Geschenk-Bombe,GRANATE,SPLITTER,Weihnachts-Event,small wrapped gift box with a ribbon bow and a lit fuse,,
+DEVILBOMB,Teufels-Bombe,GRANATE,SPLITTER,Halloween-Event,round red bomb with devil horns and a tail fuse,,
+PUMPKINBOMB,Kürbis-Bombe,GRANATE,SPLITTER,Halloween-Event,jack-o-lantern pumpkin bomb with a stem fuse,,
+EGGBOMB,Oster-Bombe,GRANATE,SPLITTER,Oster-Event,painted easter egg bomb with colorful stripes and a fuse,,
+CARROT_BOMB,Karotten-Bombe,GRANATE,SPLITTER,Event,carrot-shaped grenade with leafy pull ring,,
+CACTUS_BOMB,Kaktus-Bombe,GRANATE,SPLITTER,Western-Event,small potted cactus bomb with a fuse,,
+PSYCHOPATH_BOMB,Psychopath-Bombe,GRANATE,SPLITTER,Halloween-Event,cartoon jar of mysterious green goo with a fuse lid,,
+S3_BOMB01,Saison-Bombe 1,GRANATE,SPLITTER,Event,classic black cartoon bomb with a white skull label and fuse,,
+S3_BOMB02,Saison-Bombe 2,GRANATE,SPLITTER,Event,classic black cartoon bomb with a gold star label and fuse,,
+SPACEBOMB_SPECIAL,Weltraum-Bombe,GRANATE,SPLITTER,Sci-Fi-Event,"sci-fi plasma grenade, silver sphere with glowing cyan rings",,
+CLOCKBOMB,Zeitbombe,GRANATE,ZEITBOMBE,Zeitzünder,time bomb: bundle of red dynamite sticks with an analog alarm clock and wires,ja,"Platzieren, haftet, großer Brick-Schaden"
+TNT_BOMB,TNT,GRANATE,ZEITBOMBE,Zeitzünder,wooden crate of TNT with stenciled letters and a long fuse,,
+SENSBOMB,Sensorbombe,GRANATE,SENSOR,Annäherungsmine,"flat proximity mine, grey metal disc with a blinking red sensor light",ja,Annäherungsmine
+REMOCON_SPECIAL,Fernzünder,GRANATE,FERNZUENDER,Fernzündung,remote detonator with an antenna and a red push button,ja,Fernzündung per zweitem Klick
+RIG_BOMB_SPECIAL,Rig-Bombe,GRANATE,FERNZUENDER,Fernzündung,sticky explosive charge pack with a blinking receiver and antenna,,
+FLASHBANG,Blendgranate,GRANATE,BLEND,Blendgranate,"cylindrical stun grenade, light grey with perforated holes and pull ring",ja,Blendung
+FLASH_SPECIAL,Blendgranate Spezial,GRANATE,BLEND,Blendgranate,"special-edition stun grenade, white body with blue stripe and perforated holes",,
+SMOKE,Rauchgranate,GRANATE,RAUCH,Rauchgranate,"cylindrical smoke grenade, green-grey can with spoon lever and stenciled label",ja,Sichtschutz
+POISON,Giftgranate,GRANATE,GIFT,Giftgranate,"toxic gas grenade, green glass canister with a hazard ring, cartoonish",ja,Schaden über Zeit in einer Wolke
+REDDOT,Rotpunkt,VISIER,VISIER,1.3x Reflexvisier,compact red dot reflex sight with a tube body and rail mount,ja,Visier der M4
+HOLO,Holo-Visier,VISIER,VISIER,1.5x Holografisch,holographic weapon sight with a rectangular window and rail mount,ja,Visier der SCAR-H
+ACOG2,Zielfernrohr 2x,VISIER,VISIER,2x Optik,short 2x prism rifle scope with rail mount,ja,Visier der K11
+ACOG4,Zielfernrohr 4x,VISIER,VISIER,4x Optik,4x ACOG-style combat optic with fiber-optic on top,,
+SNIPER6,Sniper-Zielfernrohr 6x,VISIER,VISIER,6x Sniper,"6x sniper scope, matte black tube, turrets, rings",,
+SNIPER_2STUFEN,Sniper 4x/10x,VISIER,VISIER,Zweistufig,variable 4-10x long-range sniper scope with large objective lens and adjustable turrets,ja,"Visier der AWM, zwei Zoomstufen"
+ANTIMAT,Anti-Material 8x,VISIER,VISIER,8x schwer,heavy 8x anti-materiel scope with thick tube and sunshade,,
+heal30,Heiltrank (klein),ITEM,CONSUMABLE,+30 HP,small round glass potion bottle with bright green glowing liquid and cork,,
+heal50,Heiltrank (mittel),ITEM,CONSUMABLE,+50 HP,"medium glass potion bottle with bright green glowing liquid, cork and leather strap",ja,Heilung (klein und groß später als Größen-Varianten)
+heal,Heiltrank (groß),ITEM,CONSUMABLE,+100 HP,"large glass potion flask with bright green glowing liquid, cork and a golden label",,
+auto_heal,Regenerations-Elixier,ITEM,CONSUMABLE,Passive Heilung,tall slim vial with swirling pale green liquid and a leaf emblem,ja,Passive Regeneration
+speedup,Tempo-Trank,ITEM,CONSUMABLE,Laufen ×1.75,glass potion bottle with electric blue fizzy liquid and a lightning bolt label,ja,Tempo-Buff
+armor_potion,Rüstungstrank,ITEM,CONSUMABLE,+25 Schild,sturdy glass potion with golden-yellow liquid and a small metal shield emblem,,
+antidote,Gegengift,ITEM,CONSUMABLE,Heilt Gift und Blendung,small vial with milky white liquid and a green cross label,,
+adrenaline,Adrenalin-Spritze,ITEM,CONSUMABLE,Keine Verlangsamung,"medical auto-injector pen, white with red cap and a heartbeat symbol",,
+heartbeat_radar,Herzschlag-Sensor,ITEM,CONSUMABLE,Gegner auf Minimap,handheld heartbeat sensor device with a green radar screen,ja,Gegner auf der Minimap
+pistol_ammo,Munitionskiste Pistole,ITEM,CONSUMABLE,+2 Magazine,small olive ammo box with a pistol cartridge symbol,,
+submachine_ammo,Munitionskiste MP,ITEM,CONSUMABLE,+2 Magazine,olive ammo box with an SMG magazine symbol,,
+assault_ammo,Munitionskiste Sturmgewehr,ITEM,CONSUMABLE,+2 Magazine,olive metal ammo can with a rifle cartridge symbol,ja,Munition nachfüllen (eine Kiste für alle Waffen reicht vorerst)
+sniper_ammo,Munitionskiste Sniper,ITEM,CONSUMABLE,+2 Magazine,long olive ammo case with a long rifle cartridge symbol,,
+heavy_ammo,Munitionskiste Schwer,ITEM,CONSUMABLE,+1 Magazin,large olive ammo crate with ammunition belt hanging out,,
+grenade_ammo,Granaten-Nachschub,ITEM,CONSUMABLE,+1 Granate,small wooden crate with two hand grenades in foam slots,,
+auto_reload,Auto-Nachladen,ITEM,CONSUMABLE,Passiv,icon of a magazine with a circular reload arrow,ja,Automatisches Nachladen
+respawn,Sofort-Respawn,ITEM,CONSUMABLE,Respawn sofort,"glowing respawn beacon token, golden ring with upward arrow",ja,Sofort-Respawn
+just_respawn,Direkt-Respawn,ITEM,CONSUMABLE,Respawn automatisch,glowing golden phoenix feather token,,
+PRJ_PISTOLE,Pistole,PROJEKTIL,PISTOLE,9×19 mm,short round-nose brass 9mm pistol bullet,ja,Pistole und MP
+PRJ_MP,Maschinenpistole,PROJEKTIL,MP,9×19 mm,short round-nose brass 9mm bullet with faint tracer,,
+PRJ_STURMGEWEHR,Sturmgewehr,PROJEKTIL,STURMGEWEHR,5.56×45 mm,pointed brass 5.56mm rifle bullet with yellow-orange tracer,ja,"Sturmgewehr, Kampfgewehr, LMG"
+PRJ_KAMPFGEWEHR,Kampfgewehr,PROJEKTIL,KAMPFGEWEHR,7.62×51 mm,long pointed brass 7.62mm rifle bullet with bright tracer,,
+PRJ_SCHARFSCHUETZE,Scharfschütze,PROJEKTIL,SCHARFSCHUETZE,.338 / .50 BMG,long heavy brass sniper bullet with long white tracer and air distortion,ja,Sniper
+PRJ_SCHROTFLINTE,Schrotflinte,PROJEKTIL,SCHROTFLINTE,12 Gauge,red 12 gauge shotgun shell with brass head and a spray of small pellets,ja,Schrotflinte
+PRJ_MG,Maschinengewehr,PROJEKTIL,MG,7.92×57 mm,long brass machine gun bullet with red-orange tracer,ja,MG und Minigun
+PRJ_LMG,Leichtes MG,PROJEKTIL,LMG,5.56 / .30-06,pointed brass rifle bullet with yellow tracer,,
+PRJ_MINIGUN,Minigun,PROJEKTIL,MINIGUN,7.62×51 mm,stream of brass bullets forming a continuous orange tracer beam,,
+PRJ_WERFER,Rakete,PROJEKTIL,WERFER,Rakete / 40 mm,"olive-green rocket with fins, bright exhaust flame and grey smoke trail",ja,Raketenwerfer
+PRJ_ARMBRUST,Armbrustbolzen,PROJEKTIL,ARMBRUST,Bolzen,crossbow bolt with steel broadhead tip and red fletching,ja,Armbrust
+FX_MUZZLE_S,Mündungsfeuer S,FX,FX,"Pistole, MP","small muzzle flash, side view, three-pointed star burst, warm yellow-white",ja,"Pistole, MP"
+FX_MUZZLE_M,Mündungsfeuer M,FX,FX,Gewehre,"medium muzzle flash, side view, star burst with short flame tongues, orange-yellow",ja,Gewehre
+FX_MUZZLE_L,Mündungsfeuer L,FX,FX,"Sniper, Schrot, MG","large muzzle flash with smoke puff, side view, bright orange core",ja,"Sniper, Schrotflinte, MG, Minigun"
+FX_MUZZLE_XL,Mündungsfeuer XL,FX,FX,Minigun,"rotating ring of muzzle flashes, very bright, orange-white",,
+FX_SHELL,Hülsenauswurf,FX,FX,Alle Schusswaffen,"ejected brass shell casings tumbling, small, medium and large sizes",ja,Hülsenauswurf aller Schusswaffen
+FX_IMPACT_BRICK,Einschlag Brick,FX,FX,Brick-Oberfläche,bullet impact on a plastic toy brick: chips of colored plastic and dust puff,ja,Treffer auf Bricks
+FX_IMPACT_METAL,Einschlag Metall,FX,FX,Metall,bullet impact on metal: bright sparks and small smoke puff,ja,Treffer auf Metall
+FX_IMPACT_GLASS,Einschlag Glas,FX,FX,Glas,bullet impact on glass: cracked glass shards flying,ja,Treffer auf zerstörbares Glas
+FX_IMPACT_WOOD,Einschlag Holz,FX,FX,Holz,bullet impact on wood: splinters and sawdust,,
+FX_IMPACT_WATER,Einschlag Wasser,FX,FX,Wasser,bullet impact on water: small splash column and droplets,,
+FX_IMPACT_PLAYER,Treffer Spieler,FX,FX,Spieler,"stylized hit effect on a character: short red spark burst, non-gory",ja,Treffer auf Spieler
+FX_IMPACT_CHILD,Treffer Spieler (unter 12),FX,FX,Jugendversion,"cartoon hit effect: yellow stars and white sparkles, no blood",,
+FX_IMPACT_LUCKY,Glückstreffer,FX,FX,Lucky-Treffer,golden star burst with sparkles,,
+FX_DECAL_HOLE,Einschussloch,FX,FX,Decal,"bullet hole decal with radial cracks, sizes small, medium, large",ja,Einschusslöcher
+FX_EXPLOSION,Explosion,FX,FX,"Granate, Rakete","fiery explosion with debris and toy brick fragments, orange core and dark smoke",ja,Alle Explosionen (Zeitbombe skaliert)
+FX_EXPLOSION_C4,Große Explosion,FX,FX,"Zeitbombe, Fernzünder",large explosion with shockwave ring and many brick fragments,,
+FX_FLASH,Blendblitz,FX,FX,Blendgranate,blinding white flash burst with lens glare,ja,Blendgranate
+FX_SMOKE,Rauchwolke,FX,FX,Rauchgranate,"thick billowing grey-white smoke cloud, looping",ja,Rauchgranate
+FX_POISON,Giftwolke,FX,FX,Giftgranate,"toxic green gas cloud with bubbles, looping",ja,Giftgranate
+FX_WATER_SPLASH,Wasserexplosion,FX,FX,Wasser-Event,big water balloon splash with droplets,,
+FX_SLASH_TRAIL,Schlag-Trail,FX,FX,Nahkampf,"curved melee swing trail, white arc fading out",ja,Nahkampf-Schläge
+FX_ENERGY_TRAIL,Energie-Trail,FX,FX,Lichtschwert,"glowing plasma blade swing trail, blue and red variants",,
+FX_HEAL,Heil-Effekt,FX,FX,Heiltränke,"green healing sparkles rising in a spiral around a character, ring on the ground",ja,Heilung
+FX_SPEED,Tempo-Effekt,FX,FX,Tempo-Trank,blue speed lines and wind streaks,ja,Tempo-Buff
+FX_SHIELD,Schild-Effekt,FX,FX,Rüstungstrank,golden translucent energy shell around a character,,
+FX_RADAR,Radar-Puls,FX,FX,Herzschlag-Sensor,expanding red radar pulse ring,ja,Herzschlag-Sensor
+FX_SPAWN,Spawn-Blitz,FX,FX,Respawn,vertical beam of light with sparkles for respawn,ja,Respawn
