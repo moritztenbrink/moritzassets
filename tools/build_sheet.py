@@ -1,14 +1,26 @@
 """Baut die Artefakte in artifact/ aus ihren *.template.html und data/*.csv.
 
+Jede Seite bekommt nur die Daten-Keys, die sie braucht (PAGES). Templates mit dem
+Platzhalter /*__SHEET__*/"" bekommen zusätzlich das UI-Asset-Sheet als data:-URI.
+
 Aufruf:  python3 tools/build_sheet.py
 """
+import base64
 import csv
 import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data"
-PAGES = ["waffenkammer", "asset-katalog"]
+SHEET = ROOT / "ref" / "ui-asset-sheet.webp"
+SHEET_MARK = '/*__SHEET__*/""'
+
+WAFFEN = ["guns", "melee", "throw", "scopes", "cons", "list", "assets"]
+PAGES = {
+    "waffenkammer": WAFFEN,
+    "asset-katalog": WAFFEN,
+    "ui-katalog": ["ui", "uimig"],
+}
 
 FILES = {
     "guns": "schusswaffen.csv",
@@ -18,6 +30,8 @@ FILES = {
     "cons": "consumables.csv",
     "list": "waffenliste.csv",
     "assets": "assets.csv",
+    "ui": "ui_assets.csv",
+    "uimig": "ui_migration.csv",
 }
 
 
@@ -33,13 +47,21 @@ def load(name):
         return [{k: convert(v) for k, v in row.items()} for row in csv.DictReader(f)]
 
 
+def sheet_uri():
+    data = base64.b64encode(SHEET.read_bytes()).decode("ascii")
+    return json.dumps(f"data:image/webp;base64,{data}")
+
+
 def main():
-    data = {key: load(name) for key, name in FILES.items()}
-    payload = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
-    for page in PAGES:
+    keys = list(dict.fromkeys(k for page_keys in PAGES.values() for k in page_keys))
+    data = {key: load(FILES[key]) for key in keys}
+    for page, page_keys in PAGES.items():
         template = ROOT / "artifact" / f"{page}.template.html"
         output = ROOT / "artifact" / f"{page}.html"
+        payload = json.dumps({k: data[k] for k in page_keys}, ensure_ascii=False, separators=(",", ":"))
         html = template.read_text(encoding="utf-8").replace("/*__DATA__*/null", payload)
+        if SHEET_MARK in html:
+            html = html.replace(SHEET_MARK, sheet_uri())
         output.write_text(html, encoding="utf-8")
         print(f"{output.relative_to(ROOT)} geschrieben ({len(html) // 1024} KB)")
 
