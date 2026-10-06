@@ -28,6 +28,7 @@ Struktur und Abläufe folgen großen Games (Valorant, Fortnite, CoD, Apex). Kein
 1. [Ziel & Prinzipien](#1-ziel--prinzipien)
 2. [Vorbilder](#2-vorbilder)
 3. [Screen-Map](#3-screen-map)
+   - [3a. TEAM-Funktionen (NEU)](#3a-team-funktionen-neu)
 4. [Kleines Esc-Menü & Bauplatz-Fenster](#4-kleines-esc-menü--bauplatz-fenster)
 5. [Tab-Liste](#5-tab-liste)
 6. [Navigations-Flows](#6-navigations-flows)
@@ -114,11 +115,11 @@ Brixel-UI
 │     ├─ SPIND ........ Loadout · Aussehen · Inventar · Werkstatt · Testgelände
 │     ├─ LADEN ........ Empfohlen · Katalog · Glücksbrett
 │     ├─ KARRIERE ..... Profil · Match-Verlauf · Replays & Highlights · Waffen-Mastery · Erfolge · Tagesmissionen · Bestenlisten
-│     ├─ TEAM-Seite (Schild, nur Staff): Moderation · Spieler · Replays · Bühne · Entwickler · Verwaltung
+│     ├─ TEAM-Seite (Schild, nur Staff, Kapitel 3a): Moderation · Spielerverwaltung · Wirtschaft · Live-Betrieb · Entwicklung · Verwaltung
 │     ├─ System-Dropdown: Einstellungen · Hilfe und Support · Fehler melden · Foto-Modus · Spiel beenden
 │     ├─ Glocke-Verlauf (NEU)
 │     └─ Fußleiste: Statuszeile · Tastenhinweise
-├─ Bauplatz (B): Bau-HUD · kleines Esc-Menü → BAUPLATZ VERWALTEN (Bauplatz-Fenster) ..... Ebene 40
+├─ Bauplatz (B): Bau-HUD · kleines Esc-Menü (BAUPLATZ VERWALTEN; TEAM nur Staff, NEU) ... Ebene 40
 ├─ Asset-Karte (A): kleines Esc-Menü (TEAM nur Staff) ................................ Ebene 40
 ├─ Match (M): Kampf-HUD/Bau-HUD · kleines Esc-Menü · Warteraum · Tab-Liste · Funkrad · Ergebnis
 ├─ Spiel-Overlays 30–34: Warteraum 30 · Tab-Liste 31 · Funkrad 33 · Palette, Bauvorlagen-Werkzeug 34
@@ -236,7 +237,7 @@ Außerhalb der Plaza (B, A) zeigt „AUS DEM LADEN“ in der Post den Hinweis �
 | Tagesmissionen | Karten mit „+XP · +Brix · +1 Münze“, Reset-Zeile | – |
 | Bestenlisten | „Bestenlisten“, „Die besten 100 Spieler …“; Chips Rang · Kills · Siege · Clans · Saison (bei laufender Saison) · Gewertet; Filter Modus (Kills, Siege), Warteschlange Team-Deathmatch / Entschärfung (Gewertet); Spalten PLATZ / SPIELER bzw. CLAN / RANG bzw. MITGLIEDER / XP, KILLS, SIEGE, PUNKTE oder WERTUNG; Zeile „Dein Platz“ | MEIN PROFIL (→ KARRIERE › Profil) |
 
-**Fremdes Profil** bleibt ein Popup (Ebene 51) mit den Reitern Übersicht und Waffen-Mastery und allen Knöpfen: FREUND ENTFERNEN / ANFRAGE ANNEHMEN / „ANFRAGE GESENDET“ / ALS FREUND · PARTY EINLADEN · FLÜSTERN · POST · SPERREN / ENTSPERREN · MELDEN · BESTENLISTEN · SCHLIESSEN. In P öffnen POST (Sozial-Panel › Post › Neue Nachricht an X) und BESTENLISTEN (KARRIERE › Bestenlisten) ihre Ziele. In B und A öffnet POST das Sozial-Panel; BESTENLISTEN zeigt „Nur in der Plaza“ mit ZUR PLAZA (**NEU**). **Im Match sind POST und BESTENLISTEN ausgeblendet (NEU)**: Es gibt dort weder Sozial noch Hub-Seiten (Begründung 3.14 #17).
+**Fremdes Profil** bleibt ein Popup (Ebene 51) mit den Reitern Übersicht und Waffen-Mastery und allen Knöpfen: FREUND ENTFERNEN / ANFRAGE ANNEHMEN / „ANFRAGE GESENDET“ / ALS FREUND · PARTY EINLADEN · FLÜSTERN · POST · SPERREN / ENTSPERREN · MELDEN · BESTENLISTEN · SCHLIESSEN, dazu **NEU** KONTO-AKTE ÖFFNEN (nur Staff mit Leserecht, auch im Match; 3a.5). In P öffnen POST (Sozial-Panel › Post › Neue Nachricht an X) und BESTENLISTEN (KARRIERE › Bestenlisten) ihre Ziele. In B und A öffnet POST das Sozial-Panel; BESTENLISTEN zeigt „Nur in der Plaza“ mit ZUR PLAZA (**NEU**). **Im Match sind POST und BESTENLISTEN ausgeblendet (NEU)**: Es gibt dort weder Sozial noch Hub-Seiten (Begründung 3.14 #17).
 **Eigenes Profil außerhalb des Hubs** (B, A, M): dasselbe Popup im Eigen-Modus mit allen 4 Reitern (Übersicht · Waffen-Mastery · Erfolge · Tagesmissionen), geöffnet über die eigene Zeile der Tab-Liste (Kapitel 5).
 
 ### 3.9 Sozial-Panel, TEAM-Seite
@@ -263,7 +264,7 @@ Außerhalb der Plaza (B, A) zeigt „AUS DEM LADEN“ in der Post den Hinweis �
 
 Für alle Sozial-Ansichten gilt der gemeinsame Bestätigungsdialog (z. B. „Clan auflösen?“, „Nachricht löschen?“, „Leitung übergeben?“) mit OK bzw. Aktion und ABBRECHEN.
 
-**TEAM-Seite** (**NEU** als Vollbild-Seite; Staff). Zugang: in P über das rote TEAM-Schild, in A über TEAM im kleinen Menü. Chat-Befehle öffnen den Baukasten wie heute ohne Modus-Sperre: in P, B und A die TEAM-Seite direkt beim jeweiligen Menü (in B und A als Einzelseite `page.team` ohne Hub-Leisten, Ebene 40), **im Match** den Baukasten als eigenes Modal (Ebene 50, wie heute), jeweils mit dem Argument `[name]` (z. B. `/spieler [name]`, `/replays [name]`). Schild und Menü-Eintrag gibt es im Match nicht (wie heute „nicht im Match“). Die Seite hat eine linke Liste der Rollen-Menüs und wird vom Baukasten (`ServerMenuPanel`) gerendert; es erscheinen nur die Menüs, die die Rolle darf.
+**TEAM-Seite** (**NEU** als Vollbild-Seite; Staff). Zugang: in P über das rote TEAM-Schild, in A und (**NEU**) B über TEAM im kleinen Menü, dazu KONTO-AKTE ÖFFNEN in den Spieler-Aktionen (**NEU**, 3a.5). Chat-Befehle öffnen den Baukasten wie heute ohne Modus-Sperre: in P, B und A die TEAM-Seite direkt beim jeweiligen Menü (in B und A als Einzelseite `page.team` ohne Hub-Leisten, Ebene 40), **im Match** den Baukasten als eigenes Modal (Ebene 50, wie heute), jeweils mit dem Argument `[name]` (z. B. `/spieler [name]`, `/replays [name]`). Schild und Menü-Eintrag gibt es im Match nicht (wie heute „nicht im Match“). Die Seite hat eine linke Liste der Rollen-Menüs und wird vom Baukasten (`ServerMenuPanel`) gerendert; es erscheinen nur die Menüs, die die Rolle darf.
 
 | Menü | Chat-Befehl | Rollen | Inhalt (Inventar) |
 |---|---|---|---|
@@ -275,6 +276,8 @@ Für alle Sozial-Ansichten gilt der gemeinsame Bestätigungsdialog (z. B. „Cla
 | Verwaltung | /rolle | Admin | „Rolle setzen“ (Konto, Rolle player / moderator / developer / admin / owner (**NEU**, admin und owner nur durch OWNER), Grund); „XP setzen“ (Konto, XP gesamt, Grund) |
 
 Der Renderer bekommt neue Skins für alle 8 Element-Arten: Heading, Text, Info (Label/Wert), Row (klickbare Karte), Button (Normal / Primary / Danger / Muted, gruppierbar), Field, Select (Stepper), Separator. Dazu kommen die Meldungszeile, die Bestätigung „Bist du sicher?“ (JA, AUSFÜHREN / ABBRECHEN, Ebene 50) und die Effekte Wechsel, Client-Werkzeug (Asset-Aufnahmen), Inhalte neu laden, Bühne aktualisieren und Replay ansehen. Das alte SCHLIESSEN ist Esc bzw. Gamepad-B.
+
+**Ausbau (NEU, Kapitel 3a):** Die Menüs dieser Tabelle bleiben mit allen Inhalten und liegen in Kategorien: Moderation (Meldungen, Spieler, Replays, **NEU** Chat-Live, Sanktions-Verlauf) · **NEU** Spielerverwaltung (Konto-Akte) · **NEU** Wirtschaft · Live-Betrieb (Bühne, **NEU** Instanzen & Server, Wartung planen, Feature-Schalter) · Entwicklung (Entwickler, **NEU** Debug-Overlay, Client-Logs) · Verwaltung (Rollen & Rechte, **NEU** Staff-Liste, Audit-Log, Sicherheit, Freigaben). Dazu kommen ein roter Staff-Kopf mit eigenem Rollen-Badge, die Suche, die Rechte-Matrix, Sicherheitsregeln und 12 neue Element-Arten.
 
 ### 3.10 Einstellungen, System-Screens, HUD, Match, Popups
 
@@ -310,7 +313,7 @@ Der Renderer bekommt neue Skins für alle 8 Element-Arten: Heading, Text, Info (
 
 | Popup (Ebene) | Inhalt (Inventar) |
 |---|---|
-| Spieler-Aktionen (53) | Titel = Name, Status „Spricht gerade.“ / „Hier.“ / „Stumm geschaltet – …“; „LAUTSTÄRKE“: Regler, STUMM / AUFHEBEN; „MELDEN“: SPIELER, CHAT, SPRACHCHAT; „BAUPLATZ“ (Inhaber): BAURECHT GEBEN/NEHMEN, RAUSWERFEN; „RAUM“ (Raumleiter): ENTFERNEN; PROFIL, SCHLIESSEN; grüner Sprecher-Punkt in der Zeile. Aufrufer wie heute: Tab-Liste (früher Spielerliste und Punktestand), Warteraum, Ergebnis, Bauplatz-Mitbauer, Replay-Liste (Live). |
+| Spieler-Aktionen (53) | Titel = Name, Status „Spricht gerade.“ / „Hier.“ / „Stumm geschaltet – …“; „LAUTSTÄRKE“: Regler, STUMM / AUFHEBEN; „MELDEN“: SPIELER, CHAT, SPRACHCHAT; „BAUPLATZ“ (Inhaber): BAURECHT GEBEN/NEHMEN, RAUSWERFEN; „RAUM“ (Raumleiter): ENTFERNEN; **NEU** „TEAM“ (nur Staff mit Leserecht): KONTO-AKTE ÖFFNEN (3a.5); PROFIL, SCHLIESSEN; grüner Sprecher-Punkt in der Zeile. Aufrufer wie heute: Tab-Liste (früher Spielerliste und Punktestand), Warteraum, Ergebnis, Bauplatz-Mitbauer, Replay-Liste (Live). |
 | Melden (52) | „X melden“, „Die Moderation sieht sich die Meldung an …“; „WAS MELDEST DU?“ (Spieler / Chat / Sprachchat); „GRUND“ (Schummeln, Belästigung, Anstößiger Name, Spam, Sprachchat-Missbrauch, Sonstiges); „DETAILS (FREIWILLIG)“, bei Chat mit den letzten Zeilen vorbefüllt; MELDEN, ABBRECHEN |
 | Profil (51) | 3.8 |
 | Dialoge (50) | gemeinsamer Bestätigungsdialog (OK bzw. Aktion / ABBRECHEN), „Bist du sicher?“, „Anzeige beibehalten?“ und alle Unterdialoge der Seiten |
@@ -369,6 +372,7 @@ Alle Zähler des alten Esc-Menüs und der Sozial-Reiter-Chips bleiben erhalten, 
 | „Hilfe und Support · neue Antwort“ | Punkt am System-Knopf und Eintrag „Hilfe und Support · neue Antwort“ im Dropdown (P); HILFE UND SUPPORT im kleinen Menü mit Punkt (B, M); im Fenster Hilfe und Support am Ticket; Glocke | Punkt-Badge (8 px) |
 | „Gewertet · Suche läuft“ | Such-Pille (Top-Leiste bzw. HUD), Badge „Suche läuft“ an SPIELEN und am Unterreiter Gewertet | pulsierende Pille |
 | Rollen-Menüs (roter Marker) | TEAM-Schild rot | Schild statt Marker |
+| **NEU** TEAM-Zähler | TEAM-Schild und linke TEAM-Liste: offene Meldungen (MOD, ADMIN, OWNER), wartende Freigaben (nur OWNER; auch im Staff-Kopf) | `badge_counter` |
 | „(bald)“ | Schloss + Etikett „BALD“ (`badge_tag`) an Reiter oder Karte, wo eine Funktion noch nicht freigeschaltet ist | ausgegraut, nicht fokussierbar |
 | **NEU** Glocke | Anzahl ungelesener Einträge | Badge |
 | Weitere Seiten-Zähler | „Ankündigungen (n)“, „Events (n)“, „KOMMENTARE (n)“, „Plazas mit Bekannten (n)“, „RÜCKGÄNGIG (n)“, „WIEDERHOLEN (n)“ | bleiben im Text |
@@ -393,7 +397,8 @@ Esc und Gamepad-B gehen immer genau eine Ebene zurück; Esc ist fest belegt (Ste
 | 11 | kleines Esc-Menü / Bauplatz-Fenster / TEAM-Einzelseite (40) | Unterdialog → Seite → Bauplatz-Fenster → kleines Menü → zu |
 | 12 | Spiel-Overlays (30–34) | Palette, Bauvorlagen-Werkzeug, Funkrad schließen · Tab-Liste angeheftet → lösen · Warteraum wie heute |
 | 13 | Folgen-Karte aktiv, sonst nichts offen | bricht das Folgen ab (wie heute „Esc bricht ebenfalls ab“); es öffnet sich **kein** Menü |
-| 14 | nichts offen | P: Hub öffnen (LOBBY) · B, A, M: kleines Esc-Menü öffnen |
+| 14 | **NEU** Freie Kamera (Staff, 3a.2.7) aktiv | beendet die freie Kamera; es öffnet sich **kein** Menü |
+| 15 | nichts offen | P: Hub öffnen (LOBBY) · B, A, M: kleines Esc-Menü öffnen |
 
 ### 3.13 Eingabe-Belegung im Menü
 
@@ -427,8 +432,9 @@ Gamepad-Tasten heißen in diesem Dokument immer „Gamepad-A/B/X/Y“, weil Tast
 | Profil-Chip | KARRIERE › Profil |
 | Post-Knopf, HUD-Post-Zähler | Sozial-Panel › Post |
 | Sozial-Knopf, F bzw. Gamepad-Y, „+“-Platz | Sozial-Panel › Freunde |
-| TEAM-Schild (P), TEAM im kleinen Menü (A) | TEAM-Seite |
-| Chat-Befehl (/meldungen, /spieler [name], /replays [name], /buehne, /entwickler, /asset-karte, /rolle) | Baukasten beim passenden Menü mit Argument `[name]`: in P als TEAM-Seite im Hub, in B und A als TEAM-Seite (Einzelseite `page.team`), **im Match** als eigenes Modal (Ebene 50, wie heute) |
+| TEAM-Schild (P), TEAM im kleinen Menü (A, **NEU** B) | TEAM-Seite |
+| Chat-Befehl (/meldungen, /spieler [name], /replays [name], /buehne, /entwickler, /asset-karte, /rolle, **NEU** /akte [name]) | Baukasten beim passenden Menü mit Argument `[name]`: in P als TEAM-Seite im Hub, in B und A als TEAM-Seite (Einzelseite `page.team`), **im Match** als eigenes Modal (Ebene 50, wie heute) |
+| **NEU** KONTO-AKTE ÖFFNEN (Spieler-Aktionen, Profil-Popup, Sozial-Panel; nur Staff) | TEAM › Spielerverwaltung › Konto-Akte des Spielers; Ort wie bei den Chat-Befehlen (3a.5) |
 | Glocke-Eintrag, Benachrichtigungskarte | Ziel des Eintrags (z. B. Support-Antwort → Hilfe und Support, Ticket) |
 | Such-Pille | SPIELEN › Gewertet bzw. Schnellspiel |
 | Tagesmissionen-Widget (LOBBY) | KARRIERE › Tagesmissionen. Das HUD-Widget bleibt nicht klickbar; Weg: Esc → LOBBY bzw. KARRIERE › Tagesmissionen. |
@@ -437,10 +443,10 @@ Gamepad-Tasten heißen in diesem Dokument immer „Gamepad-A/B/X/Y“, weil Tast
 
 | Regel | Gilt für |
 |---|---|
-| Schalter | Tägliche Belohnung, Hilfe und Support, Fehler melden. Ist der Schalter aus, wird der Eintrag ausgeblendet (wie heute im Esc-Menü). |
-| Rollen | TEAM nur mit Rolle; nur Menüs, die die Rolle darf (Tabelle 3.9); im Namensschild Rollen-Abzeichen wie heute |
+| Schalter | Tägliche Belohnung, Hilfe und Support, Fehler melden; **NEU** dazu Events und Glücksbrett (TEAM › Live-Betrieb › Feature-Schalter, 3a.2.4). Ist der Schalter aus, wird der Eintrag ausgeblendet (wie heute im Esc-Menü). |
+| Rollen | TEAM nur mit Rolle; nur Menüs, die die Rolle darf (Tabelle 3.9, **NEU** Rechte-Matrix 3a.3); im Namensschild Rollen-Abzeichen wie heute |
 | nur Inhaber / Leitung | Veröffentlichen und ALS VORSCHAUBILD (Inhaber auf dem Bauplatz); „BAUPLATZ“ in Spieler-Aktionen (Inhaber); „RAUM“ › ENTFERNEN (Raumleiter); MATCH STARTEN (Master) |
-| nicht im Match | Sozial-Panel, Post, TEAM-Schild bzw. TEAM-Eintrag (Chat-Befehle gehen wie heute), Foto-Modus (außer als Geist/Zuschauer), Party-Liste |
+| nicht im Match | Sozial-Panel, Post, TEAM-Schild bzw. TEAM-Eintrag und TEAM-WERKZEUGE (Chat-Befehle und KONTO-AKTE ÖFFNEN gehen als Modal), Foto-Modus (außer als Geist/Zuschauer), Party-Liste |
 | nur Plaza | Hub mit allen Reitern, also auch Gewertet, Turniere, Zuschauen-Liste, Einführung, Tägliche Belohnung, Meine Maps/Mitbauen (früher Bau-Portal); MissionsWidget; Bühnen-Leinwand |
 | nur Bauplatz | Bauplatz-Fenster, Palette (Q), Bauvorlagen (X), ÜBERNEHMEN einer Vorlage |
 | Hinweis „Nur in der Plaza“ | Weil der Hub nur in der Plaza existiert, braucht keine Hub-Seite diesen Hinweis. Er erscheint dort, wo ein Querverweis in B oder A auf eine Hub-Seite zeigt (3.14 #23): statt der Aktion der Hinweis „Nur in der Plaza“ mit Knopf ZUR PLAZA. |
@@ -455,7 +461,7 @@ Gamepad-Tasten heißen in diesem Dokument immer „Gamepad-A/B/X/Y“, weil Tast
 | 2 | Hauptmenü nur in P; in B, A, M ein kleines Esc-Menü (Kapitel 4) | Im laufenden Spiel nur Spiel-Aktionen (Valorant, CoD) |
 | 3 | MEIN PROFIL steht nicht mehr im Esc-Menü. Eigenes Profil: P über Profil-Chip/KARRIERE, B/A/M über die eigene Zeile der Tab-Liste. | Kompakte In-Game-Menüs; das Profil gehört zur Karriere (Valorant, CoD) |
 | 4 | Auf der Asset-Karte (A) stehen Hilfe und Support und Fehler melden nicht im Menü; sie bleiben über EINSTELLUNGEN › Allgemein › Hilfe erreichbar (Support ÖFFNEN, Fehler melden MELDEN). | Kompaktes Menü auf einer Staff-Karte; die Funktion bleibt erreichbar. |
-| 5 | Auf B steht TEAM nicht im kleinen Menü. Rollen-Menüs gehen dort weiter über Chat-Befehle (wie heute). | Plan-Vorgabe; siehe offener Punkt 20/O3 |
+| 5 | TEAM steht im kleinen Menü auf A und B (nur Staff; auf B **NEU** gegenüber dem früheren Planstand, der TEAM dort weggelassen hatte), dazu **NEU** TEAM-WERKZEUGE (3a.2.7). Chat-Befehle gehen weiter überall. | Staff braucht Konto-Akte und Werkzeuge auch auf dem Bauplatz (z. B. Map sperren, Spieler holen); löst 20/O3 |
 | 6 | Tab-Liste: Halten statt Umschalten auch in P, B, A; Anheften per Rechtsklick in allen Modi | Einheitliches Verhalten wie bei Punktestand-Listen in Shootern (Counter-Strike, Valorant) |
 | 7 | ZUSCHAUEN direkt in der Freundes-Zeile (in P; in B/A „Nur in der Plaza“) | Zuschauen aus der Freundesliste (Fortnite) |
 | 8 | Replays für alle Spieler (Kapitel 19) | User-Wunsch; Replays in der Karriere (Fortnite, Overwatch) |
@@ -493,6 +499,352 @@ Gamepad-Tasten heißen in diesem Dokument immer „Gamepad-A/B/X/Y“, weil Tast
 | Spielerliste / Punktestand | Tab-Liste | alle Modi |
 
 ---
+## 3a. TEAM-Funktionen (NEU)
+Ausbau der TEAM-Seite (3.9) zu einem vollständigen Staff-Bereich: mehr Moderation, eine Konto-Akte je Spieler mit Inventar, allen Währungen und Fortschritt, dazu Wirtschaft, Live-Betrieb und Verwaltung mit Rechte-Matrix und Vier-Augen-Freigabe. Die sechs Rollen-Menüs aus dem Inventar bleiben mit allen Inhalten, Knopf-Texten und Chat-Befehlen erhalten (Tabelle 3.9) und werden nur in Kategorien einsortiert. Das Inventar-Menü „Moderation“ (/meldungen) heißt dabei **Meldungen** (**NEU**-Name), weil „Moderation“ jetzt die Kategorie ist. Alles andere in diesem Kapitel ist **NEU**. Gerendert wird weiter vom Baukasten (`ServerMenuPanel`): Der Server baut jede Seite und prüft jedes Recht, der Client zeigt nur an (3a.7).
+
+### 3a.1 Aufbau der TEAM-Seite
+```
+┌────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Top-Leiste des Hubs (nur P)                                                                │
+├────────────────────────────────────────────────────────────────────────────────────────────┤
+│ TEAM  [ADMIN] Kai · Admin                     FREIGABEN 2 · UNSICHTBAR ○ · FREIE KAMERA    │  ← Staff-Kopf frame_staff_header (rot), Höhe 72
+├━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┤  ← Akzentlinie staff.line, 2 px (divider_staff)
+│ [Suche] Name, Konto-ID, Replay-ID, Map ┃ KONTO-AKTE                                        │
+│ ZULETZT GEÖFFNET                       ┃ ┌──────────────────────────────────────────────┐  │
+│   Spieler123 · Konto-Akte       5 Min. ┃ │ [12] Spieler123 [MOD] • Plaza 2 · 4F2A-91C3  │  │  ← Konto-Kopf
+│   Replay 88120 · Entschärfung   1 Std. ┃ │ STUMM 2 STD.  TELEPORTIEREN ZU · HOLEN · …   │  │
+│ MODERATION                             ┃ └──────────────────────────────────────────────┘  │
+│   Meldungen                         12 ┃ Übersicht · Währungen · Inventar · … · Protokoll  │  ← Tabs
+│   Spieler                              ┃ ┌──────────────────────────────────────────────┐  │
+│   Chat-Live                            ┃ │ Inhalt des Reiters (vom Server gebaut)       │  │
+│   Replays                              ┃ │                                              │  │
+│   Sanktions-Verlauf                    ┃ │                                              │  │
+│ SPIELERVERWALTUNG                      ┃ │                                              │  │
+│ ▌ Konto-Akte                           ┃ │                                              │  │
+│ WIRTSCHAFT · LIVE-BETRIEB              ┃ │                                              │  │
+│ ENTWICKLUNG · VERWALTUNG               ┃ └──────────────────────────────────────────────┘  │
+├────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Statuszeile                               [Esc] Zurück · [Enter] Auswählen · [1–0] Reiter  │  ← Fußleiste des Hubs
+└────────────────────────────────────────────────────────────────────────────────────────────┘
+  linke Liste 384 breit (sidebar_panel), Inhalt im 12-Spalten-Raster des Hubs
+```
+
+| Zone | Inhalt | Verhalten |
+|---|---|---|
+| Staff-Kopf (`frame_staff_header`, Höhe 72) | „TEAM“, eigenes Rollen-Badge (`role_owner` / `role_admin` / `role_dev` / `role_mod`), eigener Name und Rolle. Rechts nur für OWNER „FREIGABEN n“ (→ Verwaltung › Freigaben), dazu die Werkzeuge UNSICHTBAR (Schalter) und FREIE KAMERA, soweit die Rolle sie darf (3a.2.7). | Roter Kopf = Staff-Bereich. Er steht auf jeder Staff-Ansicht: TEAM-Seite (P), TEAM-Einzelseite (B, A) und Baukasten-Modal im Match. |
+| Akzentlinie (`divider_staff`, `staff.line`, 2 px) | unter dem Staff-Kopf über die volle Breite, am linken Rand des Inhalts, oben an jedem Staff-Dialog und am Block „TEAM“ der Spieler-Aktionen | macht jede Staff-Fläche erkennbar, auch Dialoge über dem Spiel |
+| Suchfeld (`input_search`, oben in der linken Liste) | Platzhalter „Spieler, Konto-ID, Replay-ID, Map …“. Treffer gruppiert: SPIELER (Rang-Abzeichen, Name, Rollen-Badge, online/offline) · REPLAYS („Map (Modus)“, Dauer, Alter) · MAPS (Vorschaubild, Name, Inhaber) | sucht 300 ms nach der letzten Eingabe, ab 2 Zeichen; Konto-ID und Replay-ID werden am Muster erkannt und öffnen das Ziel direkt. Spieler → Konto-Akte, Replay → ReplayViewer, Map → Konto-Akte des Inhabers › Maps & Bauplatz mit markierter Map. Treffer ohne Recht erscheinen nicht. Tastatur: Strg+F bzw. „/“ fokussiert das Feld. |
+| Zuletzt geöffnet | die letzten 8 Ziele (Konto-Akten, Replays, Maps, Menüs) mit Symbol und Zeit, je Staff-Konto auf dem Server gemerkt | Klick öffnet das Ziel; leer: „Noch nichts geöffnet.“ |
+| Linke Liste (`sidebar_panel`, Breite 384) | Kategorien als Abschnittsköpfe (`label`, `gold.light`), darunter ihre Menüs als Seitenleisten-Einträge (Icon + Text + Zähler) | Es erscheinen nur Menüs, die die Rolle sieht (3a.3); eine Kategorie ohne sichtbares Menü fehlt ganz. Kategorien lassen sich einklappen (je Staff-Konto gemerkt), die Kategorie des offenen Menüs bleibt offen. Zähler: Meldungen „offen“, Freigaben „wartend“ (nur OWNER). Kompakt (10.3): Icon-Leiste 72 px, Suche als Lupen-Knopf. |
+| Inhalt | Seite des gewählten Menüs, vom Server gebaut: Titel, Untertitel, Meldungszeile, Elemente (3a.6) | scrollt; Primäraktion unten rechts; Nur-Lesen-Seiten tragen das Etikett „NUR LESEN“ |
+| Fußleiste | Statuszeile und Tastenhinweise des Hubs, in der Konto-Akte zusätzlich „1–0 Reiter“ | wie 3.2 |
+
+**Orte:** P = Hub-Seite `hub.team` (Top-Leiste bleibt, keine Unterreiter-Leiste) · B, A = Einzelseite `page.team` (Ebene 40) · M = Baukasten-Modal (Ebene 50) mit Staff-Kopf und Akzentlinie, aber ohne linke Liste; es zeigt nur das aufgerufene Menü.
+
+**Zurück:** Esc bzw. Gamepad-B schließt Dialog → Detail (z. B. Konto-Akte, Meldung) → Liste bzw. Suche des Menüs → TEAM-Seite (P: zurück zum Hub, B/A: kleines Esc-Menü, M: zurück ins Spiel). Gamepad-Fokusgruppen: Staff-Kopf, linke Liste, Inhalt (18.8).
+
+### 3a.2 Kategorien und Menüs
+
+| Kategorie | Menü | Chat-Befehl | Rollen (Details 3a.3) | Status |
+|---|---|---|---|---|
+| Moderation | Meldungen (Inventar „Moderation“) | /meldungen | MOD, ADMIN, OWNER | bleibt, **NEU**-Name |
+| | Spieler | /spieler [name] | MOD, ADMIN, OWNER | bleibt, **NEU** KONTO-AKTE ÖFFNEN |
+| | Chat-Live | – | MOD, ADMIN, OWNER | **NEU** |
+| | Replays | /replays [name] | MOD, ADMIN, OWNER | bleibt |
+| | Sanktions-Verlauf | – | MOD, ADMIN, OWNER | **NEU** |
+| Spielerverwaltung | Konto-Akte | /akte [name] (**NEU**) | ADMIN, OWNER; MOD Lesen | **NEU** |
+| Wirtschaft | Laden-Verwaltung · Glücksbrett-Saison · Massen-Geschenk · Währungs-Statistik | – | ADMIN, OWNER | **NEU** |
+| Live-Betrieb | Instanzen & Server · Wartung planen · Feature-Schalter | – | ADMIN, OWNER; DEV Lesen | **NEU** |
+| | Bühne (Ankündigungen, Events …) | /buehne | MOD, ADMIN, OWNER (Events nur ADMIN, OWNER); DEV Lesen | bleibt |
+| Entwicklung | Entwickler | /entwickler, /asset-karte | DEV, ADMIN, OWNER | bleibt |
+| | Debug-Overlay · Client-Logs anfordern | – | DEV, ADMIN, OWNER | **NEU** |
+| Verwaltung | Rollen & Rechte (mit „Rolle setzen“) | /rolle | OWNER; ADMIN eingeschränkt | „Rolle setzen“ bleibt, Rest **NEU** |
+| | Staff-Liste · Audit-Log · Sicherheit · Freigaben | – | OWNER; ADMIN Lesen | **NEU** |
+| Werkzeuge in der Welt | Unsichtbar · Teleport zu Spieler · Spieler holen · Freie Kamera | – | 3a.3 | **NEU** |
+
+MOD behält die Bühne wie heute (Prinzip 9, Einschränkungen bleiben). Deshalb sieht MOD die Kategorie Live-Betrieb nur mit diesem einen Menü.
+
+#### 3a.2.1 Moderation
+
+| Menü | Inhalt | Knöpfe |
+|---|---|---|
+| Meldungen | wie 3.9: Filter Offen / Erledigt / Abgewiesen / Alle, Zeilen je Meldung, „Zurück“ / „Weiter“; Detail „Meldung“ mit Ziel, Grund, Details, Gemeldet von, Status, Feld „Notiz“ | wie heute: Abweisen, Erledigen, Map ausblenden, Map sperren, Map freigeben, Kommentar ausblenden, „Zurück zur Liste“. **NEU**: KONTO-AKTE ÖFFNEN bei Ziel und „Gemeldet von“ · NEUE SANKTION (Sanktions-Dialog mit dieser Meldung als Beweis) |
+| Spieler | wie 3.9: Suche (Feld Name, „Suchen“, Trefferzeilen); Detail mit Name, Rang, Status, Aufenthalt, Grund, Auswahl Sperre und Stumm | wie heute: Sperren, Stummschalten, Kicken, Sperre aufheben, Stumm aufheben, „Zurück zur Suche“. **NEU**: KONTO-AKTE ÖFFNEN im Detail; jede Aktion mit Bestätigung und Vorschau (3a.4) |
+| Chat-Live (**NEU**) | Live-Feed aller Instanzen als Tabelle: Zeit, Instanz („Plaza 2“, „Bauplatz von X“, „Match: Raum“), Kanal, Kennzeichen + Name, Text. Filter: Instanz (Dropdown „Alle Instanzen“ oder einzelne), Spieler (Feld), Wörter (Feld, mehrere mit Komma, Treffer gold markiert), Chip „Nur Treffer“. Puffer 200 Zeilen. Flüstern und Party-Funk erscheinen nicht (Datenschutz, 20/O20); gemeldete Zeilen kommen über Meldungen. | je Zeile (Hover, Fokus, Gamepad-X): LÖSCHEN (die Zeile wird bei allen ersetzt durch „Nachricht von der Moderation entfernt.“) · STUMM (Sanktions-Dialog mit Art Stumm, Zeile als Beweis) · KONTO-AKTE. Kopf: PAUSE / WEITER; Scrollen nach oben pausiert, die Pille „n neue Zeilen“ springt ans Ende. |
+| Replays | wie 3.9: Feld „Spieler oder Replay-ID“, „Suchen“; Zeilen „Map (Modus)“ mit Dauer und Alter | wie heute: Klick öffnet die Replay-Ansicht. Replay-IDs findet auch die Suche der TEAM-Seite. |
+| Sanktions-Verlauf (**NEU**) | alle Sanktionen aller Konten: ZEIT / SPIELER / ART / DAUER / GRUND / VON / STATUS (aktiv, abgelaufen, aufgehoben); Filter-Chips Alle · Aktiv · Sperre · Stumm · Kick; Felder Staff und Zeitraum | Zeile → Konto-Akte › Sanktionen · AUFHEBEN an aktiven Sanktionen · „Zurück“ / „Weiter“ |
+
+#### 3a.2.2 Spielerverwaltung: Konto-Akte (**NEU**)
+Eine Akte je Konto, geöffnet über die Suche, /akte [name] oder KONTO-AKTE ÖFFNEN (3a.5). ADMIN und OWNER bearbeiten, MOD liest (Ausnahmen in 3a.3). Jede Änderung folgt den Sicherheitsregeln (3a.4).
+
+**Konto-Kopf** (steht immer über den Reitern)
+
+| Teil | Inhalt |
+|---|---|
+| Identität | Rang-Abzeichen (`rank_t*` + Zahl), Name, Kennzeichen (`UiNameBadges`), Rollen-Badges, Konto-ID (`mono`, Knopf Kopieren) |
+| Status | Online-Punkt (`good.text`) und Ort („Plaza 2“, „Bauplatz von X“, „Match: Raum · Modus“) bzw. „offline · zuletzt vor n Tagen“ |
+| Sanktionen | aktive Sanktionen als rote Etiketten, z. B. „GESPERRT BIS …“, „STUMM 2 STD.“; Klick → Reiter Sanktionen |
+| Schnellaktionen | TELEPORTIEREN ZU · HOLEN · ZUSCHAUEN (nur wenn der Spieler im Match ist, öffnet den ReplayViewer live) · POST SENDEN (→ Reiter Sozial › Post). Offline sind die drei ersten ausgegraut mit Tooltip „Spieler ist offline.“ |
+
+**Reiter** (Tabs; Tastatur 1–9 und 0, Gamepad LT/RT; der letzte Reiter wird je Sitzung gemerkt)
+
+| Reiter | Inhalt | Aktionen |
+|---|---|---|
+| Übersicht | Erstellt am, letzte Anmeldung, Spielzeit gesamt; Geräte und Sitzungen (Tabelle GERÄT / SYSTEM / ZULETZT / SITZUNGEN 30 TAGE, IP nur gekürzt); Staff-Notizen mit Text, Autor (Name + Rollen-Badge) und Datum, neueste oben | NOTIZ HINZUFÜGEN (Feld, SPEICHERN). Notizen sind unveränderlich wie das Protokoll. |
+| Währungen | 4 Karten Brix · Splitter · Kristalle · Münzen (`cur_*`, Betrag `num`); Verlauf ZEIT / WÄHRUNG / BETRAG / QUELLE / DETAIL / VON mit Filter-Chips Alle · Kauf · Match · Belohnung · Glücksbrett · Admin · Rückerstattung | je Karte HINZUFÜGEN · ABZIEHEN · SETZEN → Dialog mit Währungsfeld (Betrag), Grund (Pflicht) und Vorschau „alt → neu“; ein Guthaben wird nie negativ. RÜCKGÄNGIG an Einträgen der Quelle Admin (Gegenbuchung). |
+| Inventar | gleiches Raster und gleiche Filter wie SPIND › Inventar (Alle, Waffen, Kleidung, Access., Verbrauch, Werkzeug, Gems; Abzeichen „AN“; Detail mit Laufzeit, „BONI“, „UPGRADES“); darunter Ausrüstung/Loadout wie SPIND › Loadout als reine Ansicht | ITEM GEBEN (Item-Auswahl: Katalog-Suche, Laufzeit 1 Tag / 7 Tage / 30 Tage / Dauerhaft, Anzahl, Sterne/Upgrades, Gems, optional mit Post-Notiz) · im Detail: ENTZIEHEN · LAUFZEIT ÄNDERN · AUFWERTEN / ABWERTEN · ZERLEGEN RÜCKGÄNGIG (zuletzt zerlegte Items; zieht die erhaltenen Splitter wieder ab) · unter dem Loadout: AUSRÜSTUNG ZURÜCKSETZEN |
+| Fortschritt | Rang und XP (Balken wie im Profil); Waffen-Mastery je Waffe (WAFFE / STUFE / PUNKTE); Erfolge (Raster); Tagesmissionen (3 Zeilen); Serie der Täglichen Belohnung (Tag n von 7); Einführung (Schritt i/n); Glücksbrett (Münzen, Brett mit aufgedeckten Feldern) | RANG/XP SETZEN (ersetzt Verwaltung „XP setzen“: XP gesamt, Grund, Vorschau „Rang alt → neu“) · Mastery SETZEN je Zeile · Erfolge FREISCHALTEN / ZURÜCKSETZEN (Checkbox „Belohnung auszahlen“) · Tagesmissionen NEU WÜRFELN / ABSCHLIESSEN · Serie SETZEN · EINFÜHRUNG ZURÜCKSETZEN · Glücksbrett: Münzen SETZEN (dieselbe Buchung wie im Reiter Währungen), Felder AUFDECKEN / ZUDECKEN |
+| Maps & Bauplatz | Map-Slots 1–6 (leer, belegt, gesperrt) wie ERSTELLEN › Meine Maps; eigene veröffentlichte Maps (Name, Version, Downloads, „AUSGEBLENDET“ / „GESPERRT“); Mitbauer je Slot | Slot FREISCHALTEN / SPERREN · Map ANSEHEN (Detail wie Map-Galerie) · BETRETEN (Instanzwechsel auf den Bauplatz; mit UNSICHTBAR, wenn aktiv) · AUSBLENDEN / SPERREN / FREIGEBEN (dieselben Aktionen wie „Map ausblenden“, „Map sperren“, „Map freigeben“ in Meldungen) · Mitbauer BAURECHT NEHMEN |
+| Sozial | Freunde, Party (aktuell), Clan (Emblem, Rolle im Clan), Post (nur Team-Post an dieses Konto; private Nachrichten bleiben privat), Gesperrt-Liste | Clan: AUS CLAN ENTFERNEN · LEITUNG ÜBERTRAGEN (an ein Mitglied) · Post: NACHRICHT SENDEN / GESCHENK SENDEN als „Brixel-Team“ (Item-Auswahl bzw. Währungsfeld) |
+| Sanktionen | aktive Sanktionen oben, Verlauf darunter: ART / DAUER / GRUND / BEWEIS / VON / ZEIT / STATUS | NEUE SANKTION (Chips Sperre / Stumm / Kick; Dauer wie heute „Auswahl Sperre und Stumm“; Grund; Beweis: Meldung oder Replay-ID über die Suche) · AUFHEBEN |
+| Käufe | Kaufverlauf: ZEIT / ITEM / LAUFZEIT / PREIS / STATUS (aktiv, abgelaufen, erstattet) | RÜCKERSTATTEN (Vorschau: Währung + Betrag zurück, Item entfernt bzw. Laufzeit beendet) |
+| Support | Tickets des Spielers: Kategorie, Betreff, Status, letzte Antwort; Ticket-Ansicht wie Hilfe und Support | Ticket öffnen · ANTWORTEN als „Support“ (20/O22) |
+| Protokoll | jede Staff-Aktion an diesem Konto: ZEIT / WER (Name + Rollen-Badge) / AKTION / GRUND / VORHER → NACHHER / STATUS (ausgeführt, wartet auf Freigabe, abgelehnt, rückgängig) | RÜCKGÄNGIG, wo möglich: Gegenaktion mit eigenem Grund und eigenem Eintrag. Nicht möglich bei Kick, gesendeter Post und Teleport. |
+
+#### 3a.2.3 Wirtschaft (**NEU**)
+
+| Menü | Inhalt | Knöpfe |
+|---|---|---|
+| Laden-Verwaltung | Tabelle aller Katalog-Items: ITEM / KATEGORIE / 1 TAG / 7 TAGE / 30 TAGE / DAUERHAFT (Preis je Laufzeit als Zahlenfeld) / SICHTBAR (Schalter). Angebote und Rabatte: Items, „-n %“, Zeitfenster von–bis (Datum/Zeit). Empfohlen-Plätze: Reihenfolge der Karten in LADEN › Empfohlen (Item-Auswahl je Platz). | SPEICHERN (Diff aller geänderten Preise und Schalter; sofort oder zu einem Zeitpunkt) · ANGEBOT ANLEGEN · BEENDEN · Platz LEEREN |
+| Glücksbrett-Saison | laufende Saison (Name, Ende, „n von m Feldern offen“); Gewinne je Stufe (Item, Stufe, Felder); Quoten-Vorschau wie der Dialog „Quoten“ (GEWINN / STUFE / FELDER / CHANCE); Vorschau des Bretts | GEWINN HINZUFÜGEN / ENTFERNEN · SPEICHERN · NEUES BRETT (neue Saison: Name, Ende, Felder; Tipp-Bestätigung mit dem Saison-Namen) |
+| Massen-Geschenk | Empfänger: Chips Alle / Segment; Segment nach Rang von–bis, online jetzt, Clan, zuletzt aktiv (≤ n Tage). Inhalt: Währungsfeld und/oder Item-Auswahl. Post: Betreff, Text, Absender „Brixel-Team“. Zeitpunkt: sofort oder Datum/Zeit. Vorschau „n Konten erhalten …“ mit 5 Beispiel-Empfängern. | VORSCHAU AKTUALISIEREN · ZUR FREIGABE SENDEN (immer Vier-Augen-Freigabe, 3a.4) |
+| Währungs-Statistik | Zeitraum-Chips 7 / 30 / 90 Tage; Umlauf je Währung (Linie); Quellen und Senken pro Tag (Balken; Quellen: Match, Belohnung, Glücksbrett, Admin, Rückerstattung; Senken: Kauf, Werkstatt, Map-Downloads, Gebühren); Admin-Anteil getrennt ausgewiesen | nur Ansicht; „Als Tabelle“ |
+
+#### 3a.2.4 Live-Betrieb (**NEU**, Bühne wie heute)
+
+| Menü | Inhalt | Knöpfe |
+|---|---|---|
+| Instanzen & Server | Tabelle INSTANZ / ART (Plaza, Bauplatz, Match, Asset-Karte) / SPIELER (n/max) / LAST (Balken + Tick-Zeit in ms) / LÄUFT SEIT; Filter-Chips nach Art | BEITRETEN (Instanzwechsel; Match nur als Zuschauer) · ZUSCHAUEN (Match → ReplayViewer live) · NACHRICHT AN INSTANZ (Text, Art Banner oder Chat-Systemzeile) · NEU STARTEN (60-s-Countdown für die Spieler; Tipp-Bestätigung mit dem Instanz-Namen) · SCHLIESSEN (Spieler wechseln zur Plaza; Tipp-Bestätigung) |
+| Wartung planen | Zeitpunkt (Datum/Zeit), voraussichtliche Dauer, Meldung (Standard „Dein Fortschritt wird gespeichert.“), Vorschau des Wartungsbands; Liste geplanter Wartungen | WARTUNG PLANEN · VERSCHIEBEN · ABSAGEN. Steuert das Wartungsband (`LiveHud`, „Wartung in m:ss“ in den letzten 15 Min., Ebene 70) und danach den Wartungs-Kick (Fehlerkarte „Wartung“). |
+| Feature-Schalter | Zeilen Tägliche Belohnung · Hilfe und Support · Fehler melden (die Schalter aus dem Inventar) · **NEU** Events · **NEU** Glücksbrett; je Zeile Beschreibung, betroffene Einträge, Zustand, zuletzt geändert von/um | Schalter umlegen → Bestätigung mit Vorschau „an → aus“ und Grund. Wirkt sofort bei allen Clients; der Eintrag verschwindet wie heute (3.14 „Schalter“). Events aus: Events in Neuigkeiten, Karussell-Folie „Event läuft“ und Event-Bonus-Chip ausgeblendet. Glücksbrett aus: LADEN › Glücksbrett ausgeblendet. |
+| Bühne | wie 3.9 (/buehne): Bühne stummschalten/freigeben, Ankündigungen, Events (nur ADMIN, OWNER), Map der Woche, Event-Hosts, Auf die Bühne holen | wie heute; **NEU** „Start“ der Events als Datum/Zeit-Feld |
+
+#### 3a.2.5 Entwicklung
+
+| Menü | Inhalt | Knöpfe |
+|---|---|---|
+| Entwickler | wie 3.9: „Inhalte, Instanzen und Werkzeuge“ (Inhaltsversion, Waffen-Version, Overlay, Instanzen, Asset-Karte) | wie heute: „Asset-Karte betreten“, „Asset-Aufnahmen“, „Inhalte neu laden“ |
+| Debug-Overlay (**NEU**) | Schalter für das eigene Spiel: Verlauf von Bildrate und Ping, UiState-Stapel (18.7), Canvas-Ebenen (Kapitel 9), Draw Calls und UI-Budget (18.12), Fokus-Gruppe des PadNavigator | nur lokal sichtbar, nie für andere; nicht im Foto (18.10) |
+| Client-Logs anfordern (**NEU**) | Konto (Suche), Zeitraum (letzte Sitzung oder letzte 24 Std.), Grund; Liste der Anfragen mit Status (angefragt, hochgeladen, abgelaufen) | ANFORDERN · LINK KOPIEREN. Der Spieler sieht den Toast „Das Brixel-Team hat ein Fehlerprotokoll angefordert.“ (20/O21). |
+
+#### 3a.2.6 Verwaltung
+
+| Menü | Inhalt | Knöpfe |
+|---|---|---|
+| Rollen & Rechte | „Rolle setzen“ wie heute: Konto, Rolle player / moderator / developer / admin / owner, Grund, „Rolle setzen“ (admin und owner nur durch OWNER, 11.3). **NEU** Rechte-Matrix (3a.3) als Tabelle. | „Rolle setzen“ mit Tipp-Bestätigung. Matrix: OWNER ändert Zellen per Stepper ✓ / Lesen / – und SPEICHERN (Diff, Tipp-Bestätigung); ADMIN liest. „XP setzen“ liegt jetzt in Konto-Akte › Fortschritt (RANG/XP SETZEN); hier bleibt der Verweis „XP setzen“, der dorthin führt. |
+| Staff-Liste (**NEU**) | alle Team-Mitglieder: NAME / ROLLE (Badge) / ZULETZT AKTIV / AKTIONEN (7 TAGE) | Zeile → Konto-Akte · Zahl der Aktionen → Audit-Log, gefiltert auf die Person |
+| Audit-Log (**NEU**, global) | alle Staff-Aktionen: ZEIT / WER / AKTION / ZIEL / GRUND / VORHER → NACHHER / FREIGABE / STATUS; Filter Person, Aktion, Konto, Zeitraum | EXPORTIEREN (CSV, nur OWNER) · RÜCKGÄNGIG wie im Protokoll der Konto-Akte |
+| Sicherheit (**NEU**) | Schwellen der Vier-Augen-Freigabe (Zahlenfelder je Währung, Schalter „Massen-Geschenk immer“ und „Rückerstattung immer“), Rate-Limits (3a.4), Ablauf offener Freigaben (Standard 48 Std.) | SPEICHERN (Diff, Tipp-Bestätigung) |
+| Freigaben (**NEU**) | Warteschlange: Aktion, Ziel, Diff, Grund, Antragsteller mit Rollen-Badge, Zeit, „läuft ab in …“ | FREIGEBEN · ABLEHNEN (Grund Pflicht); Antragsteller: ZURÜCKZIEHEN. Zähler am TEAM-Schild, am Eintrag und im Staff-Kopf (nur OWNER); Antragsteller erfahren das Ergebnis über Glocke und Toast. |
+
+#### 3a.2.7 Werkzeuge in der Welt (**NEU**)
+
+| Werkzeug | Wo | Verhalten | Grenzen |
+|---|---|---|---|
+| UNSICHTBAR (Vanish, **NEU**) | Staff-Kopf (P); kleines Esc-Menü › TEAM-WERKZEUGE (B, A) | Schalter. Figur, Namensschild, Zeile in der Tab-Liste und der Ort für Freunde (dann „offline“) verschwinden für alle ohne Staff-Rolle; Staff sieht sich gegenseitig als Geist (`ghost`). Solange aktiv, steht oben links unter der Info-Leiste die HUD-Pille „UNSICHTBAR“ (`pill_staff_status`, Ebene 12). | nicht als aktiver Spieler im Match; eigener Sprachchat ist stumm |
+| FREIE KAMERA (**NEU**) | Staff-Kopf (P); Esc-Menü › TEAM-WERKZEUGE (B, A) | Hub bzw. Menü schließt, die Kamera löst sich von der Figur; Steuerung wie im ReplayViewer (WASD, E/Q, Shift; Gamepad Sticks). HUD-Pille „FREIE KAMERA · Esc beendet“; Esc beendet zuerst die freie Kamera (3.12 #14). | im Match nur als Zuschauer oder Geist |
+| TELEPORT ZU SPIELER (**NEU**) | Konto-Kopf TELEPORTIEREN ZU; Esc-Menü › TEAM-WERKZEUGE (Namensfeld mit Vorschlägen) | Sprung an die Position des Spielers; in einer anderen Instanz mit Instanzwechsel („Instanz wird gewechselt“) | Ziel im Match → nur als Zuschauer (wie ZUSCHAUEN) |
+| SPIELER HOLEN (**NEU**) | Konto-Kopf HOLEN; Esc-Menü › TEAM-WERKZEUGE (Namensfeld) | holt den Spieler an die eigene Position, auch aus einer anderen Plaza, einem Bauplatz oder der Asset-Karte; der Spieler sieht den Toast „Du wurdest vom Brixel-Team geholt.“ | nie aus einem oder in ein laufendes Match |
+
+Jede Nutzung erzeugt einen Protokoll-Eintrag (Unsichtbar an/aus, Freie Kamera an/aus, Teleport, Holen).
+
+### 3a.3 Rechte-Matrix
+✓ = sehen und ausführen · Lesen = sehen ohne Aktionen (Knöpfe ausgeblendet, Felder gesperrt, Etikett „NUR LESEN“) · – = erscheint nicht. Das ist die Standardbelegung; OWNER kann sie unter Verwaltung › Rollen & Rechte ändern. Fest bleiben: Spieler sehen nichts, und nur OWNER vergibt admin und owner.
+
+| Funktion | Spieler | MOD | DEV | ADMIN | OWNER |
+|---|---|---|---|---|---|
+| **TEAM-Seite** | | | | | |
+| TEAM-Seite, Suche, „zuletzt geöffnet“ | – | ✓ | ✓ | ✓ | ✓ |
+| **Moderation** | | | | | |
+| Meldungen (/meldungen) | – | ✓ | – | ✓ | ✓ |
+| Spieler (/spieler): Sperren, Stummschalten, Kicken, Aufheben | – | ✓ | – | ✓ | ✓ |
+| Chat-Live: mitlesen, filtern | – | ✓ | – | ✓ | ✓ |
+| Chat-Live: LÖSCHEN, STUMM aus der Zeile | – | ✓ | – | ✓ | ✓ |
+| Replays (/replays) | – | ✓ | – | ✓ | ✓ |
+| Sanktions-Verlauf, AUFHEBEN | – | ✓ | – | ✓ | ✓ |
+| **Spielerverwaltung: Konto-Akte** | | | | | |
+| Konto-Akte öffnen, alle Reiter lesen (/akte) | – | Lesen | – | ✓ | ✓ |
+| Staff-Notiz hinzufügen | – | ✓ | – | ✓ | ✓ |
+| Sanktionen: NEUE SANKTION, AUFHEBEN | – | ✓ | – | ✓ | ✓ |
+| Maps: AUSBLENDEN, SPERREN, FREIGEBEN | – | ✓ | – | ✓ | ✓ |
+| Währungen: HINZUFÜGEN, ABZIEHEN, SETZEN, RÜCKGÄNGIG | – | Lesen | – | ✓ | ✓ |
+| Inventar: ITEM GEBEN, ENTZIEHEN, LAUFZEIT ÄNDERN, AUFWERTEN / ABWERTEN, ZERLEGEN RÜCKGÄNGIG, AUSRÜSTUNG ZURÜCKSETZEN | – | Lesen | – | ✓ | ✓ |
+| Fortschritt: Rang/XP, Mastery, Erfolge, Tagesmissionen, Serie, Einführung, Glücksbrett | – | Lesen | – | ✓ | ✓ |
+| Maps & Bauplatz: Slots, BETRETEN, Mitbauer | – | Lesen | – | ✓ | ✓ |
+| Sozial: Clan-Aktionen, Post als „Brixel-Team“ | – | Lesen | – | ✓ | ✓ |
+| Käufe: RÜCKERSTATTEN | – | Lesen | – | ✓ | ✓ |
+| Support: Tickets, ANTWORTEN | – | Lesen | – | ✓ | ✓ |
+| Protokoll, RÜCKGÄNGIG | – | Lesen | – | ✓ | ✓ |
+| **Wirtschaft** | | | | | |
+| Laden-Verwaltung | – | – | – | ✓ | ✓ |
+| Glücksbrett-Saison | – | – | – | ✓ | ✓ |
+| Massen-Geschenk | – | – | – | ✓ | ✓ |
+| Währungs-Statistik | – | – | – | ✓ | ✓ |
+| **Live-Betrieb** | | | | | |
+| Instanzen & Server | – | – | Lesen | ✓ | ✓ |
+| Wartung planen | – | – | Lesen | ✓ | ✓ |
+| Feature-Schalter | – | – | Lesen | ✓ | ✓ |
+| Bühne (/buehne) ohne Events | – | ✓ | Lesen | ✓ | ✓ |
+| Bühne › Events | – | – | Lesen | ✓ | ✓ |
+| **Entwicklung** | | | | | |
+| Entwickler (/entwickler, /asset-karte) | – | – | ✓ | ✓ | ✓ |
+| Debug-Overlay, Client-Logs anfordern | – | – | ✓ | ✓ | ✓ |
+| **Verwaltung** | | | | | |
+| Rolle setzen: player, moderator, developer (/rolle) | – | – | – | ✓ | ✓ |
+| Rolle setzen: admin, owner | – | – | – | – | ✓ |
+| Rechte-Matrix | – | – | – | Lesen | ✓ |
+| Staff-Liste | – | – | – | Lesen | ✓ |
+| Audit-Log (global) | – | – | – | Lesen | ✓ |
+| Audit-Log exportieren | – | – | – | – | ✓ |
+| Sicherheit (Schwellen, Rate-Limits) | – | – | – | Lesen | ✓ |
+| Freigaben erteilen | – | – | – | Lesen | ✓ |
+| **Werkzeuge in der Welt** | | | | | |
+| UNSICHTBAR | – | ✓ | – | ✓ | ✓ |
+| FREIE KAMERA | – | ✓ | ✓ | ✓ | ✓ |
+| TELEPORT ZU SPIELER, ZUSCHAUEN | – | ✓ | – | ✓ | ✓ |
+| SPIELER HOLEN | – | – | – | ✓ | ✓ |
+
+- ADMIN sieht unter Freigaben nur die eigenen Anträge.
+- MOD liest die Konto-Akte, darf darin aber, was er heute schon darf: sanktionieren (wie im Menü Spieler) und Maps ausblenden, sperren und freigeben (wie in Meldungen). Dazu kommen Staff-Notizen (20/O18).
+- Gegenüber dem Inventar: OWNER darf alles (11.3); MOD behält die Bühne ohne Events; DEV liest Live-Betrieb (**NEU**); „XP setzen“ zieht in die Konto-Akte um und bleibt ADMIN.
+- Über allem stehen die Sicherheitsregeln (3a.4): nie am eigenen Konto, nie an gleicher oder höherer Rolle, Schwellen führen zur Freigabe.
+
+### 3a.4 Sicherheitsregeln
+
+| # | Regel | Umsetzung |
+|---|---|---|
+| 1 | Jede schreibende Aktion braucht einen Grund. | Feld „Grund“ im Bestätigungsdialog, Pflicht, mindestens 10 Zeichen; optional Bezug (Meldung, Ticket, Replay-ID). Bei Meldungen dient das Feld „Notiz“ als Grund. |
+| 2 | Jede schreibende Aktion hat einen Bestätigungsdialog mit Vorschau. | Der Dialog „Bist du sicher?“ (JA, AUSFÜHREN / ABBRECHEN) zeigt die Diff-Ansicht „alt → neu“. Die Vorschau rechnet der Server. Hat sich der Wert bis zum Ausführen geändert, kommt „Der Wert hat sich geändert.“ mit neuer Vorschau. |
+| 3 | Jede Aktion landet im Protokoll. | Eintrag mit wer, wann, Aktion, Ziel, Grund, vorher, nachher, Freigabe; sichtbar in Konto-Akte › Protokoll und Verwaltung › Audit-Log. Einträge werden nie gelöscht; RÜCKGÄNGIG ist ein neuer Eintrag. |
+| 4 | Destruktive Aktionen brauchen eine Tipp-Bestätigung. | Man tippt den Kontonamen des Ziels (Groß/Klein egal, Einfügen gesperrt); ohne Konto den Namen des Objekts (Instanz, Saison). Gilt für ENTZIEHEN, AUSRÜSTUNG ZURÜCKSETZEN, Erfolge ZURÜCKSETZEN, Währung SETZEN auf 0, dauerhafte Sperre, Slot oder Map SPERREN, AUS CLAN ENTFERNEN, LEITUNG ÜBERTRAGEN, RÜCKERSTATTEN, „Rolle setzen“, NEU STARTEN, SCHLIESSEN, NEUES BRETT und SPEICHERN in Rechte-Matrix und Sicherheit. |
+| 5 | Über Schwellen gilt die Vier-Augen-Freigabe. | Der Knopf im Dialog heißt dann ZUR FREIGABE SENDEN statt JA, AUSFÜHREN. OWNER entscheidet unter Verwaltung › Freigaben. Schwellen siehe unten. |
+| 6 | Nie am eigenen Konto, nie an gleicher oder höherer Rolle. | Der Server lehnt ab; die Seite zeigt nur Lesen mit dem Hinweis „Eigenes Konto – nur Lesen.“ bzw. „Gleiche oder höhere Rolle – nur Lesen.“ (erweitert den heutigen Hinweis bei geschützten Staff-Konten; OWNER-Konten 20/O23). |
+| 7 | Rate-Limits | Grenzen siehe unten. Beim Erreichen ist der Knopf deaktiviert, Tooltip „Limit erreicht – wieder frei in m:ss“; der Server lehnt mit demselben Text ab. |
+| 8 | Niedrigere Rollen lesen nur. | Rechte-Matrix 3a.3; Etikett „NUR LESEN“. |
+| 9 | Jede Aktion bestätigt sich mit einem Toast. | „Gespeichert · im Protokoll“ (`toast_plate` mit `icon_audit_log`, Klick → Protokoll-Eintrag); bei Freigabe „Zur Freigabe gesendet · im Protokoll“; bei Fehlern der Ablehnungs-Toast mit dem Grund vom Server. |
+
+**Schwellen der Vier-Augen-Freigabe** (Standard, änderbar unter Verwaltung › Sicherheit)
+
+| Auslöser | Schwelle |
+|---|---|
+| Währungsänderung je Aktion | > 10.000 Brix · > 500 Kristalle · > 5.000 Splitter (Vorschlag, 20/O24) · > 20 Münzen (Vorschlag, 20/O24) |
+| Summe der Währungsänderungen je Ziel-Konto in 24 Std. | dieselben Werte (verhindert Stückeln) |
+| Massen-Geschenk | immer |
+| Rückerstattung | immer |
+
+Offene Freigaben verfallen nach 48 Std. Aktionen eines OWNER über der Schwelle laufen ohne Freigabe und sind im Audit-Log markiert (20/O19).
+
+**Rate-Limits** (Vorschlag, je Staff-Konto)
+
+| Aktion | Grenze |
+|---|---|
+| Sanktionen | 30 je Std. |
+| Chat-Zeile LÖSCHEN | 120 je Std. |
+| Währungsänderungen | 20 je Std., davon höchstens 5 je Std. am selben Ziel-Konto |
+| ITEM GEBEN, ENTZIEHEN | 30 je Std. |
+| RÜCKERSTATTEN | 10 je Tag |
+| Massen-Geschenk | 1 je Std. |
+| NEU STARTEN, SCHLIESSEN | 1 je 5 Min. je Instanz |
+| Client-Logs anfordern | 10 je Std. |
+| Suche | 60 je Min. |
+
+**Beispiel: ADMIN schreibt 15.000 Brix gut**
+1. Konto-Akte › Währungen › Karte Brix › HINZUFÜGEN.
+2. Dialog „Brix hinzufügen“: Betrag 15.000, Grund „Ersatz für Fehlkauf, Ticket 4711“.
+3. Vorschau „12.400 → 27.400“ mit Etikett „Freigabe nötig (> 10.000 Brix)“; der Knopf heißt ZUR FREIGABE SENDEN.
+4. Toast „Zur Freigabe gesendet · im Protokoll“; im Protokoll steht „wartet auf Freigabe“.
+5. OWNER: Glocke „Freigabe angefragt“ → Verwaltung › Freigaben → FREIGEBEN. Der Server prüft den Stand erneut und bucht. Der OWNER sieht „Gespeichert · im Protokoll“, der ADMIN bekommt den Glocke-Eintrag „Freigegeben“.
+
+### 3a.5 Einstiege
+
+| Einstieg | Wo | Ziel | Neu |
+|---|---|---|---|
+| TEAM-Schild (rot) in der Top-Leiste | P | TEAM-Seite im Hub, zuletzt offenes Menü | wie 3.9 |
+| TEAM im kleinen Esc-Menü | A, B | TEAM-Einzelseite `page.team` | auf B **NEU** (löst 20/O3) |
+| TEAM-WERKZEUGE im kleinen Esc-Menü | B, A | Unterliste UNSICHTBAR · FREIE KAMERA · TELEPORT ZU SPIELER … · SPIELER HOLEN … | **NEU** |
+| „•••“ → Spieler-Aktionen › Block „TEAM“ › KONTO-AKTE ÖFFNEN | alle Spielerlisten: Tab-Liste (Spielerliste und Punktestand), Warteraum, Ergebnis, Bauplatz-Fenster › Mitbauer, ReplayViewer-Spielerliste (Live) | Konto-Akte › Übersicht | **NEU** |
+| KONTO-AKTE ÖFFNEN im Profil-Popup (fremdes Profil) | P, B, A, M | Konto-Akte | **NEU** |
+| Sozial-Panel: Zeilen in Freunde, Party, Clan (Mitglieder), Post (Absender), Gesperrt; Kontext per Rechtsklick bzw. Gamepad-X | P, B, A | Konto-Akte | **NEU** |
+| Meldungs-Detail, Spieler-Detail, Chat-Live-Zeile, Sanktions-Verlauf, Staff-Liste | TEAM-Seite | Konto-Akte | **NEU** |
+| Chat-Befehle | überall | P: TEAM-Seite im Hub · B, A: Einzelseite · M: Baukasten-Modal (Ebene 50), jeweils direkt beim Menü | **NEU** /akte [name]; /meldungen, /spieler [name], /replays [name], /buehne, /entwickler, /asset-karte, /rolle wie heute |
+| Glocke: „Freigabe angefragt“ (OWNER), „Freigegeben“ / „Abgelehnt“ (Antragsteller) | P | Verwaltung › Freigaben bzw. Protokoll-Eintrag | **NEU** |
+
+- KONTO-AKTE ÖFFNEN sieht nur, wer die Konto-Akte mindestens lesen darf (MOD, ADMIN, OWNER). Der Block „TEAM“ steht in den Spieler-Aktionen über PROFIL / SCHLIESSEN, mit der roten Akzentlinie oben. An der eigenen Zeile fehlt er; die eigene Akte öffnet man nur über die Suche, und auch dann nur zum Lesen.
+- Im Match öffnet KONTO-AKTE ÖFFNEN das Baukasten-Modal (Ebene 50) wie die Chat-Befehle. Die Spieler-Aktionen schließen, die angeheftete Tab-Liste wird gelöst; Esc führt zurück ins Spiel.
+- TEAM-Schild und TEAM-Eintrag gibt es im Match weiter nicht (3.14).
+
+### 3a.6 UI-Muster: neue Baukasten-Elemente, Look und Motion
+Zu den 8 Element-Arten des Baukastens (Heading, Text, Info, Row, Button Normal/Primary/Danger/Muted, Field, Select-Stepper, Separator) kommen **NEU**:
+
+| # | Element-Art | Aussehen | Verhalten | Assets |
+|---|---|---|---|---|
+| 1 | Tabs | wie die Unterreiter: `tab_inactive` / `tab_active` mit gleitendem `tab_underline`, optional Zähler; Kompakt nur Icons | 1–9 und 0 bzw. LT/RT; letzter Reiter wird gemerkt | `tab_*` |
+| 2 | Tabelle (sortierbar, seitenweise) | `frame_data_table`: Kopfband mit Spaltenköpfen (`label`, `gold.light`), sortierbare Spalten mit `icon_sort`; Zeilen wie `list_row` dicht (44), Zahlen rechtsbündig in `num`, IDs in `mono`; im Kopf optional Filter-Chips und Suchfeld; Fuß „Seite x / y“ mit „Zurück“ / „Weiter“ | Klick auf einen Spaltenkopf sortiert auf → ab → aus; 50 Zeilen je Seite; Sortieren, Filtern und Blättern rechnet der Server; Zeilen sind klickbar wie Row; leer: „Keine Einträge.“ | `frame_data_table`, `list_row`, `icon_sort`, `chip_*` |
+| 3 | Raster (Items mit Stufen-Rahmen) | Item-Kacheln wie SPIND › Inventar: `tile_slot` + `tier_frame_*` + `tier_sym_*` + Sterne + Etikett „AN“ | Auswahl öffnet das Detail rechts; Filter-Chips wie im Inventar | `tile_slot`, `tier_*`, `icon_star` |
+| 4 | Zahlenfeld mit +/− | `input_text` mit `btn_minus` links und `btn_plus` rechts, Wert in `num` mittig | Tippen, Mausrad, Steuerkreuz links/rechts; Halten wiederholt (ab 400 ms 10/s, ab 1,5 s 30/s); Shift = ×10; Min/Max vom Server, außerhalb Fehler-Zustand | `input_text`, `btn_minus`, `btn_plus` |
+| 5 | Währungsfeld mit Vorschau | Währungssymbol `cur_*` + Zahlenfeld + Segment HINZUFÜGEN / ABZIEHEN / SETZEN; darunter die Vorschau „alt → neu“ in `frame_diff_preview`; über der Schwelle Etikett „Freigabe nötig“ mit `icon_approval` | Vorschau vom Server; ein negativer Endstand wird nicht angenommen („Guthaben würde negativ.“) | `cur_*`, `frame_diff_preview`, `icon_approval` |
+| 6 | Item-Auswahl (Katalog-Suche) | `input_search`, Trefferliste in `frame_dropdown_menu` mit kleiner Item-Kachel, Name, Typ, Stufe; danach Chips „LAUFZEIT“ (1 Tag, 7 Tage, 30 Tage, Dauerhaft), Anzahl (Zahlenfeld, nur bei stapelbaren Items), Sterne/Upgrades, Gems, Checkbox „Mit Post-Notiz“ + Text | Suche ab 2 Zeichen; Kategorie-Chips wie LADEN › Katalog | `input_search`, `frame_dropdown_menu`, `tile_slot`, `icon_item_give` |
+| 7 | Datum/Zeit | `dropdown` mit `icon_calendar`: Monatsraster, Stunde und Minute als Stepper (15-Min.-Schritte), Schnellwahl-Chips „Jetzt“, „In 1 Std.“, „Heute 22:00“, „Morgen“; Anzeige in Serverzeit mit Zone | Vergangenheit gesperrt, wo nur die Zukunft Sinn hat (Wartung, Angebote, Events) | `dropdown`, `icon_calendar`, `stepper_*` |
+| 8 | Diagramm (Linie, Balken) | `panel_inset`; Achsen in `caption`, `text.muted`; Hilfslinien `bg.raised`; Linie 2 px in der Währungsfarbe (`cur.*`); Balken: Quellen gold, Senken `danger`; Legende mit Symbol und Name | Hover bzw. Fokus zeigt den Wert als Tooltip; Knopf „Als Tabelle“ (Barrierefreiheit) | `panel_inset`, `tooltip_box`, `icon_economy_chart` |
+| 9 | Bestätigung mit Tipp-Bestätigung | Dialog `frame_dialog` mit roter Akzentlinie oben, Diff-Ansicht, Satz „Tippe \<Kontoname\>, um zu bestätigen.“, Textfeld; JA, AUSFÜHREN als rote Platte | JA, AUSFÜHREN bleibt deaktiviert, bis die Eingabe stimmt; ABBRECHEN links | `frame_dialog`, `divider_staff`, `input_text`, `btn_red_m` |
+| 10 | Diff-Ansicht (alt → neu) | `frame_diff_preview`, Zeilen „Feld · alt → neu“: alt durchgestrichen in `text.muted`, neu in `text.gold`; hinzugefügt mit „+“ in `good.text`, entfernt mit „−“ in `danger.text` (nie nur Farbe) | zeigt genau das, was der Server ausführen wird; bei Massen-Aktionen die Anzahl und Beispiele | `frame_diff_preview` |
+| 11 | Schalter (ergänzt) | Schalter-Komponente aus 12.2 | Feature-Schalter, UNSICHTBAR, Debug-Overlay, Laden „SICHTBAR“ | `toggle_*` |
+| 12 | Konto-Kopf (ergänzt) | `panel_inset` mit Rang-Abzeichen, Name, Kennzeichen, Rollen-Badges, Online-Punkt und Ort, Konto-ID in `mono` mit Kopieren, aktiven Sanktionen als rote Etiketten (`badge_tag`), Schnellaktionen als dunkle Platten S | Online-Status live | `panel_inset`, `rank_t*`, `role_*`, `badge_tag`, `btn_dark_m` |
+
+**Look**
+- Gleicher Stil wie der Hub (Kapitel 11 und 12): dunkle Panels mit Gold-Doppelrand, Gold-Platten für Aktionen, Fließtext nie gold.
+- Staff-Kennung: Der Staff-Kopf `frame_staff_header` hat den Verlauf des ADMIN-Badges (`#AE4033` → `#7C100B`) mit Gold-Kontur; Text darauf `text.primary` (5,0 : 1 auf `#AE4033`) bzw. `text.gold`. Darunter liegt die dünne rote Akzentlinie `staff.line` (2 px, `#AE4033`, 3,4 : 1 auf `bg.panel`). Dieselbe Linie sitzt am linken Inhaltsrand, oben an jedem Staff-Dialog, am Baukasten-Modal im Match und am Block „TEAM“ der Spieler-Aktionen. So weiß Staff immer, dass es im Staff-Bereich ist.
+- Rot markiert Bereich und Gefahr, Gold bleibt Aktion und Fokus. Gefahr-Aktionen (ENTZIEHEN, SPERREN, SCHLIESSEN …) sind rote Platten `btn_red_m`.
+- Nur Lesen: Felder mit 50 % Deckkraft und `icon_lock`, keine Aktionsknöpfe, Etikett „NUR LESEN“ im Kopf der Seite.
+- Toast „Gespeichert · im Protokoll“: `toast_plate` mit `icon_audit_log`; „Zur Freigabe gesendet · im Protokoll“ mit `icon_approval`.
+
+**Motion** (Tokens aus 15.3–15.5; bei „Animationen reduzieren“ gilt 15.9)
+
+| Fall | Eigenschaften | Dauer / Easing | Reduziert |
+|---|---|---|---|
+| TEAM-Seite öffnen | Staff-Kopf y −16 → 0 + Deckkraft; Akzentlinie zeichnet sich von links (Scale x 0 → 1, Pivot links); linke Liste Zeilen gestaffelt | Feder `snappy`; Linie 240 ms outCubic, 80 ms nach Start; 24 ms je Zeile, max. 8 | Fade 90 ms, Linie sofort |
+| Menü wechseln, Tabs | Unterstrich gleitet; Inhalt Deckkraft 0 → 1, y 12 → 0 | `snappy`; 160 ms outCubic | Fade |
+| Tabelle laden | Zeilen y 16 → 0 + Fade | 160 ms outCubic, 24 ms je Zeile, max. 8 | sofort |
+| Tabelle sortieren | `icon_sort` dreht 180°; Zeilen überblenden | 160 ms outCubic; 120 ms | ohne Drehung |
+| Tabelle blättern | alter Inhalt x 0 → −24 + Fade; neuer x +24 → 0 (Richtung = Blätterrichtung) | 120 ms inOutQuad; 240 ms outCubic | Fade |
+| Chat-Live: neue Zeile | y 16 → 0 + Fade, gebündelt höchstens 10-mal/s; Wort-Treffer blitzt gold | 160 ms outCubic; 240 ms | sofort, ohne Blitz |
+| Raster | wie Karten-Raster (15.5) | 32 ms je Diagonale | sofort |
+| Zahlenfeld +/− | Press-Squash wie Platte S; Wert springt sofort; an Min/Max Shake x ±4 | 90 ms; 240 ms | ohne Shake |
+| Vorschau alt → neu | „→“ gleitet 8 px ein, neuer Wert rollt; Etikett „Freigabe nötig“ ploppt | 160 ms outCubic; 600 ms; Feder `pop` | sofort |
+| Item-Auswahl, Datum/Zeit | wie Dropdown (15.7) | 160 ms outCubic, Zeilen 16 ms | Fade |
+| Diagramm | Linie zeichnet sich (Masken-Scale x 0 → 1); Balken Scale y 0 → 1 | 420 ms outCubic; 24 ms je Balken, max. 8 | sofort |
+| Tipp-Bestätigung | Dialog-Pop; stimmt die Eingabe, wird der Knopf aktiv und glüht einmal rot; Enter bei falscher Eingabe → Shake | Feder `pop`; 240 ms; 240 ms | ohne Glühen und Shake |
+| Freigabe erteilt | Zeile gleitet aus der Warteschlange (x 0 → +48 + Fade), der Rest rückt nach | 240 ms outCubic | sofort |
+| HUD-Pille UNSICHTBAR / FREIE KAMERA | erscheint sofort (15.2); Glow-Puls 0,6 ↔ 1,0 | 1600-ms-Schleife inOutQuad | statisch |
+
+Sounds wie gehabt (Kapitel 17): `ui_open`, `ui_tab`, `ui_select`, `ui_toggle_on/off`, `ui_toast`; Limit und falsche Tipp-Bestätigung `ui_error`. Es gibt keine neuen Sound-IDs.
+
+### 3a.7 Unity- und Server-Umsetzung
+- **Renderer:** `ServerMenuPanel` bleibt. Das Protokoll bekommt neue Element-Arten (`ServerMenuElementKind`): `Tabs`, `Table`, `Grid`, `NumberField`, `CurrencyField`, `ItemPicker`, `DateTime`, `Chart`, `TypedConfirm`, `Diff`, `Toggle`, `AccountHeader`. Jede Art ist ein Prefab mit Fabrik-Methode (z. B. `UiFactory.StaffTable(...)`) und liest Farben, Größen und Motion aus dem `UiTheme`. Der Server sendet eine Protokoll-Version; ein älterer Client zeigt eine unbekannte Art als Text „Dieses Element braucht eine neuere Version.“, statt abzustürzen.
+- **Rahmen im Client, Inhalt vom Server:** Staff-Kopf, Akzentlinie, Suchfeld, „zuletzt geöffnet“ und die linke Liste baut der Client aus `staff.session`. Den Inhalt jedes Menüs baut der Server.
+- **Tabellen:** Sortieren, Filtern und Blättern auf dem Server (50 Zeilen je Seite). Im Client eine virtualisierte Scroll-Ansicht mit Zeilen-Pool; nur sichtbare Zeilen sind aktiv. Chat-Live: Ringpuffer mit 200 Zeilen, Updates gebündelt höchstens 10-mal/s, keine GC-Allokation pro Zeile (18.12).
+- **Diagramme:** ein `MaskableGraphic` je Serie (ein Mesh, ein Draw Call), höchstens 365 Punkte.
+- **Vorschau und Ausführen in zwei Schritten:** Jede schreibende Aktion ruft zuerst mit `preview: true` auf. Der Server antwortet mit Diff, `confirmToken` (60 s gültig), `needsTypedConfirm`, `needsApproval` und ggf. einem Limit-Hinweis. Das Ausführen schickt Token, `reason`, ggf. `typedConfirm` und `evidence` (Meldung, Replay-ID, Ticket); der Server prüft alles erneut. Antwort: `auditId` und `status` (`done`, `pendingApproval`, `rejected` mit Grund).
+- **Rechte nur auf dem Server:** Jeder Aufruf prüft das Recht aus der Rechte-Matrix (ein Schlüssel je Zeile, z. B. `account.currency.write`), die Rangfolge (Ziel ist nicht das eigene Konto, Ziel-Rolle liegt unter der eigenen), die Schwelle (→ Freigabe) und das Rate-Limit. Der Client blendet nur aus; jedes Element kann vom Server `readOnly` bekommen. Ändern sich Rolle oder Matrix, schickt der Server `staff.permissionsChanged`, und die TEAM-Seite baut sich neu auf.
+- **Protokoll:** nur anhängen. Jede schreibende Aktion schreibt in derselben Transaktion genau einen Eintrag (wer, wann, Aktion, Ziel, Grund, vorher, nachher, Freigabe). RÜCKGÄNGIG ist eine neue Aktion mit Verweis `revertOf`.
+- **Werkzeuge in der Welt:** Unsichtbar setzt der Server um. Er schickt die Figur des Staff-Kontos gar nicht erst an Clients ohne Staff-Rolle; ein Ausblenden im Client wäre für Cheats sichtbar. Freie Kamera läuft im Client (Kamera-Rig wie im ReplayViewer); der Server erlaubt sie nur außerhalb eines Matches oder als Zuschauer. Teleport und Holen sind Server-Aufrufe mit Instanzwechsel wie heute.
+- **Ebenen und UiState:** TEAM-Seite 40 (`hub.team.*` in P, `page.team.*` in B und A), Dialoge 50, Baukasten-Modal im Match 50 (`servermenu`), Toasts 70. Kennungen: `.mod.reports` · `.mod.players` · `.mod.chat` · `.mod.replays` · `.mod.sanctions` · `.account.overview` / `.currency` / `.inventory` / `.progress` / `.maps` / `.social` / `.sanctions` / `.purchases` / `.support` / `.log` · `.economy.shop` / `.board` / `.gift` / `.stats` · `.live.instances` / `.maintenance` / `.flags` / `.stage` · `.dev.tools` / `.overlay` / `.logs` · `.admin.roles` / `.staff` / `.audit` / `.security` / `.approvals`.
+- **Atlanten:** neue Icons in `ui_icons`; `frame_staff_header`, `divider_staff`, `frame_diff_preview`, `frame_data_table` und `btn_minus` in `ui_core`; `pill_staff_status` in `ui_hud`.
+
+**Server-Aufrufe** (Namen als Vorschlag; jeder schreibende Aufruf mit `preview` und Ausführen wie oben)
+
+| Bereich | Aufrufe |
+|---|---|
+| Sitzung, Suche | `staff.session` (Rolle, Rechte, Kategorien, Zähler) · `staff.search` · `staff.recent` · Push `staff.permissionsChanged` |
+| Moderation | `mod.reports.list` / `.get` / `.resolve` · `mod.players.search` / `.sanction` · `mod.chat.subscribe` / `.unsubscribe` / `.delete` · `mod.replays.search` · `mod.sanctions.list` |
+| Konto-Akte | `account.get` · `account.notes.add` · `account.currency.adjust` · `account.transactions.list` / `.revert` · `account.inventory.list` / `.give` / `.revoke` / `.setExpiry` / `.setUpgrade` / `.undoDisassemble` · `account.loadout.reset` · `account.progress.setXp` / `.setMastery` / `.setAchievement` / `.missions` / `.setLoginStreak` / `.resetTutorial` / `.setBoard` · `account.maps.setSlot` / `.moderate` / `.builders` · `account.social.get` / `.clanKick` / `.clanTransferLead` · `account.mail.sendAsTeam` · `account.sanctions.list` / `.create` / `.lift` · `account.purchases.list` / `.refund` · `account.tickets.list` / `.reply` · `account.audit.list` |
+| Wirtschaft | `economy.shop.list` / `.update` / `.offer` / `.featured` · `economy.board.get` / `.update` / `.newSeason` · `economy.massGift.preview` / `.submit` · `economy.stats` |
+| Live-Betrieb | `live.instances.list` / `.join` / `.spectate` / `.message` / `.restart` / `.close` · `live.maintenance.list` / `.schedule` / `.cancel` · `live.flags.list` / `.set` · Bühne über die heutigen Aufrufe von `StageMenu` |
+| Entwicklung | heutige Aufrufe des Entwickler-Menüs · `dev.logs.request` / `.list` (das Debug-Overlay ist rein lokal) |
+| Verwaltung | `admin.roles.set` · `admin.permissions.get` / `.set` · `admin.staff.list` · `audit.list` / `.export` · `admin.security.get` / `.set` · `approvals.list` / `.approve` / `.reject` / `.withdraw` |
+| Werkzeuge | `staff.vanish` · `staff.freecam` · `staff.teleportTo` · `staff.summon` |
+
+---
 ## 4. Kleines Esc-Menü & Bauplatz-Fenster
 Auf Bauplatz (B), Asset-Karte (A) und im Match (M) öffnet Esc bzw. Gamepad-Start ein kompaktes Menü über dem leicht geblurrten Spiel (**NEU**). Es hat den gleichen Look wie der Hub und ersetzt das alte Esc-Menü (`MenuPanel`) außerhalb der Plaza. UiState-Kennung `menu` (wie heute).
 
@@ -502,7 +854,8 @@ Auf Bauplatz (B), Asset-Karte (A) und im Match (M) öffnet Esc bzw. Gamepad-Star
 |---|---|---|---|---|
 | „WEITER“ → ZURÜCK INS SPIEL (**NEU**-Text) | ● | ● | ● | Menü zu; Fokus beim Öffnen |
 | „Bauplatz verwalten“ → BAUPLATZ VERWALTEN | – | ● | – | Bauplatz-Fenster (4.5); wie heute nur B |
-| Rollen-Menüs (roter Marker) → TEAM (**NEU**-Text) | – | – | ● | TEAM-Seite (Einzelseite `page.team`); nur Staff |
+| Rollen-Menüs (roter Marker) → TEAM (**NEU**-Text) | – | ● (**NEU**) | ● | TEAM-Seite (Einzelseite `page.team`); nur Staff (3a) |
+| **NEU** TEAM-WERKZEUGE | – | ● | ● | Unterliste UNSICHTBAR (Schalter) · FREIE KAMERA · TELEPORT ZU SPIELER … · SPIELER HOLEN … (Namensfeld mit Vorschlägen); nur Staff, je nach Rolle (3a.2.7, 3a.3); Zeilen mit roter Akzentlinie |
 | „Freunde und Gruppen · n online · n neu“ → SOZIAL · n online · n neu (**NEU**-Text) | – | ● | ● | Sozial-Panel (Ebene 42); im Match kein Sozial, wie heute |
 | „Foto-Modus“ → FOTO-MODUS | – | ● | – | Foto-Modus (im Match nur über die Taste P als Geist/Zuschauer, wie heute) |
 | EINSTELLUNGEN | ● | ● | ● | Einstellungen; SCHLIESSEN kehrt ins Menü zurück |
@@ -800,19 +1153,19 @@ Status: `bleibt` (Ort gleich, neuer Look) · `verschoben` (neuer Ort) · `zusamm
 | 49 | Einstellungen | Controller | Seite controller | Einstellungen › Controller | bleibt |
 | 50 | Einstellungen | Sprachchat | Seite sprachchat | Einstellungen › Sprachchat | bleibt |
 | 51 | Einstellungen | Allgemein | Seite allgemein | Einstellungen › Allgemein; **NEU** UI-Größe | NEU-Teil |
-| 52 | Rollen-Menüs | Baukasten | ServerMenuPanel | Renderer der TEAM-Seite mit neuen Skins für alle 8 Element-Arten; „Bist du sicher?“ (50); Chat-Befehle öffnen in B/A die TEAM-Seite, im Match den Baukasten als eigenes Modal (50), jeweils mit `[name]` | verschoben |
-| 53 | Rollen-Menüs | Moderation | StaffMenus · /meldungen | TEAM-Seite › Moderation | verschoben |
-| 54 | Rollen-Menüs | Entwickler | StaffMenus · /entwickler, /asset-karte | TEAM-Seite › Entwickler | verschoben |
-| 55 | Rollen-Menüs | Verwaltung | StaffMenus · /rolle | TEAM-Seite › Verwaltung | verschoben |
-| 56 | Rollen-Menüs | Bühne | StageMenu · /buehne | TEAM-Seite › Bühne | verschoben |
-| 57 | Rollen-Menüs | Spieler | PlayersMenu · /spieler [name] | TEAM-Seite › Spieler | verschoben |
-| 58 | Rollen-Menüs | Replays | ReplaysMenu · /replays [name] | TEAM-Seite › Replays | verschoben |
+| 52 | Rollen-Menüs | Baukasten | ServerMenuPanel | Renderer der TEAM-Seite mit neuen Skins für alle 8 Element-Arten; „Bist du sicher?“ (50); Chat-Befehle öffnen in B/A die TEAM-Seite, im Match den Baukasten als eigenes Modal (50), jeweils mit `[name]`; **NEU** Kategorien, Staff-Kopf, Suche, 12 Element-Arten, Sicherheitsregeln (3a) | NEU-Teil |
+| 53 | Rollen-Menüs | Moderation | StaffMenus · /meldungen | TEAM-Seite › Moderation › Meldungen; **NEU** KONTO-AKTE ÖFFNEN, NEUE SANKTION; daneben **NEU** Chat-Live und Sanktions-Verlauf | NEU-Teil |
+| 54 | Rollen-Menüs | Entwickler | StaffMenus · /entwickler, /asset-karte | TEAM-Seite › Entwicklung › Entwickler; daneben **NEU** Debug-Overlay und Client-Logs anfordern | NEU-Teil |
+| 55 | Rollen-Menüs | Verwaltung | StaffMenus · /rolle | TEAM-Seite › Verwaltung › Rollen & Rechte (OWNER, ADMIN eingeschränkt); „XP setzen“ → Konto-Akte › Fortschritt; **NEU** Rechte-Matrix, Staff-Liste, Audit-Log, Sicherheit, Freigaben | NEU-Teil |
+| 56 | Rollen-Menüs | Bühne | StageMenu · /buehne | TEAM-Seite › Live-Betrieb › Bühne (MOD wie heute); **NEU** Datum/Zeit für „Start“, DEV liest | NEU-Teil |
+| 57 | Rollen-Menüs | Spieler | PlayersMenu · /spieler [name] | TEAM-Seite › Moderation › Spieler; **NEU** KONTO-AKTE ÖFFNEN (Konto-Akte, /akte [name]) | NEU-Teil |
+| 58 | Rollen-Menüs | Replays | ReplaysMenu · /replays [name] | TEAM-Seite › Moderation › Replays | verschoben |
 | 59 | Welt-UI | Namensschild | NameTag | Welt-UI im neuen Look (`hud_nametag_plate`, Rollen-Badges) | bleibt |
 | 60 | Welt-UI | Stationsschild und -ring | StationView | – (Deko, kein UI) | entfällt |
 | 61 | Welt-UI | Bühnen-Leinwand | StageScreen | Welt-UI im neuen Look; dieselben Folien im LOBBY-Karussell | bleibt |
 | 62 | Welt-UI | Ziele im Match | ModeWorldView | Welt-UI im neuen Look | bleibt |
 | 63 | Welt-UI | Schießstand-Ziele, Monster, Asset-Karte, Geister | RangeTargetsView · MonsterView · AssetMapView · GhostView | Welt-UI im neuen Look; Monster-Lebensleiste wie 13.6 | bleibt |
-| 64 | Sonstiges & Overlays | Spieler-Aktionen | PlayerActionsPanel | Kontext-Popup (53); alle 6 Aufrufer bleiben (Tab-Liste, Punktestand, Warteraum, Ergebnis, Bauplatz-Mitbauer, Replay-Liste) | bleibt |
+| 64 | Sonstiges & Overlays | Spieler-Aktionen | PlayerActionsPanel | Kontext-Popup (53); alle 6 Aufrufer bleiben (Tab-Liste, Punktestand, Warteraum, Ergebnis, Bauplatz-Mitbauer, Replay-Liste); **NEU** Block „TEAM“ mit KONTO-AKTE ÖFFNEN (nur Staff) | NEU-Teil |
 | 65 | Sonstiges & Overlays | Melden | ReportPanel | Popup (52) | bleibt |
 | 66 | Sonstiges & Overlays | Weitere Texte ohne eigenes Fenster | Toasts, Ablehnungen, Hilfsklassen | Toast-Komponente (70); Bau-Ablehnungen mit rotem Rand + Shake und Rot-Puls am Werkzeug; Stations-Toasts entfallen (Kapitel 7); Hilfsklassen bleiben | verschoben |
 | 67 | Bausteine | UiFactory, EconomyUi, UiControls | Game/UI/UiFactory*.cs, EconomyUi.cs, UiControls.cs | Skin-Schicht mit Tokens (Kapitel 11, 12, 18); **NEU** Auto-Skalierung, Tween-Helfer, UI-Partikel | NEU-Teil |
@@ -828,7 +1181,7 @@ Alle Canvases aus der Inventar-Tabelle „Canvas-Ebenen“ mit ihrer neuen Ebene
 
 | Ebene | Inhalt |
 |---|---|
-| 9–13 | HUD: 9 Zielfernrohr · 10 Basis-HUD, Ziele, Radar, Bau-HUD · 11 Kampf-HUD, Überleben · 12 Match-Kopf, Party-Liste, Such-Pille (HUD) · 13 Einführung-Karte |
+| 9–13 | HUD: 9 Zielfernrohr · 10 Basis-HUD, Ziele, Radar, Bau-HUD · 11 Kampf-HUD, Überleben · 12 Match-Kopf, Party-Liste, Such-Pille (HUD), **NEU** Staff-Pille „UNSICHTBAR“ / „FREIE KAMERA“ · 13 Einführung-Karte |
 | 20 | HUD-Effekte (Blendung) |
 | 30–34 | Spiel-Overlays: 30 Warteraum · 31 Tab-Liste · 33 Funkrad · 34 Bau-Werkzeuge (Palette, Bauvorlagen-Werkzeug) |
 | 40 | Hub (P), kleines Esc-Menü, Bauplatz-Fenster, TEAM-Einzelseite (B, A), System-Dropdown, Glocke-Verlauf |
@@ -1032,6 +1385,8 @@ Kontrast berechnet nach WCAG 2.x gegen `bg.panel` `#0B0B0D`, sofern nicht anders
 | `bg.raised` | `#16161A` (abgeleitet) | – | Hover-Zeilen, gehobene Flächen |
 | `scrim` | `#00040A` mit 60 % | – | hinter Dialogen |
 | `focus` | `#FFD148` + Glow `#FFC21F` 40 % | 13,6 : 1 | Fokus-Ring |
+| `staff.line` (**NEU**) | `#AE4033` (ADMIN-Badge) | 3,4 : 1 (Grafik) | rote Akzentlinie aller Staff-Flächen (3a.6) |
+| `staff.header` (**NEU**) | `#AE4033` → `#7C100B` (ADMIN-Badge) | `text.primary` darauf 5,0 : 1 (oben) bzw. 9,2 : 1 (unten) | Staff-Kopf der TEAM-Seite (3a.1) |
 
 ### 11.3 Rollen-Badges (unterste Reihe im Sheet)
 
@@ -1043,7 +1398,7 @@ Kontrast berechnet nach WCAG 2.x gegen `bg.panel` `#0B0B0D`, sofern nicht anders
 | Schild mit Haken | Grün `#66842E` → `#1E3A01` | goldener Schild mit Haken | MOD | `role_mod` |
 | Person | Blau `#5C83A8` → `#15406C` | helle Büste | Spieler | `role_player` |
 
-Das TEAM-Schild der Top-Leiste nutzt die rote ADMIN-Platte für alle Staff-Rollen.
+Das TEAM-Schild der Top-Leiste nutzt die rote ADMIN-Platte für alle Staff-Rollen. Der Staff-Kopf der TEAM-Seite (**NEU**, 3a.1) zeigt dagegen das eigene Rollen-Badge, damit jeder sieht, mit welcher Rolle er gerade arbeitet.
 
 **OWNER (Inhaber, NEU):** höchster Rang über ADMIN. Sieht alle TEAM-Menüs und ist als einzige Rolle berechtigt, ADMIN oder OWNER zu vergeben (Verwaltung › „Rolle setzen“). ADMIN vergibt nur noch player, moderator und developer. Party-Leiter, Raum-Master, Clan-Leitung und Bauplatz-Inhaber bekommen kein Rollen-Badge, sondern die kleine Krone `icon_crown` vor dem Namen. So bleibt die Kronen-Platte eindeutig dem OWNER vorbehalten.
 
@@ -1250,7 +1605,8 @@ Zustände: **N** normal · **H** hover · **G** gedrückt · **D** deaktiviert �
 | Party-Platz | `frame_party_slot`: Figur bzw. „+“, Krone, Name, Bereit-Haken | leer / belegt / bereit | – (**NEU**) |
 | Modus-Kachel | `card_item` + `mode_*` | N H G D F A | Modus-Auswahl im Raumbrowser |
 | Karussell | Folien 16:9 + Punkte-Reihe | – | Folien der Bühnen-Leinwand |
-| Truhe | `reward_chest_closed/open` + Badge | zu / abholbar / offen | – (**NEU** in der LOBBY) |
+| Truhe | `reward_chest_closed/open` + Badge; **NEU** als 3D-Modell `reward_chest_3d` per RenderTexture (18.11), die 2D-Truhen bleiben Ersatz | zu / abholbar / offen | – (**NEU** in der LOBBY) |
+| TEAM-Bausteine (**NEU**) | Staff-Kopf `frame_staff_header`, Akzentlinie `divider_staff`, Tabelle `frame_data_table`, Diff-Ansicht `frame_diff_preview`, Zahlenfeld mit `btn_minus`/`btn_plus`, HUD-Pille `pill_staff_status`; alle 12 neuen Baukasten-Elemente in 3a.6 | wie die Grund-Komponenten | `ServerMenuPanel`-Elemente |
 | Coachmark | `frame_focus` um das Ziel + Pfeil `hud_offscreen_arrow` + Text-Plakette | – | Leuchten der Ziel-Station |
 | Kampf-HUD-Teile | Gesundheit/Rüstung-Block, Status-Icon, Munitions-Panel, Waffen-Slot, Hotbar-Platz, Warn-Etikett, Schadensbogen, Trefferkreuz, Killfeed-Zeile, Lebensleiste, Ansage-Banner, Todesbildschirm | Kapitel 13 | CombatHud, MatchHud, SurvivalHud, ObjectiveHud, Symbole aus `.Combat`/`.Modes` |
 | Bau-HUD-Teile | Brick-Platz, Werkzeug-Platz, Tasten-Etikett, Limit-Zähler, Statuszeile, Bauplatz-Info, Symmetrie-Anzeige, Abklingzeit-Ring | Kapitel 14 | Brick-Leiste im HudController |
@@ -1653,7 +2009,7 @@ Alle Sequenzen sind mit Klick, Leertaste oder Esc überspringbar (wie heute), da
 
 **Tägliche Belohnung ABHOLEN**
 1. Tages-Kachel pulsiert (Feder `pop`).
-2. Truhe wackelt 3× (Rotation ±6°, 240 ms gesamt), wechselt auf `reward_chest_open` mit Scale 1,15 → 1,0 (`bouncy`); dahinter `reward_rays`.
+2. Truhe wackelt 3× (Rotation ±6°, 240 ms gesamt), wechselt auf `reward_chest_open` mit Scale 1,15 → 1,0 (`bouncy`); dahinter `reward_rays`. Mit der 3D-Truhe `reward_chest_3d` (**NEU**) klappt stattdessen der Deckel am Scharnier auf (0 → −105°, Feder `bouncy`), und das goldene Innenleuchten blendet 0 → 1 (240 ms outCubic). Bei „Animationen reduzieren“ steht die Truhe sofort offen.
 3. 24 `fx_coin` steigen auf und fliegen auf Bahnen zur Brix-Pille (600 ms, 20 ms versetzt); die Pille rollt beim Eintreffen hoch; `ui_reward`, `ui_coin`.
 4. Knopf wird „ABGEHOLT“, Kachel „TAG n · ABGEHOLT“.
 
@@ -1859,7 +2215,7 @@ Die oberste Kennung im Stapel nimmt Maus und Steuerung (wie heute).
 | `social` | `social.friends` / `.party` / `.clan` / `.mail` / `.plazas` / `.blocked` |
 | `profile` | `profile` (Popup) · `hub.career.profile` |
 | `settings` | `settings.graphics` / `.sound` / `.controls` / `.controller` / `.voice` / `.general` / `.accessibility` |
-| `servermenu` | `hub.team` (P) · Einzelseite `page.team` (B, A) · `servermenu` als Modal im Match |
+| `servermenu` | `hub.team` (P) · Einzelseite `page.team` (B, A) · `servermenu` als Modal im Match; **NEU** Unterseiten `hub.team.<kategorie>.<menü>` bzw. `page.team.…` (3a.7) |
 | `player_actions` / `report` / `photo` / `chat` | unverändert |
 | **NEU** | `hub.lobby`, `hub.play.quick`, `hub.shop.featured`, `hub.career.history`, `hub.career.replays`, `hub.career.mastery`, `hub.career.achievements`, `hub.career.missions`, `system_menu`, `bell`, `dialog.<name>` |
 
@@ -1879,6 +2235,8 @@ Einstellungs-Schlüssel `accessibility.reduceMotion`. `UiTween`, `UiParticleEmit
 
 ### 18.11 LOBBY-Bühne
 Eine eigene Kamera rendert eigene Figur und Party-Figuren (höchstens „PARTY n / m“) in eine RenderTexture (1024×1024) auf eigenem Layer. Sie ist nur aktiv, solange die LOBBY sichtbar ist; bei Kompakt/Schmal kleiner (768²).
+
+**3D-Truhe (NEU):** `reward_chest_3d` (Typ `model`, ≈ 1.500–3.000 Dreiecke) rendert eine kleine eigene Kamera in eine RenderTexture (512², transparent) für die LOBBY-Truhe und das Popup „Tägliche Belohnung“. Der Deckel ist ein eigenes Objekt mit Pivot auf der Scharnier-Achse; das Innenleuchten ist ein Emissive-Material. Die Kamera läuft nur, solange Truhe oder Popup sichtbar sind; sonst und bei Budget-Engpässen zeigt die UI die 2D-Truhen `reward_chest_closed/open`.
 
 ### 18.12 Performance-Budgets
 
@@ -1950,7 +2308,7 @@ Heute sehen normale Spieler nur Clips („Spielzug der Runde“) und Live-Zuscha
 |---|---|---|---|
 | O1 | Replays (Server) | Liste je Konto, Rechte, Aufbewahrung, Highlights | 19.3 |
 | O2 | Schnellspiel | Kann der Schnellstart Modus und Kanal übernehmen? | Parameter am Schnellstart; bis dahin nur „Alle Modi“ |
-| O3 | TEAM auf B | Der Plan lässt TEAM im kleinen Menü auf B weg. | Für Staff aufnehmen (wie auf A); bis dahin Chat-Befehle |
+| O3 | TEAM auf B | ~~Der Plan lässt TEAM im kleinen Menü auf B weg.~~ | **gelöst:** TEAM und TEAM-WERKZEUGE stehen für Staff auf B (3a.5, 20.2) |
 | O4 | Bereit-Status | Server-Feld je Party-Mitglied nötig | Haken in der LOBBY; ohne Server-Feld ausblenden |
 | O5 | „+“ an Kristalle | Das Inventar kennt keinen Kauf von Kristallen. | Ziel LADEN › Katalog › Gems oder „+“ ausblenden |
 | O6 | LADEN › Empfohlen | Datenquelle | Server-Liste; Fallback: Event-Items, „-n %“, neue Items |
@@ -1965,6 +2323,14 @@ Heute sehen normale Spieler nur Clips („Spielzug der Runde“) und Live-Zuscha
 | O15 | Glocke-Verlauf | nur Sitzung oder serverseitig | Sitzung (30 Einträge) |
 | O16 | Asset-Liste | `frame_dropdown_menu` nennt „Zur Plaza“ im System-Dropdown; im Plaza-Hub erscheint der Eintrag nie | Text in `data/ui_assets.csv` anpassen |
 | O17 | Fremdes Profil im Match | POST und BESTENLISTEN sind im Match ausgeblendet (**NEU**). | bestätigen |
+| O18 | Konto-Akte für MOD | Laut Plan liest MOD die Konto-Akte nur. Heute sanktioniert MOD aber im Menü Spieler und sperrt Maps in Meldungen. | MOD darf in der Konto-Akte sanktionieren, Maps ausblenden/sperren/freigeben und Staff-Notizen schreiben, sonst Lesen (3a.3); bestätigen |
+| O19 | Freigabe beim OWNER | Wer gibt Aktionen eines OWNER über einer Schwelle frei? | ohne Freigabe, im Audit-Log markiert; gibt es mehrere OWNER, gibt ein zweiter OWNER frei |
+| O20 | Chat-Live und Datenschutz | Gehören Flüstern und Party-Funk in den Live-Feed? | nein; nur über Meldungen (3a.2.1) |
+| O21 | Client-Logs | Muss der Spieler dem Hochladen zustimmen? | Toast-Hinweis an den Spieler; rechtlich prüfen |
+| O22 | Support-Antworten | Antwortet der Support heute im Spiel oder in einem externen Werkzeug? | ANTWORTEN in Konto-Akte › Support nur, wenn der Server es anbietet; sonst nur Lesen |
+| O23 | OWNER-Konten | Gleiche Rolle ist gesperrt (3a.4 #6). Wer ändert ein OWNER-Konto? | nur über die Server-Konsole |
+| O24 | Schwellen Splitter und Münzen | Der Plan nennt nur Brix (> 10.000) und Kristalle (> 500). | Vorschlag > 5.000 Splitter, > 20 Münzen |
+| O25 | UI-Katalog und 3D | **Gelöst:** Der UI-Katalog baut für den Typ `model` zwei Prompts: Schritt 1 ein Referenzbild mit Higgsfield · GPT Image 2 (1:1, 2k, transparent), Schritt 2 Bild-zu-3D (Meshy, Tripo, Rodin oder Hunyuan3D) mit Dreiecks-Budget, PBR-Texturen und separatem Deckel. | – |
 
 ### 20.2 Getroffene Entscheidungen
 
@@ -1980,6 +2346,7 @@ Heute sehen normale Spieler nur Clips („Spielzug der Runde“) und Live-Zuscha
 | Ergebnis (43), Ergebnis-Sequenz (45) und ReplayViewer (46) liegen über dem Menü-Band; Einstellungen 44 | Review (alte Reihenfolge Ord 42/44/49 > 40 bleibt), abgestimmt mit `data/ui_migration.csv` |
 | Querverweise in den Hub zeigen in B und A „Nur in der Plaza“ | ÄNDERUNG 2 (Hub nur in der Plaza), abgestimmt mit `data/ui_migration.csv` |
 | Eigener `UiTween` und eigener Partikel-Emitter | 18.5, 18.6 |
+| TEAM mit Kategorien, Konto-Akte, Rechte-Matrix, Sicherheitsregeln und Vier-Augen-Freigabe; TEAM im kleinen Menü auch auf B | User-Wunsch, Kapitel 3a (löst O3) |
 
 ---
 
@@ -1992,7 +2359,7 @@ Heute sehen normale Spieler nur Clips („Spielzug der Runde“) und Live-Zuscha
 | `UI_KONZEPT.md` | dieses Dokument | Neue Funktionen hier und in der CSV eintragen; **NEU** markieren |
 | `data/ui_migration.csv` | 67 Zeilen: `bereich,titel,klasse,knoepfe,unterdialoge,neuer_ort,zugang_alt,zugang_neu,modi,bedingungen,ebene_alt,ebene_neu,status` | nach jeder Änderung `python3 tools/check_ui_migration.py` |
 | `data/ui_migration.skeleton.csv` | Gerüst aus dem Inventar | neu erzeugen mit `python3 tools/check_ui_migration.py --skeleton`, wenn sich das Inventar ändert |
-| `data/ui_assets.csv` | UI-Assets: `id,name,gruppe,typ,groesse,slice,zustaende,motiv_en,verwendung,basis` | IDs werden hier referenziert; umbenennen nur zusammen mit diesem Dokument |
+| `data/ui_assets.csv` | UI-Assets: `id,name,gruppe,typ,groesse,slice,zustaende,motiv_en,verwendung,basis,name_en`; `typ` ist `nineslice`, `sprite`, `icon`, `particle`, `background`, `mockup` oder **NEU** `model` (3D, `groesse` als Dreiecks-Budget, 20/O25) | IDs werden hier referenziert; umbenennen nur zusammen mit diesem Dokument |
 | `artifact/ui-katalog.template.html` → `artifact/ui-katalog.html` | Prompt-Bibliothek (Midjourney `--sref`, GPT-Image/Firefly, SD/Flux + IP-Adapter) und durchsuchbare Migration | nach Änderungen an `ui_assets.csv` oder `ui_migration.csv`: `python3 tools/build_sheet.py` |
 | `artifact/ui-prototyp.html` | klickbarer Prototyp (Hub, kleines Esc-Menü, Tab-Liste, HUDs, Komponenten, „Animationen reduzieren“) | Werte aus Kapitel 11 und 15 übernehmen |
 | `tools/check_ui_migration.py` | Gerüst- und Prüfmodus: 67/67 Einträge, alle `ui-label` in `knoepfe`, Knopf-Texte aus den Hinweis-Blöcken (z. B. Fußzeile der Einstellungen), alle Zeilen des Esc-Menüs in `neuer_ort`, `neuer_ort` und `zugang_neu` gefüllt, `status` erlaubt (inkl. `entfällt`) | Exit-Code 1 bei Fehlern |

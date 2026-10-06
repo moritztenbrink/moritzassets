@@ -119,6 +119,7 @@ details.asset[open] > summary,details.mig[open] > summary{background:var(--panel
 .code.t-icon{border-radius:4px}
 .code.t-particle{background:radial-gradient(circle at 50% 50%,#fff6d8 0,var(--gold-hi) 18%,rgba(251,178,29,.35) 45%,#000 72%);color:#000;border:1px solid #1d1d1d}
 .code.t-background{background:linear-gradient(135deg,#0d1424,#00040A 60%);color:var(--frame-hi);border:1px solid var(--line-2)}
+.code.t-model{background:linear-gradient(135deg,var(--gold-hi),var(--gold) 40%,#9C4D01);color:var(--glyph);border:1px solid var(--outline);transform:perspective(60px) rotateY(-14deg)}
 .code.t-mockup{background:linear-gradient(180deg,#1a1d26 0 22%,#0B0B0D 22%);color:var(--gold);border:1px solid var(--frame)}
 .concept{display:inline-block;font-family:var(--f-mono);font-size:10px;letter-spacing:.04em;color:var(--blue);border:1px solid currentColor;border-radius:3px;padding:0 5px;margin-right:8px;vertical-align:2px}
 .hfset{display:flex;flex-wrap:wrap;gap:4px 6px;margin:0 0 2px;font-size:12.5px}
@@ -334,7 +335,7 @@ const GROUPS = [
 ];
 for(const a of UI){ if(!GROUPS.some(g=>g[0]===a.gruppe)) GROUPS.push([a.gruppe,str(a.gruppe).toLowerCase().replace(/[^a-z0-9]+/g,"-")]); }
 const SLUG=Object.fromEntries(GROUPS);
-const TYPES = {nineslice:["9S","9-Slice"],sprite:["SP","Sprite"],icon:["IC","Icon"],particle:["FX","Partikel"],background:["BG","Hintergrund"],mockup:["MK","Konzept-Mockup"]};
+const TYPES = {nineslice:["9S","9-Slice"],sprite:["SP","Sprite"],icon:["IC","Icon"],particle:["FX","Partikel"],background:["BG","Hintergrund"],mockup:["MK","Konzept-Mockup"],model:["3D","3D-Modell"]};
 
 const TOKENS = [["Grund","#00040A"],["Panel","#0B0B0D"],["Panel-Rahmen","#AE5F00"],["Rahmen-Licht","#D4B55C"],["Gold-Körper","#FBB21D"],["Oberlicht","#FFD148"],
   ["Innenlinie","#C27200"],["Unterkante","#A85200"],["Kontur","#3A1400"],["Glyphe","#562C00"],["Deaktiviert","#A76919"],["Toggle an","#192F01"],["Gefahr","#7C1F17"]];
@@ -364,13 +365,15 @@ const ANCHOR = {"Rahmen & Panels":"frame_window","Esc-Menü & Tab-Liste":"esc_pa
   "Balken & Fortschritt":"bar_track","Reiter-Icons":"icon_tab_lobby","Funktions-Icons":"icon_settings","Lobby & Modi":"mode_tdm","Währungen":"cur_brix",
   "Rang-Abzeichen":"rank_t1","Rollen-Badges":"role_player","Stufen-Rahmen":"tier_frame_common","Kampf-HUD":"hud_hp_frame","Bau-HUD":"build_slot","HUD":"hud_killfeed_plate",
   "Belohnung":"reward_banner","Partikel":"fx_sparkle"};
-const noImg2=a=>a.typ==="mockup"||a.typ==="background";
+const noImg2=a=>a.typ==="mockup"||a.typ==="background"||a.typ==="model";
 const anchorOf=a=>ANCHOR[a.gruppe]||(UI.find(x=>x.gruppe===a.gruppe&&x.basis==="ja")||UI.find(x=>x.gruppe===a.gruppe)||a).id;
 const STATES = {
   normal:{suf:"",l:"Grundzustand"},
   deaktiviert:{suf:"_disabled",l:"Deaktiviert",txt:"Disabled state of this element: identical shape, size and framing; colors muted and desaturated toward dull ochre (#A76919), weaker top highlight, any glyph faded"},
   hover:{suf:"_hover",l:"Hover",txt:"Hover state of this element: identical shape and size; the body lit with a warm gold gradient from the left (#FFC21F), brighter border, soft golden outer glow"},
   aktiv:{suf:"_active",l:"Aktiv",txt:"Active state of this element: identical shape and size; thick bright gold frame, slightly raised with a stronger bottom lip and a soft golden glow"},
+  ref:{suf:"_ref",l:"1 · Referenzbild (GPT Image 2)"},
+  mesh:{suf:"",l:"2 · 3D-Modell (Bild-zu-3D)"},
   limit:{suf:"_limit",l:"Limit",txt:"Limit-reached state of this element: identical shape and size; border and glow turned warning red (#D93233), body slightly darker"}
 };
 const STYLE = "chunky golden-yellow beveled plates with chamfered corners, thin dark-brown outline, bright top highlight, inner inset line, thick darker bottom lip giving a 3D look, subtle hand-painted texture, small corner rivets, dark brown (#562C00) glyphs, near-black UI panels with thin gold double borders";
@@ -388,6 +391,7 @@ const isAlpha=a=>/Blend Alpha/i.test(str(a.zustaende));
 const lettered=a=>a.typ==="mockup"||/(letters?|numeral) "/.test(str(a.motiv_en));
 const threeQ=a=>/three-quarter|in perspective/.test(str(a.motiv_en));
 function statesOf(a){
+  if(a.typ==="model") return ["ref","mesh"];
   const head=str(a.zustaende).split("(")[0];
   if(/eine Datei/i.test(head)) return ["normal"];
   const s=head.split(",").map(x=>x.trim().toLowerCase()).filter(x=>STATES[x]);
@@ -459,8 +463,9 @@ function hfRatio(a){
   for(const q of HF_RATIOS){const x=Math.abs(Math.log(q[0]/q[1])-r); if(x<d){d=x;best=q;}}
   return {r:best.join(":"),exact:d<1e-9};
 }
-const hfRes=a=>a.typ==="icon"||a.typ==="particle"?"1k":(a.typ==="background"||a.typ==="mockup"?"4k":"2k");
+const hfRes=a=>a.typ==="model"?"2k":a.typ==="icon"||a.typ==="particle"?"1k":(a.typ==="background"||a.typ==="mockup"?"4k":"2k");
 function hfBg(a){
+  if(a.typ==="model") return "transparent (Referenzbild)";
   if(a.typ==="background"||a.typ==="mockup") return "opaque";
   if(bgMode(a)==="black") return "opaque (reines Schwarz)";
   return "transparent"+(a.typ==="particle"&&!isAlpha(a)?" (alternativ opaque Schwarz für additives Blending)":"");
@@ -520,7 +525,32 @@ function higgsPrompt(a,state){
   ].filter(Boolean).join("\n");
 }
 const parts=arr=>arr.filter(Boolean);
+/* 3D-Modelle: erst ein sauberes Referenzbild im Stil des Sheets, dann Bild-zu-3D (Meshy, Tripo, Rodin, Hunyuan3D) */
+function modelPrompt(a,state){
+  const m=str(a.motiv_en).replace(/\.$/,""), ex=S.extra.trim();
+  if(state==="ref") return [
+    "Use Image 1 (Brixel UI asset sheet) as the STYLE reference only — match its materials, gold bevels, outline weight and warm lighting, do not copy any element.",
+    `Goal: one clean reference render of a 3D game asset for the PC game Brixel, used as input for image-to-3D: ${a.name_en||a.name}.`,
+    `Subject: ${m}.`,
+    "Composition: single object, centered, three-quarter front view from slightly above (about 30°), the whole object visible with even margins, lid closed, neutral even studio lighting with a soft warm key light, no cast shadow, no reflections of a scene.",
+    "Details: stylised low-poly game-ready shapes with clean flat faces and crisp bevels, readable silhouette, simple hand-painted texture detail; materials clearly separated (wood, gold metal, gem).",
+    "Use case: reference image for an image-to-3D generator; the model is later rendered into the Unity UI.",
+    "Constraints: transparent background; no text, letters or numbers; no logo, no watermark, no extra objects, no ground plane; clean anti-aliased edges.",
+    ex?`Note: ${ex}.`:""
+  ].filter(Boolean).join("\n");
+  return [
+    "Image-to-3D input: the reference image from step 1.",
+    `Object: ${m}.`,
+    `Target: game-ready low-poly mesh, ${str(a.groesse)}, quad-dominant clean topology, real-world size about 0.8 m wide, pivot at the bottom center, +Y up, faces toward +Z.`,
+    `Parts: ${str(a.zustaende)}.`,
+    "Textures: PBR 2048×2048 (base color, normal, occlusion/roughness/metallic packed as ORM); gold metallic 1.0 roughness 0.35, wood metallic 0 roughness 0.75, gem slightly emissive red; stylised hand-painted look matching the reference, no baked lighting in base color.",
+    "Export: FBX and GLB, single material set, no animation baked; the lid is a separate object for the open animation in Unity.",
+    "Avoid: photoreal scan noise, floating parts, holes, text or logos.",
+    ex?`Note: ${ex}.`:""
+  ].filter(Boolean).join("\n");
+}
 function prompt(a,state){
+  if(a.typ==="model") return modelPrompt(a,state);
   const p=spec(a,state), ex=S.extra.trim();
   const usesPalette=a.typ!=="particle"&&a.typ!=="background";
   switch(S.gen){
@@ -549,6 +579,7 @@ function prompt(a,state){
 }
 function genHint(a){
   const h=[];
+  if(a.typ==="model") return "Schritt 1: Higgsfield · GPT Image 2, 1:1, 2k, transparent · Schritt 2: Meshy, Tripo, Rodin oder Hunyuan3D (Bild-zu-3D)";
   if(S.gen==="higgs"){const r=hfRatio(a);h.push(`${r.r} · ${hfRes(a)} · ${hfBg(a).split(" (")[0]}`);}
   else if(S.gen==="mj"){h.push(`--ar ${genRatio(a)}`); if(clamped(a)) h.push(`auf ${dims(a).join("×")} zuschneiden`);}
   else if(S.gen==="sd"){h.push("IP-Adapter 0,6–0,8"); if(bgMode(a)==="trans") h.push("Transparenz: LayerDiffuse oder freistellen");}
@@ -558,6 +589,7 @@ function genHint(a){
 }
 function filesOf(a){
   if(a.typ==="mockup") return [["Konzept-Mockup",`mockups/${a.id}.png`]];
+  if(a.typ==="model") return [["Referenzbild",`models/ui/${a.id}_ref.png`],["3D-Modell",`models/ui/${a.id}.fbx`],["Texturen",`models/ui/${a.id}_basecolor.png, _normal.png, _orm.png`]];
   const dir=`ui/${SLUG[a.gruppe]||"ui"}/`, ext=a.typ==="background"&&dims(a)[0]>=1920?".jpg":".png";
   const gsuf=a.typ==="icon"?GLYPHS[S.glyph].suf:"";
   return statesOf(a).map(s=>[STATES[s].l,`${dir}${a.id}${gsuf}${STATES[s].suf}${ext}`]);
@@ -626,7 +658,7 @@ function renderBody(det){
     <div>
       <h3>Motiv</h3><p>${esc(a.motiv_en)}</p>
       <h3>Verwendung</h3><p>${esc(a.verwendung)}</p>
-      <h3>Dateien</h3><ul class="files">${filesOf(a).map(([l,f])=>`<li>${esc(l)}: <span>${esc(f)}</span></li>`).join("")}<li>Größe: <span>${esc(str(a.groesse).replace("x","×"))} px</span> · ${esc((TYPES[a.typ]||[,a.typ])[1])}</li></ul>
+      <h3>Dateien</h3><ul class="files">${filesOf(a).map(([l,f])=>`<li>${esc(l)}: <span>${esc(f)}</span></li>`).join("")}<li>Größe: <span>${esc(str(a.groesse).replace("x","×"))}${a.typ==="model"?"":" px"}</span> · ${esc((TYPES[a.typ]||[,a.typ])[1])}</li></ul>
       <h3>Zustände</h3><p>${esc(a.zustaende)}</p>
       ${a.typ==="nineslice"?`<h3>9-Slice</h3>${sliceSvg(a)}`:""}
     </div>
