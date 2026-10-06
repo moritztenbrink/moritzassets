@@ -8,9 +8,13 @@ Geprüft wird:
   - jeder Eintrag (<details class="ui">) aus dem Inventar steht genau einmal in der CSV (Bereich, Titel, Klasse)
   - die CSV enthält keine Einträge, die es im Inventar nicht gibt
   - jeder Knopf-Text (<span class="ui-label">) des Eintrags steht in der Spalte knoepfe
-  - neuer_ort ist ausgefüllt und status ist einer der erlaubten Werte
+  - jeder Knopf-Text aus den Hinweis-Blöcken (z. B. Fußzeile der Einstellungen) steht in irgendeiner Zeile
+  - jede Zeile des Esc-Menüs („…“) steht in neuer_ort der Esc-Menü-Zeile
+  - neuer_ort und zugang_neu sind ausgefüllt (zugang_neu nicht bei status entfällt),
+    status ist einer der erlaubten Werte
 """
 import csv
+import re
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
@@ -32,14 +36,21 @@ class Inventory(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.entries, self.section, self.cur, self.grab, self.depth = [], "", None, None, 0
+        self.in_note, self.note_labels = False, []
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         cls = a.get("class", "")
         if tag == "section" and "group" in cls:
             self.section = a.get("data-title", "")
+        if tag == "div" and cls == "note":
+            self.in_note = True
+        if self.in_note and tag == "span" and cls == "ui-label":
+            self.grab = ["note", tag, ""]
+            return
         if tag == "details" and cls == "ui":
-            self.cur = {"bereich": self.section, "titel": "", "klasse": "", "chips": [], "h4": [], "labels": []}
+            self.cur = {"bereich": self.section, "titel": "", "klasse": "", "chips": [], "h4": [], "labels": [],
+                        "text": ""}
             self.depth = 0
         if self.cur is None:
             return
@@ -58,12 +69,18 @@ class Inventory(HTMLParser):
     def handle_data(self, data):
         if self.grab:
             self.grab[2] += data
+        if self.cur is not None:
+            self.cur["text"] += data
 
     def handle_endtag(self, tag):
+        if tag == "div" and self.in_note:
+            self.in_note = False
         if self.grab and tag == self.grab[1]:
             key, _, text = self.grab
             text = " ".join(text.split())
-            if isinstance(self.cur[key], list):
+            if key == "note":
+                self.note_labels.append(text)
+            elif isinstance(self.cur[key], list):
                 self.cur[key].append(text)
             else:
                 self.cur[key] = text
@@ -82,7 +99,12 @@ def unique(items):
 def load_inventory():
     parser = Inventory()
     parser.feed(INVENTORY.read_text(encoding="utf-8"))
-    return parser.entries
+    return parser.entries, unique(parser.note_labels)
+
+
+def menu_lines(entry):
+    """Zeilen des Esc-Menüs stehen in „…“ statt als ui-label; sie brauchen trotzdem ein Ziel."""
+    return unique(m.strip() for m in re.findall(r"„([^“]+)“", entry["text"]))
 
 
 def key(row):
@@ -102,7 +124,7 @@ def skeleton(entries):
     print(f"{SKELETON.relative_to(ROOT)} geschrieben ({len(entries)} Einträge)")
 
 
-def check(entries):
+def check(entries, note_labels):
     with open(CSV_FILE, encoding="utf-8", newline="") as f:
         reader = csv.DictReader(f)
         missing_cols = [c for c in COLUMNS if c not in (reader.fieldnames or [])]
@@ -130,18 +152,28 @@ def check(entries):
                 errors.append(f"Knopf fehlt in {e['titel']}: {label}")
         if not row["neuer_ort"].strip():
             errors.append(f"neuer_ort leer: {e['titel']}")
+        if not row["zugang_neu"].strip() and row["status"].strip() != "entfällt":
+            errors.append(f"zugang_neu leer: {e['titel']}")
+        if e["titel"] == "Esc-Menü":
+            for line in menu_lines(e):
+                if line not in row["neuer_ort"]:
+                    errors.append(f"Esc-Menü-Zeile ohne Ziel in neuer_ort: „{line}“")
         if row["status"].strip() not in STATUS:
             errors.append(f"status ungültig in {e['titel']}: {row['status']!r}")
+    all_listed = {s.strip() for row in rows for s in row["knoepfe"].split("|")}
+    for label in note_labels:
+        if label not in all_listed:
+            errors.append(f"Knopf aus Hinweis-Block in keiner Zeile: {label}")
     return errors
 
 
 def main():
-    entries = load_inventory()
+    entries, note_labels = load_inventory()
     if "--skeleton" in sys.argv:
         skeleton(entries)
         return 0
-    errors = check(entries)
-    labels = sum(len(unique(e["labels"])) for e in entries)
+    errors = check(entries, note_labels)
+    labels = sum(len(unique(e["labels"])) for e in entries) + len(note_labels)
     if errors:
         print("\n".join(errors))
         print(f"{len(errors)} Fehler")
