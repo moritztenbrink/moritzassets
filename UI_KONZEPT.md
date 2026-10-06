@@ -928,6 +928,7 @@ Alle Canvases aus der Inventar-Tabelle „Canvas-Ebenen“ mit ihrer neuen Ebene
 ## 10. Skalierung & UI-Größe
 
 ### 10.1 Formel
+- **Nur Desktop (PC)**, keine Handy-Ansicht. Unterstützt werden 1280×720 bis 4K in 16:9, 16:10, 21:9 und 32:9; kleinere Fenster werden nur verkleinert, nicht umgebaut.
 - Referenz **1920×1080**.
 - Auto-Faktor: `f_auto = clamp( sqrt( (W / 1920) · (H / 1080) ), 0.6, 2.0 )`. Das ist das geometrische Mittel aus Breiten- und Höhenfaktor, also genau das, was Unitys `CanvasScaler` (Scale With Screen Size, Match 0.5) rechnet, nur mit Begrenzung.
 - Nutzer-Faktor `g` = UI-Größe: Klein **0.85** · Mittel **1.0** (Standard) · Groß **1.2**.
