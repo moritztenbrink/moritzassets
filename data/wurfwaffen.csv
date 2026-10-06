@@ -1,0 +1,8 @@
+klasse,name,ausloeser,fAtkPow,radius_m,fExplosionTime_s,fThrowForce,fRigidity,persistTime_s,continueTime_s,maxAmmo,brick_schaden,besonderheit
+SPLITTER,Splittergranate,Zeitzünder,110,6.0,3.0,15,0.60,0,0,2,mittel,Kochen möglich (Taste halten zählt Zünder runter)
+ZEITBOMBE,Zeitbombe / C4,Zeitzünder,150,7.0,5.0,8,0.80,0,0,1,hoch,Haftet an Bricks und Wänden
+SENSOR,Sensorbombe (Mine),Annäherung 2.5 m,120,5.0,1.5,10,0.70,60,0,1,mittel,Scharf nach 1.5 s / piept vor Explosion 0.4 s
+FERNZUENDER,Fernzünder-Bombe,Zweiter Klick,140,6.5,0,10,0.70,0,0,1,hoch,Wird geworfen und per Linksklick gezündet
+BLEND,Blendgranate,Zeitzünder,0,15.0,1.5,15,0,0,3.5,2,nein,Blendet je nach Blickwinkel und Abstand bis 3.5 s
+RAUCH,Rauchgranate,Zeitzünder,0,6.0,1.5,14,0,12,0,1,nein,Sichtblocker; blockiert keine Kugeln
+GIFT,Giftgranate,Aufprall,10,5.0,0,14,0.40,6,0,1,nein,8 Schaden pro Sekunde in der Wolke

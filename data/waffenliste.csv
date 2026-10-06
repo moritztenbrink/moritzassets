@@ -1,0 +1,126 @@
+by_name,anzeigename,klasse,munition,abweichungen,visier,besonderheit,zuordnung
+BM9,Beretta M9,PISTOLE,9x19 mm,-,IRON,Standard-Sekundärwaffe,fest
+BWP38,Walther P38,PISTOLE,9x19 mm,fAtkPow=28 / maxMagazine=8,IRON,-,fest
+BWPP,Walther PP,PISTOLE,7.65 mm,fAtkPow=22 / fDrawSpeed=2.0 / fSpeedFactor=1.03,IRON,Schnellste Ziehzeit,fest
+LUGER_P08,Luger P08,PISTOLE,9x19 mm,fAtkPow=27 / maxMagazine=8 / fRecoilPitch=1.0,IRON,-,fest
+BC1900,Colt M1900,PISTOLE,.38 ACP,fAtkPow=30 / maxMagazine=7 / fRateOfFire=300,IRON,-,Vorschlag
+GLOCK18,Glock 18,PISTOLE,9x19 mm,feuermodus=Auto / fAtkPow=18 / fRateOfFire=1100 / maxMagazine=20 / fRecoilPitch=0.7,IRON,Vollautomatische Pistole,fest
+ANACONDA,Colt Anaconda,PISTOLE,.44 Magnum,fAtkPow=52 / fRateOfFire=150 / maxMagazine=6 / maxAmmo=30 / fRecoilPitch=3.2 / fRigidity=0.35,IRON,Revolver: 2 Körpertreffer,fest
+DESERTEAGLE,Desert Eagle,PISTOLE,.50 AE,fAtkPow=48 / fRateOfFire=180 / maxMagazine=7 / maxAmmo=35 / fRecoilPitch=3.0 / fRigidity=0.30,IRON,-,fest
+TASER_SPECIAL,Taser,PISTOLE,Elektrode,fAtkPow=10 / fRange=12 / fEffectiveRange=12 / maxMagazine=1 / maxAmmo=6 / fRigidity=1.0,IRON,Treffer lähmt 1.5 s,Vorschlag
+UZI,Uzi,MP,9x19 mm,fAtkPow=19 / fRateOfFire=950 / maxMagazine=32,IRON,-,fest
+MP40,MP 40,MP,9x19 mm,fAtkPow=22 / fRateOfFire=550 / maxMagazine=32 / fRecoilPitch=0.45,IRON,Langsam aber kontrollierbar,fest
+PPSH41,PPSh-41,MP,7.62x25 mm,fAtkPow=18 / fRateOfFire=1000 / maxMagazine=71 / maxAmmo=142 / fReloadSpeed=0.67,IRON,Trommelmagazin,fest
+K1,Daewoo K1,MP,5.56x45 mm,fAtkPow=22 / fRateOfFire=800 / fRange=90 / fEffectiveRange=25,REDDOT,Karabiner-MP,fest
+MP7_SPECIAL,HK MP7,MP,4.6x30 mm,fRateOfFire=950 / maxMagazine=40,REDDOT,-,fest
+M16,M16A2,STURMGEWEHR,5.56x45 mm,feuermodus=Burst-3 / semiAutoMaxCyclicAmmo=3 / fAtkPow=30 / fRateOfFire=750,IRON,3-Schuss-Salve,fest
+AK47,AK-47,STURMGEWEHR,7.62x39 mm,fAtkPow=31 / fRateOfFire=600 / fRecoilPitch=1.0 / fRecoilYaw=0.35,IRON,Hoher Schaden + starker Rückstoß,fest
+M4,M4A1,STURMGEWEHR,5.56x45 mm,fAtkPow=27 / fRateOfFire=750 / fRecoilPitch=0.75,REDDOT,-,fest
+STG44,StG 44,STURMGEWEHR,7.92x33 mm,fAtkPow=30 / fRateOfFire=550 / fRecoilPitch=0.9,IRON,-,fest
+K2,Daewoo K2,STURMGEWEHR,5.56x45 mm,fRateOfFire=700,IRON,-,fest
+FAMAS,FAMAS F1,STURMGEWEHR,5.56x45 mm,fAtkPow=25 / fRateOfFire=950 / maxMagazine=25,IRON,-,fest
+G36K,G36K,STURMGEWEHR,5.56x45 mm,fRecoilPitch=0.70 / fAccuracy=82,ACOG2,-,fest
+HK416,HK416,STURMGEWEHR,5.56x45 mm,fRateOfFire=700 / fRecoilPitch=0.75,HOLO,-,fest
+L85A2,L85A2,STURMGEWEHR,5.56x45 mm,fAccuracy=85,ACOG4,Präzises Bullpup,fest
+WZ96_Beryl,wz.96 Beryl,STURMGEWEHR,5.56x45 mm,fAtkPow=29,IRON,-,fest
+C8A1_CARBINE,C8A1 Carbine,STURMGEWEHR,5.56x45 mm,fDrawSpeed=1.2 / fSpeedFactor=0.97 / fRange=120,REDDOT,-,fest
+BN2000,FN F2000,STURMGEWEHR,5.56x45 mm,fRateOfFire=850,HOLO,-,fest
+B11,Daewoo K11,STURMGEWEHR,5.56x45 mm + 20 mm,fAtkPow=26 / Launcher=GRANADE / maxLauncherAmmo=2,ACOG2,Unterlauf-Granatwerfer (Rechtsklick),fest
+STEYRAUG_WHITE,Steyr AUG (Weiß),STURMGEWEHR,5.56x45 mm,fAccuracy=84,HOLO,-,fest
+STEYRAUG_BLACK,Steyr AUG (Schwarz),STURMGEWEHR,5.56x45 mm,fAccuracy=84,HOLO,-,fest
+STEYRAUG_DESERT,Steyr AUG (Wüste),STURMGEWEHR,5.56x45 mm,fAccuracy=84,HOLO,-,fest
+SCAR_SPECIAL,FN SCAR-H,KAMPFGEWEHR,7.62x51 mm,-,HOLO,-,fest
+HK417_SPECIAL,HK417,KAMPFGEWEHR,7.62x51 mm,fAtkPow=42 / fRateOfFire=380,ACOG4,Präzisionsgewehr,fest
+SSG69,Steyr SSG 69,SCHARFSCHUETZE,7.62x51 mm,fAtkPow=85 / fRateOfFire=55 / fSpeedFactor=0.90,SNIPER6,Leicht und schnell,fest
+BMN91,Mosin-Nagant M91,SCHARFSCHUETZE,7.62x54R,fAtkPow=90,ACOG4,-,fest
+AWP,AWM,SCHARFSCHUETZE,.338 Lapua,fAtkPow=110 / fRateOfFire=40 / fSpeedFactor=0.85,SNIPER_2STUFEN,Körpertreffer tötet,fest
+JNG90,JNG-90,SCHARFSCHUETZE,7.62x51 mm,fAtkPow=100 / fRateOfFire=48,SNIPER_2STUFEN,-,fest
+BRG42,TRG-42,SCHARFSCHUETZE,.338 Lapua,fAtkPow=105 / fRateOfFire=42,SNIPER_2STUFEN,-,Vorschlag
+BARRETT_M82A1,Barrett M82A1,SCHARFSCHUETZE,.50 BMG,feuermodus=Semi / fAtkPow=105 / fRateOfFire=90 / maxMagazine=10 / maxAmmo=30 / fRecoilPitch=6.0 / fRigidity=0.80 / fSpeedFactor=0.80,ANTIMAT,Halbautomatisch / zerstört Bricks,fest
+W1893,Winchester 1893,SCHROTFLINTE,12 Gauge,-,IRON,Pump-Action,Vorschlag
+MG42,MG 42,MG,7.92x57 mm,fRateOfFire=1200,IRON,Höchste Feuerrate,fest
+M60_SPECIAL,M60,MG,7.62x51 mm,fAtkPow=30 / fRateOfFire=600 / fRecoilPitch=1.1,IRON,-,fest
+M1918,M1918 BAR,LMG,.30-06,fAtkPow=32 / fRateOfFire=550 / maxMagazine=20 / maxAmmo=140 / fReloadSpeed=0.80,IRON,Kleines Magazin / schnell nachgeladen,fest
+VULCAN,M134 Vulcan,MINIGUN,7.62x51 mm,-,KEINS,-,fest
+CROSSBOW_LAUNCHER,Armbrust,ARMBRUST,Bolzen,-,IRON,-,fest
+CROSSBOW_CONDOR,Armbrust Condor,ARMBRUST,Bolzen,fAtkPow=95 / misSpeed=75,ACOG2,Präzision,fest
+CROSSBOW_HORNET,Armbrust Hornet,ARMBRUST,Bolzen,fAtkPow=55 / fRateOfFire=90 / maxMagazine=3,REDDOT,Repetier-Armbrust,fest
+CROSSBOW_HYDRA,Armbrust Hydra,ARMBRUST,Sprengbolzen,fAtkPow=70 / Radius1stWpn=2.5,IRON,Explosive Bolzen,fest
+STAFF01,Magierstab,ARMBRUST,Magie-Orb,misSpeed=40 / Radius1stWpn=2.0,KEINS,Orb fliegt gerade (keine Fallkurve),fest
+XMAS_BAZOOKA,Weihnachts-Bazooka,WERFER,Geschenk-Rakete,-,IRON,-,Vorschlag
+BRICK_BOOMER,Brick Boomer,WERFER,Brick-Granate,misSpeed=25,IRON,Granate mit Fallkurve,Vorschlag
+AIR_CANNON,Luftkanone,WERFER,Druckwelle,fAtkPow=20 / Radius1stWpn=4.0,IRON,Stößt Gegner weg statt hohen Schaden,Vorschlag
+DRAKE3000,Drake 3000,WERFER,Rakete,-,IRON,-,Vorschlag
+HELLFIRE,Hellfire,WERFER,Feuer-Rakete,-,IRON,Hinterlässt 3 s Feuerfläche,Vorschlag
+ERASER,Eraser,SCHARFSCHUETZE,Energie,-,SNIPER6,Laser-Tracer,Vorschlag
+MOONLIGHT,Moonlight,SCHARFSCHUETZE,Energie,-,SNIPER6,-,Vorschlag
+OBLIVIONGUN_WHITE,Oblivion Gun (Weiß),SCHARFSCHUETZE,Energie,-,SNIPER_2STUFEN,-,Vorschlag
+OBLIVIONGUN_BLACK,Oblivion Gun (Schwarz),SCHARFSCHUETZE,Energie,-,SNIPER_2STUFEN,-,Vorschlag
+OBLIVIONGUN_DESERT,Oblivion Gun (Wüste),SCHARFSCHUETZE,Energie,-,SNIPER_2STUFEN,-,Vorschlag
+SKELETON_SNIPER,Skelett-Sniper,SCHARFSCHUETZE,7.62x51 mm,-,SNIPER6,-,Vorschlag
+HALFMOON,Halfmoon,SCHARFSCHUETZE,.45-70,-,SNIPER6,-,Vorschlag
+PREDATOR,Predator,STURMGEWEHR,Energie,-,HOLO,Blaue Tracer,Vorschlag
+ECO,Eco,STURMGEWEHR,5.56x45 mm,-,REDDOT,-,Vorschlag
+GAMMA,Gamma,STURMGEWEHR,Energie,-,HOLO,-,Vorschlag
+PUMPKINWEAPON,Kürbis-Gewehr,STURMGEWEHR,Kürbiskerne,-,IRON,-,Vorschlag
+W_INDEPENDENCE_GUN,Independence Gun,STURMGEWEHR,5.56x45 mm,-,IRON,-,Vorschlag
+SUNDANCE,Sundance,STURMGEWEHR,.30-30,-,IRON,-,Vorschlag
+BARD,Bard,KAMPFGEWEHR,7.62x51 mm,-,HOLO,-,Vorschlag
+XWING,X-Wing,KAMPFGEWEHR,Energie,-,HOLO,-,Vorschlag
+CAVALRY,Cavalry,KAMPFGEWEHR,.44-40,-,IRON,Unterhebel-Repetierer,Vorschlag
+DELTA,Delta,MP,9x19 mm,-,REDDOT,-,Vorschlag
+NEEDLE,Needle,MP,Nadeln,-,REDDOT,-,Vorschlag
+DEVILWEAPON,Teufels-MP,MP,Feuer-Kugeln,-,IRON,-,Vorschlag
+HORSEHAIR,Horsehair,MP,.45 ACP,-,IRON,-,Vorschlag
+WATERGUN,Wasserpistole,MP,Wasser,fAtkPow=12 / fRigidity=0.45,KEINS,Wasser: 0 Brick-Schaden / stark verlangsamend,Vorschlag
+WATERDUCK,Wasser-Ente,MP,Wasser,fAtkPow=12 / fRigidity=0.45,KEINS,wie WATERGUN,Vorschlag
+SUMMER_WATER_TURTLE_GUN,Schildkröten-Spritze,MP,Wasser,fAtkPow=12 / fRigidity=0.45,KEINS,wie WATERGUN,Vorschlag
+SUMMER_WATER_OCTOPUS_GUN,Oktopus-Spritze,MP,Wasser,fAtkPow=12 / fRigidity=0.45,KEINS,wie WATERGUN,Vorschlag
+SUMMER_WATER_BANANA_GUN,Bananen-Spritze,MP,Wasser,fAtkPow=12 / fRigidity=0.45,KEINS,wie WATERGUN,Vorschlag
+SUMMER_WATER_SPRAY_PUMP,Wasser-Pumpgun,SCHROTFLINTE,Wasser,fRigidity=0.60,KEINS,Wasser: 0 Brick-Schaden,Vorschlag
+MATIAZO,Matiazo,SCHROTFLINTE,12 Gauge,-,IRON,-,Vorschlag
+CACTUS_GUN,Kaktus-Flinte,SCHROTFLINTE,Stacheln,-,IRON,-,Vorschlag
+XMAS_PIGGUN,Schweinchen-Flinte,SCHROTFLINTE,Münzen,-,IRON,-,Vorschlag
+BULLOCK,Bullock,SCHROTFLINTE,12 Gauge,-,IRON,Doppelläufig (maxMagazine=2),Vorschlag
+HORSESHOE,Horseshoe,SCHROTFLINTE,12 Gauge,-,IRON,-,Vorschlag
+SHOOTINGSTAR,Shooting Star,PISTOLE,.45 Colt,fAtkPow=48 / fRateOfFire=180 / maxMagazine=6,IRON,Revolver,Vorschlag
+ROLLER,Roller,PISTOLE,.45 Colt,fAtkPow=48 / fRateOfFire=180 / maxMagazine=6,IRON,Revolver,Vorschlag
+GOLDBADGE,Gold Badge,PISTOLE,.45 Colt,-,IRON,-,Vorschlag
+RAVAGER,Ravager,MG,Energie,-,IRON,-,Vorschlag
+HELLGATE,Hellgate,MG,7.62x51 mm,-,IRON,-,Vorschlag
+TSUNAMIRAMA,Tsunamirama,MINIGUN,Wasser,fAtkPow=10 / fRigidity=0.45,KEINS,Wasser-Minigun,Vorschlag
+XMAS_ROLLINGGUN,Weihnachts-Minigun,MINIGUN,Bonbons,-,KEINS,-,Vorschlag
+SHAFT,Shaft,ARMBRUST,Bolzen,-,ACOG2,-,Vorschlag
+BMK,Kampfmesser,MESSER,-,-,-,-,fest
+M7,M7 Bajonett,MESSER,-,-,-,-,fest
+THIEF_STICK,Diebes-Dolch,MESSER,-,-,-,-,Vorschlag
+WRENCH,Schraubenschlüssel,WERKZEUG,-,-,-,-,fest
+PIPE_WRENCH,Rohrzange,WERKZEUG,-,fAtkPow=48,-,-,fest
+BILLY_CLUB,Schlagstock,WERKZEUG,-,fSlashSpeed=1.15,-,-,fest
+FRYPAN,Bratpfanne,WERKZEUG,-,-,-,Blockt Frontal-Nahkampf (NEU),fest
+XMASWINEBOTTLE,Weinflasche,WERKZEUG,-,-,-,-,fest
+TOY_HAMMER,Spielzeughammer,SCHWER,-,-,-,-,fest
+TOYHAMMER_BLUE,Spielzeughammer (Blau),SCHWER,-,-,-,-,fest
+EVENT_HAMMER,Event-Hammer,SCHWER,-,-,-,-,fest
+CONTEST_HAMMER,Turnier-Hammer,SCHWER,-,-,-,-,fest
+FIELD_SHOVEL,Feldspaten,SCHWER,-,fSlashSpeed=0.85,-,-,fest
+KNIGHT_STICK,Ritterschwert,SCHWER,-,-,-,-,Vorschlag
+REAPER_STICK,Sense,SCHWER,-,-,-,Weitester Schwung (winkel 140),Vorschlag
+LIGHT_SAVER,Lichtschwert,ENERGIE,-,-,-,-,fest
+LIGHT_SAVER_R,Lichtschwert (Rot),ENERGIE,-,-,-,-,fest
+*_STICK (alle übrigen),Event-Sticks,WERKZEUG,-,-,-,Nur Skin,Vorschlag
+GRENADE,Granate,SPLITTER,-,-,-,-,fest
+KG400,KG-400,SPLITTER,-,-,-,-,Vorschlag
+KG440,KGS-440,SPLITTER,-,Radius=7.0 / fAtkPow=100,-,Größerer Radius,Vorschlag
+CLOCKBOMB,Zeitbombe,ZEITBOMBE,-,-,-,-,fest
+TNT_BOMB,TNT,ZEITBOMBE,-,-,-,-,Vorschlag
+SENSBOMB,Sensorbombe,SENSOR,-,-,-,-,fest
+REMOCON_SPECIAL,Fernzünder,FERNZUENDER,-,-,-,-,fest
+RIG_BOMB_SPECIAL,Rig-Bombe,FERNZUENDER,-,-,-,-,fest
+FLASHBANG,Blendgranate,BLEND,-,-,-,-,fest
+ITEM_FLASHBANG,Blendgranate (Item),BLEND,-,-,-,-,fest
+FLASH_SPECIAL,Blendgranate Spezial,BLEND,-,continueTime=4.0,-,-,fest
+PrjSmoke (kein BY),Rauchgranate,RAUCH,-,-,-,-,fest
+PoisonBomb (kein BY),Giftgranate,GIFT,-,-,-,-,fest
+WATERBOMB,Wasserbombe,SPLITTER,-,fAtkPow=60 / fRigidity=0.8,-,Wasser: 0 Brick-Schaden,Vorschlag
+XMASBOMB01 / XMASBOMB02 / DEVILBOMB / PUMPKINBOMB / EGGBOMB / CARROT_BOMB / CACTUS_BOMB / PSYCHOPATH_BOMB / S3_BOMB01 / S3_BOMB02 / SPACEBOMB_SPECIAL / Q_BOMB01 / Q_GRANATE,Event-Granaten,SPLITTER,-,-,-,Nur Skin + eigener Explosions-FX,Vorschlag

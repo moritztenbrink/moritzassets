@@ -1,0 +1,19 @@
+engine_name,name,typ,effekt,wert,dauer_s,cooldown_s,nutzzeit_s,animation,fx,status
+heal30,Heiltrank (klein),aktiv,Heilt sofort,+30 HP,0,15,0.6,drink_h,Grüne Funken steigen auf,Engine
+heal50,Heiltrank (mittel),aktiv,Heilt sofort,+50 HP,0,25,0.8,drink_h,Grüne Funken + Ring am Boden,Engine
+heal,Heiltrank (groß),aktiv,Heilt komplett,+100 HP,0,40,1.0,drink_h,Grüne Säule + Ring,Engine
+auto_heal,Regenerations-Elixier,passiv,Heilt nach 5 s ohne Schaden,+5 HP/s,bis voll,0,0,keine,Leichtes grünes Pulsieren,Engine
+speedup,Tempo-Trank,aktiv,Laufgeschwindigkeit x1.75,x1.75,6,45,0.5,drink_h,Blaue Bewegungsstreifen,Engine
+heartbeat_radar,Herzschlag-Sensor,aktiv,Zeigt Gegner im Umkreis auf der Minimap,25 m,5,30,0.3,use_h,Radar-Welle vom Spieler,Engine
+pistol_ammo,Munitionskiste Pistole,aktiv,Füllt Reserve auf,+2 Magazine,0,30,0.8,use_h,Kiste klappt auf,Engine
+submachine_ammo,Munitionskiste MP,aktiv,Füllt Reserve auf,+2 Magazine,0,30,0.8,use_h,Kiste klappt auf,Engine
+assault_ammo,Munitionskiste Sturmgewehr,aktiv,Füllt Reserve auf,+2 Magazine,0,30,0.8,use_h,Kiste klappt auf,Engine
+sniper_ammo,Munitionskiste Sniper,aktiv,Füllt Reserve auf,+2 Magazine,0,30,0.8,use_h,Kiste klappt auf,Engine
+heavy_ammo,Munitionskiste Schwer,aktiv,Füllt Reserve auf,+1 Magazin,0,30,0.8,use_h,Kiste klappt auf,Engine
+grenade_ammo,Granaten-Nachschub,aktiv,Füllt Wurfwaffen auf,+1 Granate,0,45,0.8,use_h,Kiste klappt auf,Engine
+auto_reload,Auto-Nachladen,passiv,Lädt bei leerem Magazin automatisch nach,-,dauerhaft,0,0,keine,keine,Engine
+respawn,Sofort-Respawn,aktiv (tot),Respawn ohne Wartezeit (ab 2 s nach Tod),-,0,0,0,keine,Spawn-Blitz,Engine
+just_respawn,Direkt-Respawn,passiv (tot),Automatischer Respawn ohne Wartezeit,-,0,0,0,keine,Spawn-Blitz,Engine
+armor_potion,Rüstungstrank,aktiv,Schild absorbiert Schaden,+25 Schild,15,45,0.8,drink_h,Gelbe Hülle um Spieler,NEU
+antidote,Gegengift,aktiv,Entfernt Gift und Blendung sofort,-,0,30,0.5,drink_h,Weißer Puff,NEU
+adrenaline,Adrenalin-Spritze,aktiv,Immun gegen Treffer-Verlangsamung (Rigidity),-,5,40,0.4,inject_h,Roter Puls am Bildschirmrand,NEU

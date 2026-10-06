@@ -1,0 +1,12 @@
+klasse,name,bf_kategorie,slot,feuermodus,fAtkPow,fRateOfFire,maxMagazine,maxAmmo,nachladezeit_s,fReloadSpeed,ziehzeit_s,fDrawSpeed,fRange,fEffectiveRange,fRecoilPitch,fRecoilYaw,fRigidity,fSpeedFactor,fAccuracy,fAccurateMin,fAccurateMax,fInaccurateMin,fInaccurateMax,fAccurateSpread,fAccurateCenter,fMoveInaccuracyFactor,minBuckShot,maxBuckShot,semiAutoMaxCyclicAmmo,misSpeed,Radius1stWpn,standard_visier
+PISTOLE,Pistole,HAND_GUN,AUX,Semi,26,400,12,48,1.6,1.25,0.4,1.50,60,20,1.20,0.30,0.15,1.00,85,0.004,0.030,0.012,0.050,0.006,0.080,1.6,0,0,0,0,0,IRON
+MP,Maschinenpistole,SUB_MACHINE,MAIN,Auto,20,850,30,120,2.0,1.00,0.5,1.20,70,18,0.55,0.35,0.20,1.00,70,0.006,0.035,0.015,0.060,0.003,0.070,1.4,0,0,0,0,0,IRON
+STURMGEWEHR,Sturmgewehr,ASSAULT,MAIN,Auto,28,650,30,120,2.4,0.83,0.6,1.00,150,45,0.85,0.25,0.30,0.95,78,0.004,0.032,0.012,0.055,0.004,0.060,2.0,0,0,0,0,0,REDDOT
+KAMPFGEWEHR,Kampfgewehr,ASSAULT,MAIN,Semi,40,420,20,80,2.7,0.74,0.7,0.86,200,70,1.60,0.30,0.40,0.92,85,0.003,0.030,0.010,0.050,0.007,0.070,2.2,0,0,0,0,0,HOLO
+SCHARFSCHUETZE,Scharfschützengewehr,SNIPER,MAIN,Bolt,95,45,5,25,3.0,0.67,0.8,0.75,400,250,4.50,0.50,0.60,0.88,10,0.030,0.080,0.060,0.120,0.040,0.060,2.5,0,0,0,0,0,SNIPER6
+SCHROTFLINTE,Schrotflinte,HEAVY,MAIN,Pump,12,70,7,28,3.0,0.67,0.6,1.00,35,8,3.50,0.60,0.50,0.95,50,0.040,0.060,0.080,0.110,0.000,0.100,1.2,8,12,0,0,0,IRON
+MG,Maschinengewehr,HEAVY,MAIN,Auto,24,1000,100,200,5.0,0.40,1.2,0.50,200,60,0.90,0.50,0.35,0.82,60,0.008,0.050,0.020,0.090,0.004,0.040,2.5,0,0,0,0,0,IRON
+LMG,Leichtes Maschinengewehr,HEAVY,MAIN,Auto,26,650,60,180,4.0,0.50,1.0,0.60,180,55,0.70,0.35,0.30,0.87,68,0.006,0.042,0.016,0.075,0.0035,0.050,2.2,0,0,0,0,0,IRON
+MINIGUN,Minigun,HEAVY,MAIN,Auto (Anlauf 0.5 s),16,1800,200,200,6.0,0.33,1.5,0.40,120,35,0.35,0.40,0.25,0.75,55,0.010,0.060,0.025,0.100,0.002,0.030,3.0,0,0,0,0,0,KEINS
+WERFER,Raketen-/Granatwerfer,SPECIAL,MAIN,Einzelschuss,120,40,1,4,3.5,0.57,1.0,0.60,300,300,5.00,0.80,0.70,0.80,90,0.005,0.020,0.015,0.040,0.010,0.050,2.0,0,0,0,35,5.0,IRON
+ARMBRUST,Armbrust,SPECIAL,MAIN,Einzelschuss,85,50,1,20,1.8,1.11,0.7,0.86,250,120,2.00,0.20,0.50,0.92,90,0.002,0.015,0.008,0.030,0.010,0.080,2.0,0,0,0,60,0,IRON
