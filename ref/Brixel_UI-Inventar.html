@@ -1,0 +1,602 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Brixel UI-Inventar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: links feste Bereichs-Navigation, rechts die Fenster als aufklappbare Karten; oben Suche und Zähler. */
+:root {
+  --bg: #f3f1ee;
+  --surface: #ffffff;
+  --surface-2: #ebe7e2;
+  --fg: #1d1b19;
+  --muted: #6b645d;
+  --line: #ddd6cf;
+  --accent: #e8730f;
+  --accent-soft: #fbe3cd;
+  --chip: #efe9e3;
+  --mark: #ffd8a8;
+  --display: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+  --body: "Barlow", "Segoe UI", Arial, sans-serif;
+  --mono: "JetBrains Mono", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15171c; --surface: #1d2027; --surface-2: #252932; --fg: #ece8e3; --muted: #9a958f; --line: #323743;
+    --accent: #ff8a1f; --accent-soft: #3a2a1c; --chip: #2a2f39; --mark: #5a3a14; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15171c; --surface: #1d2027; --surface-2: #252932; --fg: #ece8e3; --muted: #9a958f; --line: #323743;
+  --accent: #ff8a1f; --accent-soft: #3a2a1c; --chip: #2a2f39; --mark: #5a3a14; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.5; margin: 0; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 64px; }
+header.top { display: grid; gap: 10px; margin-bottom: 22px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--display); font-size: clamp(34px, 5vw, 52px); line-height: 1; margin: 0; letter-spacing: .01em; text-wrap: balance; }
+.lead { color: var(--muted); max-width: 70ch; margin: 0; }
+.tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 6px; }
+.tools input { flex: 1 1 260px; min-width: 0; font: inherit; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); }
+.tools input:focus-visible, button:focus-visible, summary:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button { font: inherit; font-weight: 600; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+button:hover { border-color: var(--accent); }
+.count { font-family: var(--mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--muted); }
+.legend b { color: var(--fg); font-weight: 600; }
+.layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 28px; align-items: start; }
+nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); display: grid; gap: 2px; font-size: 14px; }
+nav.toc a { display: flex; justify-content: space-between; gap: 8px; color: var(--fg); text-decoration: none; padding: 6px 10px; border-radius: 6px; }
+nav.toc a:hover { background: var(--surface-2); }
+nav.toc a span { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+main { display: grid; gap: 34px; min-width: 0; }
+section.group { display: grid; gap: 10px; scroll-margin-top: 16px; }
+section.group > h2 { font-family: var(--display); font-size: 28px; margin: 0; display: flex; align-items: baseline; gap: 12px; border-bottom: 2px solid var(--accent); padding-bottom: 4px; }
+section.group > h2 small { font-family: var(--mono); font-size: 12px; color: var(--muted); font-weight: 400; }
+.note { background: var(--surface-2); border-radius: 8px; padding: 10px 14px; font-size: 14px; color: var(--muted); }
+.note b { color: var(--fg); }
+details.ui { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+details.ui[open] { border-color: var(--accent); }
+details.ui > summary { list-style: none; cursor: pointer; padding: 12px 16px; display: grid; gap: 6px; }
+details.ui > summary::-webkit-details-marker { display: none; }
+.sumline { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+.sumline h3 { margin: 0; font-size: 18px; font-weight: 600; }
+.sumline h3::before { content: "+"; display: inline-block; width: 1.1em; color: var(--accent); font-family: var(--mono); }
+details[open] > summary .sumline h3::before { content: "−"; }
+code, .cls { font-family: var(--mono); font-size: 12.5px; }
+.cls { color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; padding-left: 1.1em; }
+.chip { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: var(--chip); color: var(--fg); white-space: nowrap; }
+.chip.t { background: var(--accent-soft); }
+.chip.m { font-family: var(--mono); }
+.body { padding: 2px 16px 16px calc(16px + 1.1em); display: grid; gap: 10px; min-width: 0; }
+.body h4 { margin: 6px 0 0; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.body ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
+.body ul ul { margin-top: 3px; }
+.body p { margin: 0; }
+.kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 14px; font-size: 14px; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; min-width: 0; }
+.ui-label { font-family: var(--mono); font-size: 12.5px; background: var(--chip); padding: 0 5px; border-radius: 4px; }
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+mark { background: var(--mark); color: inherit; border-radius: 2px; }
+.hidden-by-search { display: none; }
+.empty { display: none; color: var(--muted); }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  nav.toc { position: static; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+  .kv { grid-template-columns: 1fr; }
+  .kv dt { margin-top: 4px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+html { scroll-behavior: smooth; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Brixel · Spiel-Client · Stand 06.10.2026</div>
+    <h1>UI-Inventar</h1>
+    <p class="lead">Alle Fenster, HUD-Teile, Menüs und Unterdialoge des Spiels, mit Reitern, Knöpfen und den Wegen dorthin. Beschriftungen stehen so, wie sie im Code stehen. Grundlage für das neue Design und das Neu-Verdrahten der Oberflächen.</p>
+    <div class="legend">
+      <span><b>Modi</b> P Plaza · B Bauplatz · M Match · A Asset-Karte</span>
+      <span><b>Ord</b> Zeichenreihenfolge der Canvas (höher liegt oben)</span>
+      <span><b>Modal</b> Kennung in UiState (nimmt Maus und Steuerung)</span>
+    </div>
+    <div class="tools">
+      <input id="q" type="search" placeholder="Suchen: Fenster, Knopf, Reiter, Klasse …" aria-label="Im Inventar suchen">
+      <button id="openAll" type="button">Alle aufklappen</button>
+      <button id="closeAll" type="button">Alle zuklappen</button>
+      <span class="count" id="count"></span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="toc" id="toc" aria-label="Bereiche"></nav>
+    <main id="main">
+
+<!-- ===================================================== 1 -->
+<section class="group" id="einstieg" data-title="Einstieg & System">
+<h2>Einstieg &amp; System</h2>
+<div class="note"><b>Grundregeln für alle Fenster:</b> Ein offenes Fenster schließt sich mit Esc selbst; ohne offenes Fenster öffnet Esc das Menü. Am Gamepad schließt B, Start wirkt wie Esc. Die meisten Fenster nutzen <code>UiFactory.Window</code> (abgedunkelt, skaliert mit <code>UiFitBox</code>) mit Statuszeile und „SCHLIESSEN“ unten.</div>
+
+<details class="ui"><summary><div class="sumline"><h3>Ladebildschirm, Anmeldung, Fehler</h3><span class="cls">LoadingScreen · LoadingScreen.cs</span></div><div class="chips"><span class="chip t">Vollbild-Overlay</span><span class="chip m">Ord 100</span><span class="chip">automatisch, solange nicht im Spiel</span></div></summary>
+<div class="body">
+<p>Kein eigenes Login- oder Verbinden-Fenster: die Anmeldung läuft über das Ticket des Launchers, dieser Bildschirm zeigt alle Zustände.</p>
+<h4>Inhalt</h4><ul><li>Logo „BRIXEL“, Zeile „Bauen. Treffen. Spielen.“, Status, Detail, Fortschrittsbalken, „Version x   Protokoll y“</li></ul>
+<h4>Statuszeilen</h4><ul><li>Anmeldung wird geprüft · Verbinde mit dem Server · Welt wird geladen · Charakter wird erstellt · Instanz wird gewechselt · „Verbindung verloren – verbinde neu …“</li></ul>
+<h4>Fehler</h4><ul><li>Titel: Konto gesperrt · Vom Server entfernt · Wartung · Verbindung fehlgeschlagen · Anmeldung nicht möglich</li><li>Details aus <code>GameClient.Fail</code>, z. B. „Bitte starte Brixel über den Launcher.“, „Die Spielinhalte brauchen eine neuere Version …“, „Alle Hubs sind gerade voll …“, „Der Server … ist nicht erreichbar.“</li><li>Knöpfe: <span class="ui-label">ERNEUT VERSUCHEN</span> (nicht bei Ticket-, Sitzungs-, Versions- oder Sperr-Fehlern), <span class="ui-label">BEENDEN</span></li></ul>
+</div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Hinweise zu Sanktionen, Wartung, Support</h3><span class="cls">kein eigenes Fenster</span></div><div class="chips"><span class="chip t">Toast / Chat-Systemzeile</span></div></summary>
+<div class="body"><ul>
+<li>Sanktionen (<code>Core/Social/Sanctions.cs</code>): „Du bist stummgeschaltet (…)“, „Dein Konto ist (dauerhaft) gesperrt …“, „Du wurdest vom Server entfernt.“ – als Toast, Chat-Systemzeile oder Fehlertitel im Ladebildschirm</li>
+<li>Wartungs-Kick: Ladebildschirm mit Titel „Wartung“</li>
+<li>Support-Antwort: Toast und Systemzeile „Der Support hat auf dein Ticket … geantwortet. Esc → Hilfe und Support.“</li>
+</ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Was ist neu</h3><span class="cls">WhatsNewPanel · WhatsNewPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 47</span><span class="chip m">whats_new</span><span class="chip">automatisch einmal je Version</span></div></summary>
+<div class="body"><ul><li>Titel „Was ist neu in &lt;Version&gt;“, Untertitel „Die wichtigsten Änderungen dieser Version.“</li><li>Scrollbare Notizen, Knopf <span class="ui-label">LOS GEHT'S</span>; schließt auch mit Esc</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Tägliche Belohnung</h3><span class="cls">LoginRewardPanel · LoginRewardPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 47</span><span class="chip m">login_reward</span><span class="chip">P</span></div></summary>
+<div class="body"><dl class="kv"><dt>Öffnen</dt><dd>automatisch in der Plaza, wenn etwas abzuholen ist; Esc-Menü „Tägliche Belohnung (· abholbar)“ (Schalter muss an sein)</dd></dl>
+<ul><li>Titel „Tägliche Belohnung“, Serien-Zeile, 7 Kacheln „TAG n“ / „TAG n · ABGEHOLT“, Statuszeile</li><li>Knöpfe <span class="ui-label">ABHOLEN</span> (danach „ABGEHOLT“), <span class="ui-label">SCHLIESSEN</span></li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Einführung</h3><span class="cls">TutorialHud · TutorialHud.cs</span></div><div class="chips"><span class="chip t">HUD-Karte + Dialog</span><span class="chip m">Ord 13</span><span class="chip m">tutorial</span><span class="chip">P</span></div></summary>
+<div class="body"><h4>Karte oben</h4><ul><li>„Einführung i/n: &lt;Schritt&gt;“, Fortschritt, Hinweis „(noch x m)“, grüner Balken; die Ziel-Station leuchtet</li><li>nicht im Match und nicht bei offenen Einstellungen</li></ul>
+<h4>Dialog</h4><ul><li>automatisch als Begrüßung oder über Esc-Menü „Einführung“</li><li>Titel: „Willkommen in Brixel!“ / „Einführung“ / „Einführung abgeschlossen“ / „Einführung übersprungen“</li><li>Knöpfe <span class="ui-label">LOS GEHT'S</span> / <span class="ui-label">WEITER</span> / <span class="ui-label">NEU STARTEN</span>, <span class="ui-label">ÜBERSPRINGEN</span>, <span class="ui-label">SCHLIESSEN</span></li><li>Abschluss-Toast „Einführung geschafft! +x Brix“</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Wartungsstreifen</h3><span class="cls">LiveHud · LiveHud.cs</span></div><div class="chips"><span class="chip t">HUD-Streifen</span><span class="chip m">Ord 39</span><span class="chip">letzte 15 Min. vor Wartung</span></div></summary>
+<div class="body"><ul><li>oben Mitte: „Wartung in m:ss“ und Meldung (Standard „Dein Fortschritt wird gespeichert.“)</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Bühnen-Banner</h3><span class="cls">StageHud · StageHud.cs</span></div><div class="chips"><span class="chip t">Overlay-Karte</span><span class="chip m">Ord 41</span></div></summary>
+<div class="body"><ul><li>oben: „&lt;ART&gt; · BÜHNE“, Titel, Text, <span class="ui-label">SCHLIESSEN</span></li><li>während einer laufenden Match-Runde wartet das Banner</li></ul></div></details>
+</section>
+
+<!-- ===================================================== 2 -->
+<section class="group" id="hud" data-title="Ingame-HUD">
+<h2>Ingame-HUD</h2>
+
+<details class="ui"><summary><div class="sumline"><h3>Basis-HUD</h3><span class="cls">HudController · HudController.cs</span></div><div class="chips"><span class="chip t">HUD</span><span class="chip m">Ord 10</span><span class="chip">alle Modi</span><span class="chip">aus, solange Einstellungen offen</span></div></summary>
+<div class="body">
+<h4>Oben links</h4><ul><li>Info-Leiste „&lt;Map&gt; | n Spieler | &lt;Name&gt;“</li><li>Post-Zähler (Umschlag, bis „99+“) neben der Info-Leiste, nur bei ungelesener Post</li><li>FPS/Ping darunter: „n FPS   n ms Ping“ (je nach Einstellung)</li></ul>
+<h4>Mitte</h4><ul><li>einfaches Fadenkreuz (ohne Kampf-HUD, nicht in der Frontkamera)</li><li>Toast (standardmäßig 3,5 s)</li><li>Hinweis unten Mitte: „[E]   &lt;Station&gt; - &lt;Hinweis&gt;“, „[E]   Tür öffnen/schließen“, „[E]   Profil von X“; im Match „Geschütz verlassen“, „&lt;Waffe&gt; aufheben“, „MG-Geschütz bedienen“, „Kanone bedienen“, „halten: Bombe legen · Platz X“, „halten: Bombe entschärfen“, „Das Geschütz ist besetzt“</li></ul>
+<h4>Chat (unten links)</h4><ul><li>9 sichtbare Zeilen, Verlauf 200, Kennzeichen vor dem Namen; Farben für Funk („[Funk] X: …“) und Flüstern</li><li>Eingabefeld „Nachricht schreiben“ (Modal <code>chat</code>): Enter öffnet und sendet, Esc schließt; Mausrad und Bild auf/ab blättern</li><li>rückt über die Brick-Leiste bzw. das Kampf-HUD</li></ul>
+<h4>Brick-Leiste (Bauen)</h4><ul><li>9 Plätze mit Ziffer 1–9 und Statuszeile „&lt;Brick&gt; · Einzeln/Linie/Ersetzen · Norden/Osten/Süden/Westen · n/Limit“</li><li>auf dem Bauplatz und im Match in der Bauphase</li></ul>
+<h4>Eingebaute Widgets</h4><ul><li><code>VoiceHud</code> oben links: Mikrofon-Pille „Aus“ / „Kein Mikrofon“ / „Sprichst“ / „Team-Funk“ / „Party-Funk“ / „Stumm“ / „Hört zu“, Modus „Nähe“ oder „Map-weit“, Sprecherliste „Name (Bühne)“ / „(Funk)“ / „+N weitere“</li><li><code>MissionsWidget</code> rechts, nur Plaza: „TAGESMISSIONEN“, „neu in …“, 3 Zeilen mit Balken, Wert oder „erledigt“</li></ul>
+</div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Kampf-HUD</h3><span class="cls">CombatHud · CombatHud.cs, CombatHud.Items.cs</span></div><div class="chips"><span class="chip t">HUD</span><span class="chip m">Ord 11</span><span class="chip">M, Schießstand</span></div></summary>
+<div class="body">
+<h4>Unten</h4><ul><li>links: Gesundheit (Kreuz, Wert, Balken), Rüstung (Schild, „n (x %)“)</li><li>rechts: Waffe (Name, Info, „Alternativfeuer: …“ / „Zoom: n Stufen“, „KEINE WAFFE“), Magazin und Reserve (bzw. „Stück“, „Hitze“), 4 Waffen-Slots mit Taste und Anzahl</li><li>Hotbar: 4 Verbrauchsitems mit Abklingzeit (Tasten 5–8)</li></ul>
+<h4>Mitte und Rand</h4><ul><li>dynamisches Fadenkreuz (Streuung; in der 3. Person am Treffpunkt des Schussstrahls)</li><li>Trefferkreuz (Kopftreffer golden, Kill rot), Trefferrichtung als Bögen am Rand</li><li>Meldung „KOPFTREFFER“ / „AUSGESCHALTET“ / „ASSIST“ mit „Opfer +Punkte“</li><li>Nachladen-Hinweis „NACHLADEN“ / „KEINE MUNITION“ / „ÜBERHITZT“</li><li>Spawn-Schutz-Rahmen, „SCHNELLER“ (Tempo-Item), Granatwarnung (Symbol und Pfeil)</li></ul>
+<h4>Oben rechts</h4><ul><li>Killfeed: Schütze, Waffensymbol, Kopftreffer-Symbol, Opfer</li></ul>
+<h4>Todesbildschirm</h4><ul><li>„AUSGESCHALTET“; Detail „von X · Waffe · Kopftreffer“ / „Selbst erwischt“ / „Du bist ein Geist – nur andere Geister sehen und hören dich.“</li><li>Countdown „Wiedereinstieg in n“ / „Als Geist bis zum Ende der Runde“ / „Du schaust zu: X …“ / „Gleich geht es weiter“</li></ul>
+<h4>Schießstand-Karte</h4><ul><li>„SCHIESSSTAND“, letzter Treffer (Zone, Schaden, m, Ziel, Waffe), Zonenzähler Kopfmitte / Kopf / Körper / Arm/Bein, „Spieler nehmen hier keinen Schaden.“</li></ul>
+<h4>Eigene Canvases</h4><ul><li>Zielfernrohr (Ord 9): Maske, roter Punkt, „Zoom n · xfach“</li><li>Blendung (Ord 35): weißes Vollbild</li></ul>
+</div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Match-Kopf</h3><span class="cls">MatchHud · MatchHud.cs</span></div><div class="chips"><span class="chip t">HUD</span><span class="chip m">Ord 12</span><span class="chip">M</span></div></summary>
+<div class="body"><ul><li>Uhr oben Mitte, Teamscores links/rechts in Teamfarbe; Phase „WARTERAUM“ / „GLEICH GEHT'S LOS“ / „ERGEBNIS“ / „GLEICH“ / „BAUPHASE“ / „RUNDENENDE“ / „RUNDE n/m“</li><li>„Führung: X (n)“ (jeder gegen jeden)</li><li>Countdown-Banner: große Zahl, „Das Match beginnt“, „LOS!“ mit Teamname oder „Viel Glück“</li><li>Warte-Hinweis „Start in n s“ / „Warteraum“</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Ziele</h3><span class="cls">ObjectiveHud · ObjectiveHud.cs</span></div><div class="chips"><span class="chip t">HUD</span><span class="chip m">Ord 10</span><span class="chip">M</span></div></summary>
+<div class="body"><ul><li>Marker in der Welt bzw. am Rand mit Pfeil: Flagge / „Flagge liegt“ / Träger, „Abgabe X“, „Platz X“, „Bombe“ / „Entschärfen …“, „Kern Blau/Rot n %“, „Gesucht: X“; mit Entfernung und Timer</li><li>Ansage-Banner (auch „SEITENWECHSEL“)</li><li>Aktionsbalken „Bombe wird gelegt · Platz X“ / „Bombe wird entschärft“</li><li>Träger-Hinweis „Du trägst die Flagge! …“; Fieber (Freier Fall) „FIEBER · …“</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Radar</h3><span class="cls">RadarHud · RadarHud.cs</span></div><div class="chips"><span class="chip t">HUD</span><span class="chip m">Ord 10</span><span class="chip">M</span></div></summary>
+<div class="body"><ul><li>oben links: Ringe, „N“, Reichweite „n m“, Pfeil für die eigene Figur, Punkte</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Überleben</h3><span class="cls">SurvivalHud · SurvivalHud.cs</span></div><div class="chips"><span class="chip t">HUD</span><span class="chip m">Ord 11</span><span class="chip">M (Verteidigung, Zombie)</span></div></summary>
+<div class="body"><ul><li>Verteidigung: „KERN n %“, „WELLE n/m · n ÜBRIG“ bzw. „WELLE n IN n s“, Boss-Leiste „BOSS: NAME n %“</li><li>Zombie: grüne Vignette, Banner „DU BIST INFIZIERT“ / „Stecke die Überlebenden mit deinen Klauen an.“</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Party</h3><span class="cls">PartyHud · PartyHud.cs</span></div><div class="chips"><span class="chip t">HUD + Karten</span><span class="chip m">Ord 12 / 41</span><span class="chip">P, B, A</span></div></summary>
+<div class="body"><ul><li>Liste rechts (Ord 12, nicht im Match): „PARTY n / m“, Zeilen mit Krone, Online-Punkt, Ort („hier“, „offline“ …)</li><li>Einladungs-Karte oben (Canvas „PartyHudTop“, Ord 41): „X lädt dich in eine Party ein“, „noch n s · n Mitglieder“, <span class="ui-label">ANNEHMEN</span> / <span class="ui-label">ABLEHNEN</span></li><li>Folgen-Karte: „Folge X …“ mit Balken, „Ziel · in n s“, <span class="ui-label">ABBRECHEN</span> (Esc bricht ebenfalls ab)</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Foto-Modus</h3><span class="cls">PhotoMode · PhotoMode.cs</span></div><div class="chips"><span class="chip t">Overlay-Leiste</span><span class="chip m">Ord 60</span><span class="chip m">photo</span><span class="chip">Taste P</span></div></summary>
+<div class="body"><dl class="kv"><dt>Öffnen</dt><dd>P oder Esc-Menü „Foto-Modus“ (P, B; im Match nur als Geist/Zuschauer; im Replay immer). Blendet das HUD aus.</dd><dt>Schließen</dt><dd>Esc, P oder <span class="ui-label">BEENDEN</span></dd></dl>
+<ul><li>Infozeile „Foto-Modus · n / 40 m · …“</li><li>Filter-Chips: Normal, Warm, Kalt, Schwarzweiß, Sepia, Kräftig, Verträumt; Chip „Tiefenschärfe“</li><li>Regler: Fokus, Blende, Sichtfeld, Rollen</li><li>Knöpfe <span class="ui-label">FOTO</span>, <span class="ui-label">ALS VORSCHAUBILD</span> (Inhaber auf dem Bauplatz), <span class="ui-label">BEENDEN</span></li><li>Toasts „Foto gespeichert.“, „Das Bild ist zu groß für ein Vorschaubild.“</li></ul></div></details>
+</section>
+
+<!-- ===================================================== 3 -->
+<section class="group" id="menue" data-title="Menü & Navigation">
+<h2>Menü &amp; Navigation</h2>
+
+<details class="ui"><summary><div class="sumline"><h3>Esc-Menü</h3><span class="cls">MenuPanel · MenuPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 40</span><span class="chip m">menu</span><span class="chip">Esc · alle Modi</span></div></summary>
+<div class="body">
+<p>Kopf: Titel = Map-Name, Hinweis „Stationen direkt benutzen“. Schließen mit Esc oder „WEITER“.</p>
+<h4>Linke Liste (Farbmarker, in dieser Reihenfolge)</h4>
+<ul>
+<li>„Bauplatz verwalten“ – nur B</li>
+<li>alle Stationen der Instanz (unfertige mit „(bald)“; Plaza-Portal ausgenommen)</li>
+<li>nicht im Match: „Freunde und Gruppen · n online · n neu“, „Post · n ungelesen“, „Zu Freunden wechseln“, „Foto-Modus“</li>
+<li>nur Plaza, je nach Schalter: „Tägliche Belohnung“</li>
+<li>je nach Schalter: „Hilfe und Support · neue Antwort“, „Fehler melden“</li>
+<li>nur Plaza: „Gewertet · Suche läuft“, „Turniere“, „Einführung“, „Zuschauen“</li>
+<li>Rollen-Menüs vom Server (roter Marker), nicht im Match</li>
+</ul>
+<h4>Rechte Knöpfe</h4><ul><li><span class="ui-label">WEITER</span> · <span class="ui-label">EINSTELLUNGEN</span> · <span class="ui-label">MEIN PROFIL</span> · <span class="ui-label">ZUR PLAZA</span> (außer Plaza; im Match: Match verlassen) · <span class="ui-label">SPIEL BEENDEN</span> (rot)</li></ul>
+</div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Spielerliste</h3><span class="cls">PlayerListPanel · PlayerListPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 40</span><span class="chip m">player_list</span><span class="chip">Tab · P, B, A</span></div></summary>
+<div class="body"><ul><li>Titel = Map, Untertitel „Bauplatz von X · n Spieler hier“</li><li>Karte je Spieler: Kennzeichen, Name, „(du)“, Rolle „Inhaber“ / „Mitbauer“, Knopf „•••“ (Spieler-Aktionen), Sprecher-Punkt</li><li>Klick auf die Zeile öffnet das Profil; <span class="ui-label">SCHLIESSEN</span>; Tab oder Esc schließt</li><li>Im Match übernehmen Warteraum und Punktestand die Taste Tab</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Funkrad</h3><span class="cls">RadioMenu · RadioMenu.cs</span></div><div class="chips"><span class="chip t">Overlay</span><span class="chip m">Ord 40</span><span class="chip m">radio</span><span class="chip">Taste Z · M</span></div></summary>
+<div class="body"><ul><li>Mitte „FUNK“ / „an dein Team“ bzw. „nur in Team-Modi“</li><li>8 Sprüche, Ziffer 1–8: Folgt mir! · Brauche Hilfe! · Gegner gesichtet! · Deckt mich! · Ziel angreifen! · Ziel verteidigen! · Verstanden. · Negativ.</li><li>schließt mit Esc, Z oder Klick auf den Schatten</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Gamepad-Navigation</h3><span class="cls">PadNavigator · PadNavigator.cs</span></div><div class="chips"><span class="chip t">unsichtbar</span></div></summary>
+<div class="body"><ul><li>setzt den Fokus im obersten offenen Fenster</li></ul></div></details>
+</section>
+
+<!-- ===================================================== 4 -->
+<section class="group" id="plaza" data-title="Plaza-Stationen & Fenster">
+<h2>Plaza-Stationen &amp; Fenster</h2>
+<div class="note"><b>Stationen (E = Benutzen):</b> Bau-Portal → Bau-Portal-Fenster · Garderobe → Garderobe · Arena → Räume · Map-Galerie → Galerie · Schießstand → Waffenständer · Bestenlisten → Bestenlisten · Laden → Laden · Glücksbrett → Glücksbrett · Bühne → Bühne · Parkour-Turm → nur Hinweis · Ankunftsplatz · „Zurück zur Plaza“ (B) / „Zur Plaza“ (M) → Wechsel.</div>
+
+<details class="ui"><summary><div class="sumline"><h3>Laden</h3><span class="cls">ShopPanel · ShopPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 45</span><span class="chip m">shop</span><span class="chip">Station „Laden“ · Post „AUS DEM LADEN“</span></div></summary>
+<div class="body">
+<h4>Kopf</h4><ul><li>„Laden“, „Waffen, Kleidung und Ausrüstung für Brix. Preise gelten je Laufzeit.“, Guthaben-Pillen Kristalle / Splitter / Brix</li></ul>
+<h4>Seitenleiste (aus den Inhalten)</h4><ul><li>Waffen · Kleidung · Accessoires · Verbrauch · Bau-Werkzeuge · Flug · Map-Slots · Gems · Event</li><li>Waffen-Filter-Chips: Alle, Hauptwaffe, Sekundärwaffe, Nahkampf, Spezial</li></ul>
+<h4>Karten-Raster</h4><ul><li>Symbol, Name, Typ, „ab …“, Schloss „Rang n“, Abzeichen „BESITZ“ / „AKTIV“ / „-n %“</li></ul>
+<h4>Detail</h4><ul><li>Name, Typ („stapelbar“, „Abklingzeit“), Sperre; Balken Schaden, Feuerrate, Magazin, Nachladen; „BONI“; Besitz-Zeile</li><li>Chips „LAUFZEIT“: 1 Tag, 7 Tage, 30 Tage, Dauerhaft</li><li>Knöpfe <span class="ui-label">KAUFEN · Preis</span> / „GESPERRT“ / „DAUERHAFT IM BESITZ“, <span class="ui-label">VERSCHENKEN</span></li></ul>
+<h4>Unterdialog</h4><ul><li>„KAUF BESTÄTIGEN“: Guthaben, Ladekreisel, <span class="ui-label">JETZT KAUFEN</span> / <span class="ui-label">ABBRECHEN</span></li></ul>
+</div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Garderobe</h3><span class="cls">WardrobePanel · WardrobePanel.cs (+ .Equipment, .Inventory, .Workshop)</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 30</span><span class="chip m">wardrobe</span><span class="chip">Station „Garderobe“</span></div></summary>
+<div class="body">
+<p>Links eine Vorschau der eigenen Figur. Reiter-Chips: Aussehen · Ausrüstung · Inventar · Werkstatt.</p>
+<h4>Aussehen</h4><ul><li>„So sehen dich die anderen Spieler.“; Farbreihen Haut, Oberteil, Hose, Schuhe; Formreihe „Körper“ mit &lt; / &gt; („Variante n“)</li><li><span class="ui-label">SPEICHERN</span>, <span class="ui-label">ABBRECHEN</span></li></ul>
+<h4>Ausrüstung</h4><ul><li>Effekt-Leiste (Summen der Attribute)</li><li>Slot-Gruppen: Waffen · Kleidung · Accessoires · „Hotbar – wirkt in Modi mit Gefahr“ · „Werkzeug und Flug – wirkt auf dem Bauplatz“</li><li>Slot-Karte: Item, „leer“, „Klicken zum Belegen“, Sterne</li><li>Unterdialog „&lt;Slot&gt; belegen“: Karte „Ablegen“, Item-Karten mit „AUSRÜSTEN“ / „AUSGERÜSTET“, <span class="ui-label">ZURÜCK</span></li></ul>
+<h4>Inventar</h4><ul><li>Filter-Chips: Alle, Waffen, Kleidung, Access., Verbrauch, Werkzeug, Gems; Raster mit Abzeichen „AN“</li><li>Detail: Laufzeit, „BONI“, „UPGRADES“; <span class="ui-label">ZERLEGEN (+n SPLITTER)</span>, <span class="ui-label">IN DER WERKSTATT AUFWERTEN</span>, <span class="ui-label">ABLEGEN</span>, <span class="ui-label">AUSRÜSTEN</span></li></ul>
+<h4>Werkstatt</h4><ul><li>Liste „Aufwertbar“ / „Nicht aufwertbar“; Detail mit Sternen, „ATTRIBUT WÄHLEN“ (Stufen-Karten, „MAX“), „GEM“-Karten, Chance und Gebühr</li><li><span class="ui-label">VERSUCHEN</span> / „KEIN GEM“ / „ZU WENIG BRIX“, <span class="ui-label">ZERLEGEN</span></li><li>Overlay Ergebnis „Erfolg!“ / „Kein Erfolg“ mit <span class="ui-label">WEITER</span>; Overlay „ITEM ZERLEGEN“ mit <span class="ui-label">ENDGÜLTIG ZERLEGEN</span> / <span class="ui-label">ABBRECHEN</span></li></ul>
+</div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Arena / Räume</h3><span class="cls">RoomBrowserPanel · RoomBrowserPanel.cs (+ .Create, .Social)</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 45</span><span class="chip m">rooms</span><span class="chip">Station „Arena“ · Galerie</span></div></summary>
+<div class="body">
+<h4>Kopf</h4><ul><li>„Arena“, „Räume finden, eigene erstellen oder direkt losspielen.“; <span class="ui-label">SCHNELLSTART</span>, <span class="ui-label">RAUM ERSTELLEN</span>, <span class="ui-label">GEWERTET</span>, <span class="ui-label">TURNIERE</span></li></ul>
+<h4>Raumliste</h4><ul><li>Kanal-Segmente mit Rangbereich: Anfänger, Offen, Veteranen, Clan</li><li>Modus-Auswahl („Alle Modi“ und Modi), <span class="ui-label">AKTUALISIEREN</span></li><li>Spalten RAUM / MODUS / MAP / SPIELER / STATUS; Zeile mit Vorschau, Schloss, Herz bei Freunden, „[A] gegen [B]“</li><li>Zeilen-Knopf <span class="ui-label">BEITRETEN</span> / „GESPERRT“ / „VOLL“ / „ENDET“ / „LÄUFT“</li></ul>
+<h4>Ansicht „Raum erstellen“</h4><ul><li>„Raum“: Name, Modus, Kanal, Gegner-Clan, Passwort</li><li>„Spiel“: Spieler (Regler), Zeitlimit, Ziel, Team-Balance, Beitritt im Spiel, Waffen (Alle / Nur Nahkampf / Nur Pistolen / Nur Gewehre / Nur Scharfschützen), Wetter (Klar/Regen/Nebel/Schnee/Wechselnd), Tageszeit (Tag/Abend/Nacht/Wechselnd)</li><li>rechts „MAP“-Karten; <span class="ui-label">ZURÜCK</span>, <span class="ui-label">RAUM ERSTELLEN</span></li></ul>
+<h4>Unterdialoge</h4><ul><li>„Passwort“: Feld, <span class="ui-label">BEITRETEN</span> / <span class="ui-label">ABBRECHEN</span></li><li>Warten: „Suche ein Match …“ / „Server wird gestartet …“, <span class="ui-label">ABBRECHEN</span></li><li>„Allein beitreten?“: <span class="ui-label">ALLEIN BEITRETEN</span> / <span class="ui-label">ABBRECHEN</span></li></ul>
+<h4>Modi</h4><ul><li>Team-Deathmatch, Deathmatch, Flaggenjagd, Entschärfung, Bauen und Zerstören, Freier Fall, Verteidigung, Zombie-Ausbruch, Kopfgeld, Ausbruch, Gemeinsam bauen</li></ul>
+</div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Map-Galerie</h3><span class="cls">MapGalleryPanel · MapGalleryPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 44</span><span class="chip m">gallery</span><span class="chip">Station „Map-Galerie“ · Bühne</span></div></summary>
+<div class="body">
+<h4>Übersicht</h4><ul><li>„Map-Galerie“, „Maps der Community: ansehen, bewerten, herunterladen und darauf spielen.“</li><li>Sortier-Chips: Neu · Beliebt heute · Beliebt Woche · Top · Hall of Fame · Eigene · Heruntergeladen</li><li>Modus-Auswahl, Suche „Map suchen …“ + <span class="ui-label">SUCHEN</span></li><li>Karten: Vorschau, „HALL OF FAME“ / „OFFIZIELL“ / „GESPERRT“ / „AUSGEBLENDET“, ▲▼, Spiele, Preis, Version, Downloads, Kommentare</li><li>Blättern <span class="ui-label">ZURÜCK</span>, „Seite x / y“, <span class="ui-label">WEITER</span></li></ul>
+<h4>Detailansicht</h4><ul><li>Bild; „BEWERTUNG“ (<span class="ui-label">DAUMEN HOCH</span> / <span class="ui-label">DAUMEN RUNTER</span>), „ZAHLEN“, „BESCHREIBUNG“, „VERSIONEN“, „KOMMENTARE (n)“ mit Feld und <span class="ui-label">SENDEN</span></li><li><span class="ui-label">HERUNTERLADEN (n BRIX)</span>, <span class="ui-label">MELDEN</span>, <span class="ui-label">RAUM AUF DIESER MAP ERSTELLEN</span>, <span class="ui-label">ZUR LISTE</span></li></ul>
+<h4>Unterdialoge</h4><ul><li>„Map melden“: „GRUND“ (Anstößiger Inhalt, Anstößiger Name, Spam, Farming, Sonstiges), „DETAILS (FREIWILLIG)“, <span class="ui-label">ABBRECHEN</span> / <span class="ui-label">MELDEN</span></li><li>„In einen Slot herunterladen“: Chips „SLOT“ (1–6: leer / belegt / gesperrt), Warnung, <span class="ui-label">ABBRECHEN</span> / <span class="ui-label">HERUNTERLADEN</span> / <span class="ui-label">ÜBERSCHREIBEN</span></li></ul>
+</div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Waffenständer (Schießstand)</h3><span class="cls">RangePanel · RangePanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 36</span><span class="chip m">range</span><span class="chip">Station „Schießstand“</span></div></summary>
+<div class="body"><ul><li>„Waffenständer“, „Leihwaffen zum Ausprobieren …“; Waffenkarten (Klasse · Slot, Werte)</li><li><span class="ui-label">EIGENE AUSRÜSTUNG</span>, <span class="ui-label">SCHLIESSEN</span>; schließt auch mit E und Esc</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Glücksbrett</h3><span class="cls">BoardPanel · BoardPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 45</span><span class="chip m">board</span><span class="chip">Station „Glücksbrett“</span></div></summary>
+<div class="body"><ul><li>Kopf: „Glücksbrett“, „Saison · endet in · n von m Feldern offen“, Münz-Pille, <span class="ui-label">TAGESMÜNZE ABHOLEN</span> / „NÄCHSTE MÜNZE IN …“, <span class="ui-label">QUOTEN</span></li><li>Raster mit „?“-Feldern, Blättern &lt; / &gt;, „Seite“</li><li>Seitenleiste „LETZTER GEWINN“, „NOCH IM BRETT“</li><li>Overlay Gewinn: Stufe (Gewöhnlich / Ungewöhnlich / Selten / Episch / Hauptgewinn), <span class="ui-label">SUPER</span></li><li>Overlay „Quoten“: GEWINN / STUFE / FELDER / CHANCE, <span class="ui-label">SCHLIESSEN</span></li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Bestenlisten</h3><span class="cls">LeaderboardPanel · LeaderboardPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 45</span><span class="chip m">leaderboard</span><span class="chip">Station · Profil · Gewertet · Clan</span></div></summary>
+<div class="body"><ul><li>„Bestenlisten“, „Die besten 100 Spieler …“</li><li>Chips: Rang · Kills · Siege · Clans · Saison (bei laufender Saison) · Gewertet</li><li>Filter: Modus (Kills, Siege); Warteschlange Team-Deathmatch / Entschärfung (Gewertet)</li><li>Spalten PLATZ / SPIELER bzw. CLAN / RANG bzw. MITGLIEDER / XP, KILLS, SIEGE, PUNKTE oder WERTUNG</li><li>„Dein Platz“-Zeile, <span class="ui-label">MEIN PROFIL</span>, <span class="ui-label">SCHLIESSEN</span></li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Gewertete Matches</h3><span class="cls">RankedPanel · RankedPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 45</span><span class="chip m">ranked</span><span class="chip">Esc-Menü · Arena</span></div></summary>
+<div class="body"><ul><li>„Gewertete Matches“, Saison-Zeile</li><li>2 Karten (Team-Deathmatch, Entschärfung) mit Rang, Wertung, Siege, <span class="ui-label">SUCHEN</span></li><li><span class="ui-label">SUCHE ABBRECHEN</span>, <span class="ui-label">BESTENLISTE</span>, <span class="ui-label">SCHLIESSEN</span></li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Turniere</h3><span class="cls">TournamentPanel · TournamentPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 45</span><span class="chip m">tournaments</span><span class="chip">Esc-Menü · Arena</span></div></summary>
+<div class="body"><ul><li>links Liste mit Segmenten Anmeldung offen / Läuft / Beendet / Abgesagt</li><li>rechts Details mit Belohnungen und Baum bzw. Runden („Großes Finale“, „Verliererbaum, Runde n“ …)</li><li>Felder „Name des Teams“, „Mitspieler (Namen mit Komma)“</li><li><span class="ui-label">ZUSCHAUEN</span>, <span class="ui-label">ANMELDEN</span>, <span class="ui-label">ABMELDEN</span>, <span class="ui-label">ZUM MATCH</span>, <span class="ui-label">SCHLIESSEN</span></li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Clan: Kasse und Kriege</h3><span class="cls">ClanWarPanel · ClanWarPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 41</span><span class="chip m">clan_war</span><span class="chip">aus Reiter Clan</span></div></summary>
+<div class="body"><p>Titel „[TAG] Name“, Seitenleiste „Kasse und Stufe“ · „Clan-Kriege“.</p>
+<h4>Kasse und Stufe</h4><ul><li>„STUFE n“ mit Balken; „KASSE“: Betrag + <span class="ui-label">EINZAHLEN</span>, Mitglied + Betrag + <span class="ui-label">AUSZAHLEN</span></li><li>Chips „BANNER“, Liste „KASSENBUCH“</li></ul>
+<h4>Clan-Kriege</h4><ul><li>Liste „KRIEGE“ mit <span class="ui-label">BEITRETEN</span>, <span class="ui-label">ZUSCHAUEN</span>, <span class="ui-label">ANNEHMEN</span>, <span class="ui-label">ABLEHNEN</span>, <span class="ui-label">ABSAGEN</span></li><li>„HERAUSFORDERN“: Gegner-Kürzel, Start in Minuten, Teamgröße, Aufstellung; Chips „Spiel 1–3: Modus“; <span class="ui-label">HERAUSFORDERN</span></li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Bühne</h3><span class="cls">StagePanel · StagePanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 45</span><span class="chip m">stage</span><span class="chip">Station „Bühne“</span></div></summary>
+<div class="body"><ul><li>Kopf „Bühne“, Bonus-Zeile „Gerade: …“</li><li>links „Ankündigungen (n)“, „Events (n)“ mit „LÄUFT …“ / „BEGINNT …“</li><li>rechts „Map der Woche“ (<span class="ui-label">IN DER GALERIE</span>), „Clan des Monats“ (<span class="ui-label">CLAN ANSEHEN</span> → Overlay mit Clan-Seite und Mitgliedern, <span class="ui-label">ZURÜCK</span>), „Die besten drei“</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Hilfe und Support</h3><span class="cls">SupportPanel · SupportPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 48</span><span class="chip m">support</span><span class="chip">Esc-Menü · Einstellungen</span></div></summary>
+<div class="body"><ul><li>links „MEINE TICKETS“, <span class="ui-label">NEUES TICKET</span>, <span class="ui-label">FEHLER MELDEN</span></li><li>Formular: Kategorie-Chips (Fehler im Spiel, Konto und Anmeldung, Spieler melden, Shop und Spielwährung, Vorschlag, Sonstiges), Betreff, Text, Chip „Screenshot anhängen“, <span class="ui-label">SENDEN</span></li><li>Ticket-Ansicht: Nachrichten (Support/System/Du), Antwortfeld, <span class="ui-label">ANTWORTEN</span>, <span class="ui-label">TICKET SCHLIESSEN</span></li></ul></div></details>
+</section>
+
+<!-- ===================================================== 5 -->
+<section class="group" id="bauen" data-title="Bauen">
+<h2>Bauen</h2>
+
+<details class="ui"><summary><div class="sumline"><h3>Bau-Portal</h3><span class="cls">MapPickerPanel · MapPickerPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 37</span><span class="chip m">maps</span><span class="chip">Station „Bau-Portal“ · P</span></div></summary>
+<div class="body"><ul><li>Seitenleiste: Meine Maps · Mitbauen</li><li>Kopf „MEINE MAPS · EINE MAP JE SLOT …“ bzw. „MAPS, BEI DENEN ICH MITBAUE“</li><li>Karten: Vorschaubild, „SLOT n“, „Map in Slot n“ / „Neuer Bauplatz“ / „Leer“ / „Gesperrt“, „Wird gerade bebaut · n/m“ / „Niemand da“, <span class="ui-label">BETRETEN</span></li><li>Blättern <span class="ui-label">ZURÜCK</span> / <span class="ui-label">WEITER</span>, <span class="ui-label">SCHLIESSEN</span></li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Bauplatz verwalten</h3><span class="cls">PlotPanel · PlotPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 37</span><span class="chip m">plot</span><span class="chip">Esc-Menü · B</span></div></summary>
+<div class="body">
+<p>Seitenleiste: Map-Slots · Himmel · Mitbauer · Sprachchat · Veröffentlichen (→ Map veröffentlichen, nur Inhaber) · Bauvorlagen (→ Bauvorlagen) · Vorlagen-Galerie (→ Vorlagen-Galerie)</p>
+<h4>Map-Slots</h4><ul><li>„MAP-SLOTS · n VON 6 FREIGESCHALTET“; Slot-Karten mit Vorschaubild, <span class="ui-label">UMBENENNEN</span>, <span class="ui-label">ZURÜCKSETZEN</span>, <span class="ui-label">LADEN</span>, <span class="ui-label">ANLEGEN</span></li></ul>
+<h4>Himmel</h4><ul><li>„HIMMEL DIESER MAP“, 10 Karten: Klarer Tag, Morgenrot, Sommermittag, Bewölkt, Abendrot, Dämmerung, Sternennacht, Gewitterfront, Wüstenglut, Fremde Welt</li></ul>
+<h4>Mitbauer</h4><ul><li>„MITBAUER DIESER MAP · n VON 16 …“; Feld „Name eines Spielers (auch offline)“ + <span class="ui-label">BAURECHT GEBEN</span></li><li>Personenzeilen „Mitbauer · da/nicht da“, „Inhaber“, „Zu Besuch“ mit „•••“, <span class="ui-label">BAURECHT GEBEN/NEHMEN</span>, <span class="ui-label">RAUSWERFEN</span></li></ul>
+<h4>Sprachchat</h4><ul><li>„SPRACHCHAT AUF DIESER MAP“, Chips „Nähe“ / „Map-weit“</li></ul>
+<h4>Unterdialoge</h4><ul><li>„Slot n anlegen/zurücksetzen“: „VORLAGE“ (Flach 50 x 50, Flach 100 x 100, 50 x 50 mit 5 Lagen), „MATERIAL“ (Wiese, Wüste, Schnee, Stadt), <span class="ui-label">ABBRECHEN</span> / <span class="ui-label">ANLEGEN</span> bzw. <span class="ui-label">ZURÜCKSETZEN</span></li><li>„Slot umbenennen“: Feld, <span class="ui-label">ABBRECHEN</span> / <span class="ui-label">SPEICHERN</span></li></ul>
+</div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Map veröffentlichen</h3><span class="cls">PublishPanel · PublishPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 38</span><span class="chip m">publish</span><span class="chip">aus Bauplatz verwalten</span></div></summary>
+<div class="body"><ul><li>„NAME“, „BESCHREIBUNG“, Regler „PREIS FÜR DEN DOWNLOAD“ (Kostenlos … n Brix)</li><li>Schalter „Als neue Version von „…““</li><li>„MODI · DIE MAP MUSS IHRE PFLICHT-ELEMENTE HABEN“: Chips je Modus mit „Bereit: …“ / „Fehlt: …“</li><li>Gebühren- und Rangzeile, Ergebnis-Box; <span class="ui-label">VERÖFFENTLICHEN</span>, <span class="ui-label">SCHLIESSEN</span></li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Bauvorlagen</h3><span class="cls">BlueprintPanel · BlueprintPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 38</span><span class="chip m">blueprints</span><span class="chip">Taste X · Bauplatz verwalten</span></div></summary>
+<div class="body"><ul><li>„AUSWAHL“: <span class="ui-label">ECKEN WÄHLEN</span>, <span class="ui-label">KOPIEREN</span>, <span class="ui-label">LEEREN</span></li><li>„ZWISCHENABLAGE“: <span class="ui-label">EINFÜGEN</span>, <span class="ui-label">DREHEN n°</span>; Chips Nicht gespiegelt / Spiegeln X / Spiegeln Z</li><li>„VERLAUF“: <span class="ui-label">RÜCKGÄNGIG (n)</span>, <span class="ui-label">WIEDERHOLEN (n)</span></li><li>„SYMMETRIE“: Chips Aus / X / Z / Vierfach</li><li>„ALS VORLAGE SPEICHERN“: Name, Chip „In der Galerie teilen“, <span class="ui-label">SPEICHERN</span></li><li><span class="ui-label">VORLAGEN-GALERIE</span>, <span class="ui-label">SCHLIESSEN</span></li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Vorlagen-Galerie</h3><span class="cls">TemplatesPanel · TemplatesPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 39</span><span class="chip m">templates</span></div></summary>
+<div class="body"><ul><li>Chips Geteilt / Meine; Neu / Beste</li><li>Zeilen: <span class="ui-label">ÜBERNEHMEN</span>, <span class="ui-label">LÖSCHEN</span>, <span class="ui-label">TEILEN</span> / <span class="ui-label">NICHT TEILEN</span>, „▲ n“, „▼ n“</li><li>Blättern ‹ / ›, <span class="ui-label">SCHLIESSEN</span></li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Palette</h3><span class="cls">BrickPalettePanel · BrickPalettePanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 36</span><span class="chip m">palette</span><span class="chip">Taste Q · B</span></div></summary>
+<div class="body"><ul><li>Suchfeld „Suchen …“</li><li>Seitenleiste: Allgemein · Farbbox · Deko · Funktion · Zuletzt</li><li>Raster mit Limit-Abzeichen; Info-Karte (Name, Gruppe, „Drehbar …“, „Zerstörbar …“)</li><li>Reihe „LEISTE“ mit 9 Plätzen (Ziffern 1–9 belegen), <span class="ui-label">SCHLIESSEN</span></li></ul></div></details>
+</section>
+
+<!-- ===================================================== 6 -->
+<section class="group" id="match" data-title="Match">
+<h2>Match</h2>
+
+<details class="ui"><summary><div class="sumline"><h3>Warteraum</h3><span class="cls">WaitingRoomPanel · WaitingRoomPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 35</span><span class="chip m">waiting</span><span class="chip">automatisch · Tab</span></div></summary>
+<div class="body"><ul><li>Titel = Raum (mit Schloss), Untertitel mit Modus, Map, Kanal und Regeln, Status-Abzeichen („Start in n s“, „Warte auf Spieler (n/m)“, „Bereit: …“)</li><li>Team-Spalten: Krone, Kennzeichen, „(Du)“; <span class="ui-label">ENTFERNEN</span>, „•••“, <span class="ui-label">LEITUNG ÜBERGEBEN</span></li><li>Box „LETZTE RUNDE“</li><li><span class="ui-label">VERLASSEN</span>, <span class="ui-label">TEAM WECHSELN</span>, <span class="ui-label">MATCH STARTEN</span> / „WARTET AUF MASTER“, <span class="ui-label">UMSEHEN</span>, <span class="ui-label">RAUM ÄNDERN</span></li></ul>
+<h4>Unterdialoge</h4><ul><li>„RAUM ÄNDERN“: Zeilen mit &lt; / &gt; für Modus, Map, Ziel, Zeit, Spieler, Waffen, Map-Rotation; <span class="ui-label">ÜBERNEHMEN</span> / <span class="ui-label">ABBRECHEN</span></li><li>„LEITUNG ÜBERGEBEN“: <span class="ui-label">ÜBERGEBEN</span> / <span class="ui-label">ABBRECHEN</span></li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Punktestand</h3><span class="cls">ScoreboardPanel · ScoreboardPanel.cs</span></div><div class="chips"><span class="chip t">Overlay (anheftbar)</span><span class="chip m">Ord 38</span><span class="chip m">scoreboard_pinned</span><span class="chip">Tab halten · M</span></div></summary>
+<div class="body"><ul><li>sichtbar, solange Tab gehalten wird (nicht im Warteraum); Rechtsklick bei gehaltenem Tab heftet an, Esc oder Tab löst</li><li>„Punktestand“, „Modus · Map · Runde/noch · Ziel“, Score „Team n : n Team“</li><li>Tabellen je Team: ZIEL / PUNKTE / K / T / A / PING / RANG, Krone, „(aus)“, „•••“ (nur angeheftet)</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Ergebnis-Sequenz</h3><span class="cls">ResultsSequence · ResultsSequence.cs</span></div><div class="chips"><span class="chip t">Vollbild-Sequenz</span><span class="chip m">Ord 44</span><span class="chip m">results_sequence</span><span class="chip">automatisch</span></div></summary>
+<div class="body"><ul><li>Titelkarte: SIEG / NIEDERLAGE / UNENTSCHIEDEN / „n. PLATZ“ / INFIZIERT / ÜBERLEBT / VERTEIDIGUNG</li><li>Zähler „+n XP“, „+n Brix“, Bonuszeilen; Rangbalken „RANG n“ mit Funken</li><li>„Klicken für die Tabelle“; Klick, Leertaste oder Esc überspringen</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Ergebnis</h3><span class="cls">ResultsPanel · ResultsPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 42</span><span class="chip m">results</span></div></summary>
+<div class="body"><ul><li>„Sieg!“ / „Niederlage“ / „Unentschieden“ / „Ergebnis“, Countdown „Zurück zur Plaza in n s“ / „Warteraum …“</li><li>Tabelle SPIELER / PUNKTE / K / T / A / ZIEL oder K/T / ZEIT mit „•••“</li><li>„DEINE BELOHNUNG“: Rang, „RANG n!“, XP-Balken, Brix, Bonus, Münzen, Mastery-Extras</li><li>„DIESE MAP“: <span class="ui-label">DAUMEN HOCH</span> / <span class="ui-label">DAUMEN RUNTER</span>, Kommentar + <span class="ui-label">SENDEN</span></li><li>„Spielzug der Runde“: <span class="ui-label">ANSEHEN</span>, <span class="ui-label">VIDEO SPEICHERN</span></li><li><span class="ui-label">ZUR PLAZA</span>, <span class="ui-label">SCHLIESSEN</span></li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Zuschauen</h3><span class="cls">SpectatePanel · SpectatePanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 40</span><span class="chip m">spectate</span><span class="chip">Esc-Menü · Turniere · Clan-Kriege</span></div></summary>
+<div class="body"><ul><li>Liste: Freund / Turnier / Clan-Krieg / Spielteam · Modus · Verzögerung · Zuschauer</li><li><span class="ui-label">ZUSCHAUEN</span> / „VOLL“, <span class="ui-label">AKTUALISIEREN</span>, <span class="ui-label">SCHLIESSEN</span></li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Replay- und Zuschauer-Ansicht</h3><span class="cls">ReplayViewer · Replays/ReplayViewer.cs, ReplayViewer.Live.cs</span></div><div class="chips"><span class="chip t">Vollbild</span><span class="chip m">Ord 49</span><span class="chip m">replay_viewer</span><span class="chip">Staff · Clip · Live</span></div></summary>
+<div class="body"><ul><li>Kopf: „Replay: Map · Modus“ bzw. „Zuschauen“ / „Highlight“, Untertitel, <span class="ui-label">SCHLIESSEN</span></li><li>Mitte: Killfeed („X besiegt Y (Kopftreffer)“), Namen über den Figuren, Spielerliste mit „•••“ (Live)</li><li>Fußleiste: Zeitleiste mit Kill-Markern; <span class="ui-label">ABSPIELEN</span> / <span class="ui-label">PAUSE</span>; Tempo 0,25× / 0,5× / 1× / 2× / 4×; <span class="ui-label">NÄCHSTER KILL</span>; „KAMERA: FREI / ÜBERSICHT / AUTOMATISCH / NAME“; „Frame n · Tempo“</li><li>freie Kamera WASD, E/Q, Shift; Esc schließt</li></ul></div></details>
+</section>
+
+<!-- ===================================================== 7 -->
+<section class="group" id="sozial" data-title="Soziales & Profil">
+<h2>Soziales &amp; Profil</h2>
+
+<details class="ui"><summary><div class="sumline"><h3>Freunde und Gruppen</h3><span class="cls">SocialPanel · SocialPanel.cs (+ .Friends, .Party, .Clan, .Mail, .Lists, .Overlays)</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 44</span><span class="chip m">social</span><span class="chip">Esc-Menü · Profil „POST“</span></div></summary>
+<div class="body">
+<p>Reiter-Chips (mit Zähler): Freunde · Party · Clan · Post · Gesperrt · Plazas</p>
+<h4>Freunde</h4><ul><li>Feld + <span class="ui-label">ANFRAGE SENDEN</span></li><li>„Freunde (n / max, n online)“: Ort, <span class="ui-label">EINLADEN</span>, <span class="ui-label">FLÜSTERN</span>, <span class="ui-label">FOLGEN</span></li><li>„Anfragen an dich“: <span class="ui-label">ANNEHMEN</span> / <span class="ui-label">ABLEHNEN</span>; „Von dir gesendet“: <span class="ui-label">ZURÜCKZIEHEN</span></li></ul>
+<h4>Party</h4><ul><li>Feld + <span class="ui-label">EINLADEN</span>, <span class="ui-label">PARTY GRÜNDEN</span></li><li>„Mitglieder (n / m)“: <span class="ui-label">RAUSWERFEN</span>, <span class="ui-label">LEITUNG GEBEN</span></li><li><span class="ui-label">PARTY VERLASSEN</span>, <span class="ui-label">AUFLÖSEN</span>, <span class="ui-label">ZUM LEITER</span>, <span class="ui-label">PARTY FOLGEN: AN/AUS</span></li><li>„Einladungen an dich“, „Offene Einladungen der Party“</li></ul>
+<h4>Clan</h4><ul><li>ohne Clan: „Clan gründen“ mit <span class="ui-label">CLAN GRÜNDEN</span>, <span class="ui-label">CLAN-RANGLISTE</span>; „Einladungen an dich“</li><li>mit Clan: Emblem, Werte, „Mitglieder“ (<span class="ui-label">RAUSWERFEN</span>, <span class="ui-label">ZUM OFFIZIER/MITGLIED</span>, <span class="ui-label">LEITUNG GEBEN</span>), Einladen-Feld, „Offene Einladungen“ (<span class="ui-label">ZURÜCKZIEHEN</span>)</li><li><span class="ui-label">KASSE UND STUFE</span>, <span class="ui-label">CLAN-KRIEGE</span>, <span class="ui-label">BEARBEITEN</span>, <span class="ui-label">RANGLISTE</span>, <span class="ui-label">CLAN AUFLÖSEN</span>, <span class="ui-label">CLAN VERLASSEN</span></li><li>Overlay „Clan gründen/bearbeiten“: NAME, KÜRZEL, BESCHREIBUNG, EMBLEM-Editor, VORSCHAU; <span class="ui-label">GRÜNDEN · Preis</span> bzw. <span class="ui-label">SPEICHERN</span>, <span class="ui-label">ABBRECHEN</span></li></ul>
+<h4>Post</h4><ul><li>Chips Eingang / Ausgang, <span class="ui-label">NEUE NACHRICHT</span>, Liste mit „Geschenk“, Blättern</li><li>Overlay Lesen: „GESCHENK“, <span class="ui-label">SCHLIESSEN</span>, <span class="ui-label">LÖSCHEN</span>, <span class="ui-label">ANTWORTEN</span></li><li>Overlay „Neue Nachricht“: AN, BETREFF, TEXT, GESCHENK (<span class="ui-label">AUS DEM INVENTAR</span> / <span class="ui-label">AUS DEM LADEN</span> / <span class="ui-label">OHNE</span>), <span class="ui-label">SENDEN</span>, <span class="ui-label">ABBRECHEN</span></li><li>Overlay „Geschenk aus dem Inventar“ mit <span class="ui-label">ZURÜCK</span></li></ul>
+<h4>Gesperrt</h4><ul><li>Feld + <span class="ui-label">SPERREN</span>, Liste mit <span class="ui-label">ENTSPERREN</span>, Erklärung „Was eine Sperre bewirkt“</li></ul>
+<h4>Plazas</h4><ul><li><span class="ui-label">AKTUALISIEREN</span>, „Plazas mit Bekannten (n)“ mit <span class="ui-label">WECHSELN</span> / „VOLL“</li></ul>
+<h4>Gemeinsam</h4><ul><li>Bestätigungsdialog (z. B. „Clan auflösen?“, „Nachricht löschen?“, „Leitung übergeben?“): <span class="ui-label">OK</span> bzw. Aktion, <span class="ui-label">ABBRECHEN</span></li></ul>
+</div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Profil</h3><span class="cls">ProfilePanel · ProfilePanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 51</span><span class="chip m">profile</span><span class="chip">Esc-Menü · E auf Spieler · Listen · „•••“</span></div></summary>
+<div class="body"><ul><li>Kopf: Rang-Abzeichen, Name, Kennzeichen, „Rang n · Name“, XP-Balken; Guthaben-Pillen (nur eigenes Profil)</li><li>Reiter: Übersicht · Waffen-Mastery · Erfolge · Tagesmissionen (die letzten beiden nur im eigenen Profil)</li></ul>
+<h4>Übersicht</h4><ul><li>Kacheln Matches, Siege, Niederlagen, Kills je Tod, Kills, Assists, Kopftreffer, Spielzeit</li><li>Tabelle MODUS / MATCHES / SIEGE / NIEDERL. / KILLS / TODE / ASSISTS / KOPFTREFFER / K/T</li></ul>
+<h4>Waffen-Mastery · Erfolge · Tagesmissionen</h4><ul><li>Mastery: Stufen-Balken „Stufe n / m“, Punkte, „-n % im Laden“</li><li>Erfolge: Karten mit Fortschritt und „+n Brix“</li><li>Tagesmissionen: Karten mit „+XP · +Brix · +1 Münze“, Reset-Zeile</li></ul>
+<h4>Fremdes Profil</h4><ul><li><span class="ui-label">FREUND ENTFERNEN</span> / <span class="ui-label">ANFRAGE ANNEHMEN</span> / „ANFRAGE GESENDET“ / <span class="ui-label">ALS FREUND</span>, <span class="ui-label">PARTY EINLADEN</span>, <span class="ui-label">FLÜSTERN</span>, <span class="ui-label">POST</span>, <span class="ui-label">SPERREN</span> / <span class="ui-label">ENTSPERREN</span>, <span class="ui-label">MELDEN</span></li><li>unten <span class="ui-label">BESTENLISTEN</span>, <span class="ui-label">SCHLIESSEN</span></li></ul></div></details>
+</section>
+
+<!-- ===================================================== 8 -->
+<section class="group" id="einstellungen" data-title="Einstellungen">
+<h2>Einstellungen</h2>
+<div class="note"><b>SettingsPanel</b> (SettingsPanel.cs, BuiltinSettingsPages.cs, VoiceSettingsPage.cs) · Ord 50 · Modal <code>settings</code> · geöffnet über Esc-Menü „EINSTELLUNGEN“, „SCHLIESSEN“ führt zurück ins Menü. Aufbau: links Seitenleiste, rechts scrollbare Zeilen mit Titel und Beschreibung. Fußzeile: <span class="ui-label">ZURÜCKSETZEN</span>, <span class="ui-label">ZUR PLAZA</span> (außer Plaza), <span class="ui-label">SPIEL BEENDEN</span>, <span class="ui-label">SCHLIESSEN</span>. Bestätigung „Anzeige beibehalten?“ mit 15-s-Countdown: <span class="ui-label">BEIBEHALTEN</span> / <span class="ui-label">ZURÜCK (n)</span>.</div>
+
+<details class="ui"><summary><div class="sumline"><h3>Grafik</h3><span class="cls">Seite grafik</span></div><div class="chips"><span class="chip t">Einstellungsseite</span></div></summary>
+<div class="body">
+<h4>Anzeige</h4><ul><li>Anzeigemodus (Fenster / Vollbild / Randlos), Auflösung (Automatisch und Liste), VSync, Bildrate begrenzen, Bildrate im Hintergrund</li></ul>
+<h4>Qualität</h4><ul><li>Qualitätsstufe (Niedrig / Mittel / Hoch / Ultra / Benutzerdefiniert), Schatten (Aus / Niedrig / Hoch), Schattendistanz (m)</li><li>Kantenglättung (Aus / FXAA / SMAA / MSAA 4x), Texturqualität, Texturfilterung (Aus–16x)</li><li>Umgebungsverdeckung, Sichtweite, Render-Skalierung (%)</li></ul>
+<h4>Bild</h4><ul><li>Nachbearbeitung, Bloom, Bewegungsunschärfe, Wettereffekte reduzieren, Helligkeit (%), Sichtfeld (°)</li></ul>
+<h4>Barrierefreiheit</h4><ul><li>Farbsehen: Normal, Rot-Grün (Protan), Rot-Grün (Deutan), Blau-Gelb (Tritan)</li></ul>
+</div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Sound</h3><span class="cls">Seite sound</span></div><div class="chips"><span class="chip t">Einstellungsseite</span></div></summary>
+<div class="body"><ul><li>Lautstärke (%): Gesamtlautstärke, Effekte, Oberfläche, Umgebung, Musik, Sprachchat</li><li>Wiedergabe: Stumm im Hintergrund, Ausgabegerät (Systemstandard und Geräte)</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Steuerung</h3><span class="cls">Seite steuerung</span></div><div class="chips"><span class="chip t">Einstellungsseite</span><span class="chip">Tastenbelegung</span></div></summary>
+<div class="body">
+<h4>Maus und Verhalten</h4><ul><li>Empfindlichkeit horizontal, vertikal, beim Zielen; Y-Achse umkehren; Sprinten (Halten / Umschalten)</li></ul>
+<h4>Tastenbelegung (Haupt- und Zweittaste je Aktion, Esc fest)</h4>
+<div class="tablewrap"><table>
+<thead><tr><th>Gruppe</th><th>Aktion → Standard</th></tr></thead>
+<tbody>
+<tr><td>Bewegung</td><td>Vorwärts W/↑ · Rückwärts S/↓ · Links A/← · Rechts D/→ · Springen Leertaste · Sprinten Shift · Ducken C/Strg</td></tr>
+<tr><td>Aktionen</td><td>Benutzen E · Kamera wechseln V (1. Person → 3. Person → Front) · Chat Enter · Spielerliste und Punktestand Tab · Foto-Modus P</td></tr>
+<tr><td>Kampf</td><td>Schießen Linksklick · Zielen und Zoom Rechtsklick · Alternativfeuer Mittelklick · Nachladen R · Schneller Nahkampf F · Granate G · Waffen 1–4 · Waffe wechseln Mausrad · Hotbar 5–8 · Funkspruch Z</td></tr>
+<tr><td>Bauen</td><td>Brick setzen Linksklick · Brick entfernen Rechtsklick · Brick 1–9 / Mausrad · Brick drehen R · Werkzeug T · Palette Q · Fliegen F · Brick aufnehmen Mittelklick · Rückgängig Z · Wiederholen Y · Bauvorlagen X</td></tr>
+<tr><td>Sprachchat</td><td>Sprechen (Push-to-Talk) B · Team-Funk N · Party-Funk H</td></tr>
+</tbody></table></div>
+</div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Controller</h3><span class="cls">Seite controller</span></div><div class="chips"><span class="chip t">Einstellungsseite</span></div></summary>
+<div class="body"><ul><li>Sticks: Info, Empfindlichkeit, Y-Achse umkehren, Totzone, Zielhilfe</li><li>Belegung: Info „Neu belegen“, Gruppen wie bei der Tastatur (rechter Trigger schießt und setzt, linker zielt und baut ab)</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Sprachchat</h3><span class="cls">Seite sprachchat · VoiceSettingsPage.cs</span></div><div class="chips"><span class="chip t">Einstellungsseite</span></div></summary>
+<div class="body"><ul><li>Sprechen: Sprachchat (Aus / Push-to-Talk / Sprachaktivierung), Info „Datenschutz“</li><li>Tasten: Push-to-Talk, Team-Funk, Party-Funk</li><li>Mikrofon: Eingabegerät, Mikrofon-Lautstärke, Aktivierungsschwelle, Eingangspegel, Rauschsperre, Rauschunterdrückung (+ Stärke), Mikrofon testen, Zustand</li><li>Wiedergabe: Sprach-Lautstärke, Sprecher anzeigen</li><li>Spieler: je Spieler Lautstärke und <span class="ui-label">STUMM</span> / <span class="ui-label">AUFHEBEN</span>, „In Hörweite, n m …“; ohne Spieler „Niemand sonst hier“</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Allgemein</h3><span class="cls">Seite allgemein</span></div><div class="chips"><span class="chip t">Einstellungsseite</span></div></summary>
+<div class="body"><ul><li>Sprache: Automatisch (System) und Sprachen, „(Beta)“</li><li>Anzeigen im Spiel: Namensschilder, Bildrate anzeigen, Ping anzeigen</li><li>Party folgen; Chat-Schriftgröße (pt); Kamera beim Betreten (Automatisch / 1. Person / 3. Person)</li><li>Hilfe: Support <span class="ui-label">ÖFFNEN</span>, Fehler melden <span class="ui-label">MELDEN</span></li></ul></div></details>
+</section>
+
+<!-- ===================================================== 9 -->
+<section class="group" id="rollen" data-title="Rollen-Menüs">
+<h2>Rollen-Menüs (vom Server gebaut)</h2>
+
+<details class="ui"><summary><div class="sumline"><h3>Baukasten</h3><span class="cls">ServerMenuPanel · ServerMenuPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 47</span><span class="chip m">servermenu</span><span class="chip">Esc-Menü (rot) · Chat-Befehl</span></div></summary>
+<div class="body"><ul><li>Titel und Untertitel vom Server, scrollbarer Body, Meldungszeile, <span class="ui-label">SCHLIESSEN</span></li><li>Element-Arten: Heading, Text, Info (Label/Wert), Row (klickbare Karte), Button (Normal / Primary / Danger / Muted, gruppierbar), Field, Select (Stepper), Separator</li><li>Bestätigung „Bist du sicher?“: <span class="ui-label">JA, AUSFÜHREN</span> / <span class="ui-label">ABBRECHEN</span></li><li>Effekte: Wechsel, Client-Werkzeug (Asset-Aufnahmen), Inhalte neu laden, Bühne aktualisieren, Replay ansehen</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Moderation</h3><span class="cls">StaffMenus · /meldungen</span></div><div class="chips"><span class="chip t">Rollen-Menü</span><span class="chip">Moderator, Admin</span></div></summary>
+<div class="body"><ul><li>Liste: Filter Offen / Erledigt / Abgewiesen / Alle, Zeilen je Meldung, „Zurück“ / „Weiter“</li><li>Detail „Meldung“: Ziel, Grund, Details, Gemeldet von, Status; Feld „Notiz“; Abweisen, Erledigen, Map ausblenden, Map sperren, Map freigeben, Kommentar ausblenden; „Zurück zur Liste“</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Entwickler</h3><span class="cls">StaffMenus · /entwickler, /asset-karte</span></div><div class="chips"><span class="chip t">Rollen-Menü</span><span class="chip">Entwickler, Admin</span></div></summary>
+<div class="body"><ul><li>„Inhalte, Instanzen und Werkzeuge“: Inhaltsversion, Waffen-Version, Overlay, Instanzen, Asset-Karte</li><li>„Asset-Karte betreten“, „Asset-Aufnahmen“, „Inhalte neu laden“</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Verwaltung</h3><span class="cls">StaffMenus · /rolle</span></div><div class="chips"><span class="chip t">Rollen-Menü</span><span class="chip">Admin</span></div></summary>
+<div class="body"><ul><li>„Rolle setzen“: Konto, Rolle (player / moderator / developer / admin), Grund, „Rolle setzen“</li><li>„XP setzen“: Konto, XP gesamt, Grund, „XP setzen“</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Bühne</h3><span class="cls">StageMenu · /buehne</span></div><div class="chips"><span class="chip t">Rollen-Menü</span><span class="chip">Moderator, Admin</span></div></summary>
+<div class="body"><ul><li>Info Bühne, Event-Bonus; „Bühne stummschalten“ / „freigeben“</li><li>„Ankündigungen“: Zeilen mit „Beenden“; Titel, Text, Art, Dauer, Banner; „Ankündigen“</li><li>„Events“ (nur Admin): Name, Beschreibung, Start, Dauer, XP-Faktor, Brix-Faktor; „Event planen“</li><li>„Map der Woche“: Aktuell, Map, Für; „Festlegen“, „Wieder automatisch“</li><li>„Event-Hosts“: Konto, Für; „Freischalten“ / „Entziehen“</li><li>„Auf die Bühne holen“: Konto; „Auf die Bühne holen“</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Spieler</h3><span class="cls">PlayersMenu · /spieler [name]</span></div><div class="chips"><span class="chip t">Rollen-Menü</span><span class="chip">Moderator, Admin</span></div></summary>
+<div class="body"><ul><li>Suche: Feld Name, „Suchen“, Trefferzeilen</li><li>Detail: Name, Rang, Status, Aufenthalt; Grund; Auswahl Sperre und Stumm; Sperren, Stummschalten, Kicken, Sperre aufheben, Stumm aufheben; beim eigenen Konto und geschützten Staff-Konten nur ein Hinweis; „Zurück zur Suche“</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Replays</h3><span class="cls">ReplaysMenu · /replays [name]</span></div><div class="chips"><span class="chip t">Rollen-Menü</span><span class="chip">Moderator, Admin</span></div></summary>
+<div class="body"><ul><li>Feld „Spieler oder Replay-ID“, „Suchen“; Zeilen „Map (Modus)“ mit Dauer und Alter; Klick öffnet die Replay-Ansicht</li></ul></div></details>
+</section>
+
+<!-- ===================================================== 10 -->
+<section class="group" id="welt" data-title="Welt-UI">
+<h2>Welt-UI</h2>
+
+<details class="ui"><summary><div class="sumline"><h3>Namensschild</h3><span class="cls">NameTag · Player/NameTag.cs</span></div><div class="chips"><span class="chip t">Welt-UI</span></div></summary>
+<div class="body"><ul><li>Name, Rollen-Abzeichen, Kennzeichen-Reihe (<code>UiNameBadges</code>), Sprech-Symbol; abschaltbar in den Einstellungen</li></ul></div></details>
+<details class="ui"><summary><div class="sumline"><h3>Stationsschild und -ring</h3><span class="cls">StationView · World/StationView.cs</span></div><div class="chips"><span class="chip t">Welt-UI</span></div></summary>
+<div class="body"><ul><li>Farbbalken, Titel, Hinweis bzw. „(bald)“; leuchtet während der Einführung</li></ul></div></details>
+<details class="ui"><summary><div class="sumline"><h3>Bühnen-Leinwand</h3><span class="cls">StageScreen · World/StageScreen.cs</span></div><div class="chips"><span class="chip t">Welt-UI</span><span class="chip">P</span></div></summary>
+<div class="body"><ul><li>Folien alle ~8 s: Ankündigung, Saison, News, „Event läuft“ / „Event“, Map der Woche, Clan des Monats, die besten drei; Punkte-Reihe</li></ul></div></details>
+<details class="ui"><summary><div class="sumline"><h3>Ziele im Match</h3><span class="cls">ModeWorldView · Combat/ModeWorldView.cs</span></div><div class="chips"><span class="chip t">Welt-UI</span><span class="chip">M</span></div></summary>
+<div class="body"><ul><li>Flagge, Platten mit Buchstaben, Bombe, Stern über dem Gesuchten, Bauzonen-Rahmen, liegende Waffen</li></ul></div></details>
+<details class="ui"><summary><div class="sumline"><h3>Schießstand-Ziele, Monster, Asset-Karte, Geister</h3><span class="cls">RangeTargetsView · MonsterView · AssetMapView · GhostView</span></div><div class="chips"><span class="chip t">Welt-UI</span></div></summary>
+<div class="body"><ul><li>Schießstand: Zahl über dem Ziel „-n Zone“</li><li>Monster: Lebensleiste über angeschlagenen Monstern</li><li>Asset-Karte: Schilder und Überschriften</li><li>Geister: hellblau</li><li>schwebende Schadenszahlen gibt es nur am Schießstand</li></ul></div></details>
+</section>
+
+<!-- ===================================================== 11 -->
+<section class="group" id="sonstiges" data-title="Sonstiges & Overlays">
+<h2>Sonstiges &amp; Overlays</h2>
+
+<details class="ui"><summary><div class="sumline"><h3>Spieler-Aktionen</h3><span class="cls">PlayerActionsPanel · PlayerActionsPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 53</span><span class="chip m">player_actions</span><span class="chip">„•••“ in jeder Spielerliste</span></div></summary>
+<div class="body"><ul><li>Titel = Name, Status „Spricht gerade.“ / „Hier.“ / „Stumm geschaltet – …“</li><li>„LAUTSTÄRKE“: Regler, <span class="ui-label">STUMM</span> / <span class="ui-label">AUFHEBEN</span></li><li>„MELDEN“: <span class="ui-label">SPIELER</span>, <span class="ui-label">CHAT</span>, <span class="ui-label">SPRACHCHAT</span></li><li>„BAUPLATZ“ (Inhaber): <span class="ui-label">BAURECHT GEBEN/NEHMEN</span>, <span class="ui-label">RAUSWERFEN</span></li><li>„RAUM“ (Raumleiter): <span class="ui-label">ENTFERNEN</span></li><li><span class="ui-label">PROFIL</span>, <span class="ui-label">SCHLIESSEN</span>; grüner Sprecher-Punkt in der Zeile</li><li>Aufgerufen aus: Tab-Liste, Punktestand, Warteraum, Ergebnis, Bauplatz-Mitbauer, Replay-Liste</li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Melden</h3><span class="cls">ReportPanel · ReportPanel.cs</span></div><div class="chips"><span class="chip t">Modal</span><span class="chip m">Ord 52</span><span class="chip m">report</span></div></summary>
+<div class="body"><ul><li>„X melden“, „Die Moderation sieht sich die Meldung an …“</li><li>„WAS MELDEST DU?“: Spieler / Chat / Sprachchat</li><li>„GRUND“: Schummeln, Belästigung, Anstößiger Name, Spam, Sprachchat-Missbrauch, Sonstiges</li><li>„DETAILS (FREIWILLIG)“, bei Chat mit den letzten Zeilen vorbefüllt</li><li><span class="ui-label">MELDEN</span>, <span class="ui-label">ABBRECHEN</span></li></ul></div></details>
+
+<details class="ui"><summary><div class="sumline"><h3>Weitere Texte ohne eigenes Fenster</h3><span class="cls">Toasts, Ablehnungen, Hilfsklassen</span></div><div class="chips"><span class="chip t">Toast</span></div></summary>
+<div class="body"><ul><li>Stationen: „Diese Station wird bald freigeschaltet.“, „Die Map wird vorbereitet.“ …</li><li>Bau-Ablehnungen (<code>Build/BuildTool.cs</code>, rund 20 Texte, z. B. „Dort ist schon ein Brick.“)</li><li>unsichtbare Hilfsklassen: ScreenWatcher, LocText, Vorschaubild- und Symbol-Caches</li></ul></div></details>
+</section>
+
+<!-- ===================================================== Anhang -->
+<section class="group" id="ebenen" data-title="Canvas-Ebenen">
+<h2>Canvas-Ebenen</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Ord</th><th>Canvas / Klasse</th></tr></thead>
+<tbody>
+<tr><td class="num">9</td><td>Zielfernrohr (CombatHud)</td></tr>
+<tr><td class="num">10</td><td>Hud (HudController mit VoiceHud, MissionsWidget), ObjectiveHud, RadarHud</td></tr>
+<tr><td class="num">11</td><td>CombatHud, SurvivalHud</td></tr>
+<tr><td class="num">12</td><td>MatchHud, PartyHud</td></tr>
+<tr><td class="num">13</td><td>TutorialHud</td></tr>
+<tr><td class="num">30</td><td>Wardrobe</td></tr>
+<tr><td class="num">35</td><td>WaitingRoom, Blendung</td></tr>
+<tr><td class="num">36</td><td>Palette, Waffenständer</td></tr>
+<tr><td class="num">37</td><td>Plot, MapPicker</td></tr>
+<tr><td class="num">38</td><td>Scoreboard, Publish, Blueprints</td></tr>
+<tr><td class="num">39</td><td>Templates, LiveHud</td></tr>
+<tr><td class="num">40</td><td>Menu, PlayerList, RadioMenu, Spectate</td></tr>
+<tr><td class="num">41</td><td>ClanWar, StageHud, PartyHudTop</td></tr>
+<tr><td class="num">42</td><td>Results</td></tr>
+<tr><td class="num">44</td><td>Gallery, Social, ResultsSequence</td></tr>
+<tr><td class="num">45</td><td>Shop, Board, Leaderboard, Rooms, Ranked, Tournaments, StagePanel</td></tr>
+<tr><td class="num">47</td><td>ServerMenu, LoginReward, WhatsNew</td></tr>
+<tr><td class="num">48</td><td>Support</td></tr>
+<tr><td class="num">49</td><td>ReplayViewer</td></tr>
+<tr><td class="num">50</td><td>Settings</td></tr>
+<tr><td class="num">51</td><td>Profile</td></tr>
+<tr><td class="num">52</td><td>Report</td></tr>
+<tr><td class="num">53</td><td>PlayerActions</td></tr>
+<tr><td class="num">60</td><td>PhotoMode</td></tr>
+<tr><td class="num">100</td><td>LoadingScreen</td></tr>
+<tr><td class="num">Welt</td><td>NameTag, StationView, StageScreen, ModeWorldView, RangeTargetsView, MonsterView, AssetMapView</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="group" id="bausteine" data-title="Bausteine">
+<h2>Gemeinsame Bausteine</h2>
+<details class="ui"><summary><div class="sumline"><h3>UiFactory, EconomyUi, UiControls</h3><span class="cls">Game/UI/UiFactory*.cs, EconomyUi.cs, UiControls.cs</span></div><div class="chips"><span class="chip t">Widgets</span></div></summary>
+<div class="body">
+<h4>UiFactory</h4><ul>
+<li>Grundlagen: CreateCanvas, Rect, Panel (abgerundet), Label, Button (primär/sekundär, Klick-Sound), InputField, Stretch/Place; Farben Accent, Surface, SurfaceLight, SurfaceSoft, TextPrimary, TextMuted, Danger, Good</li>
+<li>.Match: Window (Schatten + UiFitBox), TopLabel, HorizontalLine, Segment, Badge, Icon, Spinner, ProgressBar, Symbole Lock und Crown</li>
+<li>.Controls: SectionHeader, SettingRow, ScrollView, Slider, Switch, Stepper, InfoValue, KeybindButton, SidebarTab, Chevron</li>
+<li>.Economy: ItemIcon, RankBadge, RankColor, Währungssymbole und -farben (Brix, Splitter, Kristalle, Münze), Sterne, StarRow, PixelImage, BalancePill</li>
+<li>.Combat / .Modes / .Social / .Voice: Waffen-, Kopftreffer-, Zielfernrohr-, Schadensbogen-, Schild-, Gesundheitssymbole; Flagge, Bombe, Kern, Ziel, Gesucht, Pfeil, Warnung, Ring, Zone, Totenkopf; Party/Freund/Leiter-Farben, Herz, Gruppe, Umschlag; Funkfarbe, Lautsprecher, Mikrofon, LevelMeter</li>
+</ul>
+<h4>EconomyUi</h4><ul><li>Card (klickbare Karte), Chip (Reiter/Filter), ItemTile, Text, Overlay (Unterdialog mit Box), Bar/SetFill, Steps, TierColor/TierName, Lifetime, Farben Selected / TileColor / Expired</li></ul>
+<h4>UiControls und Sonstiges</h4><ul><li>UiScaler, UiFitBox, UiButtonSound, UiSwitch, UiSlider, UiStepper, UiTab, UiKeybindButton</li><li>UiNameBadges (MOD/DEV/ADMIN, Rang, „[TAG]“ mit Emblem, Party, Freund-Herz)</li><li>UiEmblemEditor (16×16, Palette, Stift / Füllen / Spiegeln, LEEREN)</li><li>PlayerActionsPanel.AddRowButton („•••“ mit Sprecher-Punkt), MapThumbnailCache.PlotPicture (Vorschaubild-Fläche), PadNavigator</li></ul>
+</div></details>
+</section>
+
+      <p class="empty" id="empty">Nichts gefunden. Anderes Wort versuchen, etwa einen Knopf-Text oder Klassennamen.</p>
+    </main>
+  </div>
+</div>
+
+<script>
+(function () {
+  var main = document.getElementById("main");
+  var groups = Array.prototype.slice.call(main.querySelectorAll("section.group"));
+  var items = Array.prototype.slice.call(main.querySelectorAll("details.ui"));
+  var toc = document.getElementById("toc");
+  var count = document.getElementById("count");
+  var empty = document.getElementById("empty");
+  var input = document.getElementById("q");
+
+  groups.forEach(function (g) {
+    var n = g.querySelectorAll("details.ui").length;
+    var a = document.createElement("a");
+    a.href = "#" + g.id;
+    a.textContent = g.getAttribute("data-title");
+    var s = document.createElement("span");
+    s.textContent = n ? String(n) : "";
+    a.appendChild(s);
+    toc.appendChild(a);
+  });
+
+  items.forEach(function (d) { d._text = d.textContent.toLowerCase(); });
+
+  function clearMarks() {
+    main.querySelectorAll("mark").forEach(function (m) {
+      var t = document.createTextNode(m.textContent);
+      m.parentNode.replaceChild(t, m);
+      t.parentNode.normalize();
+    });
+  }
+
+  function markIn(el, word) {
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+    var nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(function (node) {
+      var text = node.nodeValue;
+      var i = text.toLowerCase().indexOf(word);
+      if (i < 0) return;
+      var mark = document.createElement("mark");
+      var after = node.splitText(i);
+      after.splitText(word.length);
+      mark.textContent = after.nodeValue;
+      after.parentNode.replaceChild(mark, after);
+    });
+  }
+
+  function apply() {
+    var q = input.value.trim().toLowerCase();
+    clearMarks();
+    var shown = 0;
+    items.forEach(function (d) {
+      var hit = !q || d._text.indexOf(q) >= 0;
+      d.classList.toggle("hidden-by-search", !hit);
+      if (hit) shown++;
+      if (q && hit) { d.open = true; markIn(d, q); }
+    });
+    groups.forEach(function (g) {
+      var any = g.querySelectorAll("details.ui:not(.hidden-by-search)").length > 0 || (!q && !g.querySelector("details.ui"));
+      var plain = !g.querySelector("details.ui");
+      g.classList.toggle("hidden-by-search", q ? (plain ? g.textContent.toLowerCase().indexOf(q) < 0 : !any) : false);
+    });
+    empty.style.display = q && shown === 0 ? "block" : "none";
+    count.textContent = q ? shown + " von " + items.length + " Einträgen" : items.length + " Einträge";
+  }
+
+  input.addEventListener("input", apply);
+  document.getElementById("openAll").addEventListener("click", function () { items.forEach(function (d) { if (!d.classList.contains("hidden-by-search")) d.open = true; }); });
+  document.getElementById("closeAll").addEventListener("click", function () { items.forEach(function (d) { d.open = false; }); });
+  apply();
+})();
+</script>
+
+</body></html>
