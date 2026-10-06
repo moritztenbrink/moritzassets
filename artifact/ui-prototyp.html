@@ -318,7 +318,7 @@ button.card:active,.card.click:active{transform:translateY(.0625rem) scale(.985)
 .path{display:flex;align-items:center}
 .path .nd{position:relative;width:2.5rem;height:2.5rem;border-image:var(--i-track) 6 fill / 0.375rem / 0 stretch;display:grid;place-items:center;color:var(--text-3);font:700 1rem/1 var(--f-display);flex:none}
 .path .nd.done{border-image:var(--i-gold) 16 fill / .625rem / 0 stretch;color:var(--glyph);padding-bottom:.2rem}
-.path .nd.cur{border-image-source:var(--i-field-f);color:var(--text-gold);animation:nodeGlow 1.6s var(--e-io) infinite}
+.path .nd.now{border-image-source:var(--i-field-f);color:var(--text-gold);animation:nodeGlow 1.6s var(--e-io) infinite}
 @keyframes nodeGlow{50%{filter:drop-shadow(0 0 .5rem rgba(255,200,70,.8))}}
 .path .ln{flex:1 1 auto;height:.375rem;min-width:1rem;background:linear-gradient(#5A3A10,#2A1A06);box-shadow:inset 0 .0625rem 0 rgba(0,0,0,.6)}
 .path .ln.done{background:linear-gradient(#FFD452,#E8920A);box-shadow:0 0 .4rem rgba(255,190,60,.4)}
@@ -338,7 +338,7 @@ button.card:active,.card.click:active{transform:translateY(.0625rem) scale(.985)
 /* Rollen-Badges (unterste Reihe im Sheet) */
 .role{position:relative;display:inline-grid;place-items:center;width:2.25rem;height:2.25rem;border-image:var(--i-role-player) 16 fill / .7rem / 0 stretch;flex:none;color:#C9DDF0}
 .role .ic{width:1.2rem;height:1.2rem;filter:drop-shadow(0 .0625rem 0 rgba(0,0,0,.4))}
-.role.crown{border-image-source:var(--i-role-crown);color:#FFC93A}
+.role.owner{border-image-source:var(--i-role-crown);color:#FFC93A}
 .role.admin{border-image-source:var(--i-role-admin);color:#FFC93A}
 .role.dev{border-image-source:var(--i-role-dev);color:#D9D2E8}
 .role.mod{border-image-source:var(--i-role-mod);color:#F2CF3A}
@@ -419,7 +419,7 @@ html.pad-mode .key-only{display:none!important}
 #world{z-index:0;display:block;width:100%;height:100%;transform-origin:50% 45%;transition:filter var(--d4) var(--e-out),transform var(--d5) var(--e-out)}
 #ambient{z-index:1;pointer-events:none;background:radial-gradient(60% 40% at 50% 100%,rgba(255,170,60,.10),transparent 70%)}
 body.blur-hub #world{filter:blur(.55rem) brightness(.5) saturate(1.15);transform:scale(1.05)}
-body.blur-hub.lobby #world{filter:blur(.22rem) brightness(.78) saturate(1.1);transform:scale(1.03)}
+body.blur-hub.on-lobby #world{filter:blur(.22rem) brightness(.78) saturate(1.1);transform:scale(1.03)}
 body.blur-soft #world{filter:blur(.25rem) brightness(.62)}
 body.blur-soft #hud{opacity:.35}
 body.blur-hard #world{filter:blur(.7rem) brightness(.3)}
@@ -553,10 +553,10 @@ body.blur-hub #hud{opacity:0;visibility:hidden;transition:opacity var(--d3),visi
 .ready{font:700 .8125rem/1 var(--f-display);letter-spacing:.1em;text-transform:uppercase;padding:.3rem .55rem;clip-path:polygon(.2rem 0,calc(100% - .2rem) 0,100% .2rem,100% calc(100% - .2rem),calc(100% - .2rem) 100%,.2rem 100%,0 calc(100% - .2rem),0 .2rem)}
 .ready.y{background:#1E3A06;color:#9BE05A}
 .ready.n{background:#2A2620;color:var(--text-3)}
-.pm.empty .fig{place-items:center}
-.pm.empty .ghost{position:absolute;inset:12% 22% 4%;opacity:.28;color:#FFC93A}
-.pm.empty .ghost svg{width:100%;height:100%;animation:none;filter:none}
-.pm.empty .inv{position:relative;display:grid;justify-items:center;gap:.5rem;font:700 1rem/1 var(--f-display);letter-spacing:.1em;color:var(--text-2);text-transform:uppercase}
+.pm.vacant .fig{place-items:center}
+.pm.vacant .ghost{position:absolute;inset:12% 22% 4%;opacity:.28;color:#FFC93A}
+.pm.vacant .ghost svg{width:100%;height:100%;animation:none;filter:none}
+.pm.vacant .inv{position:relative;display:grid;justify-items:center;gap:.5rem;font:700 1rem/1 var(--f-display);letter-spacing:.1em;color:var(--text-2);text-transform:uppercase}
 .carousel{position:relative;flex:none;overflow:hidden;border-image:var(--i-panel) 18 fill / 1.125rem / 0 stretch;padding:.375rem}
 .car-track{position:relative;aspect-ratio:16/8.6;overflow:hidden;clip-path:polygon(.6rem 0,calc(100% - .6rem) 0,100% .6rem,100% calc(100% - .6rem),calc(100% - .6rem) 100%,.6rem 100%,0 calc(100% - .6rem),0 .6rem)}
 .slide{position:absolute;inset:0;opacity:0;transform:translateX(2rem);transition:opacity var(--d4) var(--e-out),transform var(--d4) var(--e-out);display:flex;flex-direction:column;justify-content:flex-end;padding:1rem 1.125rem;pointer-events:none}
@@ -1207,8 +1207,8 @@ body.blur-hub #hud{opacity:0;visibility:hidden;transition:opacity var(--d3),visi
 .seq .rw{display:flex;justify-content:space-between;align-items:center;padding:.6rem 1.1rem;border-image:var(--i-row) 8 fill / 0.5rem / 0 stretch;font:700 1.375rem/1 var(--f-display);letter-spacing:.05em;text-transform:uppercase;opacity:0}
 .seq .rw.go{animation:stgIn var(--d4) var(--e-out) both}
 .seq .rw b{font:800 1.75rem/1 var(--f-display);color:var(--text-gold);font-variant-numeric:tabular-nums}
-.seq .rw.bonus{font-size:1.0625rem;color:var(--text-2);padding:.4rem 1.1rem}
-.seq .rw.bonus b{font-size:1.25rem;color:var(--good)}
+.seq .rw.rw-bonus{font-size:1.0625rem;color:var(--text-2);padding:.4rem 1.1rem}
+.seq .rw.rw-bonus b{font-size:1.25rem;color:var(--good)}
 .seq .rk{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;width:100%;opacity:0}
 .seq .rk.go{animation:stgIn var(--d4) var(--e-out) both}
 .seq .rk .lbl2{font:800 1.5rem/1 var(--f-display);letter-spacing:.08em}
@@ -1336,7 +1336,7 @@ html.reduced .chest .ch,
 html.reduced .radar::after,
 html.reduced .stbadge,
 html.reduced .spk.on,
-html.reduced .path .nd.cur,
+html.reduced .path .nd.now,
 html.reduced .day.today,
 html.reduced .low .vbar.hp .val,
 html.reduced .gren .g,
@@ -1736,7 +1736,7 @@ function keyh(key, pad, label, o = {}) {
 function rankBadge(n, size = '') {
   return `<span class="rank ${size}"><svg viewBox="0 0 40 44" aria-hidden="true"><defs><linearGradient id="rk${n}${size}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE07A"/><stop offset=".5" stop-color="#FBB21D"/><stop offset="1" stop-color="#D27E06"/></linearGradient></defs><path d="M20 1 38 9.5V26C38 34 30 40 20 43 10 40 2 34 2 26V9.5Z" fill="#3A1400"/><path d="M20 3.6 35.6 11V25.6C35.6 32.6 28.6 37.8 20 40.5 11.4 37.8 4.4 32.6 4.4 25.6V11Z" fill="url(#rk${n}${size})"/><path d="M20 7.5 32 13.2V25C32 30.6 26.6 34.8 20 37 13.4 34.8 8 30.6 8 25V13.2Z" fill="none" stroke="#C27200" stroke-width="1.2"/></svg><b>${n}</b></span>`;
 }
-const ROLES = { player: ['player', 'user', 'Spieler'], mod: ['mod', 'shieldchk', 'MOD'], dev: ['dev', 'code', 'DEV'], admin: ['admin', 'shield', 'ADMIN'], crown: ['crown', 'crown', 'Leiter'] };
+const ROLES = { player: ['player', 'user', 'Spieler'], mod: ['mod', 'shieldchk', 'MOD'], dev: ['dev', 'code', 'DEV'], admin: ['admin', 'shield', 'ADMIN'], owner: ['owner', 'crown', 'OWNER'] };
 function roleBadge(r, size = '') {
   const [cls, icn, label] = ROLES[r];
   const glyph = icn === 'code' ? `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6.5 2.8 12 8 17.5M16 6.5l5.2 5.5-5.2 5.5M13.6 4.5l-3.2 15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>` : ic(icn);
@@ -2210,7 +2210,7 @@ const GALLERY = [
 const TEMPLATES = [['Kleine Brücke', 'PixelPia', 128, 3, true], ['Wachturm', 'Kiesel', 96, 1, false], ['Bogenfenster', ME.name, 54, 0, true], ['Treppe 90°', 'Quaderqueen', 210, 6, false], ['Kistenstapel', 'Mörtelmax', 41, 2, false]];
 const BRICKS = [['Ziegel', '#C8452E', 'Allgemein'], ['Stein grau', '#8A8F98', 'Allgemein'], ['Holz', '#9A6A3A', 'Allgemein'], ['Gras', '#5DB043', 'Allgemein'], ['Glas', '#8FD0FF', 'Deko'], ['Gold', '#FBB21D', 'Farbbox'], ['Fackel', '#FF8A3A', 'Funktion'], ['Sprungfeld', '#A963EA', 'Funktion'], ['Weiß', '#E6E0D2', 'Farbbox'], ['Blau', '#2C6FC9', 'Farbbox'], ['Rot', '#D9473B', 'Farbbox'], ['Schwarz', '#2A2A30', 'Farbbox'], ['Sand', '#E8C27A', 'Allgemein'], ['Schnee', '#F2F6FA', 'Allgemein'], ['Lampe', '#FFE07A', 'Deko'], ['Zaun', '#7A5A3A', 'Deko'], ['Spawn Blau', '#5AAEFF', 'Funktion'], ['Spawn Rot', '#FF6150', 'Funktion'], ['Kiste', '#B07A3A', 'Deko'], ['Lava', '#FF5A1A', 'Funktion']];
 const BAR9 = [0, 1, 2, 3, 4, 5, 6, 7, 9];
-const LIMITS = [500, 500, 300, 300, 120, 200, 20, 10, 300];
+const LIMITS = [0, 0, 0, 0, 0, 0, 20, 10, 0]; // 0 = unbegrenzt; nur begrenzte Bricks zeigen n/Max
 const MATCHP = (() => { const r = seeded(99); return PLAYERS.slice(0, 12).map((n, i) => ({ n, team: i % 2 ? 'r' : 'b', k: Math.floor(r() * 20), t: Math.floor(r() * 14), a: Math.floor(r() * 9), ping: 18 + Math.floor(r() * 70), rank: 8 + Math.floor(r() * 45), pts: 0, obj: Math.floor(r() * 4) })).concat([{ n: ME.name, team: 'b', k: 18, t: 9, a: 6, ping: 23, rank: ME.rank, me: true, obj: 2 }]).map(p => ({ ...p, pts: p.k * 100 + p.a * 40 + p.obj * 150 })); })();
 const PROFILE_TILES = [['Matches', '1.284'], ['Siege', '702'], ['Niederlagen', '582'], ['Kills je Tod', '1,46'], ['Kills', '18.940'], ['Assists', '6.112'], ['Kopftreffer', '4.388'], ['Spielzeit', '412 Std.']];
 
@@ -2412,7 +2412,7 @@ function renderPage(dir = 0) {
   wrap.innerHTML = (R[key] || (() => `<div class="page">${ph('Bald', '')}</div>`))();
   wrap.scrollTop = 0;
   wrap.classList.remove('in'); void wrap.offsetWidth; wrap.style.setProperty('--dir', (dir < 0 ? -1.5 : 1.5) + 'rem'); wrap.classList.add('in');
-  $('#hub').classList.toggle('dim', S.tab !== 'lobby'); document.body.classList.toggle('lobby', S.tab === 'lobby');
+  $('#hub').classList.toggle('dim', S.tab !== 'lobby'); document.body.classList.toggle('on-lobby', S.tab === 'lobby');
   $$('.stg', wrap).forEach(g => Array.from(g.children).forEach((c, i) => c.style.setProperty('--i', Math.min(i, 14))));
   animateBars(wrap);
   if (key === 'lobby') { startCarousel(); fitParty(); }
@@ -2476,7 +2476,7 @@ R.lobby = () => {
   const M = MODES.find(m => m.id === S.lobby.mode);
   const ch = { anf: 'Anfänger · Rang 1–10', offen: 'Offen · alle Ränge', vet: 'Veteranen · ab Rang 30', clan: 'Clan · Clan-Mitglieder' }[S.lobby.channel];
   const slot = (p, i, cls) => p ? `<div class="pm ${cls}" style="--i:${i}">${p.lead ? `<span class="crownf">${ic('crown')}</span>` : ''}<button type="button" class="fig" data-act="partyMember" data-arg="${esc(p.n)}" aria-label="${esc(p.n)}${p.me ? ' (du)' : ''}">${ART.fig(p.me ? ME : p.c)}</button><div class="nplate">${rankBadge(p.rank, 'sm')}<b>${esc(p.n)}</b></div><span class="ready ${p.ready ? 'y' : 'n'}">${p.ready ? 'Bereit' : 'Nicht bereit'}</span></div>`
-    : `<div class="pm empty ${cls}" style="--i:${i}"><div class="fig"><span class="ghost">${ART.fig({ skin: '#FFC93A', top: '#FFC93A', pants: '#FFC93A', shoes: '#FFC93A', acc: '#FFC93A' })}</span><span class="inv">${ibtn('plus', { act: 'invite', label: 'Freund einladen' })}Einladen</span></div></div>`;
+    : `<div class="pm vacant ${cls}" style="--i:${i}"><div class="fig"><span class="ghost">${ART.fig({ skin: '#FFC93A', top: '#FFC93A', pants: '#FFC93A', shoes: '#FFC93A', acc: '#FFC93A' })}</span><span class="inv">${ibtn('plus', { act: 'invite', label: 'Freund einladen' })}Einladen</span></div></div>`;
   return `<div class="lobby">
   <div class="lcol stg">
     <section class="carousel" aria-roledescription="Karussell" aria-label="Neuigkeiten"><div class="car-track">${SLIDES.map((s, i) => `<div class="slide" aria-hidden="true"><div class="art">${ART.thumb(s.s, s.pal)}<div style="position:absolute;inset:0;background:linear-gradient(transparent 25%,rgba(0,4,10,.92))"></div></div><div class="k">${s.live ? tag('Läuft', 'red live') : ''}${s.k}</div><h3>${s.t}</h3><p>${s.d}</p><div>${btn(s.cta[0], { size: 'sm', act: s.cta[1], arg: s.cta[2] })}</div></div>`).join('')}</div>
@@ -2807,8 +2807,8 @@ function buildInfo() {
 }
 function brickBar() {
   const b = S.build, i = BAR9[b.slot], br = BRICKS[i];
-  return `<div class="bslots"><div class="hpanel bstatus" id="bstatus"><b>${br[0]}</b><span class="sep">·</span>${TOOLMODES[b.tool][1]}<span class="sep">·</span>${DIRS[b.rot]}<span class="sep">·</span><span class="lim">${b.counts[b.slot]}/${LIMITS[b.slot]}</span></div>
-    <div class="bslot-row">${BAR9.map((bi, k) => `<button type="button" class="bs ${k === b.slot ? 'on' : ''} ${b.counts[k] >= LIMITS[k] ? 'full' : ''}" data-act="bslot" data-arg="${k}" aria-label="${BRICKS[bi][0]} (${k + 1})"><span class="k">${k + 1}</span>${ART.brick(BRICKS[bi][1])}<span class="q">${b.counts[k]}/${LIMITS[k]}</span></button>`).join('')}</div></div>`;
+  return `<div class="bslots"><div class="hpanel bstatus" id="bstatus"><b>${br[0]}</b>${LIMITS[b.slot] ? `<span class="sep">·</span><span class="lim">${b.counts[b.slot]}/${LIMITS[b.slot]}</span>` : ''}</div>
+    <div class="bslot-row">${BAR9.map((bi, k) => `<button type="button" class="bs ${k === b.slot ? 'on' : ''} ${LIMITS[k] && b.counts[k] >= LIMITS[k] ? 'full' : ''}" data-act="bslot" data-arg="${k}" aria-label="${BRICKS[bi][0]} (${k + 1})"><span class="k">${k + 1}</span>${ART.brick(BRICKS[bi][1])}${LIMITS[k] ? `<span class="q">${b.counts[k]}/${LIMITS[k]}</span>` : ''}</button>`).join('')}</div></div>`;
 }
 function toolBar() {
   const b = S.build;
@@ -2945,7 +2945,7 @@ function renderSheet(mainOnly) {
     nav = [['in', 'Eingang', 'mail'], ['out', 'Ausgang', 'upload']];
     cur = S.sheetPage || 'in'; main = postMain(cur); foot = btn('NEUE NACHRICHT', { icon: 'edit', act: 'newMail' }) + '<span class="sp"></span>' + btn('SCHLIESSEN', { v: 'dark', act: 'sheetClose' });
   } else if (k === 'team') {
-    title = 'TEAM'; sub = `Rollen-Menüs vom Server · angemeldet als ${{ mod: 'MOD', dev: 'DEV', admin: 'ADMIN', player: 'Spieler' }[S.role]}`; cls = 'team';
+    title = 'TEAM'; sub = `Rollen-Menüs vom Server · angemeldet als ${{ mod: 'MOD', dev: 'DEV', admin: 'ADMIN', owner: 'OWNER (Inhaber)', player: 'Spieler' }[S.role]}`; cls = 'team';
     nav = teamMenus().map(m => [m, SM[m].title, SM[m].icon]);
     if (!nav.find(n => n[0] === S.team.menu)) S.team.menu = nav[0] && nav[0][0];
     cur = S.team.menu; main = cur ? renderSM(cur) : '';
@@ -2984,12 +2984,12 @@ function postMain(box) {
 
 /* Rollen-Menüs: Baukasten mit 8 Element-Arten (Heading, Text, Info, Row, Button, Field, Select, Separator) */
 const SM = {
-  moderation: { title: 'Moderation', icon: 'shieldchk', roles: ['mod', 'admin'] },
-  spieler: { title: 'Spieler', icon: 'user', roles: ['mod', 'admin'] },
-  replays: { title: 'Replays', icon: 'film', roles: ['mod', 'admin'] },
-  buehne: { title: 'Bühne', icon: 'star', roles: ['mod', 'admin'] },
-  entwickler: { title: 'Entwickler', icon: 'code', roles: ['dev', 'admin'] },
-  verwaltung: { title: 'Verwaltung', icon: 'gear', roles: ['admin'] }
+  moderation: { title: 'Moderation', icon: 'shieldchk', roles: ['mod', 'admin', 'owner'] },
+  spieler: { title: 'Spieler', icon: 'user', roles: ['mod', 'admin', 'owner'] },
+  replays: { title: 'Replays', icon: 'film', roles: ['mod', 'admin', 'owner'] },
+  buehne: { title: 'Bühne', icon: 'star', roles: ['mod', 'admin', 'owner'] },
+  entwickler: { title: 'Entwickler', icon: 'code', roles: ['dev', 'admin', 'owner'] },
+  verwaltung: { title: 'Verwaltung', icon: 'gear', roles: ['admin', 'owner'] }
 };
 SM.entwickler.icon = 'gamepad';
 const teamMenus = () => Object.keys(SM).filter(k => SM[k].roles.includes(S.role));
@@ -3002,7 +3002,7 @@ function smDef(menu) {
   if (menu === 'replays') return [['h', 'Replays'], ['f', 'Spieler oder Replay-ID', 'NovaFuchs'], ['b', [['Suchen', 'primary']]], ['r', 'Hafenblock (Team-Deathmatch)', '12:41 · vor 2 Std.', 'rp'], ['r', 'Kistenlager (Entschärfung)', '21:05 · gestern', 'rp']];
   if (menu === 'buehne') return [['h', 'Bühne'], ['i', 'Bühne', 'frei · 3 Zuhörer'], ['i', 'Event-Bonus', 'Doppelte Brix bis 22:00'], ['b', [['Bühne stummschalten', 'danger'], ['Freigeben', 'muted']]], ['sep'], ['h', 'Ankündigungen'], ['r', 'Wartung am Do 06:00', 'läuft noch 2 Tage', 'x'], ['f', 'Titel', ''], ['f', 'Text', ''], ['s', 'Art', ['Info', 'Event', 'Wartung']], ['s', 'Dauer', ['1 Std.', '1 Tag', '7 Tage']], ['b', [['Ankündigen', 'primary']]], ['sep'], ['h', 'Map der Woche'], ['i', 'Aktuell', 'Wolkenbruch'], ['f', 'Map', ''], ['b', [['Festlegen', 'primary'], ['Wieder automatisch', 'muted']]]];
   if (menu === 'entwickler') return [['h', 'Inhalte, Instanzen und Werkzeuge'], ['i', 'Inhaltsversion', 'v118'], ['i', 'Waffen-Version', 'v42'], ['i', 'Overlay', 'aus'], ['i', 'Instanzen', '7 Plazas · 31 Matches · 54 Bauplätze'], ['i', 'Asset-Karte', '2 Spieler'], ['b', [['Asset-Karte betreten', 'primary'], ['Asset-Aufnahmen', 'normal'], ['Inhalte neu laden', 'danger']]]];
-  return [['h', 'Rolle setzen'], ['f', 'Konto', ''], ['s', 'Rolle', ['player', 'moderator', 'developer', 'admin']], ['f', 'Grund', ''], ['b', [['Rolle setzen', 'danger']]], ['sep'], ['h', 'XP setzen'], ['f', 'Konto', ''], ['f', 'XP gesamt', ''], ['f', 'Grund', ''], ['b', [['XP setzen', 'danger']]]];
+  return [['h', 'Rolle setzen'], ['f', 'Konto', ''], ['s', 'Rolle', S.role === 'owner' ? ['player', 'moderator', 'developer', 'admin', 'owner'] : ['player', 'moderator', 'developer']], ['f', 'Grund', ''], ['b', [['Rolle setzen', 'danger']]], ['sep'], ['h', 'XP setzen'], ['f', 'Konto', ''], ['f', 'XP gesamt', ''], ['f', 'Grund', ''], ['b', [['XP setzen', 'danger']]]];
 }
 function renderSM(menu) {
   return smDef(menu).map((e, i) => {
@@ -3115,7 +3115,7 @@ let seqT = [];
 function renderSequence() {
   seqT.forEach(clearTimeout); seqT = [];
   const sc = $('#screen');
-  sc.innerHTML = `<div class="seq" data-act="seqSkip"><div class="sc"><div class="title" id="sqT">SIEG</div><div class="rows"><div class="rw" id="sq1"><span>Erfahrung</span><b>+<span id="sqXp">0</span> XP</b></div><div class="rw" id="sq2"><span>Brix</span><b>+<span id="sqBx">0</span> Brix</b></div><div class="rw bonus" id="sq3"><span>Sieg-Bonus · Event „Herbstlaub“ ×2 · 3 Kopftreffer</span><b>+420</b></div></div>
+  sc.innerHTML = `<div class="seq" data-act="seqSkip"><div class="sc"><div class="title" id="sqT">SIEG</div><div class="rows"><div class="rw" id="sq1"><span>Erfahrung</span><b>+<span id="sqXp">0</span> XP</b></div><div class="rw" id="sq2"><span>Brix</span><b>+<span id="sqBx">0</span> Brix</b></div><div class="rw rw-bonus" id="sq3"><span>Sieg-Bonus · Event „Herbstlaub“ ×2 · 3 Kopftreffer</span><b>+420</b></div></div>
     <div class="rk" id="sqRk">${rankBadge(ME.rank, '')}<div class="bar lg" id="sqBar" style="--v:.83"><div class="in"><i></i></div></div><span class="lbl2" id="sqRkL">RANG ${ME.rank}</span></div><div class="rkup" id="sqUp">RANG ${ME.rank + 1}!</div><div class="click" id="sqC">Klicken für die Tabelle</div></div></div>`;
   const q = (ms, f) => seqT.push(setTimeout(f, S.reduced ? ms * 0.4 : ms));
   q(150, () => { $('#sqT').classList.add('go'); const p = FX.at('#sqT'); later(260, () => { FX.ring(p.x, p.y, { r: 360, width: 10 }); FX.confetti(p.x, p.y - 40, { n: 120 }); FX.sparkle(p.x, p.y, { n: 30, spread: 160 }); }); });
@@ -3187,11 +3187,11 @@ function renderComponents() {
   <section class="panel cbox" style="grid-column:1/-1"><div class="ptitle">Icon-Knöpfe (Sheet) und Glyphen</div><div class="demo">${['play', 'pause', 'gear', 'home', 'close', 'cart', 'user', 'mail', 'trophy', 'gift', 'left', 'right', 'refresh', 'info', 'question'].map(n => ibtn(n, { label: n })).join('')}</div><div class="icons">${ICONS.map(n => `<div class="cell">${ibtn(n, { v: 'dark', size: 'sm', label: n })}<span>${n}</span></div>`).join('')}</div></section>
   <section class="panel cbox"><div class="ptitle">Schalter · Checkbox</div><div class="demo">${tgl(true, { act: 'tglFlip', label: 'An' })}${tgl(false, { act: 'tglFlip', label: 'Aus' })}${tgl(false, { dis: true, label: 'Deaktiviert' })}${chk(true, { act: 'tglFlip', label: 'Haken' })}${chk(false, { act: 'tglFlip', label: 'Leer' })}</div></section>
   <section class="panel cbox"><div class="ptitle">Regler · Stufen-Regler</div><div class="row">${sld(0.55, { key: 'c1', fmt: 'pct', label: 'Regler' })}</div><div class="steps" style="--n:5;--i:3" data-steps><span class="fillr"><i></i></span>${['Aus', 'Niedrig', 'Mittel', 'Hoch', 'Ultra'].map((l, i) => `<button type="button" class="${i < 3 ? 'past' : ''} ${i === 3 ? 'on' : ''}" data-act="stepNode" data-arg="${i}" aria-label="${l}"><span>${l}</span></button>`).join('')}</div><div style="height:1rem"></div></section>
-  <section class="panel cbox"><div class="ptitle">Fortschritt · Pfad</div>${bar(0.62)}${bar(0.35, 'green')}${bar(0.8, 'red sm')}<div class="path">${['done', 'done', 'cur', '', ''].map((c, i) => `${i ? `<span class="ln ${c === 'done' || c === 'cur' ? 'done' : ''}"></span>` : ''}<span class="nd ${c}">${c === 'done' ? ic('check') : i + 1}</span>`).join('')}</div></section>
+  <section class="panel cbox"><div class="ptitle">Fortschritt · Pfad</div>${bar(0.62)}${bar(0.35, 'green')}${bar(0.8, 'red sm')}<div class="path">${['done', 'done', 'now', '', ''].map((c, i) => `${i ? `<span class="ln ${c === 'done' || c === 'now' ? 'done' : ''}"></span>` : ''}<span class="nd ${c}">${c === 'done' ? ic('check') : i + 1}</span>`).join('')}</div></section>
   <section class="panel cbox"><div class="ptitle">Ressourcen-Leisten</div><div class="demo">${curPill('kristalle', true)}${curPill('splitter', true)}${curPill('brix', true)}${curPill('muenzen')}</div></section>
   <section class="panel cbox"><div class="ptitle">Reiter · Chips · Unterreiter</div><div class="tabs" style="position:relative">${['Aktiv', 'Reiter', 'Reiter'].map((l, i) => `<button type="button" class="tab ${i ? '' : 'on'}">${l}</button>`).join('')}<span class="tabs-base"></span></div>${chips(['Alle', 'Waffen', 'Kleidung'], 'Alle', 'noop')}<div class="subtabs">${['Profil', 'Match-Verlauf'].map((l, i) => `<span class="stab ${i ? '' : 'on'}">${l}</span>`).join('')}</div></section>
   <section class="panel cbox"><div class="ptitle">Banner · Band · Wimpel</div><div class="demo" style="justify-content:space-around"><span class="bplate">Saison 4</span><span class="ribbon">Sieg</span><span class="pennant">23</span></div><div class="demo" style="justify-content:center"><span class="ribbon red">Niederlage</span></div></section>
-  <section class="panel cbox"><div class="ptitle">Rollen-Badges</div><div class="demo">${['crown', 'admin', 'dev', 'mod', 'player'].map(r => `<div class="cell">${roleBadge(r, 'lg')}<span class="lab">${ROLES[r][2]}</span></div>`).join('')}</div></section>
+  <section class="panel cbox"><div class="ptitle">Rollen-Badges</div><div class="demo">${['owner', 'admin', 'dev', 'mod', 'player'].map(r => `<div class="cell">${roleBadge(r, 'lg')}<span class="lab">${ROLES[r][2]}</span></div>`).join('')}</div></section>
   <section class="panel cbox"><div class="ptitle">Stufen (immer Name + Symbol)</div><div class="grid g5" style="grid-template-columns:repeat(5,minmax(0,1fr))">${Object.keys(TIERS).map((t, i) => `<div class="tile t-${t}"><span class="art">${ART.weapon(['potion', 'shirt', 'gun', 'hat', 'tool'][i], t)}</span>${tierLbl(t)}</div>`).join('')}</div></section>
   <section class="panel cbox"><div class="ptitle">Symbole · Abzeichen · Zähler</div><div class="demo">${rankBadge(23, 'lg')}${ART.medal('#FBB21D')}${ART.cur('kristalle', 'cur-i')}${ART.cur('splitter', 'cur-i')}${ART.cur('brix', 'cur-i')}${ART.cur('muenze', 'cur-i')}<span style="position:relative;display:inline-block">${ibtn('mail', { v: 'dark', label: 'Post', badge: cnt('99+', 'pulse') })}</span>${tag('Neu', 'neu')}${tag('Besitz', 'neu')}${tag('Aktiv')}${tag('-20 %', 'red')}${tag('Läuft', 'red live')}${tag('Offiziell', 'blue')}</div></section>
   <section class="panel cbox"><div class="ptitle">Karte mit Titel-Plakette</div><div class="panel plq-top"><span class="plq">Tägliche Belohnung</span><p class="muted" style="margin:0">Dunkles Panel mit dünnem goldenem Doppelrahmen und abgeschrägten Ecken.</p></div></section>
@@ -3410,21 +3410,21 @@ function runPopupQueue() {
   return wn;
 }
 function tutorialWelcome() {
-  openDlg({ popup: true, title: 'Willkommen in Brixel!', body: `<p style="text-align:center">Die Einführung zeigt dir in 8 kurzen Schritten das Hauptmenü, das Bauen und dein erstes Match. Belohnung: 500 Brix.</p><div class="path" style="margin:1rem 0">${Array.from({ length: 8 }, (_, i) => `${i ? `<span class="ln ${i < S.tutorial ? 'done' : ''}"></span>` : ''}<span class="nd ${i < S.tutorial - 1 ? 'done' : i === S.tutorial - 1 ? 'cur' : ''}">${i < S.tutorial - 1 ? ic('check') : i + 1}</span>`).join('')}</div>`, foot: btn('ÜBERSPRINGEN', { v: 'dark', attr: 'data-dclose' }) + btn('WEITER', { attr: 'data-dclose' }) });
+  openDlg({ popup: true, title: 'Willkommen in Brixel!', body: `<p style="text-align:center">Die Einführung zeigt dir in 8 kurzen Schritten das Hauptmenü, das Bauen und dein erstes Match. Belohnung: 500 Brix.</p><div class="path" style="margin:1rem 0">${Array.from({ length: 8 }, (_, i) => `${i ? `<span class="ln ${i < S.tutorial ? 'done' : ''}"></span>` : ''}<span class="nd ${i < S.tutorial - 1 ? 'done' : i === S.tutorial - 1 ? 'now' : ''}">${i < S.tutorial - 1 ? ic('check') : i + 1}</span>`).join('')}</div>`, foot: btn('ÜBERSPRINGEN', { v: 'dark', attr: 'data-dclose' }) + btn('WEITER', { attr: 'data-dclose' }) });
 }
 const DAYS = [['brix', '200'], ['brix', '300'], ['muenze', '1 Münze'], ['brix', '500'], ['splitter', '50'], ['brix', '800'], ['kristalle', '100']];
 function openDaily(after) {
   let rays = null, claimed = !S.daily.claimable;
-  const d = openDlg({ popup: true, ornate: true, title: 'Tägliche Belohnung', cls: 'wide', body: `<p class="sub">Serie: ${S.daily.got} Tage in Folge · Morgen geht es weiter</p><div style="display:grid;justify-items:center;margin:.25rem 0 1rem" id="dChest">${ART.chest(claimed, 'chest-big')}</div><div class="days">${DAYS.map(([c, v], i) => `<div class="day ${i < S.daily.got ? 'got' : ''} ${i === S.daily.got && !claimed ? 'today' : ''}" id="day${i}"><b>TAG ${i + 1}${i < S.daily.got ? ' · ABGEHOLT' : ''}</b>${ART.cur(c)}<span>${v}</span></div>`).join('')}</div>`,
+  const d = openDlg({ popup: true, ornate: true, title: 'Tägliche Belohnung', cls: 'wide', body: `<p class="sub">Serie: ${S.daily.got} Tage in Folge · Morgen geht es weiter</p><div style="display:grid;justify-items:center;margin:.25rem 0 1rem" id="dChest">${ART.chest(claimed, 'chest-big')}</div><div class="days">${DAYS.map(([c, v], i) => `<div class="day ${i < S.daily.got ? 'got' : ''} ${i === S.daily.got && !claimed ? 'today' : ''}" id="day${i}"><b>TAG ${i + 1}</b>${ART.cur(c)}<span>${v}</span></div>`).join('')}</div>`,
     foot: btn('SCHLIESSEN', { v: 'dark', attr: 'data-dclose' }) + (claimed ? btn('ABGEHOLT', { dis: true }) : btn('ABHOLEN', { icon: 'gift', attr: 'data-claim', size: 'lg' })),
     onOpen: dd => { rays = FX.rays(() => FX.at(dd.box.querySelector('#dChest')), { r: 300 }); },
     onClose: () => { rays && rays.stop(); after && after(); } });
   const b = d.box.querySelector('[data-claim]');
   if (b) b.addEventListener('click', () => {
     if (b.getAttribute('aria-disabled') === 'true') return;
-    b.setAttribute('aria-disabled', 'true'); b.querySelector('span').textContent = 'ABGEHOLT';
+    b.setAttribute('aria-disabled', 'true'); b.querySelector('span:not(.shn)').textContent = 'ABGEHOLT'; const gi = b.querySelector('svg'); if (gi) gi.remove();
     const ch = d.box.querySelector('#dChest'); ch.innerHTML = ART.chest(true, 'chest-big'); ch.querySelector('svg').style.animation = 'rewardPop .6s var(--e-spring)';
-    const day = d.box.querySelector('#day' + S.daily.got); day.classList.remove('today'); day.classList.add('got'); day.querySelector('b').textContent = `TAG ${S.daily.got + 1} · ABGEHOLT`;
+    const day = d.box.querySelector('#day' + S.daily.got); day.classList.remove('today'); day.classList.add('got'); day.setAttribute('aria-label', `Tag ${S.daily.got + 1}, abgeholt`);
     const p = FX.at(ch), tgt = $('#hub.show [data-cur="brix"]') ? FX.at('#hub [data-cur="brix"]') : { x: innerWidth - rem(6), y: rem(2.5) };
     FX.ring(p.x, p.y, { r: 260 }); FX.sparkle(p.x, p.y, { n: 26, spread: 120 });
     const val = +DAYS[S.daily.got][1] || 0, to = S.wallet.brix + 500;
@@ -3522,12 +3522,12 @@ function bslot(k, bounce = true) {
 }
 function placeBrick() {
   const b = S.build, k = b.slot; rejN++;
-  if (b.counts[k] >= LIMITS[k]) { const s = $('#hud .bs.on'); if (s) { s.classList.remove('shake'); void s.offsetWidth; s.classList.add('shake'); } toast(`Limit erreicht: ${BRICKS[BAR9[k]][0]} ${b.counts[k]}/${LIMITS[k]}`, 'bad', 'warn'); return; }
+  if (LIMITS[k] && b.counts[k] >= LIMITS[k]) { const s = $('#hud .bs.on'); if (s) { s.classList.remove('shake'); void s.offsetWidth; s.classList.add('shake'); } toast(`Limit erreicht: ${BRICKS[BAR9[k]][0]} ${b.counts[k]}/${LIMITS[k]}`, 'bad', 'warn'); return; }
   if (rejN % 4 === 0) { const t = $('#tool-mode'); if (t) { t.classList.remove('rej'); void t.offsetWidth; t.classList.add('rej'); } toast(pick(['Dort ist schon ein Brick.', 'Außerhalb deines Bauplatzes.', 'Hier darf nur der Inhaber bauen.']), 'bad'); return; }
   b.counts[k]++; b.undo++; b.redo = 0;
   const st = $('#bstatus .lim'); if (st) st.textContent = `${b.counts[k]}/${LIMITS[k]}`;
   const q = $('#hud .bs.on .q'); if (q) q.textContent = `${b.counts[k]}/${LIMITS[k]}`;
-  if (b.counts[k] >= LIMITS[k]) $('#hud .bs.on').classList.add('full');
+  if (LIMITS[k] && b.counts[k] >= LIMITS[k]) $('#hud .bs.on').classList.add('full');
   const u = $('#tool-undo .n'); if (u) u.textContent = b.undo;
   FX.sparks(lastPt.x, lastPt.y, { n: 6, speed: 0.6 });
 }
@@ -3824,7 +3824,7 @@ function renderProto() {
     <h3>Prototyp <span style="text-transform:none;letter-spacing:0">nicht Teil des Spiels</span></h3>
     <label>Screen<select id="pScr">${PSCREENS.map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select></label>
     <div><div class="hint">Ort (bestimmt, was Esc öffnet)</div>${sg('pOrt', [['P', 'P', 'Plaza – großer Hub'], ['B', 'B', 'Bauplatz – kleines Esc-Menü'], ['M', 'M', 'Match – kleines Esc-Menü'], ['A', 'A', 'Asset-Karte – kleines Esc-Menü']], S.ort)}</div>
-    <label>Rolle<select id="pRole"><option value="player">Spieler</option><option value="mod">MOD</option><option value="dev">DEV</option><option value="admin">ADMIN</option></select></label>
+    <label>Rolle<select id="pRole"><option value="player">Spieler</option><option value="mod">MOD</option><option value="dev">DEV</option><option value="admin">ADMIN</option><option value="owner">OWNER (Inhaber)</option></select></label>
     <label>Match-Modus<select id="pMM"><option value="tdm">Team-Deathmatch</option><option value="dm">Deathmatch (jeder gegen jeden)</option><option value="def">Verteidigung</option><option value="zombie">Zombie-Ausbruch</option></select></label>
     <label>Tab-Liste<select id="pTL"><option value="auto">Automatisch (Ort + Modus)</option><option value="plaza">Plaza</option><option value="asset">Asset-Karte</option><option value="bau">Bauplatz</option><option value="team">Match: Team-Modus</option><option value="ffa">Match: Jeder gegen jeden</option><option value="def">Match: Verteidigung</option><option value="zombie">Match: Zombie</option></select></label>
     <div><div class="hint">UI-Größe</div>${sg('pSize', [['0.85', 'Klein 85 %'], ['1', 'Mittel 100 %'], ['1.2', 'Groß 120 %']], S.uiSize)}</div>
