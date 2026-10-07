@@ -31,8 +31,12 @@
   --heart:#D93233; --potion:#1D7DBD; --gem:#C71E15; --good:#7FC241; --good-2:#4E8A1E; --info:#4FA3E3; --warn:#F2A33A;
   /* Rollen-Badges */
   --r-crown:#9C4D01; --r-crown-hi:#D9820F; --r-admin-1:#AE4033; --r-admin-2:#7C100B; --r-dev-1:#7543A4; --r-dev-2:#3B116A; --r-mod-1:#66842E; --r-mod-2:#1E3A01; --r-player-1:#5C83A8; --r-player-2:#15406C;
-  /* Stufen (Gewöhnlich abgeleitet) */
-  --t-common:#A3ADB8; --t-uncommon:#63BB40; --t-rare:#3F92EA; --t-epic:#A963EA; --t-jackpot:#FFC21F;
+  /* Seltenheit: Leiter Basis → Einzigartig (Gewöhnlich abgeleitet; -2 = Verlaufsende, -tx = Schrift auf Dunkel) und Serien */
+  --t-basic:#C9C4BA; --t-basic-2:#6E6A63; --t-common:#A3ADB8; --t-uncommon:#63BB40; --t-rare:#3F92EA; --t-epic:#A963EA;
+  --t-heroic:#E8742A; --t-heroic-2:#8A3410; --t-legendary:#FFD148; --t-legendary-2:#FBB21D;
+  --t-mythic:#C71E15; --t-mythic-2:#7C100B; --t-mythic-edge:#FFC34A; --t-mythic-tx:#FF6A4A;
+  --t-divine:#FFF6DC; --t-divine-2:#E9C46A; --t-unique:#E2B85A; --t-unique-2:#120E08;
+  --s-event:#2FB8A8; --s-exclusive:#E6E0D2;
   /* Teams (abgeleitet, fürs HUD aufgehellt) */
   --team-blue:#5AAEFF; --team-red:#FF6150;
   /* Währungen */
@@ -366,10 +370,25 @@ button.card:active,.card.click:active{transform:translateY(.0625rem) scale(.985)
 .rank.sm{width:1.75rem;height:1.95rem}
 .rank.sm b{font-size:.8125rem}
 
-/* Stufen */
-.t-common{--tier:var(--t-common)} .t-uncommon{--tier:var(--t-uncommon)} .t-rare{--tier:var(--t-rare)} .t-epic{--tier:var(--t-epic)} .t-jackpot{--tier:var(--t-jackpot)}
-.tierlbl{display:inline-flex;align-items:center;gap:.3rem;font:700 .875rem/1 var(--f-display);letter-spacing:.08em;text-transform:uppercase;color:var(--tier)}
+/* Seltenheit (Leiter) · Serien. --tier = Akzent/Schrift, --tier-img = Stufen-Rahmen (9-Slice aus den Tokens) */
+.t-basic{--tier:var(--t-basic);--tier-img:var(--i-tier-basic)} .t-common{--tier:var(--t-common);--tier-img:var(--i-tier-common)} .t-uncommon{--tier:var(--t-uncommon);--tier-img:var(--i-tier-uncommon)}
+.t-rare{--tier:var(--t-rare);--tier-img:var(--i-tier-rare)} .t-epic{--tier:var(--t-epic);--tier-img:var(--i-tier-epic)} .t-heroic{--tier:var(--t-heroic);--tier-img:var(--i-tier-heroic)}
+.t-legendary{--tier:var(--t-legendary);--tier-img:var(--i-tier-legendary)} .t-mythic{--tier:var(--t-mythic-tx);--tier-img:var(--i-tier-mythic)} .t-divine{--tier:var(--t-divine);--tier-img:var(--i-tier-divine)}
+.t-unique{--tier:var(--t-unique);--tier-img:var(--i-tier-unique)} .s-event{--tier:var(--s-event);--tier-img:var(--i-tier-event)} .s-exclusive{--tier:var(--s-exclusive);--tier-img:var(--i-tier-exclusive)}
+.tierlbl{display:inline-flex;align-items:center;gap:.3rem;font:700 .875rem/1 var(--f-display);letter-spacing:.08em;text-transform:uppercase;color:var(--tier);white-space:nowrap}
 .tierlbl .ic{width:1rem;height:1rem}
+.tierlbl.t-divine{background:linear-gradient(90deg,#FFE7A0,#FFFFFF 28%,#BFEFFF 48%,#FFD6EE 68%,#FFE7A0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tierlbl.t-divine .ic{color:#FFF0C0}
+.tmeta{display:inline-flex;flex-wrap:wrap;align-items:center;gap:.35rem .55rem}
+.serlbl{display:inline-flex;align-items:center;gap:.25rem;height:1.25rem;padding:0 .45rem;font:700 .75rem/1 var(--f-display);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;flex:none;
+  clip-path:polygon(.25rem 0,calc(100% - .25rem) 0,100% .25rem,100% calc(100% - .25rem),calc(100% - .25rem) 100%,.25rem 100%,0 calc(100% - .25rem),0 .25rem)}
+.serlbl .ic{width:.9rem;height:.9rem}
+.serlbl.ico{width:1.25rem;padding:0;justify-content:center}
+.serlbl.s-event{background:linear-gradient(#5AD9C8,var(--s-event) 55%,#1C7E73);color:#032420}
+.serlbl.s-exclusive{background:linear-gradient(115deg,#FBF8F1 0%,var(--s-exclusive) 32%,#D8E9EF 48%,#F2E1EC 62%,var(--s-exclusive) 80%,#BFB6A4 100%);color:#2A241A}
+.serial{display:inline-flex;align-items:center;height:1.375rem;padding:0 .45rem;background:linear-gradient(#1E180F,#0B0906);box-shadow:inset 0 0 0 .0625rem var(--t-unique);color:var(--t-unique);font:800 .8125rem/1 var(--f-display);letter-spacing:.08em;font-variant-numeric:tabular-nums;
+  clip-path:polygon(.25rem 0,calc(100% - .25rem) 0,100% .25rem,100% calc(100% - .25rem),calc(100% - .25rem) 100%,.25rem 100%,0 calc(100% - .25rem),0 .25rem)}
+.one1{font:700 .8125rem/1 var(--f-display);letter-spacing:.1em;text-transform:uppercase;color:var(--t-unique)}
 
 /* Banner: Platte, Band, Wimpel */
 .bplate{position:relative;display:inline-grid;place-items:center;min-width:14rem;height:3.25rem;padding:0 2.5rem .35rem;color:var(--glyph);font:800 1.5rem/1 var(--f-display);letter-spacing:.1em;text-transform:uppercase;text-shadow:0 .0625rem 0 var(--glyph-hl);background:var(--i-bplate-bg) center/100% 100% no-repeat}
@@ -387,11 +406,36 @@ button.card:active,.card.click:active{transform:translateY(.0625rem) scale(.985)
 .lhead{display:flex;align-items:center;gap:.875rem;padding:0 .875rem .25rem;font:700 .875rem/1 var(--f-display);letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
 
 /* Kacheln (Items) mit Stufen-Rahmen */
-.tile{--tier:var(--t-common);position:relative;display:grid;align-content:start;justify-items:center;gap:.4rem;padding:.875rem .75rem .75rem;border-image:var(--i-tier-common) 12 fill / 0.75rem / 0 stretch;cursor:pointer;text-align:center;transition:transform var(--d3) var(--e-back),filter var(--d2);color:var(--text)}
-.tile.t-uncommon{border-image-source:var(--i-tier-uncommon)} .tile.t-rare{border-image-source:var(--i-tier-rare)} .tile.t-epic{border-image-source:var(--i-tier-epic)} .tile.t-jackpot{border-image-source:var(--i-tier-jackpot)}
-@media (hover:hover){.tile:hover{transform:translateY(-.25rem);filter:brightness(1.12) drop-shadow(0 .4rem .6rem rgba(0,0,0,.5))}}
+.tile{position:relative;display:grid;align-content:start;justify-items:center;gap:.4rem;padding:.875rem .75rem .75rem;border-image:var(--tier-img,var(--i-tier-common)) 12 fill / 0.75rem / 0 stretch;cursor:pointer;text-align:center;transition:transform var(--d3) var(--e-back),filter var(--d2);color:var(--text)}
+@media (hover:hover){.tile:hover{transform:translateY(-.25rem);filter:brightness(1.12) drop-shadow(0 .4rem .6rem rgba(0,0,0,.5))}.tile.t-basic:hover{filter:brightness(1.04) drop-shadow(0 .4rem .6rem rgba(0,0,0,.5))}}
 .tile:active{transform:scale(.97);transition-duration:var(--d1)}
-.tile.sel{filter:drop-shadow(0 0 .1rem #FFF4CF) drop-shadow(0 0 .55rem var(--tier))}
+.tile.sel{filter:drop-shadow(0 0 .1rem #FFF4CF) drop-shadow(0 0 .55rem var(--tier,var(--t-common)))}
+.tile .trow{display:flex;align-items:center;justify-content:center;gap:.3rem;min-height:1.25rem;max-width:100%}
+.tile .trow .tierlbl{font-size:.8125rem;gap:.25rem}
+.tile .trow .tierlbl .ic{width:.9rem;height:.9rem}
+.tile .one1{font-size:.75rem}
+/* Seltenheits-Effekte (nur transform/opacity/filter/background-position; „Animationen reduzieren“: statisch).
+   Legendär: Gold-Schimmer · Mythisch: flackernde Glut + Funken beim Hover · Göttlich: Prisma-Schimmer + Halo · Einzigartig: langsamer Gold-Glanz */
+.tile{--toct:polygon(.6rem 0,calc(100% - .6rem) 0,100% .6rem,100% calc(100% - .6rem),calc(100% - .6rem) 100%,.6rem 100%,0 calc(100% - .6rem),0 .6rem)}
+:is(.tile.t-legendary,.tile.t-unique,.tile.t-divine)::after{content:"";position:absolute;inset:.1875rem;clip-path:var(--toct);pointer-events:none;mix-blend-mode:screen;background:linear-gradient(110deg,transparent 0 40%,rgba(255,236,170,.28) 47%,rgba(255,255,240,.5) 50%,rgba(255,236,170,.28) 53%,transparent 60% 100%) 100% 0/300% 100% no-repeat;animation:tShine 3.6s var(--e-io) infinite}
+.tile.t-unique::after{background-image:linear-gradient(110deg,transparent 0 44%,rgba(255,214,120,.3) 50%,transparent 56% 100%);animation-duration:6.5s}
+.tile.t-divine::after{background-image:linear-gradient(110deg,transparent 0 28%,rgba(255,160,210,.32) 36%,rgba(255,236,160,.45) 43%,rgba(255,255,255,.6) 50%,rgba(150,236,255,.45) 57%,rgba(196,166,255,.32) 64%,transparent 72% 100%);animation:tShine 4.2s linear infinite,tHue 7s linear infinite}
+@keyframes tShine{0%{background-position:100% 0}60%,100%{background-position:0 0}}
+@keyframes tHue{to{filter:hue-rotate(360deg)}}
+:is(.tile.t-mythic,.tile.t-divine){isolation:isolate}
+:is(.tile.t-mythic,.tile.t-divine)::before{content:"";position:absolute;inset:.15rem;z-index:-1;border-radius:.65rem;pointer-events:none;box-shadow:0 0 .85rem .1rem rgba(255,84,36,.6),0 0 2rem .25rem rgba(255,170,60,.22);animation:tEmber 2.3s linear infinite}
+.tile.t-divine::before{box-shadow:0 0 .9rem .1rem rgba(255,244,214,.5),0 0 2.2rem .3rem rgba(233,196,106,.25);animation:tHalo 3.4s var(--e-io) infinite}
+@keyframes tEmber{0%,100%{opacity:.55}14%{opacity:.95}27%{opacity:.68}41%{opacity:1}56%{opacity:.62}70%{opacity:.9}84%{opacity:.72}}
+@keyframes tHalo{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.015)}}
+/* Glut-Funken (Mythisch) beim Hover über der Kachel, bei der Enthüllung im Detail */
+.tile.t-mythic .art{position:relative}
+.tile.t-mythic .art::after,.detail.t-mythic .art::after{content:"";position:absolute;inset:-.5rem -.75rem 0;pointer-events:none;opacity:0;
+  background:radial-gradient(circle,#FFE0A0 0 .07rem,rgba(255,110,40,.75) .1rem,transparent .2rem),radial-gradient(circle,#FFD27A 0 .06rem,rgba(255,90,30,.7) .09rem,transparent .18rem),radial-gradient(circle,#FFE8B8 0 .07rem,rgba(255,130,50,.7) .1rem,transparent .2rem),radial-gradient(circle,#FFC060 0 .05rem,rgba(255,80,30,.7) .08rem,transparent .16rem),radial-gradient(circle,#FFE0A0 0 .06rem,rgba(255,110,40,.7) .09rem,transparent .18rem);
+  background-size:.45rem .45rem;background-repeat:no-repeat;background-position:18% 105%,42% 112%,63% 104%,80% 115%,30% 120%;
+  -webkit-mask-image:linear-gradient(to top,transparent,#000 18%,#000 55%,transparent);mask-image:linear-gradient(to top,transparent,#000 18%,#000 55%,transparent)}
+@media (hover:hover){.tile.t-mythic:hover .art::after{opacity:1;animation:tEmbers 1.8s linear infinite}}
+.detail.t-mythic .art::after{opacity:1;inset:-1rem 0 0;background-size:.6rem .6rem;animation:tEmbers 2.6s linear infinite}
+@keyframes tEmbers{0%{background-position:18% 105%,42% 112%,63% 104%,80% 115%,30% 120%}100%{background-position:24% -10%,36% -30%,68% 0%,74% -20%,34% 10%}}
 .tile .art{width:5.5rem;height:4.25rem;display:grid;place-items:center}
 .tile .art svg{width:100%;height:100%}
 .tile .nm{font:700 1.0625rem/1.1 var(--f-display);letter-spacing:.04em;text-transform:uppercase}
@@ -1810,6 +1854,9 @@ html.reduced .flash{animation:none!important;opacity:0}
 <symbol id="i-whisper" viewBox="0 0 24 24"><path d="M4.5 4h15c1.1 0 2 .9 2 2v9c0 1.1-.9 2-2 2h-8.3l-4.6 3.7c-.6.5-1.6 0-1.6-.8V17h-.5c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linejoin="round"/><circle cx="8.2" cy="10.5" r="1.4"/><circle cx="12" cy="10.5" r="1.4"/><circle cx="15.8" cy="10.5" r="1.4"/></symbol>
 <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.4" y="5" width="17.2" height="15.4" rx="2.4" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M3.4 10h17.2M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="7" y="13" width="3.4" height="3.2" rx=".6" fill="currentColor"/></symbol>
 <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 6.5 2.8 12 8 17.5M16 6.5l5.2 5.5-5.2 5.5M13.6 4.5l-3.2 15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-dot" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.2"/></symbol>
+<symbol id="i-sealstar" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 1.6L13.98 3.32L16.51 2.63L17.55 5.04L20.13 5.52L20.02 8.14L22.14 9.69L20.9 12L22.14 14.31L20.02 15.86L20.13 18.48L17.55 18.96L16.51 21.37L13.98 20.68L12 22.4L10.02 20.68L7.49 21.37L6.45 18.96L3.87 18.48L3.98 15.86L1.86 14.31L3.1 12L1.86 9.69L3.98 8.14L3.87 5.52L6.45 5.04L7.49 2.63L10.02 3.32ZM12 6.8L13.38 10.5L17.33 10.67L14.23 13.13L15.29 16.93L12 14.75L8.71 16.93L9.77 13.13L6.67 10.67L10.62 10.5Z"/></symbol>
+<symbol id="i-seal" viewBox="0 0 24 24"><path d="M7.6 14.6 5.4 21.4l3.1-1 1.9 2.4 1.5-5.6zM16.4 14.6l2.2 6.8-3.1-1-1.9 2.4-1.5-5.6z"/><path fill-rule="evenodd" d="M12 2L13.68 3.32L15.8 3.02L16.6 5L18.58 5.8L18.28 7.92L19.6 9.6L18.28 11.28L18.58 13.4L16.6 14.2L15.8 16.18L13.68 15.88L12 17.2L10.32 15.88L8.2 16.18L7.4 14.2L5.42 13.4L5.72 11.28L4.4 9.6L5.72 7.92L5.42 5.8L7.4 5L8.2 3.02L10.32 3.32ZM12 5.4a4.2 4.2 0 1 0 0 8.4a4.2 4.2 0 1 0 0-8.4z"/><circle cx="12" cy="9.6" r="2.4"/></symbol>
 <symbol id="i-report" viewBox="0 0 24 24"><path d="M5.2 21.5V3" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><path fill-rule="evenodd" d="M6.3 3.6h12.6l-2.7 4.3 2.7 4.4H6.3zM11.1 5.4h1.8l-.3 3.4h-1.2zm.9 4.1a.9.9 0 1 0 0 1.8.9.9 0 0 0 0-1.8z"/></symbol>
 </defs>
 </svg>
@@ -2086,14 +2133,13 @@ const ART = {
       <rect x="31" y="30" width="10" height="10" rx="1.5" fill="#3A1400"/><rect x="32.5" y="31.5" width="7" height="7" rx="1" fill="#FFD148"/><circle cx="36" cy="35" r="1.4" fill="#3A1400"/></svg>`;
   },
   fig(c = {}, cls = '') {
-    const skin = c.skin || '#F2C48D', top = c.top || '#2C6FC9', pants = c.pants || '#28324A', shoes = c.shoes || '#1A1A1E', acc = c.acc || '#FBB21D', body = c.body || 0;
-    const w = body === 1 ? 6 : body === 2 ? -4 : 0;
+    const skin = c.skin || '#F2C48D', top = c.top || '#2C6FC9', pants = c.pants || '#28324A', shoes = c.shoes || '#1A1A1E', acc = c.acc || '#FBB21D';
     return `<svg class="${cls}" viewBox="0 0 120 200" aria-hidden="true"><ellipse cx="60" cy="194" rx="34" ry="5" fill="#000" opacity=".5"/>
-      <rect x="${38 - w / 2}" y="138" width="${20 + w / 4}" height="50" rx="3" fill="${pants}"/><rect x="${62}" y="138" width="${20 + w / 4}" height="50" rx="3" fill="${pants}"/>
-      <rect x="${36 - w / 2}" y="182" width="${24 + w / 4}" height="11" rx="2.5" fill="${shoes}"/><rect x="${60}" y="182" width="${24 + w / 4}" height="11" rx="2.5" fill="${shoes}"/>
-      <rect x="${32 - w}" y="80" width="${56 + 2 * w}" height="62" rx="5" fill="${top}"/><rect x="${32 - w}" y="80" width="${56 + 2 * w}" height="9" rx="4" fill="#fff" opacity=".14"/><rect x="${32 - w}" y="128" width="${56 + 2 * w}" height="8" fill="#000" opacity=".2"/>
-      <rect x="${16 - w}" y="84" width="15" height="48" rx="5" fill="${top}"/><rect x="${89 + w}" y="84" width="15" height="48" rx="5" fill="${top}"/>
-      <rect x="${16 - w}" y="128" width="15" height="13" rx="4" fill="${skin}"/><rect x="${89 + w}" y="128" width="15" height="13" rx="4" fill="${skin}"/>
+      <rect x="38" y="138" width="20" height="50" rx="3" fill="${pants}"/><rect x="62" y="138" width="20" height="50" rx="3" fill="${pants}"/>
+      <rect x="36" y="182" width="24" height="11" rx="2.5" fill="${shoes}"/><rect x="60" y="182" width="24" height="11" rx="2.5" fill="${shoes}"/>
+      <rect x="32" y="80" width="56" height="62" rx="5" fill="${top}"/><rect x="32" y="80" width="56" height="9" rx="4" fill="#fff" opacity=".14"/><rect x="32" y="128" width="56" height="8" fill="#000" opacity=".2"/>
+      <rect x="16" y="84" width="15" height="48" rx="5" fill="${top}"/><rect x="89" y="84" width="15" height="48" rx="5" fill="${top}"/>
+      <rect x="16" y="128" width="15" height="13" rx="4" fill="${skin}"/><rect x="89" y="128" width="15" height="13" rx="4" fill="${skin}"/>
       <rect x="54" y="72" width="12" height="10" fill="${skin}"/>
       <rect x="35" y="22" width="50" height="52" rx="7" fill="${skin}"/><rect x="35" y="22" width="50" height="8" rx="6" fill="#fff" opacity=".18"/>
       <rect x="46" y="44" width="7" height="9" rx="2" fill="#1A1208"/><rect x="67" y="44" width="7" height="9" rx="2" fill="#1A1208"/><path d="M50 61q10 7 20 0" stroke="#1A1208" stroke-width="3.2" fill="none" stroke-linecap="round"/>
@@ -2494,7 +2540,7 @@ const S = {
   replay: { t: 0.18, play: true, speed: 2, cam: 0, live: false, map: 'Hafenblock', mode: 'Team-Deathmatch' },
   seen: {}
 };
-const ME = { name: 'Funkenflug', rank: 23, xp: 12480, xpMax: 15000, tag: 'ZIEG', title: 'Bauleiter', skin: '#F2C48D', top: '#2C6FC9', pants: '#28324A', shoes: '#1A1A1E', acc: '#FBB21D', body: 0 };
+const ME = { name: 'Funkenflug', rank: 23, xp: 12480, xpMax: 15000, tag: 'ZIEG', title: 'Bauleiter', skin: '#F2C48D', top: '#2C6FC9', pants: '#28324A', shoes: '#1A1A1E', acc: '#FBB21D' };
 const FRIENDS = [
   { n: 'Kiesel', st: 'on', loc: 'Plaza #3 · hier', rank: 31, party: true, col: '#D9473B' },
   { n: 'NovaFuchs', st: 'match', loc: 'Im Match · Hafenblock · Team-Deathmatch', rank: 27, col: '#E07A1E' },
@@ -2505,7 +2551,7 @@ const FRIENDS = [
 ];
 const REQUESTS = [{ n: 'Blockrocker', rank: 15 }, { n: 'Kantenkönig', rank: 33 }];
 const SENT = [{ n: 'Steinbeißer', rank: 21 }];
-const PARTY = [{ n: 'Kiesel', rank: 31, ready: true, c: { top: '#D9473B', pants: '#2A2A30', acc: '#3A3A44', skin: '#E8B07A' } }, { n: ME.name, rank: ME.rank, ready: true, me: true, lead: true }, { n: 'Ziegelzorro', rank: 19, ready: false, c: { top: '#5DB043', pants: '#3A2A1A', acc: '#7A4A2A', skin: '#C88A5A', body: 1 } }];
+const PARTY = [{ n: 'Kiesel', rank: 31, ready: true, c: { top: '#D9473B', pants: '#2A2A30', acc: '#3A3A44', skin: '#E8B07A' } }, { n: ME.name, rank: ME.rank, ready: true, me: true, lead: true }, { n: 'Ziegelzorro', rank: 19, ready: false, c: { top: '#5DB043', pants: '#3A2A1A', acc: '#7A4A2A', skin: '#C88A5A' } }];
 const PLAYERS = ['Kiesel', 'NovaFuchs', 'Ziegelzorro', 'PixelPia', 'Blockrocker', 'Kantenkönig', 'Steinbeißer', 'Glimmer', 'Turmfalke', 'Mörtelmax', 'Lumpi_99', 'Fräulein Funke', 'Zackig', 'Brickbert', 'Quaderqueen', 'Mauerblümchen'];
 const ROOMS = [
   { n: 'Abendrunde', m: 'Team-Deathmatch', map: 'Hafenblock', p: '9/16', s: 'open', friend: true, vs: '' },
@@ -3014,8 +3060,7 @@ R['spind/loadout'] = () => spindWrap(`${ph('Loadout', 'Ausrüstung für alle Mod
 const SW = { Haut: ['#F7D7B5', '#F2C48D', '#D9A06A', '#B07A4A', '#7A5030', '#4A2E1A'], Oberteil: ['#2C6FC9', '#D9473B', '#5DB043', '#FBB21D', '#A963EA', '#2A2A30', '#E6E0D2'], Hose: ['#28324A', '#3A2A1A', '#2A2A30', '#5A6A7A', '#6A4A2A'], Schuhe: ['#1A1A1E', '#5A3A1A', '#E6E0D2', '#D9473B'] };
 const SWK = { Haut: 'skin', Oberteil: 'top', Hose: 'pants', Schuhe: 'shoes' };
 R['spind/aussehen'] = () => spindWrap(`${ph('Aussehen', 'So sehen dich die anderen Spieler.', btn('ABBRECHEN', { v: 'dark', act: 'lookCancel' }) + btn('SPEICHERN', { act: 'lookSave' }))}
-  <div class="stack">${Object.entries(SW).map(([k, cols]) => `<section class="panel tight"><div class="row wrap"><b class="disp" style="width:7rem">${k}</b><div class="swatches">${cols.map(c => `<button type="button" class="sw ${ME[SWK[k]] === c ? 'on' : ''}" style="background:${c}" data-act="swatch" data-arg="${SWK[k]}|${c}" aria-label="${k}: Farbe ${c}" aria-pressed="${ME[SWK[k]] === c}"></button>`).join('')}</div></div></section>`).join('')}
-  <section class="panel tight"><div class="row"><b class="disp" style="width:7rem">Körper</b>${stepDef('body', ['Variante 1', 'Variante 2', 'Variante 3'], ME.body, i => { ME.body = i; updateCharPrev(); })}</div></section></div>`);
+  <div class="stack">${Object.entries(SW).map(([k, cols]) => `<section class="panel tight"><div class="row wrap"><b class="disp" style="width:7rem">${k}</b><div class="swatches">${cols.map(c => `<button type="button" class="sw ${ME[SWK[k]] === c ? 'on' : ''}" style="background:${c}" data-act="swatch" data-arg="${SWK[k]}|${c}" aria-label="${k}: Farbe ${c}" aria-pressed="${ME[SWK[k]] === c}"></button>`).join('')}</div></div></section>`).join('')}</div>`);
 function updateCharPrev() { const cp = $('.charprev svg.figsvg'); if (cp) cp.outerHTML = ART.fig(ME, 'figsvg'); }
 R['spind/inventar'] = () => {
   const f = S.view.invF || 'alle', list = INV.filter(x => f === 'alle' || x.cat === f), sel = INV.indexOf(list[S.view.invSel || 0] || list[0]), it = INV[sel];
