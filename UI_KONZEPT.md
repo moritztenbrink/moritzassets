@@ -207,12 +207,18 @@ Die Vorschau der eigenen Figur steht auf allen Unterreitern links.
 | Unterreiter | Inhalt (Inventar) | Knöpfe | Unterdialoge / Overlays |
 |---|---|---|---|
 | Loadout (**NEU**-Name, alt „Ausrüstung“) | Effekt-Leiste (Summen der Attribute); Slot-Gruppen Waffen · Kleidung · Accessoires · „Hotbar – wirkt in Modi mit Gefahr“ · „Werkzeug und Flug – wirkt auf dem Bauplatz“; Slot-Karte: Item, „leer“, „Klicken zum Belegen“, Sterne | – | „\<Slot\> belegen“: Karte „Ablegen“, Item-Karten mit „AUSRÜSTEN“ / „AUSGERÜSTET“, ZURÜCK |
-| Aussehen | „So sehen dich die anderen Spieler.“; Farbreihen Haut, Oberteil, Hose, Schuhe; Formreihe „Körper“ mit < / > („Variante n“) | SPEICHERN · ABBRECHEN | – |
+| Aussehen | „So sehen dich die anderen Spieler.“; Farbreihen Haut, Oberteil, Hose, Schuhe. ~~Formreihe „Körper“ mit < / > („Variante n“)~~ entfällt (**NEU**, Entscheidung User) | SPEICHERN · ABBRECHEN | – |
 | Inventar | Filter-Chips Alle, Waffen, Kleidung, Access., Verbrauch, Werkzeug, Gems; Raster mit Abzeichen „AN“; Detail: Laufzeit, „BONI“, „UPGRADES“ | ZERLEGEN (+n SPLITTER) · IN DER WERKSTATT AUFWERTEN · ABLEGEN · AUSRÜSTEN | – |
 | Werkstatt | Liste „Aufwertbar“ / „Nicht aufwertbar“; Detail mit Sternen, „ATTRIBUT WÄHLEN“ (Stufen-Karten, „MAX“), „GEM“-Karten, Chance und Gebühr | VERSUCHEN / „KEIN GEM“ / „ZU WENIG BRIX“ · ZERLEGEN | Ergebnis „Erfolg!“ / „Kein Erfolg“ mit WEITER · „ITEM ZERLEGEN“ mit ENDGÜLTIG ZERLEGEN / ABBRECHEN |
 | Testgelände (**NEU**-Name, alt „Waffenständer“) | „Leihwaffen zum Ausprobieren …“; Waffenkarten (Klasse · Slot, Werte) | Leihwaffe wählen (rüstet sie wie heute aus) · EIGENE AUSRÜSTUNG | – |
 
 Zum Testgelände gehört kein Teleport und kein Weg in der Welt. Geschossen wird wie heute am Schießstand in der Plaza; Ziele und Schießstand-Karte sind Welt-UI bzw. Kampf-HUD.
+
+**Stufen und Serien (NEU, ÄNDERUNG 7):** Loadout, Inventar und Werkstatt zeigen jedes Item mit Stufen-Rahmen, Symbol und Namen der Stufe (11.4), dazu ggf. das Serien-Kennzeichen (Event/Limitiert, Exklusiv).
+- **Basis** (Start-Ausrüstung, Leihwaffen aus dem Testgelände, Grundwerkzeuge) ist nicht zerlegbar und nicht handelbar: ZERLEGEN (+n SPLITTER) im Inventar-Detail und ZERLEGEN in der Werkstatt sind deaktiviert, Tooltip „Basis-Items kann man nicht zerlegen.“. In Post › GESCHENK › AUS DEM INVENTAR erscheinen Basis-Items nicht.
+- **Einzigartig:** Das Detail zeigt die Seriennummer (z. B. „#001“) und die Besitzer-Historie (BESITZER / SEIT / WEG: Vergabe, Geschenk, Gewinn).
+- **Event/Limitiert:** Das Detail zeigt den Saison-Tag, z. B. „Herbstlaub 2026“.
+- **Werkstatt-Ergebnis:** „Erfolg!“ und „Kein Erfolg“ zeigen das Item in seinem Stufen-Rahmen (`tier_frame_*` + `tier_sym_*`).
 
 ### 3.7 LADEN (P)
 
@@ -221,7 +227,9 @@ Zum Testgelände gehört kein Teleport und kein Weg in der Welt. Geschossen wird
 | Empfohlen (**NEU**) | Große Karten für Event-Items, Rabatte („-n %“) und neue Items, gleiche Karte wie im Katalog | wie Katalog-Detail | wie Katalog |
 | Katalog | Kopf „Laden“, „Waffen, Kleidung und Ausrüstung für Brix. Preise gelten je Laufzeit.“. Kategorie-Leiste aus den Inhalten: Waffen · Kleidung · Accessoires · Verbrauch · Bau-Werkzeuge · Flug · Map-Slots · Gems · Event. Waffen-Filter-Chips: Alle, Hauptwaffe, Sekundärwaffe, Nahkampf, Spezial. Karten: Symbol, Name, Typ, „ab …“, Schloss „Rang n“, Abzeichen „BESITZ“ / „AKTIV“ / „-n %“. Detail: Name, Typ („stapelbar“, „Abklingzeit“), Sperre; Balken Schaden, Feuerrate, Magazin, Nachladen; „BONI“; Besitz-Zeile; Chips „LAUFZEIT“: 1 Tag, 7 Tage, 30 Tage, Dauerhaft | KAUFEN · Preis / „GESPERRT“ / „DAUERHAFT IM BESITZ“ · VERSCHENKEN (→ Sozial › Post, „Neue Nachricht“ mit Geschenk) | „KAUF BESTÄTIGEN“: Guthaben, Ladekreisel, JETZT KAUFEN / ABBRECHEN |
 | Katalog im Geschenk-Modus | Aufruf aus Post „AUS DEM LADEN“: **NEU** Banner „Geschenk für X“ (`reward_banner`) | **NEU** ZURÜCK ZUR NACHRICHT · VERSCHENKEN übernimmt das Item als Geschenk | wie Katalog |
-| Glücksbrett | Kopf „Glücksbrett“, „Saison · endet in · n von m Feldern offen“, Münz-Pille; Raster mit „?“-Feldern, Blättern < / >, „Seite“; Seitenleiste „LETZTER GEWINN“, „NOCH IM BRETT“ | TAGESMÜNZE ABHOLEN / „NÄCHSTE MÜNZE IN …“ · QUOTEN | Gewinn: Stufe (Gewöhnlich / Ungewöhnlich / Selten / Episch / Hauptgewinn), SUPER · „Quoten“: GEWINN / STUFE / FELDER / CHANCE, SCHLIESSEN |
+| Glücksbrett | Kopf „Glücksbrett“, „Saison · endet in · n von m Feldern offen“, Münz-Pille; Raster mit „?“-Feldern, Blättern < / >, „Seite“; Seitenleiste „LETZTER GEWINN“, „NOCH IM BRETT“ | TAGESMÜNZE ABHOLEN / „NÄCHSTE MÜNZE IN …“ · QUOTEN | Gewinn: Stufe (Gewöhnlich / Ungewöhnlich / Selten / Episch / Hauptgewinn; die 5 Gewinn-Stufen bleiben, Optik nach 11.4, Hauptgewinn in Legendär-Optik), SUPER · „Quoten“: GEWINN / STUFE / FELDER / CHANCE, SCHLIESSEN |
+
+**Stufen und Serien (NEU, ÄNDERUNG 7):** Karten und Detail in Empfohlen und Katalog zeigen Stufen-Rahmen, Symbol und Namen der Stufe aus der Leiter Basis … Einzigartig (11.4). Event/Limitiert-Items (Kategorie Event, Empfohlen) tragen die türkise Pille mit Uhr und Saison-Tag, z. B. „Herbstlaub 2026“. **Exklusiv**-Items sind nicht kaufbar: Sie erscheinen weder in Empfohlen noch im Katalog, auch nicht im Geschenk-Modus. „Hauptgewinn“ gibt es nur noch als oberste Gewinn-Stufe im Glücksbrett; das gewonnene Item zeigt danach (Inventar, Post) seine eigene Item-Stufe.
 
 Außerhalb der Plaza (B, A) zeigt „AUS DEM LADEN“ in der Post den Hinweis „Nur in der Plaza“ mit ZUR PLAZA (**NEU**; heute öffnete sich dort das Laden-Fenster). Grund: Den Hub gibt es nur in der Plaza (3.14 #23). AUS DEM INVENTAR und OHNE gehen überall.
 
@@ -353,7 +361,7 @@ Der Renderer bekommt neue Skins für alle 8 Element-Arten: Heading, Text, Info (
 |---|---|---|---|
 | Popup-Warteschlange (**NEU**) | 58 (**NEU**: über den Einstellungen; alt 47 < 50) | Reihenfolge: „Was ist neu in \<Version\>“ („Die wichtigsten Änderungen dieser Version.“, LOS GEHT'S; schließt auch mit Esc) → „Tägliche Belohnung“ (Serien-Zeile, 7 Kacheln „TAG n“ / „TAG n · ABGEHOLT“, Statuszeile, ABHOLEN → „ABGEHOLT“, SCHLIESSEN; Plaza, Schalter) → Einführung-Begrüßung („Willkommen in Brixel!“) | Immer nur ein Popup. Die Schlange wartet, solange Einstellungen, ein Dialog, Profil/Melden/Spieler-Aktionen, Foto-Modus, ein Match oder der Ladebildschirm offen sind. |
 | Einführung-Dialog | 58 | Titel „Willkommen in Brixel!“ / „Einführung“ / „Einführung abgeschlossen“ / „Einführung übersprungen“; LOS GEHT'S / WEITER / NEU STARTEN, ÜBERSPRINGEN, SCHLIESSEN; Abschluss-Toast „Einführung geschafft! +x Brix“ | P; Aufruf auch über die LOBBY-Karte |
-| Belohnungs-Popups | 58 | Rang-Aufstieg außerhalb der Ergebnis-Sequenz, Werkstatt-Ergebnis, Glücksbrett-Gewinn (dort als Overlay der Seite) | Motion 15.8 |
+| Belohnungs-Popups | 58 | Rang-Aufstieg außerhalb der Ergebnis-Sequenz, Werkstatt-Ergebnis, Glücksbrett-Gewinn (dort als Overlay der Seite), **NEU** „Item erhalten“ ab Stufe Legendär (Geschenk, Belohnung, Vergabe durch das Team) | Motion 15.8 |
 | Benachrichtigungskarten oben rechts | 70 | Party-Einladung (`PartyHudTop`): „X lädt dich in eine Party ein“, „noch n s · n Mitglieder“, ANNEHMEN / ABLEHNEN, Timer-Ring · Folgen-Karte: „Folge X …“ mit Balken, „Ziel · in n s“, ABBRECHEN (Esc bricht ebenfalls ab) · Bühnen-Banner: „\<ART\> · BÜHNE“, Titel, Text, SCHLIESSEN (wartet während einer laufenden Match-Runde wie heute) · Support-Antwort (**NEU** als Karte mit ÖFFNEN) | P, B, A: oben rechts (im Hub unter der Top-Leiste), höchstens 3 gestapelt, die neueste oben. M: rechts **unter dem Killfeed** (ab y = 360, höchstens 2), damit der Killfeed frei bleibt (**NEU**). |
 | Toasts | 70 | Standard 3,5 s; Ablehnung (Bau-Ablehnungen) mit rotem Rand + Shake | über allen Menüs (**NEU**) |
 | Wartungsband | 70 | oben Mitte „Wartung in m:ss“ und Meldung (Standard „Dein Fortschritt wird gespeichert.“), letzte 15 Min. vor Wartung | über allen Menüs (**NEU**); im Match unter dem Match-Kopf |
@@ -480,6 +488,8 @@ Gamepad-Tasten heißen in diesem Dokument immer „Gamepad-A/B/X/Y“, weil Tast
 | 21 | Bauvorlagen als rechts angedocktes Werkzeug statt Fenster | ECKEN WÄHLEN braucht freie Sicht auf die Welt. |
 | 22 | Benachrichtigungskarten im Match rechts unter dem Killfeed | Der Killfeed bleibt frei. |
 | 23 | Querverweise in den Hub zeigen in B und A „Nur in der Plaza“ mit ZUR PLAZA: Post „AUS DEM LADEN“, Profil „BESTENLISTEN“, Clan „CLAN-RANGLISTE“/„RANGLISTE“, ZUSCHAUEN (Freundes-Zeile, Clan-Kriege). Heute gingen diese Wege auch dort. | Den Hub gibt es nur in der Plaza (ÄNDERUNG 2); große Games bündeln Shop, Ranglisten und Zuschauen in der Lobby. |
+| 24 | Neue Seltenheits-Leiter mit 10 Stufen und 2 Serien (11.4). „Legendär“ ersetzt „Hauptgewinn“ als Item-Stufe; „Hauptgewinn“ bleibt die oberste Gewinn-Stufe des Glücksbretts. Neue Einschränkungen: Basis ist nicht handelbar und nicht zerlegbar, Exklusiv ist nicht kaufbar, Einzigartig gibt es genau einmal. | ÄNDERUNG 7 (User) |
+| 25 | SPIND › Aussehen: Formreihe „Körper“ mit < / > („Variante n“) entfällt (**NEU**, Entscheidung User). „So sehen dich die anderen Spieler.“, die Farbreihen Haut, Oberteil, Hose, Schuhe sowie SPEICHERN und ABBRECHEN bleiben. | Entscheidung User |
 
 **Umbenennungen (alt → neu, alle NEU)**
 
@@ -592,7 +602,7 @@ Eine Akte je Konto, geöffnet über die Suche, /akte [name] oder KONTO-AKTE ÖFF
 |---|---|---|
 | Übersicht | Erstellt am, letzte Anmeldung, Spielzeit gesamt; Geräte und Sitzungen (Tabelle GERÄT / SYSTEM / ZULETZT / SITZUNGEN 30 TAGE, IP nur gekürzt); Staff-Notizen mit Text, Autor (Name + Rollen-Badge) und Datum, neueste oben | NOTIZ HINZUFÜGEN (Feld, SPEICHERN). Notizen sind unveränderlich wie das Protokoll. |
 | Währungen | 4 Karten Brix · Splitter · Kristalle · Münzen (`cur_*`, Betrag `num`); Verlauf ZEIT / WÄHRUNG / BETRAG / QUELLE / DETAIL / VON mit Filter-Chips Alle · Kauf · Match · Belohnung · Glücksbrett · Admin · Rückerstattung | je Karte HINZUFÜGEN · ABZIEHEN · SETZEN → Dialog mit Währungsfeld (Betrag), Grund (Pflicht) und Vorschau „alt → neu“; ein Guthaben wird nie negativ. RÜCKGÄNGIG an Einträgen der Quelle Admin (Gegenbuchung). |
-| Inventar | gleiches Raster und gleiche Filter wie SPIND › Inventar (Alle, Waffen, Kleidung, Access., Verbrauch, Werkzeug, Gems; Abzeichen „AN“; Detail mit Laufzeit, „BONI“, „UPGRADES“); darunter Ausrüstung/Loadout wie SPIND › Loadout als reine Ansicht | ITEM GEBEN (Item-Auswahl: Katalog-Suche, Laufzeit 1 Tag / 7 Tage / 30 Tage / Dauerhaft, Anzahl, Sterne/Upgrades, Gems, optional mit Post-Notiz) · im Detail: ENTZIEHEN · LAUFZEIT ÄNDERN · AUFWERTEN / ABWERTEN · ZERLEGEN RÜCKGÄNGIG (zuletzt zerlegte Items; zieht die erhaltenen Splitter wieder ab) · unter dem Loadout: AUSRÜSTUNG ZURÜCKSETZEN |
+| Inventar | gleiches Raster und gleiche Filter wie SPIND › Inventar (Alle, Waffen, Kleidung, Access., Verbrauch, Werkzeug, Gems; Abzeichen „AN“; Detail mit Laufzeit, „BONI“, „UPGRADES“); darunter Ausrüstung/Loadout wie SPIND › Loadout als reine Ansicht | ITEM GEBEN (Item-Auswahl: Katalog-Suche mit Stufe und Serie, Laufzeit 1 Tag / 7 Tage / 30 Tage / Dauerhaft, Anzahl, Sterne/Upgrades, Gems, optional mit Post-Notiz; Regeln für Einzigartig, Göttlich und Exklusiv in 3a.6 #6) · im Detail: ENTZIEHEN · LAUFZEIT ÄNDERN · AUFWERTEN / ABWERTEN · ZERLEGEN RÜCKGÄNGIG (zuletzt zerlegte Items; zieht die erhaltenen Splitter wieder ab) · unter dem Loadout: AUSRÜSTUNG ZURÜCKSETZEN |
 | Fortschritt | Rang und XP (Balken wie im Profil); Waffen-Mastery je Waffe (WAFFE / STUFE / PUNKTE); Erfolge (Raster); Tagesmissionen (3 Zeilen); Serie der Täglichen Belohnung (Tag n von 7); Einführung (Schritt i/n); Glücksbrett (Münzen, Brett mit aufgedeckten Feldern) | RANG/XP SETZEN (ersetzt Verwaltung „XP setzen“: XP gesamt, Grund, Vorschau „Rang alt → neu“) · Mastery SETZEN je Zeile · Erfolge FREISCHALTEN / ZURÜCKSETZEN (Checkbox „Belohnung auszahlen“) · Tagesmissionen NEU WÜRFELN / ABSCHLIESSEN · Serie SETZEN · EINFÜHRUNG ZURÜCKSETZEN · Glücksbrett: Münzen SETZEN (dieselbe Buchung wie im Reiter Währungen), Felder AUFDECKEN / ZUDECKEN |
 | Maps & Bauplatz | Map-Slots 1–6 (leer, belegt, gesperrt) wie ERSTELLEN › Meine Maps; eigene veröffentlichte Maps (Name, Version, Downloads, „AUSGEBLENDET“ / „GESPERRT“); Mitbauer je Slot | Slot FREISCHALTEN / SPERREN · Map ANSEHEN (Detail wie Map-Galerie) · BETRETEN (Instanzwechsel auf den Bauplatz; mit UNSICHTBAR, wenn aktiv) · AUSBLENDEN / SPERREN / FREIGEBEN (dieselben Aktionen wie „Map ausblenden“, „Map sperren“, „Map freigeben“ in Meldungen) · Mitbauer BAURECHT NEHMEN |
 | Sozial | Freunde, Party (aktuell), Clan (Emblem, Rolle im Clan), Post (nur Team-Post an dieses Konto; private Nachrichten bleiben privat), Gesperrt-Liste | Clan: AUS CLAN ENTFERNEN · LEITUNG ÜBERTRAGEN (an ein Mitglied) · Post: NACHRICHT SENDEN / GESCHENK SENDEN als „Brixel-Team“ (Item-Auswahl bzw. Währungsfeld) |
@@ -605,8 +615,8 @@ Eine Akte je Konto, geöffnet über die Suche, /akte [name] oder KONTO-AKTE ÖFF
 
 | Menü | Inhalt | Knöpfe |
 |---|---|---|
-| Laden-Verwaltung | Tabelle aller Katalog-Items: ITEM / KATEGORIE / 1 TAG / 7 TAGE / 30 TAGE / DAUERHAFT (Preis je Laufzeit als Zahlenfeld) / SICHTBAR (Schalter). Angebote und Rabatte: Items, „-n %“, Zeitfenster von–bis (Datum/Zeit). Empfohlen-Plätze: Reihenfolge der Karten in LADEN › Empfohlen (Item-Auswahl je Platz). | SPEICHERN (Diff aller geänderten Preise und Schalter; sofort oder zu einem Zeitpunkt) · ANGEBOT ANLEGEN · BEENDEN · Platz LEEREN |
-| Glücksbrett-Saison | laufende Saison (Name, Ende, „n von m Feldern offen“); Gewinne je Stufe (Item, Stufe, Felder); Quoten-Vorschau wie der Dialog „Quoten“ (GEWINN / STUFE / FELDER / CHANCE); Vorschau des Bretts | GEWINN HINZUFÜGEN / ENTFERNEN · SPEICHERN · NEUES BRETT (neue Saison: Name, Ende, Felder; Tipp-Bestätigung mit dem Saison-Namen) |
+| Laden-Verwaltung | Tabelle aller Katalog-Items: ITEM / **NEU** STUFE (Symbol + Name, 11.4) / KATEGORIE / 1 TAG / 7 TAGE / 30 TAGE / DAUERHAFT (Preis je Laufzeit als Zahlenfeld) / SICHTBAR (Schalter). Angebote und Rabatte: Items, „-n %“, Zeitfenster von–bis (Datum/Zeit). Empfohlen-Plätze: Reihenfolge der Karten in LADEN › Empfohlen (Item-Auswahl je Platz). Exklusiv-Items fehlen in Tabelle und Item-Auswahl (nicht kaufbar, 11.4). | SPEICHERN (Diff aller geänderten Preise und Schalter; sofort oder zu einem Zeitpunkt) · ANGEBOT ANLEGEN · BEENDEN · Platz LEEREN |
+| Glücksbrett-Saison | laufende Saison (Name, Ende, „n von m Feldern offen“); Gewinne je Gewinn-Stufe (Item, Stufe, Felder; die 5 Gewinn-Stufen Gewöhnlich bis Hauptgewinn, Optik nach 11.4); Quoten-Vorschau wie der Dialog „Quoten“ (GEWINN / STUFE / FELDER / CHANCE); Vorschau des Bretts | GEWINN HINZUFÜGEN / ENTFERNEN · SPEICHERN · NEUES BRETT (neue Saison: Name, Ende, Felder; Tipp-Bestätigung mit dem Saison-Namen) |
 | Massen-Geschenk | Empfänger: Chips Alle / Segment; Segment nach Rang von–bis, online jetzt, Clan, zuletzt aktiv (≤ n Tage). Inhalt: Währungsfeld und/oder Item-Auswahl. Post: Betreff, Text, Absender „Brixel-Team“. Zeitpunkt: sofort oder Datum/Zeit. Vorschau „n Konten erhalten …“ mit 5 Beispiel-Empfängern. | VORSCHAU AKTUALISIEREN · ZUR FREIGABE SENDEN (immer Vier-Augen-Freigabe, 3a.4) |
 | Währungs-Statistik | Zeitraum-Chips 7 / 30 / 90 Tage; Umlauf je Währung (Linie); Quellen und Senken pro Tag (Balken; Quellen: Match, Belohnung, Glücksbrett, Admin, Rückerstattung; Senken: Kauf, Werkstatt, Map-Downloads, Gebühren); Admin-Anteil getrennt ausgewiesen | nur Ansicht; „Als Tabelle“ |
 
@@ -783,7 +793,7 @@ Zu den 8 Element-Arten des Baukastens (Heading, Text, Info, Row, Button Normal/P
 | 3 | Raster (Items mit Stufen-Rahmen) | Item-Kacheln wie SPIND › Inventar: `tile_slot` + `tier_frame_*` + `tier_sym_*` + Sterne + Etikett „AN“ | Auswahl öffnet das Detail rechts; Filter-Chips wie im Inventar | `tile_slot`, `tier_*`, `icon_star` |
 | 4 | Zahlenfeld mit +/− | `input_text` mit `btn_minus` links und `btn_plus` rechts, Wert in `num` mittig | Tippen, Mausrad, Steuerkreuz links/rechts; Halten wiederholt (ab 400 ms 10/s, ab 1,5 s 30/s); Shift = ×10; Min/Max vom Server, außerhalb Fehler-Zustand | `input_text`, `btn_minus`, `btn_plus` |
 | 5 | Währungsfeld mit Vorschau | Währungssymbol `cur_*` + Zahlenfeld + Segment HINZUFÜGEN / ABZIEHEN / SETZEN; darunter die Vorschau „alt → neu“ in `frame_diff_preview`; über der Schwelle Etikett „Freigabe nötig“ mit `icon_approval` | Vorschau vom Server; ein negativer Endstand wird nicht angenommen („Guthaben würde negativ.“) | `cur_*`, `frame_diff_preview`, `icon_approval` |
-| 6 | Item-Auswahl (Katalog-Suche) | `input_search`, Trefferliste in `frame_dropdown_menu` mit kleiner Item-Kachel, Name, Typ, Stufe; danach Chips „LAUFZEIT“ (1 Tag, 7 Tage, 30 Tage, Dauerhaft), Anzahl (Zahlenfeld, nur bei stapelbaren Items), Sterne/Upgrades, Gems, Checkbox „Mit Post-Notiz“ + Text | Suche ab 2 Zeichen; Kategorie-Chips wie LADEN › Katalog | `input_search`, `frame_dropdown_menu`, `tile_slot`, `icon_item_give` |
+| 6 | Item-Auswahl (Katalog-Suche) | `input_search`, Trefferliste in `frame_dropdown_menu` mit kleiner Item-Kachel, Name, Typ, Stufe (Symbol + Name, 11.4) und Serien-Kennzeichen; danach Chips „LAUFZEIT“ (1 Tag, 7 Tage, 30 Tage, Dauerhaft), Anzahl (Zahlenfeld, nur bei stapelbaren Items), Sterne/Upgrades, Gems, Checkbox „Mit Post-Notiz“ + Text | Suche ab 2 Zeichen; Kategorie-Chips wie LADEN › Katalog. **NEU** (ÄNDERUNG 7): Einzigartig ist nur wählbar, solange das Item keinen Besitzer hat, sonst ausgegraut mit „Besitz: X“; der Server prüft beim Ausführen erneut, vergibt die Seriennummer und schreibt die Besitzer-Historie. Göttlich zeigt das Saison-Kontingent „n von max vergeben“, ist es voll, ist die Zeile ausgegraut. Exklusiv-Items gibt es nur hier und im Massen-Geschenk (Staff-Geschenke), nie im Laden. | `input_search`, `frame_dropdown_menu`, `tile_slot`, `tier_sym_*`, `tag_series_*`, `icon_item_give` |
 | 7 | Datum/Zeit | `dropdown` mit `icon_calendar`: Monatsraster, Stunde und Minute als Stepper (15-Min.-Schritte), Schnellwahl-Chips „Jetzt“, „In 1 Std.“, „Heute 22:00“, „Morgen“; Anzeige in Serverzeit mit Zone | Vergangenheit gesperrt, wo nur die Zukunft Sinn hat (Wartung, Angebote, Events) | `dropdown`, `icon_calendar`, `stepper_*` |
 | 8 | Diagramm (Linie, Balken) | `panel_inset`; Achsen in `caption`, `text.muted`; Hilfslinien `bg.raised`; Linie 2 px in der Währungsfarbe (`cur.*`); Balken: Quellen gold, Senken `danger`; Legende mit Symbol und Name | Hover bzw. Fokus zeigt den Wert als Tooltip; Knopf „Als Tabelle“ (Barrierefreiheit) | `panel_inset`, `tooltip_box`, `icon_economy_chart` |
 | 9 | Bestätigung mit Tipp-Bestätigung | Dialog `frame_dialog` mit roter Akzentlinie oben, Diff-Ansicht, Satz „Tippe \<Kontoname\>, um zu bestätigen.“, Textfeld; JA, AUSFÜHREN als rote Platte | JA, AUSFÜHREN bleibt deaktiviert, bis die Eingabe stimmt; ABBRECHEN links | `frame_dialog`, `divider_staff`, `input_text`, `btn_red_m` |
@@ -1121,12 +1131,12 @@ Status: `bleibt` (Ort gleich, neuer Look) · `verschoben` (neuer Ort) · `zusamm
 | 17 | Menü & Navigation | Spielerliste | PlayerListPanel | Tab-Liste, Varianten Plaza/Asset-Karte/Bauplatz (31) | zusammengelegt |
 | 18 | Menü & Navigation | Funkrad | RadioMenu | Radial (33), Taste Z, M | bleibt |
 | 19 | Menü & Navigation | Gamepad-Navigation | PadNavigator | Fokus-Ring auf allen Screens; **NEU** sichtbarer Fokus mit Fokus-Glühen, Belegung 3.13 | bleibt |
-| 20 | Plaza-Stationen & Fenster | Laden | ShopPanel | LADEN › Katalog inkl. KAUF BESTÄTIGEN; VERSCHENKEN → Sozial › Post; Geschenk-Modus mit **NEU** Banner „Geschenk für X“; in B/A zeigt „AUS DEM LADEN“ „Nur in der Plaza“ (**NEU**) | verschoben |
-| 21 | Plaza-Stationen & Fenster | Garderobe | WardrobePanel | SPIND › Loadout (**NEU**-Name für „Ausrüstung“) · Aussehen · Inventar · Werkstatt inkl. „\<Slot\> belegen“, Ergebnis, „ITEM ZERLEGEN“ | verschoben |
+| 20 | Plaza-Stationen & Fenster | Laden | ShopPanel | LADEN › Katalog inkl. KAUF BESTÄTIGEN; VERSCHENKEN → Sozial › Post; Geschenk-Modus mit **NEU** Banner „Geschenk für X“; in B/A zeigt „AUS DEM LADEN“ „Nur in der Plaza“ (**NEU**); **NEU** Stufen-Leiter und Serien, Exklusiv nicht kaufbar (11.4) | verschoben |
+| 21 | Plaza-Stationen & Fenster | Garderobe | WardrobePanel | SPIND › Loadout (**NEU**-Name für „Ausrüstung“) · Aussehen · Inventar · Werkstatt inkl. „\<Slot\> belegen“, Ergebnis, „ITEM ZERLEGEN“; Formreihe „Körper“ entfällt (**NEU**, Entscheidung User); **NEU** Stufen-Leiter und Serien, Basis nicht zerlegbar (11.4) | verschoben |
 | 22 | Plaza-Stationen & Fenster | Arena / Räume | RoomBrowserPanel | SPIELEN › Server-Browser (Liste, Raum erstellen, Passwort, Warten, „Allein beitreten?“); SCHNELLSTART → LOBBY SPIELEN + Schnellspiel; GEWERTET/TURNIERE → Unterreiter | aufgeteilt |
 | 23 | Plaza-Stationen & Fenster | Map-Galerie | MapGalleryPanel | ERSTELLEN › Map-Galerie; RAUM AUF DIESER MAP ERSTELLEN → „Raum erstellen“ mit vorgewählter Map | verschoben |
 | 24 | Plaza-Stationen & Fenster | Waffenständer (Schießstand) | RangePanel | SPIND › Testgelände (**NEU**-Name, ohne Teleport); „schließt auch mit E“ entfällt | verschoben |
-| 25 | Plaza-Stationen & Fenster | Glücksbrett | BoardPanel | LADEN › Glücksbrett | verschoben |
+| 25 | Plaza-Stationen & Fenster | Glücksbrett | BoardPanel | LADEN › Glücksbrett; 5 Gewinn-Stufen bleiben, „Hauptgewinn“ oben in Legendär-Optik (11.4) | verschoben |
 | 26 | Plaza-Stationen & Fenster | Bestenlisten | LeaderboardPanel | KARRIERE › Bestenlisten; Querverweise aus Profil, Gewertet, Clan bleiben (in B/A „Nur in der Plaza“, im Match ausgeblendet, **NEU**) | verschoben |
 | 27 | Plaza-Stationen & Fenster | Gewertete Matches | RankedPanel | SPIELEN › Gewertet; Suche zusätzlich als **NEU** Such-Pille statt blockierendem Warten | verschoben |
 | 28 | Plaza-Stationen & Fenster | Turniere | TournamentPanel | SPIELEN › Turniere; ZUSCHAUEN → SPIELEN › Zuschauen; **NEU** REPLAY an beendeten Matches | verschoben |
@@ -1403,15 +1413,48 @@ Das TEAM-Schild der Top-Leiste nutzt die rote ADMIN-Platte für alle Staff-Rolle
 **OWNER (Inhaber, NEU):** höchster Rang über ADMIN. Sieht alle TEAM-Menüs und ist als einzige Rolle berechtigt, ADMIN oder OWNER zu vergeben (Verwaltung › „Rolle setzen“). ADMIN vergibt nur noch player, moderator und developer. Party-Leiter, Raum-Master, Clan-Leitung und Bauplatz-Inhaber bekommen kein Rollen-Badge, sondern die kleine Krone `icon_crown` vor dem Namen. So bleibt die Kronen-Platte eindeutig dem OWNER vorbehalten.
 
 ### 11.4 Stufen
-Namen aus dem Glücksbrett. Eine Stufe erscheint nie nur als Farbe, sondern immer mit Name **und** Symbol (passt zur Farbseh-Einstellung).
+Seltenheits-Leiter von unten nach oben (**NEU**, ÄNDERUNG 7). „Legendär“ ersetzt „Hauptgewinn“ als Item-Stufe; „Hauptgewinn“ heißt nur noch die oberste Gewinn-Stufe des Glücksbretts (Tabelle unten). Kontrast der Textfarbe gegen `bg.panel` `#0B0B0D` wie in 11.2. Farben ohne Zusatz stammen aus dem Sheet oder aus ÄNDERUNG 7.
 
-| Stufe | Rahmen (Verlauf) | Textfarbe | Kontrast | Symbol | Assets |
-|---|---|---|---|---|---|
-| Gewöhnlich | Stahlgrau `#8E969F` → `#3E444B` (abgeleitet) | `#B4BAC2` | 10,1 : 1 | Kreis | `tier_frame_common`, `tier_sym_common` |
-| Ungewöhnlich | Grün `#66842E` → `#1E3A01` | `#9CCB4A` (abgeleitet) | 10,4 : 1 | Raute | `tier_frame_uncommon`, `tier_sym_uncommon` |
-| Selten | Blau `#5C83A8` → `#15406C` | `#7FB2E5` (abgeleitet) | 8,8 : 1 | Dreieck | `tier_frame_rare`, `tier_sym_rare` |
-| Episch | Lila `#7543A4` → `#3B116A` | `#B58AE6` (abgeleitet) | 7,3 : 1 | Sechseck | `tier_frame_epic`, `tier_sym_epic` |
-| Hauptgewinn | Gold `#FFD148` → `#FBB21D` | `#FFD148` | 13,6 : 1 | Krone | `tier_frame_jackpot`, `tier_sym_jackpot` |
+| Stufe | Rahmen (Verlauf) | Textfarbe | Kontrast | Symbol | Effekt | Herkunft/Verwendung | Assets |
+|---|---|---|---|---|---|---|---|
+| Basis (**NEU**) | Weiß-Grau matt `#C9C4BA` → `#6E6A63` | `#C9C4BA` | 11,3 : 1 | Punkt | keiner: matt, ohne Glanz und ohne Innen-Glow | Start-Ausrüstung, Leihwaffen (SPIND › Testgelände), Grundwerkzeuge; nicht handelbar, nicht zerlegbar | `tier_frame_basic`, `tier_sym_basic` |
+| Gewöhnlich | Stahlgrau `#8E969F` → `#3E444B` (abgeleitet) | `#B4BAC2` | 10,1 : 1 | Kreis | statischer Innen-Glow | Laden, Glücksbrett, Belohnungen | `tier_frame_common`, `tier_sym_common` |
+| Ungewöhnlich | Grün `#66842E` → `#1E3A01` | `#9CCB4A` (abgeleitet) | 10,4 : 1 | Raute | statischer Innen-Glow | Laden, Glücksbrett, Belohnungen | `tier_frame_uncommon`, `tier_sym_uncommon` |
+| Selten | Blau `#5C83A8` → `#15406C` | `#7FB2E5` (abgeleitet) | 8,8 : 1 | Dreieck | statischer Innen-Glow | Laden, Glücksbrett, Belohnungen | `tier_frame_rare`, `tier_sym_rare` |
+| Episch | Lila `#7543A4` → `#3B116A` | `#B58AE6` (abgeleitet) | 7,3 : 1 | Sechseck | statischer Innen-Glow | Laden, Glücksbrett, Belohnungen | `tier_frame_epic`, `tier_sym_epic` |
+| Heroisch (**NEU**) | Orange-Rot `#E8742A` → `#8A3410` | `#F08A4B` (abgeleitet) | 7,9 : 1 | Schild | statischer Innen-Glow | Laden, Event- und Turnier-Belohnungen | `tier_frame_heroic`, `tier_sym_heroic` |
+| Legendär (**NEU**, ersetzt „Hauptgewinn“ als Item-Stufe) | Gold `#FFD148` → `#FBB21D` | `#FFD148` | 13,6 : 1 | Krone | Gold-Schimmer (15.7) | Laden, Glücksbrett-Hauptgewinn, Saison-Belohnungen | `tier_frame_legendary`, `tier_sym_legendary` (alt `*_jackpot`) |
+| Mythisch (**NEU**) | Rot-Gold (Kronen-Edelstein) `#C71E15` → `#7C100B` mit Goldkante `#FFD148` | `#FF6A55` (abgeleitet) | 7,0 : 1 | Flamme | animierte Glut: `fx_ember` steigt vom Rahmen auf, Rahmen-Glow atmet (15.7, 16.1) | seltene Event- und Saison-Belohnungen | `tier_frame_mythic`, `tier_sym_mythic` |
+| Göttlich (**NEU**) | Prisma Weiß-Gold `#FFF4C2` → `#FFD148` (abgeleitet) mit Regenbogen-Schimmer | `#FFF4C2` (abgeleitet) | 17,8 : 1 | Sonne | animierter Regenbogen-Schimmer und feine Strahlen (`fx_ray`, `fx_prism_sparkle`) | nur eine Handvoll Items pro Saison | `tier_frame_divine`, `tier_sym_divine` |
+| Einzigartig (**NEU**, 1 von 1) | Schwarz-Gold `#1A1712` → `#00040A` (abgeleitet) mit Goldgravur `#FFD148`, Kante `#C27200`; Seriennummer-Plakette unten rechts | `#E6C27A` (abgeleitet, Altgold) | 11,6 : 1 | Siegel-Stern | Gravur-Glanz (15.7); beim Erhalt Gold-Burst und Siegel-Stempel (15.8) | Einzelstücke: Seriennummer „#001“ und Besitzer-Historie; jedes Item existiert nur einmal | `tier_frame_unique`, `tier_sym_unique` |
+
+Schlüssel im Code (`TierColor`, `TierName`, Token `tier.*`, Asset-IDs): `basic` · `common` · `uncommon` · `rare` · `epic` · `heroic` · `legendary` · `mythic` · `divine` · `unique`, dazu die Serien `event` und `exclusive`. Aus `jackpot` wird `legendary` (`tier_frame_jackpot` → `tier_frame_legendary`, `tier_sym_jackpot` → `tier_sym_legendary`).
+
+**Serien** (**NEU**, ÄNDERUNG 7): ein zusätzliches Kennzeichen neben der Stufe; das Item hat trotzdem eine Stufe der Leiter.
+
+| Serie | Kennzeichen neben der Stufe | Farbe | Kontrast | Symbol | Regeln | Asset |
+|---|---|---|---|---|---|---|
+| Event/Limitiert | Pille rechts neben dem Stufen-Namen: Uhr + „EVENT“ bzw. „LIMITIERT“ + Saison-Tag, z. B. „Herbstlaub 2026“; auf Item-Kacheln nur die Glyphe oben rechts | Türkis `#2FB8A8` | 8,0 : 1 | Uhr | trägt den Saison-Tag dauerhaft, auch nach dem Event; erhältlich im Event-Zeitraum (LADEN › Empfohlen, Kategorie Event, Event-Belohnungen) | `tag_series_event` |
+| Exklusiv | Pille wie oben: Siegel + „EXKLUSIV“ + Herkunft („Gründer“, „Turniersieger“, „Clan des Monats“, „Brixel-Team“) | Platin `#E6E0D2` mit Perlmutt-Schimmer | 14,9 : 1 | Siegel | nicht kaufbar: nie in LADEN › Empfohlen oder Katalog, kein KAUFEN; Quellen sind Gründer, Turniersieger, Clan des Monats und Staff-Geschenke (Konto-Akte › ITEM GEBEN, Massen-Geschenk) | `tag_series_exclusive` |
+
+**Regeln**
+- Eine Stufe erscheint nie nur als Farbe, sondern immer mit Name **und** Symbol (passt zur Farbseh-Einstellung, Prinzip 6). Serien zeigen immer Glyphe **und** Text; nur auf kleinen Item-Kacheln steht die Glyphe allein, Name und Text stehen dann im Tooltip und im Detail.
+- **Basis** ist nicht handelbar und nicht zerlegbar: ZERLEGEN ist deaktiviert (Tooltip „Basis-Items kann man nicht zerlegen.“), und Post › GESCHENK › AUS DEM INVENTAR zeigt keine Basis-Items (3.6).
+- **Einzigartig** trägt eine Seriennummer (z. B. „#001“, `mono` auf der Plakette des Rahmens) und eine Besitzer-Historie im Detail. Jedes Item existiert genau einmal. Der Server garantiert die Einzigartigkeit: Er vergibt die Seriennummer, schreibt Vergabe und Besitzwechsel in derselben Transaktion in die Historie und lehnt jedes zweite Exemplar ab, auch bei ITEM GEBEN (3a.6 #6).
+- **Göttlich:** nur eine Handvoll Items pro Saison; das Kontingent hält der Server (TEAM sieht „n von max vergeben“).
+- **Exklusiv** ist nicht kaufbar (Tabelle oben).
+- **Event-Items** tragen den Saison-Tag.
+- **Effekte:** In Rastern (Inventar, Katalog, Item-Auswahl) laufen animierte Stufen-Effekte nur an der fokussierten bzw. gehoverten Kachel; im Detail und in Belohnungs-Popups immer. Bei „Animationen reduzieren“ sind sie statisch (15.9). Budgets 16.2.
+
+**Glücksbrett:** Das Glücksbrett behält seine 5 Gewinn-Stufen. Jede Gewinn-Stufe nutzt die Optik einer Stufe der Leiter; „Hauptgewinn“ bleibt der Name des obersten Preises. Im Inventar zeigt das gewonnene Item danach seine eigene Item-Stufe.
+
+| Gewinn-Stufe (Glücksbrett) | Optik (Rahmen, Symbol, Farbe) | `fx_star` beim Aufdecken | Zusatz |
+|---|---|---|---|
+| Gewöhnlich | Gewöhnlich | 6 | – |
+| Ungewöhnlich | Ungewöhnlich | 10 | – |
+| Selten | Selten | 16 | – |
+| Episch | Episch | 24 | – |
+| Hauptgewinn | Legendär (Krone, Gold, Gold-Schimmer) | 40 | `frame_ornate` + `frame_ornate_crest`, `reward_rays`, 80 `fx_confetti`, `ui_jackpot` (15.8) |
 
 ### 11.5 Team-, Spiel-, Rang- und Währungsfarben
 Deckt auch alle übrigen alten Farben ab (`RankColor`, Währungsfarben, Party-/Freund-/Leiter-Farben, Funkfarbe, Geister, Teamfarben); Zuordnung alt → neu in 18.2.
@@ -1535,7 +1578,7 @@ Zustände: **N** normal · **H** hover · **G** gedrückt · **D** deaktiviert �
 | 4 rote Quadrate | Gefahr-Knopf, Limit-/Fehler-Zustand, Ablehnung | `btn_red_m`, Rot-Tint |
 | Fenster mit Chat-Feld und Senden-Knopf | Fenster, Chat (HUD), Textfeld mit SENDEN | `frame_window`, `input_text` |
 | Karte mit goldener Titel-Plakette | Karte, Modus-Karte, Fenstertitel | `card_item`, `plaque_title`, `frame_mode_card` |
-| Prunkrahmen mit Rauten-Ornament | Hauptgewinn, Rang-Aufstieg, Werkstatt-Erfolg, Clan des Monats | `frame_ornate`, `frame_ornate_crest` |
+| Prunkrahmen mit Rauten-Ornament | Glücksbrett-Hauptgewinn, Rang-Aufstieg, Werkstatt-Erfolg, Clan des Monats | `frame_ornate`, `frame_ornate_crest` |
 | Reiter (1 aktiv gold, 2 inaktiv dunkel, Grundlinie) | Hub-Reiter, Unterreiter, Einstellungen-Kategorien, Sozial-Reiter | `tab_active`, `tab_inactive`, `tab_underline` |
 | Fortschrittsbalken | Balken | `bar_track`, `bar_fill_*` |
 | Knoten-Pfad (4 Knoten) | Fortschritts-Pfad: Einführung i/n, 7 Tage Belohnung, Turnierbaum | `path_node_*`, `path_link` |
@@ -1580,8 +1623,8 @@ Zustände: **N** normal · **H** hover · **G** gedrückt · **D** deaktiviert �
 | Ring | `ring_track` + `ring_fill` (radial) | – | – (**NEU**: Timer, XP-Ring, Abklingzeit) |
 | Ladekreisel | `spinner`, dreht linear | – | `UiFactory.Spinner` |
 | Karte | `card_item` + `plaque_title`, Vorschau, Etiketten, Preis | N H G D F A | `EconomyUi.Card` |
-| Item-Kachel | `tile_slot` + Item-Symbol + Stufen-Rahmen + Sterne + Etikett „AN“ | N H G D F A | `EconomyUi.ItemTile`, `ItemIcon` |
-| Stufen-Anzeige | `tier_frame_*` + `tier_sym_*` + Name | – | `TierColor`, `TierName` |
+| Item-Kachel | `tile_slot` + Item-Symbol + Stufen-Rahmen + Sterne + Etikett „AN“ + **NEU** Serien-Glyphe oben rechts | N H G D F A | `EconomyUi.ItemTile`, `ItemIcon` |
+| Stufen-Anzeige | `tier_frame_*` + `tier_sym_*` + Name; **NEU** 10 Stufen, Serien-Kennzeichen `tag_series_*`, bei Einzigartig Seriennummer auf der Plakette (11.4) | – | `TierColor`, `TierName` |
 | Laufzeit | Chip „LAUFZEIT“ bzw. Text „noch n Tage“, abgelaufen in `text.disabled` | – | `Lifetime`, Farbe `Expired` |
 | Währungs-Pille | `pill_resource` + `cur_*` + Zahl (rollt), optional `btn_plus` | N H | `BalancePill`, Währungssymbole und -farben |
 | Rang-Abzeichen | `rank_t1` … `rank_t6` + Zahl | – | `RankBadge`, `RankColor` |
@@ -1963,6 +2006,10 @@ Gilt für Gold-Platten (L, M, Hero); dunkle und rote Platten nutzen dieselben Ph
 | Zahl rollt | Wertänderung in Menüs | Ziffern zählen hoch/runter | alter → neuer Wert | 600 ms (≤ 50 Schritte) | outCubic | – | sofort |
 | Balken füllen | Wertänderung in Menüs | Füllung Scale x; Shimmer | alt → neu; `fx_shine_sweep` läuft einmal | 420 ms; 600 ms | outCubic; inOutQuad | – | sofort, ohne Shimmer |
 | Zähler-Puls | Badge-Wert steigt | Scale | 1 → 1,25 → 1 + kleiner `fx_ring` | Feder `pop` | – | – | ohne |
+| Stufe Legendär: Gold-Schimmer (**NEU**) | Detail, Belohnung, fokussierte bzw. gehoverte Kachel (11.4) | `fx_shine_sweep` gold über den Rahmen | x −100 % → +100 % | 900 ms, alle 4 s | inOutQuad | – | statisch |
+| Stufe Mythisch: Glut (**NEU**) | wie Legendär | Rahmen-Glow Deckkraft; Glut `fx_ember` (16.1) | 0,6 ↔ 1,0 | 1800-ms-Schleife | inOutQuad | – | statisch (Glow 0,8), ohne Glut |
+| Stufe Göttlich: Prisma und Strahlen (**NEU**) | wie Legendär | Regenbogen-Verlauf wandert um den Rahmen (UV-Offset im Material, kein Layout); 6 `fx_ray` drehen; `fx_prism_sparkle` (16.1) | Offset 0 → 1; 10°/s | 3000-ms-Schleife | linear | – | statischer Verlauf, Strahlen stehen |
+| Stufe Einzigartig: Gravur-Glanz (**NEU**) | wie Legendär | `fx_shine_sweep` gold, schmal, über die Gravur | x −100 % → +100 % | 1400 ms, alle 6 s | inOutQuad | – | statisch |
 | Toast | erscheint / geht | y, Deckkraft | +24 → 0, 0 → 1 / −8, 1 → 0 | Feder `snappy` / 160 ms | – / inOutQuad | – | Fade |
 | Ablehnungs-Toast | erscheint | zusätzlich Shake x ±4 | – | 240 ms | – | – | ohne Shake |
 | Benachrichtigungskarte | erscheint | x, Deckkraft; Timer-Ring | +48 → 0, 0 → 1; 100 % → 0 % | Feder `snappy`; Restzeit | – ; linear | – | Fade; Ring bleibt |
@@ -2028,8 +2075,18 @@ Alle Sequenzen sind mit Klick, Leertaste oder Esc überspringbar (wie heute), da
 
 **Glücksbrett-Aufdecken**
 1. Feld `reward_board_field` flippt: Scale x 1 → 0 (120 ms inOutQuad), Seite wechselt, 0 → 1 (160 ms outBack).
-2. Hinter dem Feld leuchtet die Stufen-Farbe; `fx_star` in Stufen-Farbe: Gewöhnlich 6 · Ungewöhnlich 10 · Selten 16 · Episch 24 · Hauptgewinn 40.
-3. Overlay Gewinn mit Stufen-Name und Symbol; bei Hauptgewinn dazu `frame_ornate` + `frame_ornate_crest`, `reward_rays`, 80 `fx_confetti`; `ui_reveal` bzw. `ui_jackpot`; SUPER.
+2. Hinter dem Feld leuchtet die Farbe der Gewinn-Stufe (Optik nach 11.4, Hauptgewinn in Legendär-Gold); `fx_star` in dieser Farbe: Gewöhnlich 6 · Ungewöhnlich 10 · Selten 16 · Episch 24 · Hauptgewinn 40.
+3. Overlay Gewinn mit Name und Symbol der Gewinn-Stufe (Hauptgewinn mit Krone); bei Hauptgewinn dazu `frame_ornate` + `frame_ornate_crest`, `reward_rays`, 80 `fx_confetti`; `ui_reveal` bzw. `ui_jackpot`; SUPER.
+
+**Item erhalten ab Legendär** (**NEU**, ÄNDERUNG 7; Belohnungs-Popup 58; Auslöser: Geschenk, Belohnung, Vergabe durch das Team (ITEM GEBEN); Kauf und Glücksbrett behalten ihre eigenen Abläufe)
+| Stufe | Ablauf |
+|---|---|
+| Legendär | Item-Kachel Scale 0,6 → 1,0 (Feder `bouncy`); Gold-Schimmer läuft einmal; 24 `fx_star` gold; `ui_reward` |
+| Mythisch | wie Legendär, dazu Glut-Burst: 40 `fx_ember` rot-gold aus dem Rahmen und `fx_ring` in `#C71E15`; `ui_tier_high` (Mythisch) |
+| Göttlich | `reward_rays` mit Regenbogen-Verlauf blendet ein (0 → 0,6, 240 ms); 12 `fx_ray` fächern auf (Scale y 0 → 1, 420 ms outCubic, 30 ms versetzt); 30 `fx_prism_sparkle`; `ui_tier_high` (Göttlich) |
+| Einzigartig | 0 ms: Abdunkeln 0 → 60 %, Item gleitet ein (y 24 → 0, 240 ms outCubic). 240 ms: Gold-Burst 40 `fx_ember` + 24 `fx_sparkle` + `fx_ring`. 360 ms: Siegel-Stempel `fx_seal_stamp` Scale 1,8 → 1,0, Deckkraft 0 → 1, Drehung −12° → 0° (180 ms outBack(1.4)), UI-Erschütterung 4 px (120 ms), `ui_seal_stamp`. 600 ms: Die Seriennummer „#001“ erscheint Zeichen für Zeichen auf der Plakette (60 ms je Zeichen), darunter „Besitzer: \<Name\>“. |
+
+Bei „Animationen reduzieren“ zeigt das Popup eine statische Karte mit Stufen-Rahmen, Symbol, Name und ggf. Seriennummer; die Sounds bleiben (17).
 
 ### 15.9 Animationen reduzieren (**NEU**)
 Einstellungen › Barrierefreiheit „Animationen reduzieren“ (an/aus). Zusätzlich gilt der Wunsch des Betriebssystems, falls verfügbar, als Startwert.
@@ -2059,22 +2116,28 @@ Ein eigener UI-Partikel-Emitter auf dem Canvas (Kapitel 18.6), Sprites aus dem A
 | Podest-Glut (LOBBY) | `fx_glow_dot` | Linie am Podest | 2/s | 2–3 s | 10–30 aufwärts | 0 | 6 → 2 | `#FFC21F` → transparent | keine | additiv | LOBBY-Bühne | 10 | aus |
 | Münz-Burst / Münz-Flug | `fx_coin` | Punkt an der Quelle, Kegel 60° nach oben | Burst 12–24 | 600–800 ms | 300–500, dann Zielflug zur Pille (Bézier) | 1400 bis zum Scheitel | 24 → 14 am Ziel | Sprite-Farbe, Deckkraft 1 | „Drehen“ über Scale x-Schwingung 6 Hz | Alpha | 58 bzw. Seite | 24 | aus; Pille springt mit Gold-Puls |
 | Splitter | `fx_shard` | Punkt (Item, Schild-Icon) | Burst 10–16 (Rüstung 10) | 500–700 ms | 200–420 | 900 | 12–20 → 0 | Splitter `#E8742A` → `#A85200`; bei Rüstung `#7FB2E5` → `#15406C` | ±540°/s | Alpha | Seite / HUD 11 (Kampf-HUD) | 16 | aus |
-| Konfetti | `fx_confetti` | Linie an der Oberkante | Burst 60 + 20/s für 1 s (Hauptgewinn 80) | 1,6–2,4 s | 100–300 abwärts + seitliches Driften | 250 | 10–16, Flattern über Scale y 3–6 Hz | zufällig aus `#FFC21F`, `#D93233`, `#1D7DBD`, `#F4EBD9` | ±360°/s | Alpha | 45 bzw. 58 | 120 | aus |
+| Konfetti | `fx_confetti` | Linie an der Oberkante | Burst 60 + 20/s für 1 s (Glücksbrett-Hauptgewinn 80) | 1,6–2,4 s | 100–300 abwärts + seitliches Driften | 250 | 10–16, Flattern über Scale y 3–6 Hz | zufällig aus `#FFC21F`, `#D93233`, `#1D7DBD`, `#F4EBD9` | ±360°/s | Alpha | 45 bzw. 58 | 120 | aus |
 | Funken / Glut | `fx_ember` | Punkt (Füllspitze des Rangbalkens, Amboss) | 30/s während des Füllens; Burst 40 | 300–600 ms | 80–200, Kegel 90° nach oben | 300 | 6 → 0 | `#FFF4C2` → `#FFC21F` → `#C27200` | keine | additiv | 45 / 58 | 40 | aus |
 | Schockwelle | `fx_ring` | Mitte | 1 | 600 ms | – | – | Scale 0,2 → 2,2 | `#FFD148`, Deckkraft 1 → 0 | keine | additiv | 45 / 58 | 3 | aus |
 | Strahlenkranz | `reward_rays` (+ `fx_ray` für Einzelstrahlen) | Mitte, hinter dem Objekt | 1 | solange sichtbar | – | – | Atmen 0,95 ↔ 1,05 (2 s) | Deckkraft 0 → 0,6 | 20°/s | additiv | 58 | 1 | statisch, Deckkraft 0,4 |
 | Leuchtpunkt-Puff | `fx_glow_dot` | Punkt | Burst 4–6 | 300 ms | 40–80 | 0 | 8 → 16 | `#FFD148`, Deckkraft 1 → 0 | keine | additiv | HUD 10 (Bau-HUD) / Seite | 6 | aus |
-| Sterne (Stufen) | `fx_star` | Punkt (Feld, Karte) | Burst nach Stufe: 6 / 10 / 16 / 24 / 40 | 600–900 ms | 150–350 | 200 | 12–24 → 0 | Stufen-Textfarbe (11.4) | ±180°/s | additiv | Seite / 58 | 40 | aus |
+| Sterne (Gewinn, Stufen) | `fx_star` | Punkt (Feld, Karte) | Burst nach Gewinn-Stufe im Glücksbrett: 6 / 10 / 16 / 24 / 40 (Hauptgewinn); Item erhalten Legendär 24 | 600–900 ms | 150–350 | 200 | 12–24 → 0 | Textfarbe der zugeordneten Stufe (11.4) | ±180°/s | additiv | Seite / 58 | 40 | aus |
 | Rauch | `fx_smoke` | Punkt | Burst 3–5 (Bau-Ablehnung 2) | 600–900 ms | 30–60 | −20 | 32 → 64 | `#A8987A`, Deckkraft 0,5 → 0 | ±30°/s | Alpha | Seite / HUD 10 (Bau-HUD) | 6 | aus |
 | Riss | `fx_crack` | über dem Item | 1 | 820 ms (120 auf, 400 stehen, 300 aus) | – | – | Scale 0,6 → 1,0 | Deckkraft 1 → 0 | keine | Alpha | Seite | 1 | aus |
 | Funkeln (Hover-Karte, Kauf) | `fx_sparkle` | Ecke bzw. Kreis um die Karte | 1 je 600 ms bei Hover; Burst 12 beim Kauf | 400 ms | 0–40 | 0 | 0 → 12 → 0 | `#FFF4C2` | ±90°/s | additiv | Seite | 12 | aus |
+| Glut (Stufe Mythisch, **NEU**) | `fx_ember` | Linie an der Rahmen-Oberkante; beim Erhalt Punkt, 360° | 3/s; Burst 40 beim Erhalt | 600–1000 ms | 30–80 aufwärts + seitlich ±10; Burst 120–260 | −40 | 6 → 0 | `#FFD148` → `#C71E15` → transparent | keine | additiv | Seite / 58 | 8 je Rahmen, 40 beim Erhalt | aus |
+| Prisma-Funkeln (Stufe Göttlich, **NEU**) | `fx_prism_sparkle` | Rechteck entlang des Rahmens; beim Erhalt Punkt, 360° | 2/s; Burst 30 beim Erhalt | 500–800 ms | 0–30; Burst 120–260 | 0 | 0 → 14 → 0 | Sprite-Farbe (Regenbogen an den Spitzen), Deckkraft 1 → 0 | ±90°/s | additiv | Seite / 58 | 6 je Rahmen, 30 beim Erhalt | aus |
+| Feine Strahlen (Stufe Göttlich, **NEU**) | `fx_ray` | Mitte hinter dem Item | 6 am Rahmen, 12 beim Erhalt | solange sichtbar | – | – | Scale y 0,9 ↔ 1,1 (2 s) | `#FFF4C2`, Deckkraft 0,25 am Rahmen bzw. 0,6 beim Erhalt | 10°/s | additiv | Seite / 58 | 12 | statisch, Deckkraft 0,2 |
+| Gold-Burst (Stufe Einzigartig, **NEU**) | `fx_ember` + `fx_sparkle` | Punkt (Item-Mitte), 360° | Burst 40 + 24 | 400–700 ms | 200–420, Luftwiderstand 3 | 300 | 8 → 0 bzw. 16 → 0 | `#FFF4C2` → `#FFD148` → `#C27200` | ±180°/s | additiv | 58 | 64 | aus |
+| Siegel-Stempel (Stufe Einzigartig, **NEU**) | `fx_seal_stamp` | über dem Item | 1 | 180 ms Einschlag, bleibt bis zum Schließen des Popups | – | – | Scale 1,8 → 1,0 (outBack 1.4) | Deckkraft 0 → 1 | −12° → 0° | Alpha | 58 | 1 | statisch auf der Karte (15.8) |
 
-Glanz-Sweep (`fx_shine_sweep`) ist kein Partikel, sondern ein maskiertes Sprite (15.6).
+Glanz-Sweep (`fx_shine_sweep`) ist kein Partikel, sondern ein maskiertes Sprite (15.6); er trägt auch den Gold-Schimmer (Legendär) und den Gravur-Glanz (Einzigartig).
 
 ### 16.2 Budgets und Regeln
 - Gleichzeitig höchstens **300** UI-Partikel; im Match-HUD höchstens **24**.
 - Ein Emitter überschreitet nie sein Budget; neue Bursts ersetzen die ältesten Partikel desselben Emitters.
 - Goldstaub läuft nur, solange der Hub sichtbar ist und die App den Fokus hat.
+- Stufen-Effekte an Rahmen (Glut, Prisma-Funkeln, Strahlen) laufen höchstens an 2 Rahmen gleichzeitig: fokussierte bzw. gehoverte Kachel und Detail (11.4).
 - Je Canvas gibt es höchstens 2 Draw Calls für Partikel (ein Material additiv, eins Alpha, ein Atlas `ui_fx`).
 - „Animationen reduzieren“ schaltet alle Partikel ab (15.9).
 
@@ -2107,7 +2170,9 @@ Baut auf `UiButtonSound` auf: Dort hängt heute der Klick-Sound der `UiFactory.B
 | Titelkarte | `ui_slam` | Oberfläche | – |
 | Werkstatt Erfolg / kein Erfolg | `ui_success` / `ui_fail` | Oberfläche | – |
 | ZERLEGEN | `ui_disassemble` | Oberfläche | – |
-| Glücksbrett Flip / Hauptgewinn | `ui_reveal` / `ui_jackpot` | Oberfläche | Tonhöhe nach Stufe |
+| Glücksbrett Flip / Hauptgewinn | `ui_reveal` / `ui_jackpot` | Oberfläche | Tonhöhe nach Gewinn-Stufe; „Hauptgewinn“ ist hier der oberste Glücksbrett-Preis (11.4) |
+| Item erhalten Mythisch / Göttlich (**NEU**) | `ui_tier_high` | Oberfläche | Variante je Stufe: Mythisch Glut-Knistern, Göttlich heller Glanz-Akkord; Legendär nutzt `ui_reward` |
+| Siegel-Stempel Einzigartig (**NEU**) | `ui_seal_stamp` | Oberfläche | dumpfer Stempel-Schlag mit Gold-Klang, einmal je Erhalt |
 | Countdown / „LOS!“ | `ui_countdown` / `ui_go` | Effekte | – |
 | Trefferkreuz / Kopftreffer / Kill | `hud_hitmarker` / `hud_headshot` / `hud_kill` | Effekte | vorhandene Sounds weiter nutzen, falls es sie gibt |
 | Gesundheit ≤ 25 % | `hud_heartbeat` | Effekte | Schleife, solange ≤ 25 % |
@@ -2144,7 +2209,7 @@ Regeln: Dieselbe ID spielt höchstens einmal je 50 ms. Sounds hängen am Ereigni
 | `Selected` | `state.hover` `#FFC21F` + Goldrahmen (Zustand A, 12.3) |
 | `TileColor` | `bg.track` mit Rahmen `frame` `#AE5F00` |
 | `Expired` | `text.disabled` `#8C826F` |
-| `TierColor` | `tier.*` (11.4), immer mit `tier_sym_*` |
+| `TierColor` | `tier.*` (11.4) für `basic` … `unique` (10 Stufen, `jackpot` → `legendary`), immer mit `tier_sym_*`; Serien `series.event` (`#2FB8A8`) und `series.exclusive` (`#E6E0D2`) mit `tag_series_*` |
 | `RankColor` | Rang-Stufen `rank_t1`–`rank_t6`: Bronze `#9C4D01`, Silber `#B4BAC2`, Gold `#FCAE0F`, Medaille Gold + Band `#C71E15`, Stern Gold `#FFD148`, Legende Gold + Edelstein `#C71E15` |
 | Währungsfarben Brix / Splitter / Kristalle / Münze | `cur.brix` `#FBB21D` / `cur.splitter` `#E8742A` / `cur.kristalle` `#6CC6F0` / `cur.muenze` `#FFD148` |
 | Party- / Freund- / Leiter-Farbe | `accent.potion` `#1D7DBD` (Text `#7FB2E5`) / `accent.heart` `#D93233` / `gold.light` `#FFD148` (Krone) |
@@ -2159,7 +2224,7 @@ Regeln in 10.5. Kurz: 2×-Sprites mit `pixelsPerUnitMultiplier = 2`, Ränder aus
 
 | Atlas | Inhalt | Größe |
 |---|---|---|
-| `ui_core` | Platten, Rahmen, Panels, Eingaben, Reiter, Chips, Badges, Fokus-Ring, Tastenhinweise, Esc-Menü, Tab-Liste | 2048² |
+| `ui_core` | Platten, Rahmen, Panels, Eingaben, Reiter, Chips, Badges, Serien-Kennzeichen (`tag_series_*`), Fokus-Ring, Tastenhinweise, Esc-Menü, Tab-Liste | 2048² |
 | `ui_icons` | Funktions- und Reiter-Icons, Währungen, Rollen-Badges, Rang-Abzeichen, Stufen-Symbole | 2048² |
 | `ui_hud` | HUD- und Bau-HUD-Teile, Modus-Symbole klein | 2048² |
 | `ui_modes` | Modus-Kacheln (`mode_*`) | 2048² |
@@ -2347,6 +2412,8 @@ Heute sehen normale Spieler nur Clips („Spielzug der Runde“) und Live-Zuscha
 | Querverweise in den Hub zeigen in B und A „Nur in der Plaza“ | ÄNDERUNG 2 (Hub nur in der Plaza), abgestimmt mit `data/ui_migration.csv` |
 | Eigener `UiTween` und eigener Partikel-Emitter | 18.5, 18.6 |
 | TEAM mit Kategorien, Konto-Akte, Rechte-Matrix, Sicherheitsregeln und Vier-Augen-Freigabe; TEAM im kleinen Menü auch auf B | User-Wunsch, Kapitel 3a (löst O3) |
+| Seltenheits-Leiter Basis · Gewöhnlich · Ungewöhnlich · Selten · Episch · Heroisch · Legendär · Mythisch · Göttlich · Einzigartig (1 von 1) plus Serien Event/Limitiert und Exklusiv. „Legendär“ ersetzt „Hauptgewinn“ als Item-Stufe; „Hauptgewinn“ bleibt nur die oberste Gewinn-Stufe des Glücksbretts (Optik Legendär). Schlüssel `jackpot` → `legendary` (11.4, 3.14 #24) | ÄNDERUNG 7 |
+| SPIND › Aussehen: Formreihe „Körper“ mit < / > („Variante n“) entfällt (**NEU**, 3.6, 3.14 #25) | Entscheidung User |
 
 ---
 
