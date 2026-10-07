@@ -1456,6 +1456,12 @@ Schlüssel im Code (`TierColor`, `TierName`, Token `tier.*`, Asset-IDs): `basic`
 | Episch | Episch | 24 | – |
 | Hauptgewinn | Legendär (Krone, Gold, Gold-Schimmer) | 40 | `frame_ornate` + `frame_ornate_crest`, `reward_rays`, 80 `fx_confetti`, `ui_jackpot` (15.8) |
 
+**Werkstatt-Gebühr je Stufe (NEU, Entscheidung User):** Die Gebühr für einen Aufwertungs-Versuch steigt mit der Stufe; ein Fehlschlag kostet nur die Gebühr.
+
+| Stufe | Basis | Gewöhnlich | Ungewöhnlich | Selten | Episch | Heroisch | Legendär | Mythisch | Göttlich | Einzigartig |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Gebühr (Brix) | – (nicht aufwertbar) | 600 | 900 | 1.200 | 1.500 | 2.000 | 3.000 | 4.500 | 6.000 | 9.000 |
+
 ### 11.5 Team-, Spiel-, Rang- und Währungsfarben
 Deckt auch alle übrigen alten Farben ab (`RankColor`, Währungsfarben, Party-/Freund-/Leiter-Farben, Funkfarbe, Geister, Teamfarben); Zuordnung alt → neu in 18.2.
 
