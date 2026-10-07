@@ -1605,7 +1605,7 @@ Zustände: **N** normal · **H** hover · **G** gedrückt · **D** deaktiviert �
 | Party-Platz | `frame_party_slot`: Figur bzw. „+“, Krone, Name, Bereit-Haken | leer / belegt / bereit | – (**NEU**) |
 | Modus-Kachel | `card_item` + `mode_*` | N H G D F A | Modus-Auswahl im Raumbrowser |
 | Karussell | Folien 16:9 + Punkte-Reihe | – | Folien der Bühnen-Leinwand |
-| Truhe | `reward_chest_closed/open` + Badge; **NEU** als 3D-Modell `reward_chest_3d` per RenderTexture (18.11), die 2D-Truhen bleiben Ersatz | zu / abholbar / offen | – (**NEU** in der LOBBY) |
+| Truhe | `reward_chest_closed/open` (2D) + Badge | zu / abholbar / offen | – (**NEU** in der LOBBY) |
 | TEAM-Bausteine (**NEU**) | Staff-Kopf `frame_staff_header`, Akzentlinie `divider_staff`, Tabelle `frame_data_table`, Diff-Ansicht `frame_diff_preview`, Zahlenfeld mit `btn_minus`/`btn_plus`, HUD-Pille `pill_staff_status`; alle 12 neuen Baukasten-Elemente in 3a.6 | wie die Grund-Komponenten | `ServerMenuPanel`-Elemente |
 | Coachmark | `frame_focus` um das Ziel + Pfeil `hud_offscreen_arrow` + Text-Plakette | – | Leuchten der Ziel-Station |
 | Kampf-HUD-Teile | Gesundheit/Rüstung-Block, Status-Icon, Munitions-Panel, Waffen-Slot, Hotbar-Platz, Warn-Etikett, Schadensbogen, Trefferkreuz, Killfeed-Zeile, Lebensleiste, Ansage-Banner, Todesbildschirm | Kapitel 13 | CombatHud, MatchHud, SurvivalHud, ObjectiveHud, Symbole aus `.Combat`/`.Modes` |
@@ -2009,7 +2009,7 @@ Alle Sequenzen sind mit Klick, Leertaste oder Esc überspringbar (wie heute), da
 
 **Tägliche Belohnung ABHOLEN**
 1. Tages-Kachel pulsiert (Feder `pop`).
-2. Truhe wackelt 3× (Rotation ±6°, 240 ms gesamt), wechselt auf `reward_chest_open` mit Scale 1,15 → 1,0 (`bouncy`); dahinter `reward_rays`. Mit der 3D-Truhe `reward_chest_3d` (**NEU**) klappt stattdessen der Deckel am Scharnier auf (0 → −105°, Feder `bouncy`), und das goldene Innenleuchten blendet 0 → 1 (240 ms outCubic). Bei „Animationen reduzieren“ steht die Truhe sofort offen.
+2. Truhe wackelt 3× (Rotation ±6°, 240 ms gesamt), wechselt auf `reward_chest_open` mit Scale 1,15 → 1,0 (`bouncy`); dahinter `reward_rays`. Bei „Animationen reduzieren“ steht die Truhe sofort offen.
 3. 24 `fx_coin` steigen auf und fliegen auf Bahnen zur Brix-Pille (600 ms, 20 ms versetzt); die Pille rollt beim Eintreffen hoch; `ui_reward`, `ui_coin`.
 4. Knopf wird „ABGEHOLT“, Kachel „TAG n · ABGEHOLT“.
 
@@ -2236,7 +2236,7 @@ Einstellungs-Schlüssel `accessibility.reduceMotion`. `UiTween`, `UiParticleEmit
 ### 18.11 LOBBY-Bühne
 Eine eigene Kamera rendert eigene Figur und Party-Figuren (höchstens „PARTY n / m“) in eine RenderTexture (1024×1024) auf eigenem Layer. Sie ist nur aktiv, solange die LOBBY sichtbar ist; bei Kompakt/Schmal kleiner (768²).
 
-**3D-Truhe (NEU):** `reward_chest_3d` (Typ `model`, ≈ 1.500–3.000 Dreiecke) rendert eine kleine eigene Kamera in eine RenderTexture (512², transparent) für die LOBBY-Truhe und das Popup „Tägliche Belohnung“. Der Deckel ist ein eigenes Objekt mit Pivot auf der Scharnier-Achse; das Innenleuchten ist ein Emissive-Material. Die Kamera läuft nur, solange Truhe oder Popup sichtbar sind; sonst und bei Budget-Engpässen zeigt die UI die 2D-Truhen `reward_chest_closed/open`.
+**Truhe:** Die Tägliche Belohnung nutzt die 2D-Truhen `reward_chest_closed/open` (Entscheidung: keine 3D-Truhe). Wirkung entsteht über Wackeln, Wechsel auf offen mit Federn, die Strahlen `reward_rays` hinter dem Inhalt und den Münz-Burst.
 
 ### 18.12 Performance-Budgets
 
@@ -2323,14 +2323,14 @@ Heute sehen normale Spieler nur Clips („Spielzug der Runde“) und Live-Zuscha
 | O15 | Glocke-Verlauf | nur Sitzung oder serverseitig | Sitzung (30 Einträge) |
 | O16 | Asset-Liste | `frame_dropdown_menu` nennt „Zur Plaza“ im System-Dropdown; im Plaza-Hub erscheint der Eintrag nie | Text in `data/ui_assets.csv` anpassen |
 | O17 | Fremdes Profil im Match | POST und BESTENLISTEN sind im Match ausgeblendet (**NEU**). | bestätigen |
-| O18 | Konto-Akte für MOD | Laut Plan liest MOD die Konto-Akte nur. Heute sanktioniert MOD aber im Menü Spieler und sperrt Maps in Meldungen. | MOD darf in der Konto-Akte sanktionieren, Maps ausblenden/sperren/freigeben und Staff-Notizen schreiben, sonst Lesen (3a.3); bestätigen |
+| O18 | Konto-Akte für MOD | ~~Laut Plan liest MOD die Konto-Akte nur.~~ | **entschieden:** MOD sanktioniert, blendet Maps aus/sperrt/gibt frei und schreibt Staff-Notizen in der Konto-Akte, sonst Lesen (3a.3); DEV liest den Live-Betrieb nur |
 | O19 | Freigabe beim OWNER | Wer gibt Aktionen eines OWNER über einer Schwelle frei? | ohne Freigabe, im Audit-Log markiert; gibt es mehrere OWNER, gibt ein zweiter OWNER frei |
 | O20 | Chat-Live und Datenschutz | Gehören Flüstern und Party-Funk in den Live-Feed? | nein; nur über Meldungen (3a.2.1) |
 | O21 | Client-Logs | Muss der Spieler dem Hochladen zustimmen? | Toast-Hinweis an den Spieler; rechtlich prüfen |
 | O22 | Support-Antworten | Antwortet der Support heute im Spiel oder in einem externen Werkzeug? | ANTWORTEN in Konto-Akte › Support nur, wenn der Server es anbietet; sonst nur Lesen |
 | O23 | OWNER-Konten | Gleiche Rolle ist gesperrt (3a.4 #6). Wer ändert ein OWNER-Konto? | nur über die Server-Konsole |
-| O24 | Schwellen Splitter und Münzen | Der Plan nennt nur Brix (> 10.000) und Kristalle (> 500). | Vorschlag > 5.000 Splitter, > 20 Münzen |
-| O25 | UI-Katalog und 3D | **Gelöst:** Der UI-Katalog baut für den Typ `model` zwei Prompts: Schritt 1 ein Referenzbild mit Higgsfield · GPT Image 2 (1:1, 2k, transparent), Schritt 2 Bild-zu-3D (Meshy, Tripo, Rodin oder Hunyuan3D) mit Dreiecks-Budget, PBR-Texturen und separatem Deckel. | – |
+| O24 | Schwellen Vier-Augen-Freigabe | ~~Der Plan nennt nur Brix und Kristalle.~~ | **entschieden:** > 10.000 Brix, > 500 Kristalle, > 5.000 Splitter, > 20 Münzen |
+| O25 | Truhe 2D oder 3D | ~~3D-Truhe per RenderTexture~~ | **entschieden:** 2D-Truhe; der Katalog kann 3D-Modelle (Typ `model`) weiterhin, falls später gebraucht |
 
 ### 20.2 Getroffene Entscheidungen
 
@@ -2359,7 +2359,7 @@ Heute sehen normale Spieler nur Clips („Spielzug der Runde“) und Live-Zuscha
 | `UI_KONZEPT.md` | dieses Dokument | Neue Funktionen hier und in der CSV eintragen; **NEU** markieren |
 | `data/ui_migration.csv` | 67 Zeilen: `bereich,titel,klasse,knoepfe,unterdialoge,neuer_ort,zugang_alt,zugang_neu,modi,bedingungen,ebene_alt,ebene_neu,status` | nach jeder Änderung `python3 tools/check_ui_migration.py` |
 | `data/ui_migration.skeleton.csv` | Gerüst aus dem Inventar | neu erzeugen mit `python3 tools/check_ui_migration.py --skeleton`, wenn sich das Inventar ändert |
-| `data/ui_assets.csv` | UI-Assets: `id,name,gruppe,typ,groesse,slice,zustaende,motiv_en,verwendung,basis,name_en`; `typ` ist `nineslice`, `sprite`, `icon`, `particle`, `background`, `mockup` oder **NEU** `model` (3D, `groesse` als Dreiecks-Budget, 20/O25) | IDs werden hier referenziert; umbenennen nur zusammen mit diesem Dokument |
+| `data/ui_assets.csv` | UI-Assets: `id,name,gruppe,typ,groesse,slice,zustaende,motiv_en,verwendung,basis,name_en`; `typ` ist `nineslice`, `sprite`, `icon`, `particle`, `background`, `mockup` oder `model` (3D-Modell mit Dreiecks-Budget in `groesse`; derzeit ohne Eintrag, der Katalog baut dafür Referenzbild- und Bild-zu-3D-Prompts) | IDs werden hier referenziert; umbenennen nur zusammen mit diesem Dokument |
 | `artifact/ui-katalog.template.html` → `artifact/ui-katalog.html` | Prompt-Bibliothek (Midjourney `--sref`, GPT-Image/Firefly, SD/Flux + IP-Adapter) und durchsuchbare Migration | nach Änderungen an `ui_assets.csv` oder `ui_migration.csv`: `python3 tools/build_sheet.py` |
 | `artifact/ui-prototyp.html` | klickbarer Prototyp (Hub, kleines Esc-Menü, Tab-Liste, HUDs, Komponenten, „Animationen reduzieren“) | Werte aus Kapitel 11 und 15 übernehmen |
 | `tools/check_ui_migration.py` | Gerüst- und Prüfmodus: 67/67 Einträge, alle `ui-label` in `knoepfe`, Knopf-Texte aus den Hinweis-Blöcken (z. B. Fußzeile der Einstellungen), alle Zeilen des Esc-Menüs in `neuer_ort`, `neuer_ort` und `zugang_neu` gefüllt, `status` erlaubt (inkl. `entfällt`) | Exit-Code 1 bei Fehlern |

@@ -1586,8 +1586,6 @@ html.has-band{--band-h:2.25rem}
 /* 3D-Truhe */
 .fxl{position:absolute;left:0;top:0;z-index:-1;pointer-events:none}
 #dChest{position:relative;display:grid;justify-items:center;margin:.25rem 0 1rem;min-height:8.4rem}
-#dChest canvas.c3d{display:block;width:26rem;height:15rem;cursor:grab;touch-action:none}
-.chest img.ch{object-fit:contain;filter:drop-shadow(0 .25rem .35rem rgba(0,0,0,.55))}
 .duo.one{grid-template-columns:minmax(0,1fr)}
 
 /* ---------- Prototyp-Steuerung (außerhalb des Spiel-Looks) ---------- */
@@ -1838,7 +1836,6 @@ html.reduced .flash{animation:none!important;opacity:0}
 
 <!-- ===== Prototyp-Steuerung (nicht Teil des Spiels) ===== -->
 <div id="proto"></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 'use strict';
 /* =====================================================================
@@ -2467,142 +2464,7 @@ const FX = {
   }
 };
 
-/* ---------- 3D-Truhe (three.js r128 von cdnjs; ohne THREE oder WebGL: SVG-Truhe) ----------
-   Low-Poly aus Grundkörpern: Korpus und gewölbter Deckel aus warmem Holz, dicke Goldbänder mit dunkler Lippe,
-   Eckkappen, Nieten, Schlossplatte mit rotem Edelstein. Der Deckel ist eine eigene Gruppe mit Scharnier hinten.
-   Licht: warmes Führungslicht, Gegenlicht, Umgebung, Halbkugel und eine warme Umgebungs-Textur für das Gold.
-   Rendert nur, solange der Dialog offen ist; dispose() räumt Kontext, Geometrien, Materialien und Texturen ab. */
-const Chest3D = {
-  snaps: {},
-  ok() {
-    if (this._ok != null) return this._ok;
-    let ok = false;
-    try { if (window.THREE && THREE.WebGLRenderer) { const c = document.createElement('canvas'), gl = c.getContext('webgl') || c.getContext('experimental-webgl'); ok = !!gl; const lc = gl && gl.getExtension('WEBGL_lose_context'); if (lc) lc.loseContext(); } } catch (e) { ok = false; }
-    return (this._ok = ok);
-  },
-  tex(kind) {
-    const c = document.createElement('canvas'); c.width = c.height = 128; const x = c.getContext('2d'), g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
-    if (kind === 'glow') { g.addColorStop(0, 'rgba(255,250,228,1)'); g.addColorStop(0.22, 'rgba(255,216,120,.8)'); g.addColorStop(0.55, 'rgba(255,160,40,.25)'); g.addColorStop(1, 'rgba(255,140,20,0)'); }
-    else { g.addColorStop(0, 'rgba(0,0,0,.8)'); g.addColorStop(0.5, 'rgba(0,0,0,.38)'); g.addColorStop(1, 'rgba(0,0,0,0)'); }
-    x.fillStyle = g; x.fillRect(0, 0, 128, 128); const t = new THREE.CanvasTexture(c); if (kind === 'glow') t.encoding = THREE.sRGBEncoding; return t;
-  },
-  envMap(R) {
-    const T = THREE, c = document.createElement('canvas'); c.width = 256; c.height = 128; const x = c.getContext('2d'), g = x.createLinearGradient(0, 0, 0, 128);
-    g.addColorStop(0, '#FFF4DA'); g.addColorStop(0.42, '#D49A48'); g.addColorStop(0.58, '#4A2A12'); g.addColorStop(1, '#0C0704'); x.fillStyle = g; x.fillRect(0, 0, 256, 128);
-    [[64, 30, 30], [196, 38, 20]].forEach(([cx, cy, rr]) => { const rg = x.createRadialGradient(cx, cy, 0, cx, cy, rr); rg.addColorStop(0, 'rgba(255,255,240,1)'); rg.addColorStop(1, 'rgba(255,240,200,0)'); x.fillStyle = rg; x.fillRect(cx - rr, cy - rr, rr * 2, rr * 2); });
-    const tex = new T.CanvasTexture(c); tex.mapping = T.EquirectangularReflectionMapping; tex.encoding = T.sRGBEncoding;
-    const pm = new T.PMREMGenerator(R), rt = pm.fromEquirectangular(tex); tex.dispose(); pm.dispose(); return rt;
-  },
-  /* Szene aus Grundkörpern */
-  build() {
-    const T = THREE, sc = new T.Scene(), lin = h => new T.Color(h).convertSRGBToLinear();   // Hex-Werte sind sRGB → für die lineare Pipeline umrechnen (sonst wirkt alles ausgewaschen)
-    const std = (col, r, m, x = {}) => new T.MeshStandardMaterial(Object.assign({ color: lin(col), roughness: r, metalness: m, flatShading: true }, x, x.emissive != null ? { emissive: lin(x.emissive) } : {}));
-    const M = { wood: std(0x7A4019, 0.78, 0.02), woodIn: std(0x3E1C08, 0.92, 0), groove: std(0x3A1A08, 0.95, 0), gold: std(0xFBB21D, 0.32, 0.78, { emissive: 0x3A1C00, emissiveIntensity: 0.5 }), goldHi: std(0xFFD148, 0.28, 0.78, { emissive: 0x4A2A00, emissiveIntensity: 0.45 }), lip: std(0xA85200, 0.42, 0.85), gem: std(0xC71E15, 0.14, 0.25, { emissive: 0x6A0804, emissiveIntensity: 0.9 }), coin: std(0xFFC531, 0.28, 0.95, { emissive: 0x8A5200, emissiveIntensity: 0.55 }) };
-    const W = 2.0, H = 1.0, D = 1.3, t = 0.1, root = new T.Group(), chest = new T.Group(), lid = new T.Group();
-    sc.add(root); root.add(chest);
-    const box = (w, h, d, m, x, y, z, p = chest) => { const o = new T.Mesh(new T.BoxGeometry(w, h, d), m); o.position.set(x, y, z); p.add(o); return o; };
-    const stud = (x, y, z, p = chest) => { const s = new T.Mesh(new T.IcosahedronGeometry(0.042, 0), M.goldHi); s.position.set(x, y, z); p.add(s); };
-    // Korpus aus Wänden (innen sichtbar, wenn offen) und Bretter-Fugen
-    box(W, t, D, M.woodIn, 0, t / 2, 0); box(W, H, t, M.wood, 0, H / 2, D / 2 - t / 2); box(W, H, t, M.wood, 0, H / 2, -D / 2 + t / 2);
-    box(t, H, D - 2 * t, M.wood, -W / 2 + t / 2, H / 2, 0); box(t, H, D - 2 * t, M.wood, W / 2 - t / 2, H / 2, 0);
-    box(W - 2 * t, H - 0.1, 0.02, M.woodIn, 0, H / 2, D / 2 - t - 0.01); box(W - 2 * t, H - 0.1, 0.02, M.woodIn, 0, H / 2, -D / 2 + t + 0.01);
-    [0.37, 0.68].forEach(k => { box(W - 0.08, 0.028, 0.02, M.groove, 0, H * k, D / 2 + 0.006); box(W - 0.08, 0.028, 0.02, M.groove, 0, H * k, -D / 2 - 0.006); box(0.02, 0.028, D - 0.08, M.groove, -W / 2 - 0.006, H * k, 0); box(0.02, 0.028, D - 0.08, M.groove, W / 2 + 0.006, H * k, 0); });
-    // Sockel und obere Lippe (dunkles Gold), Goldbänder mit Nieten, Eckkappen
-    box(W + 0.12, 0.12, D + 0.12, M.lip, 0, 0.06, 0);
-    box(W + 0.08, 0.08, 0.1, M.lip, 0, H - 0.04, D / 2 + 0.01); box(W + 0.08, 0.08, 0.1, M.lip, 0, H - 0.04, -D / 2 - 0.01); box(0.1, 0.08, D + 0.08, M.lip, -W / 2 - 0.01, H - 0.04, 0); box(0.1, 0.08, D + 0.08, M.lip, W / 2 + 0.01, H - 0.04, 0);
-    [-0.56, 0.56].forEach(x => { box(0.22, H - 0.1, 0.05, M.gold, x, H / 2 + 0.02, D / 2 + 0.025); box(0.22, H - 0.1, 0.05, M.gold, x, H / 2 + 0.02, -D / 2 - 0.025); [0.3, 0.62].forEach(y => stud(x, y, D / 2 + 0.06)); });
-    [-1, 1].forEach(sx => [-1, 1].forEach(sz => { box(0.2, 0.26, 0.2, M.goldHi, sx * W / 2, 0.17, sz * D / 2); box(0.2, 0.2, 0.2, M.goldHi, sx * W / 2, H - 0.12, sz * D / 2); stud(sx * (W / 2 + 0.1), 0.17, sz * (D / 2 - 0.02)); }));
-    // Schlossplatte mit Edelstein
-    box(0.42, 0.44, 0.06, M.gold, 0, H - 0.31, D / 2 + 0.035); box(0.3, 0.32, 0.03, M.lip, 0, H - 0.31, D / 2 + 0.07); box(0.05, 0.1, 0.02, M.groove, 0, H - 0.43, D / 2 + 0.085);
-    const gem = new T.Mesh(new T.OctahedronGeometry(0.1, 0), M.gem); gem.scale.set(1, 1.25, 0.55); gem.position.set(0, H - 0.27, D / 2 + 0.1); chest.add(gem);
-    // Inhalt: Münzberg und lose Münzen
-    const pile = new T.Mesh(new T.SphereGeometry(1, 12, 6, 0, Math.PI * 2, 0, Math.PI / 2), M.coin); pile.scale.set(W * 0.42, 0.4, D * 0.36); pile.position.set(0, H - 0.36, 0); chest.add(pile);
-    for (let i = 0; i < 9; i++) { const c = new T.Mesh(new T.CylinderGeometry(0.1, 0.1, 0.03, 10), M.coin), a = i * 2.4, rr = 0.15 + (i % 3) * 0.17; c.position.set(Math.cos(a) * rr * 1.7, H - 0.02 + (i % 2) * 0.03, Math.sin(a) * rr * 0.75); c.rotation.set(0.35 * Math.sin(i), a, 0.45 * Math.cos(i * 1.7)); chest.add(c); }
-    // Deckel: Gruppe mit Scharnier hinten oben, Wölbung als halber Zylinder
-    lid.position.set(0, H, -D / 2); chest.add(lid);
-    box(W, 0.14, D, [M.wood, M.wood, M.wood, M.woodIn, M.wood, M.wood], 0, 0.07, D / 2, lid);   // Unterseite (innen) dunkler
-    const dome = (r, len, m, x) => { const g = new T.CylinderGeometry(r, r, len, 10, 1, false, 0, Math.PI); g.rotateZ(Math.PI / 2); g.scale(1, 0.52, 1); const o = new T.Mesh(g, m); o.position.set(x, 0.14, D / 2); lid.add(o); return o; };
-    dome(D / 2, W, M.wood, 0); dome(D / 2 + 0.02, 0.07, M.lip, -W / 2 + 0.035); dome(D / 2 + 0.02, 0.07, M.lip, W / 2 - 0.035);
-    [-0.56, 0.56].forEach(x => { dome(D / 2 + 0.036, 0.22, M.gold, x); box(0.22, 0.16, 0.05, M.gold, x, 0.08, D + 0.02, lid); [0.5, 1.1, 1.85, 2.6].forEach(a => stud(x, 0.14 + Math.sin(a) * (D / 2 + 0.06) * 0.52, D / 2 + Math.cos(a) * (D / 2 + 0.06), lid)); });
-    box(W + 0.08, 0.08, 0.1, M.lip, 0, 0.04, D + 0.01, lid); box(0.2, 0.26, 0.06, M.gold, 0, -0.06, D + 0.04, lid);
-    // Glühen innen (Punktlicht + additiver Sprite), Bodenschatten
-    const light = new T.PointLight(lin(0xFFB347), 0, 5, 2); light.position.set(0, H + 0.1, 0.1); chest.add(light);
-    const glow = new T.Sprite(new T.SpriteMaterial({ map: this.tex('glow'), color: 0xFFD27A, blending: T.AdditiveBlending, transparent: true, depthWrite: false, opacity: 0 })); glow.scale.set(2.8, 1.7, 1); glow.position.set(0, H + 0.22, 0.15); chest.add(glow);
-    const sh = new T.Mesh(new T.PlaneGeometry(3.6, 2.5), new T.MeshBasicMaterial({ map: this.tex('shadow'), transparent: true, depthWrite: false, opacity: 0.65 })); sh.rotation.x = -Math.PI / 2; sh.position.y = 0.004; root.add(sh);
-    // Licht: Halbkugel, Umgebung, warmes Führungslicht, Gegenlicht
-    sc.add(new T.HemisphereLight(lin(0xFFE8C4), lin(0x2A1406), 0.6)); sc.add(new T.AmbientLight(lin(0xFFD9A6), 0.16));
-    const key = new T.DirectionalLight(lin(0xFFD49A), 1.25); key.position.set(-3, 4.5, 4); sc.add(key);
-    const rim = new T.DirectionalLight(lin(0xFF9F45), 1.2); rim.position.set(3.2, 2.6, -4); sc.add(rim);
-    return { sc, root, chest, lid, light, glow, H };
-  },
-  /* Instanz im Host-Element: { el, screenPos, claim, resize, dispose } */
-  create(host, o = {}) {
-    if (!this.ok()) return null;
-    const T = THREE; let R;
-    try { R = new T.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance', preserveDrawingBuffer: !!o.snap }); } catch (e) { this._ok = false; return null; }
-    R.setClearColor(0x000000, 0); R.outputEncoding = T.sRGBEncoding; R.toneMapping = T.ACESFilmicToneMapping; R.toneMappingExposure = 1.12;
-    R.setPixelRatio(o.snap ? 2 : Math.min(2, window.devicePixelRatio || 1));
-    const env = this.envMap(R), s = this.build(); s.sc.environment = env.texture;
-    const cam = new T.PerspectiveCamera(28, 1, 0.1, 50), Z0 = 6.4, Y0 = 2.2, look = new T.Vector3(0, 0.86, 0);
-    const cv = R.domElement; cv.className = 'c3d'; cv.setAttribute('aria-hidden', 'true'); if (o.snap) cv.style.cssText = 'width:100%;height:100%;display:block'; host.appendChild(cv);
-    const OPEN = 1.95, st = { t: 0, open: o.open ? 1 : 0, claimT: null, hx: 0, hy: 0, tx: 0, ty: 0, glow: o.open ? 0.55 : 0, push: 0, burst: false, raf: 0, last: 0, dead: false };
-    const outBack = p => { const c1 = 1.4, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); }, outCubic = p => 1 - Math.pow(1 - p, 3), inOut = p => p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
-    const size = () => { const w = cv.clientWidth || 300, h = cv.clientHeight || 180; R.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); };
-    const still = () => o.still || S.reduced;
-    const pose = dt => {
-      st.t += dt; let sy = 1, sxz = 1, lidA = st.open * OPEN, glow = st.glow, push = st.push;
-      if (st.claimT != null) {
-        const k = st.t - st.claimT;
-        if (k < 0.18) { const p = inOut(k / 0.18); sy = 1 - 0.13 * p; sxz = 1 + 0.07 * p; }            // Ausholen (Stauchen)
-        else if (k < 0.36) { const p = outCubic((k - 0.18) / 0.18); sy = 0.87 + 0.21 * p; sxz = 1.07 - 0.1 * p; }   // Strecken
-        else if (k < 0.72) { const p = outBack((k - 0.36) / 0.36); sy = 1.08 - 0.08 * p; sxz = 0.97 + 0.03 * p; }   // Setzen
-        lidA = OPEN * outBack(clamp((k - 0.18) / 0.6, 0, 1));                                            // Deckel springt auf (outBack, 600 ms)
-        if (!st.burst && k >= 0.3) { st.burst = true; o.onBurst && o.onBurst(api.screenPos(1.05)); }
-        glow = k < 0.24 ? 0 : k < 0.7 ? (k - 0.24) / 0.46 : k < 1.6 ? 1 - 0.45 * inOut((k - 0.7) / 0.9) : 0.55;
-        push = k < 0.18 ? 0 : k < 0.7 ? outCubic((k - 0.18) / 0.52) : k < 1.8 ? 1 - 0.55 * inOut((k - 0.7) / 1.1) : 0.45;
-        if (k > 1.8) { st.claimT = null; st.open = 1; st.glow = 0.55; st.push = 0.45; }
-      }
-      const calm = still();
-      if (!calm) { st.tx += (st.hx - st.tx) * Math.min(1, dt * 6); st.ty += (st.hy - st.ty) * Math.min(1, dt * 6); }
-      s.chest.position.y = calm ? 0 : Math.sin(st.t * 1.6) * 0.055;
-      s.chest.rotation.y = (calm ? -0.34 : Math.sin(st.t * 0.55) * 0.21 - 0.1) + st.tx * 0.35;   // Pendeln ±12°, Hover dreht zum Zeiger
-      s.chest.rotation.x = st.ty * 0.16;
-      s.chest.scale.set(sxz, sy, sxz); s.lid.rotation.x = -lidA;
-      const fl = calm ? 1 : 0.93 + 0.07 * Math.sin(st.t * 7.3) * Math.sin(st.t * 3.1);
-      s.light.intensity = glow * 2.6 * fl; s.glow.material.opacity = Math.min(1, glow * 1.05) * fl; const gs = 1 + glow * 0.35; s.glow.scale.set(2.8 * gs, 1.7 * gs, 1);
-      cam.position.set(0, Y0 - push * 0.2, Z0 - push * 0.8); cam.lookAt(look);
-    };
-    const draw = () => R.render(s.sc, cam);
-    const frame = now => { if (st.dead) return; const dt = st.last ? Math.min(0.05, (now - st.last) / 1000) : 0; st.last = now; pose(dt); draw(); st.raf = requestAnimationFrame(frame); };
-    const api = {
-      el: cv,
-      screenPos(yk = 0.7) { const v = new T.Vector3(0, s.H * yk, 0); s.chest.localToWorld(v); v.project(cam); const r = cv.getBoundingClientRect(); return { x: r.left + (v.x + 1) / 2 * r.width, y: r.top + (1 - v.y) / 2 * r.height, w: r.width, h: r.height }; },
-      claim() { if (still()) { st.open = 1; st.glow = 0.55; st.push = 0; pose(0); draw(); o.onBurst && o.onBurst(api.screenPos(1.05)); return; } st.claimT = st.t; st.burst = false; },
-      resize() { size(); if (!st.raf) { pose(0); draw(); } },
-      dispose() { st.dead = true; cancelAnimationFrame(st.raf); st.raf = 0; window.removeEventListener('resize', api.resize); s.sc.traverse(n => { if (n.geometry) n.geometry.dispose(); if (n.material) [].concat(n.material).forEach(m => { if (m.map) m.map.dispose(); m.dispose(); }); }); env.dispose(); R.dispose(); R.forceContextLoss(); cv.remove(); }
-    };
-    size();
-    cv.addEventListener('pointermove', e => { const r = cv.getBoundingClientRect(); st.hx = clamp((e.clientX - r.left) / r.width * 2 - 1, -1, 1); st.hy = clamp((e.clientY - r.top) / r.height * 2 - 1, -1, 1); });
-    cv.addEventListener('pointerleave', () => { st.hx = 0; st.hy = 0; });
-    window.addEventListener('resize', api.resize);
-    if (still()) { pose(0); draw(); } else st.raf = requestAnimationFrame(frame);
-    return api;
-  },
-  /* Standbild für das Lobby-Widget (einmal gerendert, dann als PNG gecacht – kein dauerhafter WebGL-Kontext) */
-  snap(open) {
-    const k = open ? 1 : 0; if (this.snaps[k] !== undefined) return this.snaps[k];
-    if (!this.ok()) return (this.snaps[k] = null);
-    const host = document.createElement('div'); host.style.cssText = 'position:fixed;left:-10000px;top:0;width:180px;height:150px;pointer-events:none'; document.body.appendChild(host);
-    let url = null; try { const c = this.create(host, { open, snap: true, still: true }); if (c) { url = c.el.toDataURL('image/png'); c.dispose(); } } catch (e) { url = null; }
-    host.remove(); return (this.snaps[k] = url);
-  }
-};
-function chestArt(open) {
-  const u = Chest3D.snaps[open ? 1 : 0];
-  if (u) return `<img class="ch" src="${u}" alt="" aria-hidden="true">`;
-  if (u === undefined && window.THREE) later(80, () => { const url = Chest3D.snap(open), c = $('#hub .chest .ch'); if (url && c && S.daily.claimable !== open) c.outerHTML = `<img class="ch" src="${url}" alt="" aria-hidden="true">`; });
-  return ART.chest(open);
-}
+function chestArt(open) { return ART.chest(open); }
 
 /* =====================================================================
    Zustand, Beispieldaten (frei erfunden) und UI-Systeme
@@ -4943,24 +4805,21 @@ function tutorialWelcome() {
 const DAYS = [['brix', '200'], ['brix', '300'], ['muenze', '1 Münze'], ['brix', '500'], ['splitter', '50'], ['brix', '800'], ['kristalle', '100']];
 function openDaily(after) {
   if (!S.flags.daily) { toast('Die Tägliche Belohnung ist gerade ausgeschaltet.', '', 'gift'); after && after(); return; }
-  let rays = null, c3 = null, claimed = !S.daily.claimable, to = 0;
+  let rays = null, claimed = !S.daily.claimable, to = 0;
   const tgt = () => $('#hub.show [data-cur="brix"]') ? FX.at('#hub [data-cur="brix"]') : { x: innerWidth - rem(6), y: rem(2.5) };
   const burst = p => { FX.ring(p.x, p.y, { r: 260 }); FX.sparkle(p.x, p.y, { n: 26, spread: 120 }); FX.coins(p.x, p.y - rem(0.5), { n: 30, target: tgt(), onHit: k => { if (k === 1 && S.wallet.brix !== to) setWallet('brix', to, { dur: 1300 }); } }); if (S.reduced) setWallet('brix', to); else later(2600, () => { if (S.wallet.brix !== to) setWallet('brix', to, { dur: 900 }); }); };   // Sicherheitsnetz: Gutschrift auch ohne Animationsframes (Tab im Hintergrund)
-  const d = openDlg({ popup: true, ornate: true, title: 'Tägliche Belohnung', cls: 'wide', body: `<p class="sub">Serie: ${S.daily.got} Tage in Folge · Morgen geht es weiter</p><div id="dChest">${Chest3D.ok() ? '' : ART.chest(claimed, 'chest-big')}</div><div class="days">${DAYS.map(([c, v], i) => `<div class="day ${i < S.daily.got ? 'got' : ''} ${i === S.daily.got && !claimed ? 'today' : ''}" id="day${i}"><b>TAG ${i + 1}</b>${ART.cur(c)}<span>${v}</span></div>`).join('')}</div>`,
+  const d = openDlg({ popup: true, ornate: true, title: 'Tägliche Belohnung', cls: 'wide', body: `<p class="sub">Serie: ${S.daily.got} Tage in Folge · Morgen geht es weiter</p><div id="dChest">${ART.chest(claimed, 'chest-big')}</div><div class="days">${DAYS.map(([c, v], i) => `<div class="day ${i < S.daily.got ? 'got' : ''} ${i === S.daily.got && !claimed ? 'today' : ''}" id="day${i}"><b>TAG ${i + 1}</b>${ART.cur(c)}<span>${v}</span></div>`).join('')}</div>`,
     foot: btn('SCHLIESSEN', { v: 'dark', attr: 'data-dclose' }) + (claimed ? btn('ABGEHOLT', { dis: true }) : btn('ABHOLEN', { icon: 'gift', attr: 'data-claim', size: 'lg' })),
     onOpen: dd => {
-      const host = dd.box.querySelector('#dChest');
-      if (Chest3D.ok()) { c3 = Chest3D.create(host, { open: claimed, onBurst: burst }); if (!c3) host.innerHTML = ART.chest(claimed, 'chest-big'); }
-      rays = FX.rays(() => c3 ? c3.screenPos(0.62) : FX.at(dd.box.querySelector('#dChest')), { r: c3 ? 360 : 300, host: dd.box });   // Strahlen hinter Truhe und Tagen
+      rays = FX.rays(() => FX.at(dd.box.querySelector('#dChest')), { r: 300, host: dd.box });   // Strahlen hinter Truhe und Tagen
     },
-    onClose: () => { rays && rays.stop(); if (c3) { c3.dispose(); c3 = null; } after && after(); } });
+    onClose: () => { rays && rays.stop(); after && after(); } });
   const b = d.box.querySelector('[data-claim]');
   if (b) b.addEventListener('click', () => {
     if (b.getAttribute('aria-disabled') === 'true') return;
     b.setAttribute('aria-disabled', 'true'); b.querySelector('span:not(.shn)').textContent = 'ABGEHOLT'; const gi = b.querySelector('svg'); if (gi) gi.remove();
     to = S.wallet.brix + 500;
-    if (c3) c3.claim();
-    else { const ch = d.box.querySelector('#dChest'); ch.innerHTML = ART.chest(true, 'chest-big'); ch.querySelector('svg').style.animation = 'rewardPop .6s var(--e-spring)'; burst(FX.at(ch)); }
+    const ch = d.box.querySelector('#dChest'); ch.innerHTML = ART.chest(true, 'chest-big'); ch.querySelector('svg').style.animation = 'rewardPop .6s var(--e-spring)'; burst(FX.at(ch));
     const day = d.box.querySelector('#day' + S.daily.got); day.classList.remove('today'); day.classList.add('got'); day.setAttribute('aria-label', `Tag ${S.daily.got + 1}, abgeholt`);
     S.daily.got++; S.daily.claimable = false; tabBadges();
     const sb = d.box.querySelector('.sub'); if (sb) sb.textContent = `Serie: ${S.daily.got} Tage in Folge · Morgen geht es weiter`;
