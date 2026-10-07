@@ -414,12 +414,45 @@ button.card:active,.card.click:active{transform:translateY(.0625rem) scale(.985)
 .tile .trow .tierlbl{font-size:.8125rem;gap:.25rem}
 .tile .trow .tierlbl .ic{width:.9rem;height:.9rem}
 .tile .one1{font-size:.75rem}
+.tile .pr{gap:.3rem;min-height:1.4em}
+.tile .badges .serial{height:1.25rem;font-size:.75rem}
+/* Seltenheits-Filter (Symbol-Chips mit Tooltip) und Legende */
+.rarbar{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem}
+.rarbar>.lbl{margin:0 .35rem 0 0}
+.tchip{width:2.25rem;padding:0;justify-content:center;color:var(--tier)}
+.tchip .ic{width:1.15rem;height:1.15rem}
+.tchip.t-divine .ic{color:#FFF0C0;filter:drop-shadow(0 0 .2rem rgba(255,230,160,.6))}
+.tchip.on{color:var(--glyph)}
+@media (hover:hover){.tchip:hover:not(.on):not([aria-disabled=true]){color:var(--tier)}}
+.tchip.on .ic{filter:none;color:var(--glyph)}
+.tchip[data-tip]:hover::after,.tchip[data-tip]:focus-visible::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + .45rem);transform:translateX(-50%);padding:.4rem .6rem;background:#0B0906;box-shadow:inset 0 0 0 .0625rem var(--frame),0 .25rem .6rem rgba(0,0,0,.6);color:var(--text);font:700 .8125rem/1 var(--f-display);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;pointer-events:none;z-index:6}
+.rsep{width:.0625rem;height:1.5rem;margin:0 .3rem;background:var(--frame-dim)}
+.rarbar .ibtn{margin-left:.25rem}
+.tlegend{display:grid;gap:.45rem;margin-top:.7rem;padding:.75rem .9rem;background:rgba(0,0,0,.35);box-shadow:inset 0 0 0 .0625rem var(--frame-faint)}
+.tlegend .tl{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem .5rem}
+.tlegend .arr{width:.8rem;height:.8rem;color:var(--text-3)}
+.wsl .lrow{gap:.6rem}
+.wsl .tierlbl{font-size:.75rem}
+.wsl .tierlbl .ic{width:.85rem;height:.85rem}
+.wsl .stars .ic{width:.8rem;height:.8rem}
+/* Komponenten: Seltenheits-Leiter */
+.rladder{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:.75rem}
+.rladder .tile,.rseries .tile{cursor:default;min-height:10.25rem}
+.rladder .tile .art{width:100%;max-width:5.5rem}
+.rladder .tile .fx,.rseries .tile .fx{font-size:.8125rem;line-height:1.25;color:var(--text-3)}
+.rseries{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:.75rem;align-items:stretch}
+.rseries .note{grid-column:3/-1;align-self:center}
+.rstep{display:flex;align-items:center;gap:.5rem;font:700 .8125rem/1 var(--f-display);letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
+.rstep i{flex:1;height:.125rem;background:linear-gradient(90deg,var(--t-basic-2),var(--t-common),var(--t-uncommon),var(--t-rare),var(--t-epic),var(--t-heroic),var(--t-legendary),var(--t-mythic),#FFF0C8,var(--t-unique))}
 /* Seltenheits-Effekte (nur transform/opacity/filter/background-position; „Animationen reduzieren“: statisch).
    Legendär: Gold-Schimmer · Mythisch: flackernde Glut + Funken beim Hover · Göttlich: Prisma-Schimmer + Halo · Einzigartig: langsamer Gold-Glanz */
 .tile{--toct:polygon(.6rem 0,calc(100% - .6rem) 0,100% .6rem,100% calc(100% - .6rem),calc(100% - .6rem) 100%,.6rem 100%,0 calc(100% - .6rem),0 .6rem)}
-:is(.tile.t-legendary,.tile.t-unique,.tile.t-divine)::after{content:"";position:absolute;inset:.1875rem;clip-path:var(--toct);pointer-events:none;mix-blend-mode:screen;background:linear-gradient(110deg,transparent 0 40%,rgba(255,236,170,.28) 47%,rgba(255,255,240,.5) 50%,rgba(255,236,170,.28) 53%,transparent 60% 100%) 100% 0/300% 100% no-repeat;animation:tShine 3.6s var(--e-io) infinite}
+:is(.tile.t-legendary,.tile.t-unique,.tile.t-divine)::after{content:"";position:absolute;inset:.1875rem;clip-path:var(--toct);pointer-events:none;mix-blend-mode:screen;background:linear-gradient(110deg,transparent 0 43%,rgba(255,236,170,.26) 47%,rgba(255,255,240,.46) 50%,rgba(255,236,170,.26) 53%,transparent 57% 100%) 100% 0/300% 100% no-repeat;animation:tShine 3.6s var(--e-io) infinite}
 .tile.t-unique::after{background-image:linear-gradient(110deg,transparent 0 44%,rgba(255,214,120,.3) 50%,transparent 56% 100%);animation-duration:6.5s}
-.tile.t-divine::after{background-image:linear-gradient(110deg,transparent 0 28%,rgba(255,160,210,.32) 36%,rgba(255,236,160,.45) 43%,rgba(255,255,255,.6) 50%,rgba(150,236,255,.45) 57%,rgba(196,166,255,.32) 64%,transparent 72% 100%);animation:tShine 4.2s linear infinite,tHue 7s linear infinite}
+.tile.t-divine::after{background-image:linear-gradient(110deg,transparent 0 40%,rgba(255,160,210,.18) 43.5%,rgba(255,236,160,.26) 47%,rgba(255,255,255,.38) 50%,rgba(150,236,255,.26) 53%,rgba(196,166,255,.18) 56.5%,transparent 60% 100%);animation:tShine 4.2s linear infinite,tHue 7s linear infinite}
+.tile:has(>.lock)::after{animation:none;opacity:0}
+.tile .ty,.tile .life,.tile .pr{text-shadow:0 .0625rem .15rem rgba(0,0,0,.85)}
+:is(.tile.t-divine,.tile.t-legendary,.tile.s-exclusive) .ty{color:var(--text-2)}
 @keyframes tShine{0%{background-position:100% 0}60%,100%{background-position:0 0}}
 @keyframes tHue{to{filter:hue-rotate(360deg)}}
 :is(.tile.t-mythic,.tile.t-divine){isolation:isolate}
@@ -430,11 +463,11 @@ button.card:active,.card.click:active{transform:translateY(.0625rem) scale(.985)
 /* Glut-Funken (Mythisch) beim Hover über der Kachel, bei der Enthüllung im Detail */
 .tile.t-mythic .art{position:relative}
 .tile.t-mythic .art::after,.detail.t-mythic .art::after{content:"";position:absolute;inset:-.5rem -.75rem 0;pointer-events:none;opacity:0;
-  background:radial-gradient(circle,#FFE0A0 0 .07rem,rgba(255,110,40,.75) .1rem,transparent .2rem),radial-gradient(circle,#FFD27A 0 .06rem,rgba(255,90,30,.7) .09rem,transparent .18rem),radial-gradient(circle,#FFE8B8 0 .07rem,rgba(255,130,50,.7) .1rem,transparent .2rem),radial-gradient(circle,#FFC060 0 .05rem,rgba(255,80,30,.7) .08rem,transparent .16rem),radial-gradient(circle,#FFE0A0 0 .06rem,rgba(255,110,40,.7) .09rem,transparent .18rem);
-  background-size:.45rem .45rem;background-repeat:no-repeat;background-position:18% 105%,42% 112%,63% 104%,80% 115%,30% 120%;
+  background:radial-gradient(closest-side,#FFE6B0 0 28%,rgba(255,110,40,.8) 48%,transparent),radial-gradient(closest-side,#FFD27A 0 24%,rgba(255,90,30,.75) 44%,transparent),radial-gradient(closest-side,#FFEFC8 0 30%,rgba(255,130,50,.75) 50%,transparent),radial-gradient(closest-side,#FFC060 0 22%,rgba(255,80,30,.75) 42%,transparent),radial-gradient(closest-side,#FFE0A0 0 26%,rgba(255,110,40,.75) 46%,transparent);
+  background-size:.4rem .4rem,.32rem .32rem,.42rem .42rem,.3rem .3rem,.36rem .36rem;background-repeat:no-repeat;background-position:18% 105%,42% 112%,63% 104%,80% 115%,30% 120%;
   -webkit-mask-image:linear-gradient(to top,transparent,#000 18%,#000 55%,transparent);mask-image:linear-gradient(to top,transparent,#000 18%,#000 55%,transparent)}
 @media (hover:hover){.tile.t-mythic:hover .art::after{opacity:1;animation:tEmbers 1.8s linear infinite}}
-.detail.t-mythic .art::after{opacity:1;inset:-1rem 0 0;background-size:.6rem .6rem;animation:tEmbers 2.6s linear infinite}
+.detail.t-mythic .art::after{opacity:1;inset:-1rem 0 0;background-size:.7rem .7rem,.55rem .55rem,.75rem .75rem,.5rem .5rem,.62rem .62rem;animation:tEmbers 2.6s linear infinite}
 @keyframes tEmbers{0%{background-position:18% 105%,42% 112%,63% 104%,80% 115%,30% 120%}100%{background-position:24% -10%,36% -30%,68% 0%,74% -20%,34% 10%}}
 .tile .art{width:5.5rem;height:4.25rem;display:grid;place-items:center}
 .tile .art svg{width:100%;height:100%}
@@ -752,8 +785,23 @@ body.blur-hub #hud{opacity:0;visibility:hidden;transition:opacity var(--d3),visi
 .statbars .sb span:last-child{text-align:right;font:700 1rem/1 var(--f-display);color:var(--text-gold)}
 .lifechips .chip{flex:1 1 0;justify-content:center}
 .detail h3{margin:0;font:800 2rem/1 var(--f-display);letter-spacing:.04em;text-transform:uppercase}
-.detail .art{height:10rem;display:grid;place-items:center;margin:.5rem 0}
-.detail .art svg{height:100%;width:auto;max-width:100%}
+.detail .art{position:relative;height:10rem;display:grid;place-items:center;margin:.5rem 0}
+.detail .art svg{position:relative;z-index:1;height:100%;width:auto;max-width:100%}
+/* Enthüllung im Detail: Legendär Goldschein · Mythisch Glut + Funken · Göttlich feine Strahlen + Prisma-Halo · Einzigartig graviertes Siegel */
+.detail:is(.t-legendary,.t-mythic,.t-divine,.t-unique) .art::before{content:"";position:absolute;left:50%;top:50%;width:13rem;height:13rem;margin:-6.5rem 0 0 -6.5rem;border-radius:50%;pointer-events:none}
+.detail.t-legendary .art::before{background:radial-gradient(closest-side,rgba(255,206,90,.34),rgba(255,180,40,.1) 60%,transparent)}
+.detail.t-mythic .art::before{background:radial-gradient(closest-side,rgba(255,96,40,.5),rgba(199,30,21,.24) 55%,transparent);animation:tEmber 2.3s linear infinite}
+.detail.t-divine .art::before{width:17rem;height:17rem;margin:-8.5rem 0 0 -8.5rem;background:repeating-conic-gradient(from 0deg,rgba(255,246,220,.34) 0 1.1deg,transparent 1.1deg 8deg);-webkit-mask-image:radial-gradient(closest-side,#000 16%,rgba(0,0,0,.55) 42%,transparent 72%);mask-image:radial-gradient(closest-side,#000 16%,rgba(0,0,0,.55) 42%,transparent 72%);animation:tSpin 48s linear infinite}
+.detail.t-divine .art::after{content:"";position:absolute;left:50%;top:50%;width:10rem;height:10rem;margin:-5rem 0 0 -5rem;border-radius:50%;pointer-events:none;background:radial-gradient(closest-side,rgba(255,255,240,.42),rgba(255,206,236,.2) 45%,rgba(150,236,255,.14) 66%,transparent);animation:tHue 7s linear infinite}
+.detail.t-unique .art::before{width:11rem;height:11rem;margin:-5.5rem 0 0 -5.5rem;background:var(--i-seal-mark) center/100% no-repeat;opacity:.55}
+@keyframes tSpin{to{transform:rotate(1turn)}}
+.inote{margin:.1rem 0 .5rem;font-size:.9375rem;color:var(--text-3)}
+.uniq{display:grid;gap:.5rem;margin:0 0 .9rem;padding:.7rem .8rem;background:linear-gradient(#15100A,#0B0906);box-shadow:inset 0 0 0 .0625rem rgba(226,184,90,.45)}
+.uniq .row{gap:.5rem}
+.uniq .own{font-size:.9375rem;color:var(--text-2)}
+.uniq .own b{color:var(--text)}
+.uniq ol{margin:0;padding:0;list-style:none;display:grid;gap:.2rem;font-size:.875rem;color:var(--text-3)}
+.uniq ol li::before{content:"";display:inline-block;width:.35rem;height:.35rem;margin:0 .45rem .12rem 0;transform:rotate(45deg);background:var(--t-unique);opacity:.6}
 .gbanner{display:flex;align-items:center;gap:1rem;padding:.75rem 1rem;margin-bottom:1rem;border-image:var(--i-chip-on) 7 fill / 0.4375rem / 0 stretch;color:var(--glyph);font:700 1.125rem/1 var(--f-display);letter-spacing:.06em;text-transform:uppercase}
 .board{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:.55rem;max-width:46rem;margin:0 auto}
 .bf{position:relative;aspect-ratio:1;cursor:pointer;perspective:40rem}
@@ -761,11 +809,10 @@ body.blur-hub #hud{opacity:0;visibility:hidden;transition:opacity var(--d3),visi
 .bf .fr,.bf .bk{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:grid;place-items:center}
 .bf .fr{border-image:var(--i-gold) 16 fill / .75rem / 0 stretch;color:var(--glyph);font:800 1.875rem/1 var(--f-display);padding-bottom:.25rem;text-shadow:0 .0625rem 0 var(--glyph-hl)}
 .bf:hover:not(.open) .fr{border-image-source:var(--i-gold-h)}
-.bf .bk{transform:rotateY(180deg);border-image:var(--i-tier-common) 12 fill / 0.75rem / 0 stretch}
+.bf .bk{transform:rotateY(180deg);border-image:var(--tier-img,var(--i-tier-common)) 12 fill / 0.75rem / 0 stretch}
 .bf .bk svg{width:60%;height:60%}
 .bf.open .flip{transform:rotateY(180deg)}
 .bf.open{cursor:default}
-.bf.open.t-uncommon .bk{border-image-source:var(--i-tier-uncommon)} .bf.open.t-rare .bk{border-image-source:var(--i-tier-rare)} .bf.open.t-epic .bk{border-image-source:var(--i-tier-epic)} .bf.open.t-jackpot .bk{border-image-source:var(--i-tier-jackpot)}
 .bf:active:not(.open) .flip{transform:scale(.94)}
 .tierlist{display:grid;gap:.45rem}
 .tierlist .row{justify-content:space-between;font-size:1rem}
@@ -1519,7 +1566,7 @@ body.blur-hub #hud{opacity:0;visibility:hidden;transition:opacity var(--d3),visi
 .mailprev .gift{display:flex;align-items:center;gap:.5rem;padding:.5rem .6rem;background:rgba(255,190,60,.08);border-left:.1875rem solid var(--gold-1)}
 .mailprev .gift .wbox{width:2.5rem;height:2rem}
 .ipick{display:grid;grid-template-columns:minmax(0,1fr) 20rem;gap:1.25rem}
-.ipgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(8.5rem,1fr));gap:.5rem;max-height:25rem;overflow:auto;padding:.25rem;align-content:start;scrollbar-width:thin;scrollbar-color:#6A3F0A transparent}
+.ipgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(8.5rem,1fr));gap:.5rem;max-height:25rem;overflow:auto;padding:.5rem;align-content:start;scrollbar-width:thin;scrollbar-color:#6A3F0A transparent}
 .ipgrid .tile{padding:.6rem .5rem .55rem;gap:.25rem}
 .ipgrid .tile .art{width:4.25rem;height:3.25rem}
 .ipgrid .tile .nm{font-size:.9375rem}
@@ -1726,6 +1773,8 @@ html.reduced .hitm.go,html.reduced .dmgarc.go{opacity:.9}
 html.reduced .low .vign,html.reduced .vign.on{animation:none!important;opacity:.6}
 html.reduced .btn:hover,html.reduced .ibtn:hover,html.reduced .card:hover,html.reduced .tile:hover,html.reduced .mtile:hover,html.reduced .btn:active,html.reduced .ibtn:active,html.reduced .tab:hover{transform:none!important}
 html.reduced .bf .flip{transition:none!important}
+html.reduced :is(.tile,.tile .art,.detail .art,.tchip)::before,html.reduced :is(.tile,.tile .art,.detail .art,.tchip)::after{animation:none!important}
+html.reduced :is(.tile.t-mythic,.detail.t-mythic) .art::after{display:none}
 html.reduced :is(#sysband,.sysband) .stripes{animation:none!important}
 
 /* ---------- Ergänzungen: Foto-Modus, Ebenen-Regeln ---------- */
@@ -2042,12 +2091,33 @@ function buildPlates() {
   set('tab-off-h', tabOff(g('gold-hi'), g('frame'), '#251C11'));
   set('tab-red', tabOff('#D0563F', '#7C1F17', '#2A0E0A'));
   set('tab-on', plate({ ...G[''], S: 28, c: 7, top: true, bot: false, lipH: 2.5, ringW: 3 }));
-  // Stufen-Rahmen
-  [['common', g('t-common')], ['uncommon', g('t-uncommon')], ['rare', g('t-rare')], ['epic', g('t-epic')], ['jackpot', g('t-jackpot')]].forEach(([k, col]) => {
-    const S = 32, c = 6;
-    const defs = grad('f', [[0, '#FFFFFF', 0.55], [0.12, col], [1, col]]) + grad('p', [[0, '#121216'], [0.55, '#0E0E12'], [1, col, 0.32]]);
-    set('tier-' + k, svgDoc(S, `<path d='${oct(0, 0, S, S, c)}' fill='#020203'/><path d='${oct(1, 1, S - 1, S - 1, c - .4)}' fill='url(#f)'/><path d='${oct(k === 'jackpot' ? 3.2 : 2.6, k === 'jackpot' ? 3.2 : 2.6, S - (k === 'jackpot' ? 3.2 : 2.6), S - (k === 'jackpot' ? 3.2 : 2.6), c - 1.2)}' fill='url(#p)'/><path d='${oct(5.5, 5.5, S - 5.5, S - 5.5, c - 2.6)}' fill='none' stroke='${col}' stroke-opacity='.35'/>`, defs));
+  // Stufen-Rahmen der Leiter (Basis matt · Standard mit Lichtkante · Legendär breiter · Mythisch mit Goldkante ·
+  // Göttlich mit Prisma-Innenlinie · Einzigartig schwarz-gold mit gravierter Doppellinie und Nieten) und der Serien
+  const std = (c1, c2 = c1) => ({ rim: [[0, '#FFFFFF', 0.55], [0.12, c1], [1, c2]], fill: [[0, '#121216'], [0.55, '#0E0E12'], [1, c1, 0.32]], line: c1 });
+  const TF = {
+    basic: { rim: [[0, g('t-basic')], [1, g('t-basic-2')]], fill: [[0, '#131315'], [1, '#18171A']], line: g('t-basic-2'), lo: 0.5, w: 2.2 },
+    common: std(g('t-common')), uncommon: std(g('t-uncommon')), rare: std(g('t-rare')), epic: std(g('t-epic')), heroic: std(g('t-heroic'), g('t-heroic-2')),
+    legendary: { ...std(g('t-legendary'), g('t-legendary-2')), fill: [[0, '#121216'], [0.55, '#0E0E12'], [1, g('t-legendary-2'), 0.26]], w: 3.2 },
+    mythic: { edge: g('t-mythic-edge'), rim: [[0, '#FF7A52'], [0.16, g('t-mythic')], [1, g('t-mythic-2')]], fill: [[0, '#150909'], [0.55, '#110A0A'], [1, g('t-mythic'), 0.42]], line: g('t-mythic-edge'), lo: 0.5, w: 3.2 },
+    divine: { rim: [[0, '#FFFFFF'], [0.3, g('t-divine')], [1, g('t-divine-2')]], fill: [[0, '#17151B'], [0.55, '#121117'], [1, '#E9C46A', 0.2]], prism: true, lo: 0.75, w: 3 },
+    unique: { outline: '#000', rim: [[0, '#FFE7A0'], [0.16, g('t-unique')], [1, '#6E4A10']], fill: [[0, '#0A0806'], [1, g('t-unique-2')]], line: g('t-unique'), lo: 0.75, w: 2.8, engrave: true },
+    event: std(g('s-event'), '#17665D'),
+    exclusive: { rim: [[0, '#FFFFFF'], [0.22, g('s-exclusive')], [0.6, '#D4E6EC'], [1, '#9C9486']], fill: [[0, '#141416'], [0.55, '#111114'], [1, g('s-exclusive'), 0.22]], prism: true, lo: 0.6 }
+  };
+  Object.entries(TF).forEach(([k, o]) => {
+    const S = 32, c = 6, w = o.w || 2.6, e = o.edge ? 0.9 : 0;
+    const defs = grad('f', o.rim) + grad('p', o.fill) + (o.prism ? grad('l', [[0, '#FFB0D8'], [0.33, '#FFE58A'], [0.66, '#A8F0FF'], [1, '#D0B0FF']], 1, 0) : '');
+    let body = `<path d='${oct(0, 0, S, S, c)}' fill='${o.outline || '#020203'}'/>`;
+    if (e) body += `<path d='${oct(0.7, 0.7, S - 0.7, S - 0.7, c - 0.3)}' fill='${o.edge}'/>`;
+    body += `<path d='${oct(1 + e, 1 + e, S - 1 - e, S - 1 - e, c - 0.4 - e * 0.4)}' fill='url(#f)'/><path d='${oct(w, w, S - w, S - w, c - 1.2)}' fill='url(#p)'/>`
+      + `<path d='${oct(5.5, 5.5, S - 5.5, S - 5.5, c - 2.6)}' fill='none' stroke='${o.prism ? 'url(#l)' : o.line}' stroke-opacity='${o.lo ?? 0.35}'/>`;
+    if (o.engrave) body += `<path d='${oct(7.6, 7.6, S - 7.6, S - 7.6, c - 3.4)}' fill='none' stroke='${o.line}' stroke-opacity='.32' stroke-width='.7'/>`
+      + [[8.8, 8.8], [S - 8.8, 8.8], [8.8, S - 8.8], [S - 8.8, S - 8.8]].map(([x, y]) => `<path d='M${x} ${y - 1.3}L${x + 1.3} ${y}L${x} ${y + 1.3}L${x - 1.3} ${y}Z' fill='${o.line}' fill-opacity='.8'/>`).join('');
+    set('tier-' + k, svgDoc(S, body, defs));
   });
+  // Graviertes Siegel (Einzigartig, hinter dem Bild im Detail)
+  const sealPts = (n, r1, r2, cx = 50, cy = 50) => Array.from({ length: n * 2 }, (_, i) => { const a = -Math.PI / 2 + i * Math.PI / n, r = i % 2 ? r2 : r1; return (i ? 'L' : 'M') + (cx + Math.cos(a) * r).toFixed(2) + ' ' + (cy + Math.sin(a) * r).toFixed(2); }).join('') + 'Z';
+  set('seal-mark', `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><g fill='none' stroke='${g('t-unique')}'><path d='${sealPts(18, 47, 42)}' stroke-width='1.2' stroke-opacity='.8'/><circle cx='50' cy='50' r='37' stroke-width='.8' stroke-opacity='.6'/><circle cx='50' cy='50' r='34' stroke-width='.5' stroke-opacity='.45' stroke-dasharray='1.2 2'/><path d='${sealPts(5, 24, 10)}' stroke-width='1' stroke-opacity='.55'/></g></svg>`);
   set('ornate', ornateImg());
   set('diamond', diamondImg());
   const B = bannerImgs();
@@ -2114,8 +2184,30 @@ function roleBadge(r, size = '') {
   const glyph = icn === 'code' ? `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6.5 2.8 12 8 17.5M16 6.5l5.2 5.5-5.2 5.5M13.6 4.5l-3.2 15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>` : ic(icn);
   return `<span class="role ${cls} ${size}" title="${label}" aria-label="${label}">${glyph}</span>`;
 }
-const TIERS = { common: ['Gewöhnlich', 'cube'], uncommon: ['Ungewöhnlich', 'star'], rare: ['Selten', 'gem'], epic: ['Episch', 'sparkle'], jackpot: ['Hauptgewinn', 'crown'] };
+/* Seltenheit: Leiter von unten nach oben (Schlüssel gelten im Code) · Serien als Zusatz-Kennzeichen (das Item hat trotzdem eine Stufe) */
+const TIERS = { basic: ['Basis', 'dot'], common: ['Gewöhnlich', 'cube'], uncommon: ['Ungewöhnlich', 'star'], rare: ['Selten', 'gem'], epic: ['Episch', 'sparkle'],
+  heroic: ['Heroisch', 'shield'], legendary: ['Legendär', 'crown'], mythic: ['Mythisch', 'flame'], divine: ['Göttlich', 'sun'], unique: ['Einzigartig', 'sealstar'] };
+const TORDER = Object.keys(TIERS);
+const SERIES = { event: ['Event', 'clock', 'Event · Herbstlaub 2026'], exclusive: ['Exklusiv', 'seal', 'Exklusiv'] };
 const tierLbl = t => `<span class="tierlbl t-${t}">${ic(TIERS[t][1])}${TIERS[t][0]}</span>`;
+/* Serien-Marke: voll (Detail, Dialoge), nur Name (schmale Kacheln) oder nur Symbol (Kacheln; Name als Tooltip) */
+const serLbl = (s, mode) => mode === true ? `<span class="serlbl ico s-${s}" role="img" title="${SERIES[s][2]}" aria-label="${SERIES[s][2]}">${ic(SERIES[s][1])}</span>` : `<span class="serlbl s-${s}">${ic(SERIES[s][1])}${mode === 'name' ? SERIES[s][0] : SERIES[s][2]}</span>`;
+const itemTags = x => `<span class="tmeta">${tierLbl(x.tier)}${x.series ? serLbl(x.series) : ''}</span>`;
+const tileTier = x => `<span class="trow">${tierLbl(x.tier)}${x.series ? serLbl(x.series, true) : ''}</span>`;
+/* Hinweis unter dem Namen: Basis, Exklusiv, Event */
+const itemNote = x => x.tier === 'basic' ? 'Start-Ausrüstung · nicht handelbar, nicht zerlegbar' : x.series === 'exclusive' ? 'Nicht kaufbar · ' + (x.how || 'Staff-Geschenk') : x.series === 'event' ? 'Limitiert · nur während „Herbstlaub 2026“' : '';
+/* Einzigartig: Seriennummer, „1 von 1“, Besitzer-Historie (neueste zuerst) */
+const uniqBox = x => x.serial ? `<div class="uniq"><div class="row"><span class="serial">${x.serial}</span><span class="one1">1 von 1 · existiert nur einmal</span></div><div class="own">Besitzer: <b>${esc(x.owners[0][0])}</b> seit ${x.owners[0][1]}</div>${x.owners.length > 1 ? `<ol>${x.owners.slice(1).map(([n, d], i) => `<li>${esc(n)} · ${d.slice(0, 6)}–${x.owners[i][1]}</li>`).join('')}</ol>` : ''}</div>` : '';
+const noScrap = x => x.tier === 'basic' || x.tier === 'unique';
+/* Glücksbrett: eigene 5 Gewinn-Stufen; die oberste heißt „Hauptgewinn“ und trägt die Optik von Legendär */
+const BSTAGE = { common: 'Gewöhnlich', uncommon: 'Ungewöhnlich', rare: 'Selten', epic: 'Episch', legendary: 'Hauptgewinn' };
+const stageLbl = t => `<span class="tierlbl t-${t}">${ic(TIERS[t][1])}${BSTAGE[t]}</span>`;
+/* Schadens-Bonus je Stufe (Laden-Detail) */
+const TIERBONUS = { uncommon: 2, rare: 4, epic: 6, heroic: 7, legendary: 8, mythic: 9, divine: 10, unique: 10 };
+/* Komponenten-Seite: Beispiel-Bild und Effekt je Stufe */
+const RLADDER = { basic: ['pistol', 'Matt · Start-Ausrüstung'], common: ['potion', 'Stahlgrau'], uncommon: ['shirt', 'Grün'], rare: ['gun', 'Blau'], epic: ['hat', 'Lila'], heroic: ['armor', 'Orange-Rot'],
+  legendary: ['tool', 'Gold-Schimmer'], mythic: ['sword', 'Animierte Glut'], divine: ['star', 'Prisma + Strahlen'], unique: ['tool', '1 von 1 · Besitzer-Historie'] };
+const boardArt = t => t === 'legendary' ? 'tool' : t === 'epic' ? 'hat' : t === 'rare' ? 'gem' : 'potion';
 function stars(n, max = 5) { let s = '<span class="stars" aria-label="' + n + ' von ' + max + ' Sternen">'; for (let i = 0; i < max; i++) s += `<span class="${i < n ? 'on' : ''}">${ic('star')}</span>`; return s + '</span>'; }
 
 /* ---------- Farbige Bilder (Inline-SVG) ---------- */
@@ -2150,7 +2242,15 @@ const ART = {
     return `<svg class="${cls}" viewBox="0 0 40 40" aria-hidden="true"><path d="M3 16 20 8l17 8v14L20 38 3 30z" fill="#000" opacity=".35"/><path d="M4 15 20 7.5 36 15v13L20 35.5 4 28z" fill="${col}"/><path d="M4 15 20 7.5 36 15 20 22.5z" fill="#fff" opacity=".28"/><path d="M20 22.5v13L36 28V15z" fill="#000" opacity=".22"/><ellipse cx="14" cy="14.6" rx="3.4" ry="1.7" fill="#fff" opacity=".45"/><ellipse cx="26" cy="14.6" rx="3.4" ry="1.7" fill="#fff" opacity=".45"/><ellipse cx="20" cy="17.6" rx="3.4" ry="1.7" fill="#fff" opacity=".45"/><ellipse cx="20" cy="11.6" rx="3.4" ry="1.7" fill="#fff" opacity=".45"/></svg>`;
   },
   weapon(kind = 'gun', tier = 'common', cls = 'wsvg') {
-    const col = { common: '#A3ADB8', uncommon: '#63BB40', rare: '#3F92EA', epic: '#A963EA', jackpot: '#FFC21F' }[tier];
+    const col = { common: '#A3ADB8', uncommon: '#63BB40', rare: '#3F92EA', epic: '#A963EA', heroic: '#E8742A', legendary: '#FFC21F' }[tier] || '#A3ADB8';
+    // Sonderstufen: Basis matt (ohne Glanz) · Mythisch Rot mit Goldkante · Göttlich Prisma Weiß-Gold · Einzigartig Schwarz mit Gold-Gravur
+    const stops = {
+      basic: [[0, '#C9C4BA'], [1, '#6E6A63']],
+      mythic: [[0, '#FFD27A', 0.95], [0.24, '#E0301F'], [1, '#7C100B']],
+      divine: [[0, '#FFFFFF'], [0.3, '#FFF1C8'], [0.55, '#C9F1FF'], [0.8, '#FFD6EE'], [1, '#E9C46A']],
+      unique: [[0, '#5A4626'], [0.3, '#1E1810'], [1, '#0B0906']]
+    }[tier] || [[0, '#fff', 0.9], [0.25, col], [1, col, 0.7]];
+    const edge = tier === 'unique' ? '#E2B85A' : tier === 'mythic' ? '#FFC34A' : '#0B0B0D';
     const P = {
       gun: 'M4 26h50l4-6h16v7h-7v5H55l-5 5H38l-6 16c-1 2-2 3-4 3h-8c-2 0-3-2-2-4l5-14H9l-5-4z',
       smg: 'M10 24h40l3-4h12v6h-5v5H52l-3 4h-9l-3 18c-.4 2-2 3-4 3h-6c-2 0-3-2-2-4l4-17H14l-4-4z',
@@ -2171,7 +2271,7 @@ const ART = {
     };
     if (kind === 'star') P.star = 'M40 6l9 19 21 3-15 14 4 21-19-10-19 10 4-21-15-14 21-3z';
     const d = P[kind] || P.gun;
-    return `<svg class="${cls}" viewBox="0 0 80 70" aria-hidden="true"><defs><linearGradient id="w${kind}${tier}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".25" stop-color="${col}"/><stop offset="1" stop-color="${col}" stop-opacity=".7"/></linearGradient></defs><path d="${d}" fill="#000" opacity=".45" transform="translate(2 3)"/><path d="${d}" fill="url(#w${kind}${tier})" stroke="#0B0B0D" stroke-width="2" stroke-linejoin="round"/></svg>`;
+    return `<svg class="${cls}" viewBox="0 0 80 70" aria-hidden="true"><defs><linearGradient id="w${kind}${tier}" x1="0" y1="0" x2="0" y2="1">${stops.map(([o, c, a]) => `<stop offset="${o}" stop-color="${c}"${a != null ? ` stop-opacity="${a}"` : ''}/>`).join('')}</linearGradient></defs><path d="${d}" fill="#000" opacity=".45" transform="translate(2 3)"/>${edge !== '#0B0B0D' ? `<path d="${d}" fill="none" stroke="#0B0B0D" stroke-width="4.2" stroke-linejoin="round"/>` : ''}<path d="${d}" fill="url(#w${kind}${tier})" stroke="${edge}" stroke-width="2" stroke-linejoin="round"/></svg>`;
   },
   thumb(seed = 1, pal = 'night', cls = '') {
     const r = seeded(seed * 9973 + 7);
@@ -2341,7 +2441,7 @@ const FX = {
   spawn(o) {
     if (this.live >= this.MAX) return null;
     const p = this.pool.find(q => !q.on); if (!p) return null;
-    Object.assign(p, { on: true, t: 0, life: 1, x: 0, y: 0, vx: 0, vy: 0, ax: 0, ay: 0, drag: 0, size: 4, rot: 0, vr: 0, color: '#FFD452', type: 'dot', blend: 'lighter', fade: 1, grow: 0, tx: null, ty: null, home: 0, onArrive: null, wob: 0, ph: Math.random() * 6.28, amb: false }, o);
+    Object.assign(p, { on: true, t: 0, life: 1, x: 0, y: 0, vx: 0, vy: 0, ax: 0, ay: 0, drag: 0, size: 4, rot: 0, vr: 0, color: '#FFD452', type: 'dot', blend: 'lighter', fade: 1, grow: 0, tx: null, ty: null, home: 0, onArrive: null, wob: 0, ph: Math.random() * 6.28, amb: false, tint: null }, o);
     this.live++; this.kick(); return p;
   },
   kick() { if (!this.raf) { this.last = performance.now(); this.raf = requestAnimationFrame(t => this.tick(t)); } },
@@ -2369,7 +2469,7 @@ const FX = {
       if (a <= 0.003) continue;
       c.globalAlpha = a; c.globalCompositeOperation = p.blend;
       const sz = Math.max(0.1, p.size * (1 + p.grow * k));
-      if (p.type === 'star') { c.save(); c.translate(p.x, p.y); c.rotate(p.rot); c.drawImage(this.sprites.star, -sz, -sz, sz * 2, sz * 2); c.restore(); }
+      if (p.type === 'star') { c.save(); c.translate(p.x, p.y); c.rotate(p.rot); c.drawImage(p.tint ? this.tintStar(p.tint) : this.sprites.star, -sz, -sz, sz * 2, sz * 2); c.restore(); }
       else if (p.type === 'dot') { c.drawImage(this.sprites.dot, p.x - sz, p.y - sz, sz * 2, sz * 2); if (p.core) { c.fillStyle = p.color; c.fillRect(p.x - sz * 0.2, p.y - sz * 0.2, sz * 0.4, sz * 0.4); } }
       else if (p.type === 'tint') { c.fillStyle = p.color; c.beginPath(); c.arc(p.x, p.y, Math.max(0, sz), 0, 7); c.fill(); }
       else if (p.type === 'streak') { c.strokeStyle = p.color; c.lineWidth = Math.max(1, sz * 0.4); c.lineCap = 'round'; c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(p.x - p.vx * 0.04, p.y - p.vy * 0.04); c.stroke(); }
@@ -2500,13 +2600,49 @@ const FX = {
     for (let i = 0; i < 22; i++) this.spawn({ type: 'tint', blend: 'source-over', x: x + rnd(-30, 30) * f, y: y + rnd(-20, 20) * f, vx: rnd(-60, 60) * f, vy: rnd(-80, 20) * f, ay: 600 * f, life: rnd(0.7, 1.2), size: rnd(1.5, 3.5) * f, color: pick(['#5A4A3A', '#8A7A6A', '#3A3028']) });
     this.kick();
   },
+  /* Eingefärbter Stern (Prisma-Glitzer), gecacht je Farbe */
+  tintCache: {},
+  tintStar(col) {
+    if (this.tintCache[col]) return this.tintCache[col];
+    const cv = document.createElement('canvas'); cv.width = cv.height = 64; const x = cv.getContext('2d');
+    x.drawImage(this.sprites.star, 0, 0); x.globalCompositeOperation = 'source-atop';
+    const g = x.createRadialGradient(32, 32, 0, 32, 32, 32); g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(0.18, col); g.addColorStop(1, col);
+    x.fillStyle = g; x.fillRect(0, 0, 64, 64);
+    return (this.tintCache[col] = cv);
+  },
+  /* Prisma-Glitzer: bunte Sterne, weit gestreut, langsam steigend */
+  prism(x, y, o = {}) { if (this.off) return; const f = SCALE.f, cols = ['#FFB0D8', '#FFE58A', '#A8F0FF', '#D0B0FF', '#FFFFFF', '#B8FFD8']; for (let i = 0; i < (o.n || 40); i++) { const a = rnd(0, 6.28), d = rnd(0.25, 1) * (o.spread || 170) * f; this.spawn({ type: 'star', tint: pick(cols), x: x + Math.cos(a) * d * 0.25, y: y + Math.sin(a) * d * 0.25, vx: Math.cos(a) * d * 1.1, vy: Math.sin(a) * d * 1.1 - 40 * f, drag: 0.05, life: rnd(0.8, 1.6), size: rnd(5, 11) * f, vr: rnd(-2, 2), grow: -0.5, wob: rnd(6, 20) * f }); } },
+  /* Siegel-Stempel (Einzigartig): fällt groß und schräg ein, schlägt auf (Ring + Funken), hält, blendet aus */
+  stamp(x, y, o = {}) {
+    if (this.off) return; const f = SCALE.f, R = (o.r || 58) * f;
+    const pts = (n, r1, r2) => Array.from({ length: n * 2 }, (_, i) => { const a = -Math.PI / 2 + i * Math.PI / n, r = i % 2 ? r2 : r1; return [Math.cos(a) * r, Math.sin(a) * r]; });
+    const edge = pts(16, 1, 0.86), star = pts(5, 0.46, 0.19), path = (c, p) => { c.beginPath(); p.forEach(([px, py], i) => i ? c.lineTo(px, py) : c.moveTo(px, py)); c.closePath(); };
+    let hit = false;
+    this.effects.push({ t: 0, life: 1.7, draw: (c, e) => {
+      const t = e.t, k = Math.min(1, t / 0.22), s = 1 + (1 - k) * (1 - k) * 1.5, a = Math.min(1, t / 0.1) * (t > 1.2 ? Math.max(0, 1 - (t - 1.2) / 0.5) : 1);
+      if (!hit && k >= 1) { hit = true; this.ring(x, y, { color: '#FFE7A0', r: 130, width: 5, life: 0.55 }); this.sparks(x, y, { n: 14, color: '#FFE7A0' }); }
+      c.save(); c.globalCompositeOperation = 'source-over'; c.globalAlpha = a; c.translate(x, y); c.rotate(-0.22 * (1 - k)); c.scale(s * R, s * R);
+      path(c, edge); c.fillStyle = '#3A1400'; c.fill(); c.lineWidth = 0.05; c.strokeStyle = '#FFE7A0'; c.stroke();
+      const g = c.createLinearGradient(0, -0.8, 0, 0.8); g.addColorStop(0, '#FFE7A0'); g.addColorStop(0.45, '#D9AE4E'); g.addColorStop(1, '#6E4A10');
+      c.beginPath(); c.arc(0, 0, 0.74, 0, 7); c.fillStyle = g; c.fill();
+      c.beginPath(); c.arc(0, 0, 0.62, 0, 7); c.lineWidth = 0.035; c.strokeStyle = '#3A1400'; c.stroke();
+      path(c, star); c.fillStyle = '#120E08'; c.fill();
+      c.restore();
+    } }); this.kick();
+  },
+  /* Enthüllung je Stufe (Kauf, Geschenk, Glücksbrett): Glühen + Glitzer; ab Episch Ring + Glut; Legendär Konfetti + Münzen;
+     Mythisch Glut + Doppelring; Göttlich Strahlen + Prisma-Glitzer; Einzigartig Goldstoß + Siegel-Stempel. */
+  TIERFX: { basic: ['#D6D1C7', '214,209,199', 4], common: ['#C5CDD6', '197,205,214', 8], uncommon: ['#7BDA55', '123,218,85', 14], rare: ['#5AA8FF', '90,168,255', 20], epic: ['#C47CFF', '196,124,255', 28],
+    heroic: ['#FF9A52', '255,154,82', 32], legendary: ['#FFD452', '255,212,82', 40], mythic: ['#FF6A3D', '255,106,61', 26], divine: ['#FFF4D6', '255,244,214', 24], unique: ['#F2CC6A', '242,204,106', 26] },
   tier(x, y, t) {
-    if (this.off) return; const col = { common: '#C5CDD6', uncommon: '#7BDA55', rare: '#5AA8FF', epic: '#C47CFF', jackpot: '#FFD452' }[t];
-    const rgba = { common: 'rgba(197,205,214,1)', uncommon: 'rgba(123,218,85,1)', rare: 'rgba(90,168,255,1)', epic: 'rgba(196,124,255,1)', jackpot: 'rgba(255,212,82,1)' }[t];
-    this.glow(x, y, { color: rgba, r: t === 'jackpot' ? 260 : 150, life: 1.2, alpha: t === 'common' ? 0.3 : 0.55 });
-    this.sparkle(x, y, { n: { common: 8, uncommon: 14, rare: 20, epic: 28, jackpot: 40 }[t], color: col, spread: 90 });
-    if (t === 'epic' || t === 'jackpot') { this.ring(x, y, { color: col, r: 200 }); this.embers(x, y + 30, { n: 24, color: col, w: 160 }); }
-    if (t === 'jackpot') { this.confetti(x, y, { n: 110 }); this.coins(x, y, { n: 26 }); }
+    if (this.off) return; const [col, rgb, n] = this.TIERFX[t] || this.TIERFX.common, top = ['legendary', 'mythic', 'divine', 'unique'].includes(t);
+    this.glow(x, y, { color: `rgba(${rgb},1)`, r: top ? 260 : 150, life: 1.2, alpha: t === 'common' || t === 'basic' ? 0.3 : 0.55 });
+    this.sparkle(x, y, { n, color: col, spread: 90 });
+    if (t === 'epic' || t === 'heroic' || t === 'legendary') { this.ring(x, y, { color: col, r: 200 }); this.embers(x, y + 30, { n: 24, color: col, w: 160 }); }
+    if (t === 'legendary') { this.confetti(x, y, { n: 110 }); this.coins(x, y, { n: 26 }); }
+    if (t === 'mythic') { this.ring(x, y, { color: '#FF5A2E', r: 230, width: 8 }); later(200, () => this.ring(x, y, { color: '#FFC34A', r: 160, width: 4 })); this.embers(x, y + 40, { n: 60, color: '#FF6A2A', w: 280 }); this.embers(x, y + 20, { n: 26, color: '#FFC34A', w: 180 }); this.sparks(x, y, { n: 16, color: '#FF9A52' }); }
+    if (t === 'divine') { const r = this.rays({ x, y }, { r: 330, color: 'rgba(255,246,220,.6)' }); later(1900, () => r.stop()); this.prism(x, y); this.ring(x, y, { color: '#FFF4D6', r: 240, width: 5 }); }
+    if (t === 'unique') { this.sparks(x, y, { n: 36, speed: 1.3, color: '#FFD27A' }); this.shards(x, y, { n: 16, colors: ['#FFE7A0', '#D9AE4E', '#7A5414'] }); this.ring(x, y, { color: '#F2CC6A', r: 270, width: 9 }); this.stamp(x, y); }
   }
 };
 
@@ -2596,38 +2732,59 @@ const HISTORY = [
   { res: 'SIEG', m: 'Bauen und Zerstören', map: 'Ziegelei', k: 9, t: 4, a: 11, dur: '16:30', when: 'Gestern, 20:12', xp: '+1.105 XP' },
   { res: 'ÜBERLEBT', m: 'Zombie-Ausbruch', map: 'Uhrturm', k: 14, t: 1, a: 2, dur: '8:47', when: 'Fr, 19:58', xp: '+940 XP' }
 ];
+/* Laden-Katalog: jede Stufe der Leiter kommt vor. series: event | exclusive; nobuy: nicht kaufbar (Grund steht in der Kachel);
+   serial + owners: Einzigartig (1 von 1, Besitzer neueste zuerst). Basis = Start-Ausrüstung, nicht handelbar, nicht zerlegbar. */
+const URZ_OWNERS = [['Funkenflug', '02.10.2026'], ['Quaderqueen', '14.09.2026'], ['Brixel-Team (Prägung)', '01.09.2026']];
 const SHOP = [
-  { id: 'bolzen', n: 'Bolzen 9', ty: 'Hauptwaffe · Gewehr', cat: 'waffen', wf: 'haupt', art: 'gun', tier: 'rare', price: 1200, stats: [0.62, 0.7, 0.55, 0.6] },
+  { id: 'glut', n: 'Glutklinge', ty: 'Nahkampf · Klinge', cat: 'waffen', wf: 'nah', art: 'sword', tier: 'mythic', price: 9800, stats: [0.92, 0.72, 0, 1] },
+  { id: 'gold', n: 'Goldener Hammer', ty: 'Nahkampf · Hammer', cat: 'waffen', wf: 'nah', art: 'tool', tier: 'legendary', series: 'event', price: 6400, stats: [0.9, 0.5, 0, 1], lock: 40 },
+  { id: 'donner', n: 'Donnerbüchse', ty: 'Hauptwaffe · Schrotflinte', cat: 'waffen', wf: 'haupt', art: 'gun', tier: 'heroic', price: 3600, stats: [0.88, 0.35, 0.3, 0.45] },
   { id: 'funke', n: 'Funkenwerfer', ty: 'Spezial · Hitze', cat: 'waffen', wf: 'spezial', art: 'smg', tier: 'epic', price: 2400, stats: [0.5, 0.9, 0.8, 0.35], disc: 20 },
   { id: 'adler', n: 'Adlerauge', ty: 'Hauptwaffe · Scharfschütze', cat: 'waffen', wf: 'haupt', art: 'sniper', tier: 'epic', price: 2900, stats: [0.95, 0.15, 0.25, 0.3], lock: 30 },
-  { id: 'kiesel', n: 'Kieselpistole', ty: 'Sekundärwaffe · Pistole', cat: 'waffen', wf: 'sek', art: 'pistol', tier: 'common', price: 300, stats: [0.4, 0.55, 0.4, 0.85], own: true, active: true },
+  { id: 'bolzen', n: 'Bolzen 9', ty: 'Hauptwaffe · Gewehr', cat: 'waffen', wf: 'haupt', art: 'gun', tier: 'rare', price: 1200, stats: [0.62, 0.7, 0.55, 0.6] },
+  { id: 'krach', n: 'Krachmacher', ty: 'Spezial · Granate', cat: 'waffen', wf: 'spezial', art: 'grenade', tier: 'rare', price: 650, stats: [0.85, 0.1, 0.2, 0.4] },
   { id: 'kelle', n: 'Maurerkelle', ty: 'Nahkampf · Klinge', cat: 'waffen', wf: 'nah', art: 'sword', tier: 'uncommon', price: 450, stats: [0.7, 0.6, 0, 1], own: true },
   { id: 'ziegelmp', n: 'Ziegel-MP', ty: 'Hauptwaffe · MP', cat: 'waffen', wf: 'haupt', art: 'smg', tier: 'uncommon', price: 800, stats: [0.45, 0.85, 0.7, 0.7], own: true },
-  { id: 'krach', n: 'Krachmacher', ty: 'Spezial · Granate', cat: 'waffen', wf: 'spezial', art: 'grenade', tier: 'rare', price: 650, stats: [0.85, 0.1, 0.2, 0.4] },
-  { id: 'gold', n: 'Goldener Hammer', ty: 'Nahkampf · Event', cat: 'waffen', wf: 'nah', art: 'tool', tier: 'jackpot', price: 6400, stats: [0.9, 0.5, 0, 1], lock: 40 },
-  { id: 'jacke', n: 'Polier-Jacke', ty: 'Kleidung · Oberteil', cat: 'kleidung', art: 'shirt', tier: 'rare', price: 700 },
+  { id: 'kiesel', n: 'Kieselpistole', ty: 'Sekundärwaffe · Pistole', cat: 'waffen', wf: 'sek', art: 'pistol', tier: 'common', price: 300, stats: [0.4, 0.55, 0.4, 0.85], own: true, active: true },
+  { id: 'uebung', n: 'Übungspistole', ty: 'Sekundärwaffe · Start', cat: 'waffen', wf: 'sek', art: 'pistol', tier: 'basic', price: 0, stats: [0.25, 0.5, 0.45, 0.9], own: true, nobuy: 'Start-Ausrüstung' },
   { id: 'helm', n: 'Bauhelm Gold', ty: 'Kleidung · Kopf', cat: 'kleidung', art: 'hat', tier: 'epic', price: 1500, disc: 15 },
+  { id: 'jacke', n: 'Polier-Jacke', ty: 'Kleidung · Oberteil', cat: 'kleidung', art: 'shirt', tier: 'rare', price: 700 },
   { id: 'stiefel', n: 'Stahlkappen', ty: 'Kleidung · Schuhe', cat: 'kleidung', art: 'shoe', tier: 'common', price: 250, own: true },
+  { id: 'sonne', n: 'Sonnenkranz', ty: 'Accessoire · Rücken', cat: 'acc', art: 'star', tier: 'divine', price: 2400, kr: true },
   { id: 'trank', n: 'Heiltrank', ty: 'Verbrauch · stapelbar', cat: 'verbrauch', art: 'potion', tier: 'common', price: 60 },
   { id: 'ruest', n: 'Rüstungsplatte', ty: 'Verbrauch · Abklingzeit 20 s', cat: 'verbrauch', art: 'armor', tier: 'uncommon', price: 120 },
   { id: 'turbo', n: 'Turbo-Kelle', ty: 'Bau-Werkzeug', cat: 'bau', art: 'tool', tier: 'rare', price: 900 },
+  { id: 'grundkelle', n: 'Grundkelle', ty: 'Bau-Werkzeug · Start', cat: 'bau', art: 'tool', tier: 'basic', price: 0, own: true, nobuy: 'Start-Ausrüstung' },
   { id: 'jet', n: 'Ziegel-Jetpack', ty: 'Flug', cat: 'flug', art: 'wing', tier: 'epic', price: 2200 },
   { id: 'slot5', n: 'Map-Slot 5', ty: 'Map-Slots · dauerhaft', cat: 'slots', art: 'map', tier: 'rare', price: 3000 },
   { id: 'gemluck', n: 'Gem des Glücks', ty: 'Gems · +10 % Chance', cat: 'gems', art: 'gem', tier: 'epic', price: 400, kr: true },
-  { id: 'kuerbis', n: 'Kürbis-Helm', ty: 'Event · Herbst', cat: 'event', art: 'hat', tier: 'jackpot', price: 1800, disc: 10 }
+  { id: 'kuerbis', n: 'Kürbis-Helm', ty: 'Kleidung · Kopf', cat: 'event', art: 'hat', tier: 'legendary', series: 'event', price: 1800, disc: 10 },
+  { id: 'laub', n: 'Laub-Jacke', ty: 'Kleidung · Oberteil', cat: 'event', art: 'shirt', tier: 'epic', series: 'event', price: 1400 },
+  { id: 'urziegel', n: 'Der Urziegel', ty: 'Nahkampf · Hammer', cat: 'vitrine', art: 'tool', tier: 'unique', serial: '#001', owners: URZ_OWNERS, price: 0, stats: [0.96, 0.6, 0, 1], own: true, nobuy: 'Einzelstück' },
+  { id: 'cupkrone', n: 'Herbst-Cup-Krone', ty: 'Kleidung · Kopf', cat: 'vitrine', art: 'hat', tier: 'legendary', series: 'exclusive', how: 'Turniersieger Herbst-Cup 2026', price: 0, nobuy: 'Nicht kaufbar' },
+  { id: 'gruender', n: 'Gründer-Plakette', ty: 'Accessoire · Brust', cat: 'vitrine', art: 'armor', tier: 'heroic', series: 'exclusive', how: 'Gründer der ersten Saison', price: 0, own: true, nobuy: 'Nicht kaufbar' }
 ];
-const SHOPCATS = [['waffen', 'Waffen', 'gun'], ['kleidung', 'Kleidung', 'hanger'], ['acc', 'Accessoires', 'star'], ['verbrauch', 'Verbrauch', 'potion'], ['bau', 'Bau-Werkzeuge', 'hammer'], ['flug', 'Flug', 'wing'], ['slots', 'Map-Slots', 'layers'], ['gems', 'Gems', 'gem'], ['event', 'Event', 'sparkle']];
+const SHOPCATS = [['waffen', 'Waffen', 'gun'], ['kleidung', 'Kleidung', 'hanger'], ['acc', 'Accessoires', 'star'], ['verbrauch', 'Verbrauch', 'potion'], ['bau', 'Bau-Werkzeuge', 'hammer'], ['flug', 'Flug', 'wing'], ['slots', 'Map-Slots', 'layers'], ['gems', 'Gems', 'gem'], ['event', 'Event', 'clock'], ['vitrine', 'Vitrine', 'sealstar']];
 const INV = [
   { n: 'Ziegel-MP', ty: 'Hauptwaffe', art: 'smg', tier: 'uncommon', on: true, stars: 2, life: 'Dauerhaft', cat: 'waffen' },
   { n: 'Kieselpistole', ty: 'Sekundärwaffe', art: 'pistol', tier: 'common', on: true, stars: 1, life: 'Dauerhaft', cat: 'waffen' },
   { n: 'Maurerkelle', ty: 'Nahkampf', art: 'sword', tier: 'uncommon', on: true, stars: 3, life: '23 Tage', cat: 'waffen' },
+  { n: 'Glutklinge', ty: 'Nahkampf', art: 'sword', tier: 'mythic', stars: 1, life: 'Dauerhaft', cat: 'waffen' },
   { n: 'Bolzen 9', ty: 'Hauptwaffe', art: 'gun', tier: 'rare', stars: 0, life: '6 Tage', cat: 'waffen' },
+  { n: 'Donnerbüchse', ty: 'Hauptwaffe', art: 'gun', tier: 'heroic', stars: 2, life: '30 Tage', cat: 'waffen' },
   { n: 'Krachmacher', ty: 'Spezial', art: 'grenade', tier: 'rare', on: true, stars: 1, life: 'Dauerhaft', cat: 'waffen' },
+  { n: 'Der Urziegel', ty: 'Nahkampf', art: 'tool', tier: 'unique', serial: '#001', owners: URZ_OWNERS, stars: 0, life: 'Dauerhaft', cat: 'waffen' },
+  { n: 'Übungspistole', ty: 'Sekundärwaffe', art: 'pistol', tier: 'basic', stars: 0, life: 'Dauerhaft', cat: 'waffen' },
   { n: 'Stahlkappen', ty: 'Schuhe', art: 'shoe', tier: 'common', on: true, stars: 0, life: 'Dauerhaft', cat: 'kleidung' },
   { n: 'Polier-Jacke', ty: 'Oberteil', art: 'shirt', tier: 'rare', on: true, stars: 2, life: '29 Tage', cat: 'kleidung' },
   { n: 'Bauhelm Gold', ty: 'Kopf', art: 'hat', tier: 'epic', stars: 4, life: 'Dauerhaft', cat: 'kleidung' },
+  { n: 'Kürbis-Helm', ty: 'Kopf', art: 'hat', tier: 'legendary', series: 'event', stars: 0, life: '7 Tage', cat: 'kleidung' },
+  { n: 'Laub-Jacke', ty: 'Oberteil', art: 'shirt', tier: 'epic', series: 'event', stars: 1, life: '30 Tage', cat: 'kleidung' },
+  { n: 'Sonnenkranz', ty: 'Rücken', art: 'star', tier: 'divine', on: true, stars: 0, life: 'Dauerhaft', cat: 'acc' },
+  { n: 'Gründer-Plakette', ty: 'Brust', art: 'armor', tier: 'heroic', series: 'exclusive', how: 'Gründer der ersten Saison', stars: 0, life: 'Dauerhaft', cat: 'acc' },
   { n: 'Heiltrank', ty: 'Verbrauch · ×6', art: 'potion', tier: 'common', on: true, stars: 0, life: '–', cat: 'verbrauch' },
   { n: 'Turbo-Kelle', ty: 'Bau-Werkzeug', art: 'tool', tier: 'rare', on: true, stars: 0, life: '14 Tage', cat: 'werkzeug' },
+  { n: 'Grundkelle', ty: 'Bau-Werkzeug', art: 'tool', tier: 'basic', stars: 0, life: 'Dauerhaft', cat: 'werkzeug' },
   { n: 'Ziegel-Jetpack', ty: 'Flug', art: 'wing', tier: 'epic', on: true, stars: 1, life: 'Dauerhaft', cat: 'werkzeug' },
   { n: 'Gem des Glücks', ty: 'Gem · ×2', art: 'gem', tier: 'epic', stars: 0, life: '–', cat: 'gems' }
 ];
@@ -3051,7 +3208,7 @@ R['erstellen/galerie'] = () => {
 const spindWrap = inner => `<div class="page"><div class="split spind" style="grid-template-columns:24rem minmax(0,1fr)"><div class="charprev"><div class="floor"></div><div class="cap"><span class="row">${rankBadge(ME.rank, 'sm')}<b class="disp">${ME.name}</b></span>${tag('[' + ME.tag + ']', 'dark')}</div>${ART.fig(ME, 'figsvg')}<div class="rot">${ibtn('chevl', { v: 'dark', size: 'sm', act: 'toast', arg: 'Figur gedreht.', label: 'Drehen links' })}${ibtn('chevr', { v: 'dark', size: 'sm', act: 'toast', arg: 'Figur gedreht.', label: 'Drehen rechts' })}</div></div><div>${inner}</div></div></div>`;
 const LOAD = [['Waffen', [['Hauptwaffe', 'Ziegel-MP', 'smg', 'uncommon', 2], ['Sekundärwaffe', 'Kieselpistole', 'pistol', 'common', 1], ['Nahkampf', 'Maurerkelle', 'sword', 'uncommon', 3], ['Spezial', 'Krachmacher', 'grenade', 'rare', 1]]],
   ['Kleidung', [['Kopf', '', 'hat'], ['Oberteil', 'Polier-Jacke', 'shirt', 'rare', 2], ['Hose', '', 'shirt'], ['Schuhe', 'Stahlkappen', 'shoe', 'common', 0]]],
-  ['Accessoires', [['Accessoire 1', '', 'star'], ['Accessoire 2', '', 'star']]],
+  ['Accessoires', [['Accessoire 1', 'Sonnenkranz', 'star', 'divine', 0], ['Accessoire 2', '', 'star']]],
   ['Hotbar – wirkt in Modi mit Gefahr', [['Hotbar 5', 'Heiltrank ×6', 'potion', 'common', 0], ['Hotbar 6', 'Rüstungsplatte ×2', 'armor', 'uncommon', 0], ['Hotbar 7', '', 'potion'], ['Hotbar 8', '', 'potion']]],
   ['Werkzeug und Flug – wirkt auf dem Bauplatz', [['Werkzeug', 'Turbo-Kelle', 'tool', 'rare', 0], ['Flug', 'Ziegel-Jetpack', 'wing', 'epic', 1]]]];
 R['spind/loadout'] = () => spindWrap(`${ph('Loadout', 'Ausrüstung für alle Modi. Klicke einen Platz, um ihn zu belegen.')}
@@ -3062,36 +3219,52 @@ const SWK = { Haut: 'skin', Oberteil: 'top', Hose: 'pants', Schuhe: 'shoes' };
 R['spind/aussehen'] = () => spindWrap(`${ph('Aussehen', 'So sehen dich die anderen Spieler.', btn('ABBRECHEN', { v: 'dark', act: 'lookCancel' }) + btn('SPEICHERN', { act: 'lookSave' }))}
   <div class="stack">${Object.entries(SW).map(([k, cols]) => `<section class="panel tight"><div class="row wrap"><b class="disp" style="width:7rem">${k}</b><div class="swatches">${cols.map(c => `<button type="button" class="sw ${ME[SWK[k]] === c ? 'on' : ''}" style="background:${c}" data-act="swatch" data-arg="${SWK[k]}|${c}" aria-label="${k}: Farbe ${c}" aria-pressed="${ME[SWK[k]] === c}"></button>`).join('')}</div></div></section>`).join('')}</div>`);
 function updateCharPrev() { const cp = $('.charprev svg.figsvg'); if (cp) cp.outerHTML = ART.fig(ME, 'figsvg'); }
+/* Inventar: Kategorie + Seltenheit (Stufe oder Serie) + Sortierung – dieselbe Liste für Anzeige und Aktionen */
+function invList() {
+  const f = S.view.invF || 'alle', t = S.view.invT || 'alle', l = INV.filter(x => (f === 'alle' || x.cat === f) && (t === 'alle' || x.tier === t || x.series === t));
+  return S.view.invSort === 'tier' ? l.slice().sort((a, b) => TORDER.indexOf(b.tier) - TORDER.indexOf(a.tier)) : l;
+}
+/* Seltenheits-Filter: Symbol-Chips in Leiter-Reihenfolge (Name als Tooltip), Serien dahinter, „?“ blendet die Legende ein */
+function rarBar(cur, act, leg) {
+  const ch = (k, cls, name, icn) => `<button type="button" class="chip tchip ${cls} ${cur === k ? 'on' : ''}" data-act="${act}" data-arg="${k}" data-tip="${name}" aria-label="Seltenheit: ${name}" aria-pressed="${cur === k}">${ic(icn)}</button>`;
+  return `<div class="rarbar"><span class="lbl">Seltenheit</span><button type="button" class="chip ${cur === 'alle' ? 'on' : ''}" data-act="${act}" data-arg="alle" aria-pressed="${cur === 'alle'}">Alle</button>${TORDER.map(t => ch(t, 't-' + t, TIERS[t][0], TIERS[t][1])).join('')}<span class="rsep" aria-hidden="true"></span>${Object.keys(SERIES).map(s => ch(s, 's-' + s, SERIES[s][2], SERIES[s][1])).join('')}${ibtn('question', { v: 'dark', size: 'sm', act: leg, label: 'Legende: Seltenheit', cls: S.view.invLeg ? 'on' : '' })}</div>
+  ${S.view.invLeg ? `<div class="tlegend"><span class="tiny faint">Leiter von unten nach oben</span><div class="tl">${TORDER.map(tierLbl).join(ic('chevr', 'arr'))}</div><span class="tiny faint">Serien – zusätzlich, das Item hat trotzdem eine Stufe</span><div class="tl">${serLbl('event')}${serLbl('exclusive')}</div></div>` : ''}`;
+}
+const tileTy = (x, ty = x.ty) => x.serial ? `<span class="ty"><span class="one1">1 von 1</span> · ${ty.split(' · ')[0]}</span>` : `<span class="ty">${ty}</span>`;
 R['spind/inventar'] = () => {
-  const f = S.view.invF || 'alle', list = INV.filter(x => f === 'alle' || x.cat === f), sel = INV.indexOf(list[S.view.invSel || 0] || list[0]), it = INV[sel];
+  const f = S.view.invF || 'alle', list = invList(), it = list[S.view.invSel || 0] || list[0];
   return spindWrap(`${ph('Inventar', `${INV.length} Items · Laufzeiten laufen auch offline ab.`)}
-  <div style="margin-bottom:1rem">${chips([['alle', 'Alle'], ['waffen', 'Waffen'], ['kleidung', 'Kleidung'], ['acc', 'Access.'], ['verbrauch', 'Verbrauch'], ['werkzeug', 'Werkzeug'], ['gems', 'Gems']], f, 'invF')}</div>
-  <div class="split" style="grid-template-columns:minmax(0,1fr) 22rem"><div class="grid gauto stg">${list.map((x, i) => `<button type="button" class="tile t-${x.tier} ${INV.indexOf(x) === sel ? 'sel' : ''}" data-act="invSel" data-arg="${i}"><span class="badges">${x.on ? tag('An', 'neu') : '<span></span>'}${x.stars ? stars(x.stars) : ''}</span><span class="art">${ART.weapon(x.art, x.tier)}</span><span class="nm">${x.n}</span><span class="ty">${x.ty}</span></button>`).join('') || `<div class="empty">${ic('hanger')}Nichts in dieser Kategorie</div>`}</div>
-  ${it ? `<section class="panel detail t-${it.tier}">${tierLbl(it.tier)}<h3>${it.n}</h3><div class="art">${ART.weapon(it.art, it.tier)}</div><dl class="kv"><dt>Laufzeit</dt><dd>${it.life}</dd><dt>Typ</dt><dd>${it.ty}</dd><dt>Upgrades</dt><dd>${stars(it.stars)}</dd></dl><div class="sect">Boni</div><div class="small muted">+${2 + it.stars} % Schaden · +1 % Tempo</div>
-    <div class="stack" style="margin-top:1rem">${btn(it.on ? 'ABLEGEN' : 'AUSRÜSTEN', { v: it.on ? 'dark' : '', cls: 'block', act: 'invEquip' })}${btn('ZUR WERKSTATT', { v: 'dark', cls: 'block', icon: 'hammer', act: 'goTab', arg: 'spind|werkstatt' })}${btn(`ZERLEGEN (+${20 + it.stars * 15} SPLITTER)`, { v: 'red', cls: 'block', act: 'invScrap' })}</div></section>` : ''}</div>`);
+  <div class="row wrap" style="margin-bottom:.6rem">${chips([['alle', 'Alle'], ['waffen', 'Waffen'], ['kleidung', 'Kleidung'], ['acc', 'Access.'], ['verbrauch', 'Verbrauch'], ['werkzeug', 'Werkzeug'], ['gems', 'Gems']], f, 'invF')}<span class="sp"></span><span class="lbl" style="margin:0">Sortieren</span>${chips([['neu', 'Neueste'], ['tier', 'Seltenheit']], S.view.invSort || 'neu', 'invSort')}</div>
+  <div style="margin-bottom:1rem">${rarBar(S.view.invT || 'alle', 'invT', 'invLeg')}</div>
+  <div class="split" style="grid-template-columns:minmax(0,1fr) 22rem"><div class="grid gauto stg" style="align-content:start">${list.map((x, i) => `<button type="button" class="tile t-${x.tier} ${x === it ? 'sel' : ''}" data-act="invSel" data-arg="${i}"><span class="badges">${x.on ? tag('An', 'neu') : '<span></span>'}${x.serial ? `<span class="serial">${x.serial}</span>` : x.stars ? stars(x.stars) : ''}</span><span class="art">${ART.weapon(x.art, x.tier)}</span><span class="nm">${x.n}</span>${tileTier(x)}${tileTy(x)}</button>`).join('') || `<div class="empty" style="grid-column:1/-1">${ic('hanger')}Nichts mit diesem Filter</div>`}</div>
+  ${it ? `<section class="panel detail t-${it.tier}">${itemTags(it)}<h3>${it.n}</h3>${itemNote(it) ? `<div class="inote">${itemNote(it)}</div>` : ''}<div class="art">${ART.weapon(it.art, it.tier)}</div>${uniqBox(it)}<dl class="kv"><dt>Laufzeit</dt><dd>${it.life}</dd><dt>Typ</dt><dd>${it.ty}</dd><dt>Upgrades</dt><dd>${stars(it.stars)}</dd></dl><div class="sect">Boni</div><div class="small muted">${it.tier === 'basic' ? '–' : `+${2 + it.stars} % Schaden · +1 % Tempo`}</div>
+    <div class="stack" style="margin-top:1rem">${btn(it.on ? 'ABLEGEN' : 'AUSRÜSTEN', { v: it.on ? 'dark' : '', cls: 'block', act: 'invEquip' })}${btn('ZUR WERKSTATT', { v: 'dark', cls: 'block', icon: 'hammer', act: 'goTab', arg: 'spind|werkstatt', dis: it.tier === 'basic' })}${noScrap(it) ? btn('NICHT ZERLEGBAR', { v: 'red', cls: 'block', icon: 'lock', dis: true }) : btn(`ZERLEGEN (+${20 + it.stars * 15} SPLITTER)`, { v: 'red', cls: 'block', act: 'invScrap' })}</div></section>` : '<div></div>'}</div>`);
 };
+/* Werkstatt: Basis ist nicht aufwertbar; die Gebühr steigt mit der Stufe */
+const wsItems = () => INV.filter(x => (x.cat === 'waffen' || x.cat === 'kleidung') && x.tier !== 'basic');
+const wsFee = x => [0, 600, 900, 1200, 1500, 2000, 3000, 4500, 6000, 9000][TORDER.indexOf(x.tier)] || 1200;
 const WSATTR = [['Schaden', 'I → II'], ['Feuerrate', 'II → III'], ['Magazin', 'I → II'], ['Nachladen', 'MAX']];
 R['spind/werkstatt'] = () => {
-  const items = INV.filter(x => x.cat === 'waffen' || x.cat === 'kleidung'), i = S.view.wsSel || 0, it = items[i], attr = S.view.wsAttr ?? 0, gem = S.view.wsGem ?? 0;
+  const items = wsItems(), i = S.view.wsSel || 0, it = items[i], attr = S.view.wsAttr ?? 0, gem = S.view.wsGem ?? 0;
   const chance = 65 + (gem === 0 ? 10 : 0);
   return spindWrap(`${ph('Werkstatt', 'Items mit Gems aufwerten. Ein Fehlschlag kostet nur die Gebühr.')}
-  <div class="split" style="grid-template-columns:18rem minmax(0,1fr)"><div class="stack"><div class="sect" style="margin-top:0">Aufwertbar</div><div class="lrows">${items.slice(0, 6).map((x, k) => `<button type="button" class="lrow click ${k === i ? 'sel' : ''}" data-act="wsSel" data-arg="${k}"><span class="si" style="width:2.5rem;height:2rem">${ART.weapon(x.art, x.tier)}</span><span class="grow" style="text-align:left"><b class="small">${x.n}</b><br>${stars(x.stars)}</span></button>`).join('')}</div><div class="sect">Nicht aufwertbar</div><div class="lrow" style="opacity:.6"><span class="small">Heiltrank · Verbrauch</span></div></div>
-  <section class="panel t-${it.tier}" id="wsbox"><div class="row wrap"><span class="wbox" style="width:6rem;height:4.5rem">${ART.weapon(it.art, it.tier)}</span><div class="grow">${tierLbl(it.tier)}<h3 style="margin:.2rem 0;font:800 1.75rem/1 var(--f-display);text-transform:uppercase">${it.n}</h3>${stars(it.stars)}</div></div>
+  <div class="split" style="grid-template-columns:18rem minmax(0,1fr)"><div class="stack"><div class="sect" style="margin-top:0">Aufwertbar</div><div class="lrows wsl">${items.slice(0, 8).map((x, k) => `<button type="button" class="lrow click ${k === i ? 'sel' : ''}" data-act="wsSel" data-arg="${k}"><span class="si" style="width:2.5rem;height:2rem">${ART.weapon(x.art, x.tier)}</span><span class="grow" style="text-align:left;min-width:0"><b class="small">${x.n}</b><br>${tierLbl(x.tier)}</span>${x.serial ? `<span class="serial">${x.serial}</span>` : stars(x.stars)}</button>`).join('')}</div><div class="sect">Nicht aufwertbar</div><div class="lrows">${[['Übungspistole', 'basic', 'Start'], ['Heiltrank', 'common', 'Verbrauch']].map(([n, t, w]) => `<div class="lrow" style="opacity:.7"><span class="grow small">${n} · ${w}</span>${tierLbl(t)}</div>`).join('')}</div></div>
+  <section class="panel t-${it.tier}" id="wsbox"><div class="row wrap"><span class="wbox" style="width:6rem;height:4.5rem">${ART.weapon(it.art, it.tier)}</span><div class="grow">${itemTags(it)}<h3 style="margin:.3rem 0 .2rem;font:800 1.75rem/1 var(--f-display);text-transform:uppercase">${it.n}</h3><span class="row" style="gap:.6rem">${stars(it.stars)}${it.serial ? `<span class="serial">${it.serial}</span><span class="one1">1 von 1</span>` : ''}</span></div></div>
     <div class="sect">Attribut wählen</div><div class="grid g4">${WSATTR.map(([a, s], k) => `<button type="button" class="card ${attr === k ? 'sel' : ''}" data-act="wsAttr" data-arg="${k}" ${s === 'MAX' ? 'aria-disabled="true"' : ''} style="text-align:center;display:grid;gap:.25rem;padding:.75rem"><b class="disp">${a}</b><span class="small ${s === 'MAX' ? 'faint' : 'gold'}">${s}</span></button>`).join('')}</div>
     <div class="sect">Gem</div><div class="grid g3">${[['Gem des Glücks', '+10 % Chance · ×2'], ['Gem der Stärke', 'Pflicht ab ★4 · ×0'], ['Kein Gem', 'normale Chance']].map(([a, s], k) => `<button type="button" class="card ${gem === k ? 'sel' : ''}" data-act="wsGem" data-arg="${k}" ${k === 1 ? 'aria-disabled="true"' : ''} style="display:grid;gap:.25rem;padding:.75rem"><span class="row">${ART.cur(k === 2 ? 'muenze' : 'splitter')}<b class="disp small">${a}</b></span><span class="tiny faint">${s}</span></button>`).join('')}</div>
-    <div class="row wrap" style="margin-top:1.25rem"><div class="grow"><div class="tiny disp faint">Chance</div><b class="disp" style="font-size:2rem;color:var(--good)">${chance} %</b></div><div class="grow"><div class="tiny disp faint">Gebühr</div><b class="disp" style="font-size:1.5rem">${ART.cur('brix')} 1.200</b></div>${btn('ZERLEGEN', { v: 'red', act: 'invScrap' })}${btn('VERSUCHEN', { size: 'lg', icon: 'hammer', act: 'wsTry' })}</div></section></div>`);
+    <div class="row wrap" style="margin-top:1.25rem"><div class="grow"><div class="tiny disp faint">Chance</div><b class="disp" style="font-size:2rem;color:var(--good)">${chance} %</b></div><div class="grow"><div class="tiny disp faint">Gebühr</div><b class="disp" style="font-size:1.5rem">${ART.cur('brix')} ${fmt(wsFee(it))}</b></div>${noScrap(it) ? btn('NICHT ZERLEGBAR', { v: 'red', icon: 'lock', dis: true }) : btn('ZERLEGEN', { v: 'red', act: 'invScrap' })}${btn('VERSUCHEN', { size: 'lg', icon: 'hammer', act: 'wsTry' })}</div></section></div>`);
 };
 R['spind/test'] = () => spindWrap(`${ph('Testgelände', 'Leihwaffen zum Ausprobieren. Sie gelten nur in der Plaza und verschwinden beim Verlassen.', btn('EIGENE AUSRÜSTUNG', { v: 'dark', act: 'loanReset' }))}
-  <div class="grid g3 stg">${SHOP.filter(x => x.cat === 'waffen').slice(0, 6).map((x, i) => `<section class="card" style="display:grid;gap:.5rem">${tierLbl(x.tier)}<div class="wbox" style="height:5rem">${ART.weapon(x.art, x.tier)}</div><b class="disp" style="font-size:1.25rem">${x.n}</b><span class="tiny faint">${x.ty}</span><div class="statbars">${['Schaden', 'Feuerrate', 'Magazin', 'Nachladen'].map((s, k) => `<div class="sb"><span>${s}</span>${bar(x.stats[k], 'sm')}<span>${Math.round(x.stats[k] * 100)}</span></div>`).join('')}</div>${btn(S.view.loan === i ? 'AUSGELIEHEN' : 'AUSLEIHEN', { size: 'sm', v: S.view.loan === i ? 'dark' : '', icon: S.view.loan === i ? 'check' : 'gun', act: 'loan', arg: i })}</section>`).join('')}</div>`);
+  <div class="grid g3 stg">${SHOP.filter(x => x.cat === 'waffen' && !x.nobuy).slice(0, 6).map((x, i) => `<section class="card" style="display:grid;gap:.5rem">${itemTags(x)}<div class="wbox" style="height:5rem">${ART.weapon(x.art, x.tier)}</div><b class="disp" style="font-size:1.25rem">${x.n}</b><span class="tiny faint">${x.ty}</span><div class="statbars">${['Schaden', 'Feuerrate', 'Magazin', 'Nachladen'].map((s, k) => `<div class="sb"><span>${s}</span>${bar(x.stats[k], 'sm')}<span>${Math.round(x.stats[k] * 100)}</span></div>`).join('')}</div>${btn(S.view.loan === i ? 'AUSGELIEHEN' : 'AUSLEIHEN', { size: 'sm', v: S.view.loan === i ? 'dark' : '', icon: S.view.loan === i ? 'check' : 'gun', act: 'loan', arg: i })}</section>`).join('')}</div>`);
 /* LADEN */
 R['laden/empf'] = () => `<div class="page">${ph('Empfohlen', 'Waffen, Kleidung und Ausrüstung für Brix. Preise gelten je Laufzeit.', `<span class="row small muted">${ic('clock')}Neue Angebote in 06:12:40</span>`)}
   <div class="split" style="grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)"><section class="frame-o" style="display:grid;gap:1rem;min-height:24rem;align-content:end;overflow:hidden"><div style="position:absolute;inset:1.4rem;z-index:0;opacity:.85">${ART.thumb(8, 'dusk', 'wsvg')}</div><div style="position:absolute;inset:1.4rem;background:linear-gradient(transparent 20%,rgba(0,4,10,.92));z-index:0"></div>
-    <div style="position:relative;display:grid;gap:.6rem"><div class="row">${tag('Event', 'red')}${tag('-25 %')}<span class="tiny disp muted">noch 2 T 04 Std.</span></div><h3 style="margin:0;font:800 3rem/1 var(--f-display);letter-spacing:.04em;text-transform:uppercase">Herbstlaub-Paket</h3><p class="muted" style="margin:0">Kürbis-Helm · Laub-Jacke · Funkenwerfer (30 Tage) · 500 Brix</p>
-    <div class="row wrap"><span class="row" style="width:16rem;height:6rem;gap:0"><span class="wbox grow" style="height:100%">${ART.weapon('hat', 'jackpot')}</span><span class="wbox grow" style="height:100%">${ART.weapon('shirt', 'epic')}</span><span class="wbox grow" style="height:100%">${ART.weapon('smg', 'epic')}</span></span><span class="sp"></span>${btn('<span class="price">' + ART.cur('kristalle') + ' 1.200</span>', { size: 'lg', act: 'buyItem', arg: 'kuerbis' })}</div></div></section>
+    <div style="position:relative;display:grid;gap:.6rem"><div class="row">${serLbl('event')}${tag('-25 %')}<span class="tiny disp muted">noch 2 T 04 Std.</span></div><h3 style="margin:0;font:800 3rem/1 var(--f-display);letter-spacing:.04em;text-transform:uppercase">Herbstlaub-Paket</h3><p class="muted" style="margin:0">Kürbis-Helm · Laub-Jacke · Funkenwerfer (30 Tage) · 500 Brix</p>
+    <div class="row wrap"><span class="row" style="width:16rem;height:6rem;gap:0"><span class="wbox grow" style="height:100%">${ART.weapon('hat', 'legendary')}</span><span class="wbox grow" style="height:100%">${ART.weapon('shirt', 'epic')}</span><span class="wbox grow" style="height:100%">${ART.weapon('smg', 'epic')}</span></span><span class="sp"></span>${btn('<span class="price">' + ART.cur('kristalle') + ' 1.200</span>', { size: 'lg', act: 'buyItem', arg: 'kuerbis' })}</div></div></section>
   <div class="grid g2 stg">${FEATURED.map(id => SHOP.find(x => x.id === id)).filter(x => x && !x.hidden).map(shopTile).join('')}</div></div></div>`;
 function shopTile(x) {
   const lock = x.lock && ME.rank < x.lock;
-  return `<button type="button" class="tile t-${x.tier} ${S.view.shopSel === x.id ? 'sel' : ''}" data-act="shopSel" data-arg="${x.id}"><span class="badges">${x.own ? tag(x.active ? 'Aktiv' : 'Besitz', x.active ? '' : 'neu') : '<span></span>'}${x.disc ? tag('-' + x.disc + ' %', 'red') : ''}</span><span class="art">${ART.weapon(x.art, x.tier)}</span><span class="nm">${x.n}</span><span class="ty">${x.ty}</span><span class="row small" style="gap:.3rem">${ART.cur(x.kr ? 'kristalle' : 'brix')}<b class="num">ab ${fmt(x.disc ? x.price * (1 - x.disc / 100) : x.price)}</b></span>${lock ? `<span class="lock">${ic('lock')}Rang ${x.lock}</span>` : ''}</button>`;
+  return `<button type="button" class="tile t-${x.tier} ${S.view.shopSel === x.id ? 'sel' : ''}" data-act="shopSel" data-arg="${x.id}"><span class="badges">${x.own ? tag(x.active ? 'Aktiv' : 'Besitz', x.active ? '' : 'neu') : '<span></span>'}${x.serial ? `<span class="serial">${x.serial}</span>` : x.disc ? tag('-' + x.disc + ' %', 'red') : ''}</span><span class="art">${ART.weapon(x.art, x.tier)}</span><span class="nm">${x.n}</span>${tileTier(x)}${tileTy(x)}<span class="row small pr">${x.nobuy ? `<span class="faint">${x.nobuy}</span>` : `${ART.cur(x.kr ? 'kristalle' : 'brix')}<b class="num">ab ${fmt(x.disc ? x.price * (1 - x.disc / 100) : x.price)}</b>`}</span>${lock ? `<span class="lock">${ic('lock')}Rang ${x.lock}</span>` : ''}</button>`;
 }
 R['laden/katalog'] = () => {
   const cat = S.view.shopCat || 'waffen', wf = S.view.wf || 'alle';
@@ -3102,34 +3275,35 @@ R['laden/katalog'] = () => {
   const lock = x && x.lock && ME.rank < x.lock;
   return `<div class="page">${S.gift ? `<div class="gbanner">${ic('gift')}Geschenk für ${esc(S.gift)}<span class="sp"></span>${btn('ZURÜCK ZUR NACHRICHT', { v: 'dark', size: 'sm', act: 'giftBack' })}</div>` : ''}
   <div class="split l3"><nav class="sidenav" aria-label="Kategorien">${SHOPCATS.map(([id, l, icn]) => `<button type="button" class="${cat === id ? 'on' : ''}" data-act="shopCat" data-arg="${id}" title="${l}" aria-label="${l}">${ic(icn)}${l}${id === 'event' ? tag('Neu', 'neu') : ''}</button>`).join('')}</nav>
-  <div>${cat === 'waffen' ? `<div style="margin-bottom:1rem">${chips([['alle', 'Alle'], ['haupt', 'Hauptwaffe'], ['sek', 'Sekundärwaffe'], ['nah', 'Nahkampf'], ['spezial', 'Spezial']], wf, 'wf')}</div>` : ''}<div class="grid gauto stg">${list.map(shopTile).join('') || `<div class="empty">${ic('cart')}Hier gibt es gerade nichts. Schau beim nächsten Event vorbei.</div>`}</div></div>
-  ${x ? `<section class="panel detail">${tierLbl(x.tier)}<h3>${x.n}</h3><div class="small muted">${x.ty}${lock ? ' · ' + tag(ic('lock') + 'ab Rang ' + x.lock, 'dark') : ''}</div><div class="art">${ART.weapon(x.art, x.tier)}</div>
+  <div>${cat === 'waffen' ? `<div style="margin-bottom:1rem">${chips([['alle', 'Alle'], ['haupt', 'Hauptwaffe'], ['sek', 'Sekundärwaffe'], ['nah', 'Nahkampf'], ['spezial', 'Spezial']], wf, 'wf')}</div>` : ''}${cat === 'vitrine' ? `<div class="note gold" style="margin-bottom:1rem">${ic('sealstar')}<span>Einzigartiges und Exklusives – nicht kaufbar. Hier siehst du, was es gibt und wem es gehört.</span></div>` : ''}<div class="grid gauto stg">${list.map(shopTile).join('') || `<div class="empty">${ic('cart')}Hier gibt es gerade nichts. Schau beim nächsten Event vorbei.</div>`}</div></div>
+  ${x ? `<section class="panel detail t-${x.tier}">${itemTags(x)}<h3>${x.n}</h3><div class="small muted">${x.ty}${lock ? ' · ' + tag(ic('lock') + 'ab Rang ' + x.lock, 'dark') : ''}</div>${itemNote(x) ? `<div class="inote" style="margin:.3rem 0 0">${itemNote(x)}</div>` : ''}<div class="art">${ART.weapon(x.art, x.tier)}</div>${uniqBox(x)}
     ${x.stats ? `<div class="statbars">${['Schaden', 'Feuerrate', 'Magazin', 'Nachladen'].map((s, k) => `<div class="sb"><span>${s}</span>${bar(x.stats[k])}<span>${Math.round(x.stats[k] * 100)}</span></div>`).join('')}</div>` : ''}
-    <div class="sect">Boni</div><div class="small muted">${x.tier === 'common' ? '–' : '+' + ({ uncommon: 2, rare: 4, epic: 6, jackpot: 8 }[x.tier]) + ' % Schaden · Mastery-Punkte ×1,2'}</div>
-    <div class="sect">Laufzeit</div><div class="chips lifechips">${['1 Tag', '7 Tage', '30 Tage', 'Dauerhaft'].map((l, k) => `<button type="button" class="chip ${life === k ? 'on' : ''}" data-act="life" data-arg="${k}">${l}</button>`).join('')}</div>
+    <div class="sect">Boni</div><div class="small muted">${TIERBONUS[x.tier] ? '+' + TIERBONUS[x.tier] + ' % Schaden · Mastery-Punkte ×1,2' : '–'}</div>
+    ${x.nobuy ? `<div class="sect">Herkunft</div><div class="small muted">${x.serial ? 'Zum Saisonstart geprägt · wechselt nur per Übergabe' : x.how || 'Start-Ausrüstung für alle Spieler'}</div><div class="stack" style="margin-top:1rem">${btn(x.nobuy.toUpperCase(), { cls: 'block', icon: 'lock', dis: true })}</div></section>` : `<div class="sect">Laufzeit</div><div class="chips lifechips">${['1 Tag', '7 Tage', '30 Tage', 'Dauerhaft'].map((l, k) => `<button type="button" class="chip ${life === k ? 'on' : ''}" data-act="life" data-arg="${k}">${l}</button>`).join('')}</div>
     <div class="small faint" style="margin:.6rem 0 0">${x.own ? 'Im Besitz: noch 6 Tage' : 'Nicht im Besitz'}</div>
-    <div class="stack" style="margin-top:1rem">${x.own && life === 3 ? btn('DAUERHAFT IM BESITZ', { cls: 'block', dis: true }) : lock ? btn('GESPERRT', { cls: 'block', icon: 'lock', dis: true }) : btn(`KAUFEN · <span class="price">${ART.cur(x.kr ? 'kristalle' : 'brix')}${fmt(price)}</span>`, { cls: 'block', size: 'lg', act: 'buy', arg: x.id + '|' + price })}${btn('VERSCHENKEN', { v: 'dark', cls: 'block', icon: 'gift', act: 'giftItem', arg: x.id, dis: !!lock })}</div></section>` : ''}</div></div>`;
+    <div class="stack" style="margin-top:1rem">${x.own && life === 3 ? btn('DAUERHAFT IM BESITZ', { cls: 'block', dis: true }) : lock ? btn('GESPERRT', { cls: 'block', icon: 'lock', dis: true }) : btn(`KAUFEN · <span class="price">${ART.cur(x.kr ? 'kristalle' : 'brix')}${fmt(price)}</span>`, { cls: 'block', size: 'lg', act: 'buy', arg: x.id + '|' + price })}${btn('VERSCHENKEN', { v: 'dark', cls: 'block', icon: 'gift', act: 'giftItem', arg: x.id, dis: !!lock })}</div></section>`}` : ''}</div></div>`;
 };
-const BOARD = (() => { const r = seeded(4), tiers = ['common', 'common', 'common', 'common', 'uncommon', 'uncommon', 'uncommon', 'rare', 'rare', 'epic', 'jackpot']; return Array.from({ length: 48 }, (_, i) => ({ open: r() < 0.35, tier: tiers[Math.floor(r() * tiers.length)], prize: pick(['200 Brix', 'Heiltrank ×3', '50 Splitter', 'Kürbis-Helm (7 Tage)', 'Gem des Glücks', '1.000 Brix', 'Bauhelm Gold']) })); })();
+const BOARD = (() => { const r = seeded(4), tiers = ['common', 'common', 'common', 'common', 'uncommon', 'uncommon', 'uncommon', 'rare', 'rare', 'epic', 'legendary']; return Array.from({ length: 48 }, (_, i) => ({ open: r() < 0.35, tier: tiers[Math.floor(r() * tiers.length)], prize: pick(['200 Brix', 'Heiltrank ×3', '50 Splitter', 'Kürbis-Helm (7 Tage)', 'Gem des Glücks', '1.000 Brix', 'Bauhelm Gold']) })); })();
 BOARD[7] = { open: false, tier: 'epic', prize: 'Bauhelm Gold (30 Tage)' };
 BOARD[0] = { open: false, tier: 'rare', prize: 'Funkenwerfer (7 Tage)' };
-BOARD[12] = { open: false, tier: 'jackpot', prize: 'Goldener Hammer (dauerhaft)' };
-/* Kuratierte Saison-Verteilung (1 Hauptgewinn · 3 episch · 6 selten · 12 ungewöhnlich · 26 gewöhnlich), Gewinn passt zur Stufe –
+BOARD[12] = { open: false, tier: 'legendary', prize: 'Goldener Hammer (dauerhaft)' };
+/* Glücksbrett-Stufen (BSTAGE): Gewöhnlich … Hauptgewinn = Schlüssel common … legendary (Optik der Leiter).
+   Kuratierte Saison-Verteilung (1 Hauptgewinn · 3 episch · 6 selten · 12 ungewöhnlich · 26 gewöhnlich), Gewinn passt zur Stufe –
    damit Spieler-Brett und TEAM › Glücksbrett-Saison dieselben Quoten zeigen. */
 (() => {
-  const r = seeded(11), fix = { 0: 'rare', 7: 'epic', 12: 'jackpot' }, pool = [...Array(2).fill('epic'), ...Array(5).fill('rare'), ...Array(12).fill('uncommon'), ...Array(26).fill('common')];
+  const r = seeded(11), fix = { 0: 'rare', 7: 'epic', 12: 'legendary' }, pool = [...Array(2).fill('epic'), ...Array(5).fill('rare'), ...Array(12).fill('uncommon'), ...Array(26).fill('common')];
   for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
   const PRZ = { rare: ['Funkenwerfer (7 Tage)', 'Kürbis-Helm (7 Tage)'], uncommon: ['Gem des Glücks', '50 Splitter', '1.000 Brix'], common: ['200 Brix', 'Heiltrank ×3'] };
   BOARD.forEach((b, i) => { if (fix[i]) return; b.tier = pool.pop(); b.prize = b.tier === 'epic' ? 'Bauhelm Gold (30 Tage)' : PRZ[b.tier][Math.floor(r() * PRZ[b.tier].length)]; });
 })();
 R['laden/brett'] = () => {
   if (!S.flags.board) return `<div class="page">${ph('Glücksbrett', 'Saison ' + SEASON.n)}<div class="empty panel" style="max-width:40rem;margin:2rem auto">${ic('lock')}<b class="disp" style="font-size:1.5rem">Gerade geschlossen</b><span>Das Glücksbrett macht eine kurze Pause. Deine Münzen bleiben erhalten.</span></div></div>`;
-  const left = BOARD.filter(b => !b.open), cnts = Object.keys(TIERS).map(t => [t, left.filter(b => b.tier === t).length]);
+  const left = BOARD.filter(b => !b.open), cnts = Object.keys(BSTAGE).map(t => [t, left.filter(b => b.tier === t).length]);
   return `<div class="page">${ph('Glücksbrett', `Saison ${SEASON.n} · endet ${SEASON.end} · ${left.length} von ${BOARD.length} Feldern offen`, curPill('muenzen') + (S.seen.coin ? btn('NÄCHSTE MÜNZE IN 14:22:10', { v: 'dark', dis: true }) : btn('TAGESMÜNZE ABHOLEN', { icon: 'gift', act: 'boardCoin' })) + btn('QUOTEN', { v: 'dark', icon: 'stats', act: 'boardOdds' }))}
-  <div class="split" style="grid-template-columns:minmax(0,1fr) 20rem"><div><div class="board">${BOARD.map((b, i) => `<button type="button" class="bf ${b.open ? 'open t-' + b.tier : ''}" data-act="boardField" data-arg="${i}" aria-label="${b.open ? TIERS[b.tier][0] + ': ' + b.prize : 'Feld ' + (i + 1) + ' aufdecken'}"><span class="flip"><span class="fr">?</span><span class="bk">${ART.weapon(b.tier === 'jackpot' ? 'tool' : b.tier === 'epic' ? 'hat' : b.tier === 'rare' ? 'gem' : 'potion', b.tier, '')}</span></span></button>`).join('')}</div>
+  <div class="split" style="grid-template-columns:minmax(0,1fr) 20rem"><div><div class="board">${BOARD.map((b, i) => `<button type="button" class="bf ${b.open ? 'open t-' + b.tier : ''}" data-act="boardField" data-arg="${i}" aria-label="${b.open ? BSTAGE[b.tier] + ': ' + b.prize : 'Feld ' + (i + 1) + ' aufdecken'}"><span class="flip"><span class="fr">?</span><span class="bk">${ART.weapon(boardArt(b.tier), b.tier, '')}</span></span></button>`).join('')}</div>
   <div class="row" style="justify-content:center;margin-top:1rem">${ibtn('chevl', { v: 'dark', size: 'sm', dis: true, label: 'Vorige Seite' })}<span class="disp small muted">Seite 1 / 2</span>${ibtn('chevr', { v: 'dark', size: 'sm', act: 'toast', arg: 'Seite 2 / 2', label: 'Nächste Seite' })}</div></div>
-  <div class="stack"><section class="panel"><div class="ptitle">Letzter Gewinn</div><div class="row"><span class="wbox" style="width:3.5rem;height:3rem">${ART.weapon('potion', 'uncommon')}</span><div><b>Heiltrank ×3</b><br>${tierLbl('uncommon')}</div></div></section>
-  <section class="panel"><div class="ptitle">Noch im Brett</div><div class="tierlist">${cnts.reverse().map(([t, n]) => `<div class="row">${tierLbl(t)}<b class="num">${n}</b></div>`).join('')}</div></section></div></div></div>`;
+  <div class="stack"><section class="panel"><div class="ptitle">Letzter Gewinn</div><div class="row"><span class="wbox" style="width:3.5rem;height:3rem">${ART.weapon('potion', 'uncommon')}</span><div><b>Heiltrank ×3</b><br>${stageLbl('uncommon')}</div></div></section>
+  <section class="panel"><div class="ptitle">Noch im Brett</div><div class="tierlist">${cnts.reverse().map(([t, n]) => `<div class="row">${stageLbl(t)}<b class="num">${n}</b></div>`).join('')}</div></section></div></div></div>`;
 };
 /* KARRIERE */
 R['karriere/profil'] = () => `<div class="page"><section class="panel" style="margin-bottom:1.25rem"><div class="prof-head">${rankBadge(ME.rank, 'lg')}<div><h2>${ME.name} <span class="gold" style="font-size:1.5rem">[${ME.tag}]</span></h2><div class="row small muted">${roleBadge(S.role === 'player' ? 'player' : S.role, 'sm')}<span>Rang ${ME.rank} · ${ME.title}</span></div></div><div class="xp"><div class="row small"><span class="disp">Erfahrung</span><span class="sp"></span><b class="num">${fmt(ME.xp)} / ${fmt(ME.xpMax)} XP</b></div>${bar(ME.xp / ME.xpMax, 'lg')}<span class="tiny faint">Noch ${fmt(ME.xpMax - ME.xp)} XP bis Rang ${ME.rank + 1}</span></div></div></section>
@@ -3451,7 +3625,7 @@ function postMain(box) {
   const sel = S.view.mail ?? 0, list = box === 'in' ? MAIL : [{ from: 'an Kiesel', sub: 'Re: Revanche', when: '18:10', text: 'Bin dabei! 20 Uhr.' }];
   const m = list[sel] || list[0];
   return `<div class="split" style="grid-template-columns:22rem minmax(0,1fr)"><div class="lrows">${list.map((x, i) => `<button type="button" class="lrow click ${i === sel ? 'sel' : ''}" data-act="mailSel" data-arg="${i}" style="text-align:left">${x.unread ? '<span class="on-dot on"></span>' : '<span class="on-dot"></span>'}<span class="grow"><b class="small">${esc(x.sub)}</b><br><span class="tiny faint">${esc(x.from)} · ${x.when}</span></span>${x.gift ? `<span class="gold">${ic('gift')}</span>` : ''}</button>`).join('')}<div class="row" style="justify-content:center">${ibtn('chevl', { v: 'dark', size: 'xs', dis: true, label: 'Zurück' })}<span class="tiny faint disp">Seite 1 / 1</span>${ibtn('chevr', { v: 'dark', size: 'xs', dis: true, label: 'Weiter' })}</div></div>
-    <section class="panel"><div class="tiny faint disp">${box === 'in' ? 'Von ' : ''}${esc(m.from)} · ${m.when}</div><h3 class="disp" style="margin:.3rem 0 1rem;font-size:1.75rem">${esc(m.sub)}</h3><p class="muted">${esc(m.text)}</p>${m.gift ? `<div class="sect">Geschenk</div><div class="row"><span class="wbox" style="width:4rem;height:3.4rem">${ART.weapon('hat', 'jackpot')}</span><b>Kürbis-Helm (7 Tage)</b>${btn('ANNEHMEN', { size: 'sm', act: 'giftTake' })}</div>` : ''}<div class="row" style="margin-top:1rem">${btn('ANTWORTEN', { size: 'sm', icon: 'edit', act: 'newMail', arg: m.from })}${btn('LÖSCHEN', { size: 'sm', v: 'red', act: 'confirmToast', arg: 'Nachricht löschen?|Nachricht gelöscht.' })}</div></section></div>`;
+    <section class="panel"><div class="tiny faint disp">${box === 'in' ? 'Von ' : ''}${esc(m.from)} · ${m.when}</div><h3 class="disp" style="margin:.3rem 0 1rem;font-size:1.75rem">${esc(m.sub)}</h3><p class="muted">${esc(m.text)}</p>${m.gift ? `<div class="sect">Geschenk</div><div class="row"><span class="wbox" style="width:4rem;height:3.4rem">${ART.weapon('hat', 'legendary')}</span><b>Kürbis-Helm (7 Tage)</b>${serLbl('event', true)}${btn('ANNEHMEN', { size: 'sm', act: 'giftTake' })}</div>` : ''}<div class="row" style="margin-top:1rem">${btn('ANTWORTEN', { size: 'sm', icon: 'edit', act: 'newMail', arg: m.from })}${btn('LÖSCHEN', { size: 'sm', v: 'red', act: 'confirmToast', arg: 'Nachricht löschen?|Nachricht gelöscht.' })}</div></section></div>`;
 }
 
 /* Rollen-Menüs: Baukasten mit 8 Element-Arten (Heading, Text, Info, Row, Button, Field, Select, Separator) */
@@ -3661,7 +3835,7 @@ function akData(a) {
   d.tx.sort((x, y) => y.t.v - x.t.v);
   // Inventar
   const catOf = x => ({ waffen: 'waffen', kleidung: 'kleidung', event: 'kleidung', verbrauch: 'verbrauch', bau: 'werkzeug', flug: 'werkzeug', gems: 'gems' })[x.cat] || 'kleidung';
-  d.inv = SHOP.filter(x => x.cat !== 'slots' && r() < 0.62).slice(0, 11).map(x => { const up = ['waffen', 'kleidung', 'event'].includes(x.cat), timed = !['verbrauch', 'gems'].includes(x.cat); return { id: x.id, n: x.n, art: x.art, tier: x.tier, ty: x.ty.split(' · ')[0], cat: catOf(x), life: timed ? pk(['Dauerhaft', 'Dauerhaft', '23 Tage', '6 Tage', '1 Tag']) : '–', stars: up ? Math.floor(r() * 4) : 0, up, timed, on: r() < 0.45, qty: ['verbrauch', 'gems'].includes(x.cat) ? 1 + Math.floor(r() * 6) : 1, got: ddmm(new Date(2026, 8, 1 + Math.floor(r() * 35)).getTime()), src: pk(['Laden', 'Glücksbrett', 'Geschenk', 'Belohnung']) }; });
+  d.inv = SHOP.filter(x => x.cat !== 'slots' && x.tier !== 'unique' && r() < 0.62).slice(0, 11).map(x => { const up = ['waffen', 'kleidung', 'event'].includes(x.cat) && x.tier !== 'basic', timed = !['verbrauch', 'gems'].includes(x.cat) && !x.nobuy; return { id: x.id, n: x.n, art: x.art, tier: x.tier, series: x.series, how: x.how, ty: x.ty.split(' · ')[0], cat: catOf(x), life: timed ? pk(['Dauerhaft', 'Dauerhaft', '23 Tage', '6 Tage', '1 Tag']) : '–', stars: up ? Math.floor(r() * 4) : 0, up, timed, on: r() < 0.45, qty: ['verbrauch', 'gems'].includes(x.cat) ? 1 + Math.floor(r() * 6) : 1, got: ddmm(new Date(2026, 8, 1 + Math.floor(r() * 35)).getTime()), src: pk(['Laden', 'Glücksbrett', 'Geschenk', 'Belohnung']) }; });
   d.load = [['Hauptwaffe', 'Ziegel-MP', 'smg', 'uncommon'], ['Sekundärwaffe', 'Kieselpistole', 'pistol', 'common'], ['Nahkampf', 'Maurerkelle', 'sword', 'uncommon'], ['Spezial', r() < 0.5 ? 'Krachmacher' : '', 'grenade', 'rare'], ['Kopf', r() < 0.5 ? 'Bauhelm Gold' : '', 'hat', 'epic'], ['Oberteil', 'Polier-Jacke', 'shirt', 'rare'], ['Schuhe', 'Stahlkappen', 'shoe', 'common'], ['Flug', r() < 0.6 ? 'Ziegel-Jetpack' : '', 'wing', 'epic']];
   // Fortschritt
   d.prog = { xpMax: 1000 + a.rank * 120, xp: Math.round((0.15 + r() * 0.8) * (1000 + a.rank * 120) / 10) * 10, matches: 80 + a.rank * 38 + Math.floor(r() * 90), win: 38 + Math.floor(r() * 24), kd: (0.8 + r() * 0.9).toFixed(2).replace('.', ','), reports: a.n === 'Rüpel_X' ? 9 : Math.floor(r() * 2),
@@ -3972,8 +4146,8 @@ function txTable(a, can) {
 AKP.inv = (a, can) => {
   const d = akData(a), f = S.team.invF || 'alle', list = d.inv.filter(x => f === 'alle' || x.cat === f), cur = d.inv[S.team.invSel], sel = list.includes(cur) ? cur : list[0];
   return `<div class="row wrap" style="margin-bottom:1rem">${chips([['alle', 'Alle'], ['waffen', 'Waffen'], ['kleidung', 'Kleidung'], ['verbrauch', 'Verbrauch'], ['werkzeug', 'Werkzeug'], ['gems', 'Gems']], f, 'akInvF')}<span class="sp"></span>${btn('ITEM GEBEN', { icon: 'gift', size: 'sm', act: 'akGive', dis: !can })}${btn('INVENTAR LEEREN', { v: 'red', size: 'sm', icon: 'trash', act: 'akWipe', dis: !can || !d.inv.length })}</div>
-  <div class="split" style="grid-template-columns:minmax(0,1fr) 21rem;margin-bottom:1rem"><div class="grid gauto stg" style="align-content:start">${list.map(x => `<button type="button" class="tile t-${x.tier} ${x === sel ? 'sel' : ''}" data-act="akInvSel" data-arg="${d.inv.indexOf(x)}"><span class="badges">${x.on ? tag('An', 'neu') : '<span></span>'}${x.stars ? stars(x.stars) : ''}</span><span class="art">${ART.weapon(x.art, x.tier)}</span><span class="nm">${esc(x.n)}</span><span class="life">${x.timed ? ic('clock') + x.life : x.ty}${x.qty > 1 ? ' · ×' + x.qty : ''}</span></button>`).join('') || `<div class="empty" style="grid-column:1/-1">${ic('hanger')}${d.inv.length ? 'Keine Items in dieser Kategorie.' : 'Das Inventar ist leer.'}</div>`}</div>
-  ${sel ? `<section class="panel detail t-${sel.tier}">${tierLbl(sel.tier)}<h3>${esc(sel.n)}</h3><div class="art">${ART.weapon(sel.art, sel.tier)}</div><dl class="kv"><dt>Typ</dt><dd>${sel.ty}</dd><dt>Laufzeit</dt><dd>${sel.life}</dd><dt>Sterne</dt><dd>${sel.up ? stars(sel.stars) : '–'}</dd><dt>Erhalten</dt><dd>${sel.got} · ${sel.src}</dd><dt>Ausgerüstet</dt><dd>${sel.on ? 'ja' : 'nein'}</dd>${sel.qty > 1 ? `<dt>Anzahl</dt><dd>×${sel.qty}</dd>` : ''}</dl>
+  <div class="split" style="grid-template-columns:minmax(0,1fr) 21rem;margin-bottom:1rem"><div class="grid gauto stg" style="align-content:start">${list.map(x => `<button type="button" class="tile t-${x.tier} ${x === sel ? 'sel' : ''}" data-act="akInvSel" data-arg="${d.inv.indexOf(x)}"><span class="badges">${x.on ? tag('An', 'neu') : '<span></span>'}${x.stars ? stars(x.stars) : ''}</span><span class="art">${ART.weapon(x.art, x.tier)}</span><span class="nm">${esc(x.n)}</span>${tileTier(x)}<span class="life">${x.timed ? ic('clock') + x.life : x.ty}${x.qty > 1 ? ' · ×' + x.qty : ''}</span></button>`).join('') || `<div class="empty" style="grid-column:1/-1">${ic('hanger')}${d.inv.length ? 'Keine Items in dieser Kategorie.' : 'Das Inventar ist leer.'}</div>`}</div>
+  ${sel ? `<section class="panel detail t-${sel.tier}">${itemTags(sel)}<h3>${esc(sel.n)}</h3>${itemNote(sel) ? `<div class="inote">${itemNote(sel)}</div>` : ''}<div class="art">${ART.weapon(sel.art, sel.tier)}</div>${uniqBox(sel)}<dl class="kv"><dt>Typ</dt><dd>${sel.ty}</dd><dt>Laufzeit</dt><dd>${sel.life}</dd><dt>Sterne</dt><dd>${sel.up ? stars(sel.stars) : '–'}</dd><dt>Erhalten</dt><dd>${sel.got} · ${sel.src}</dd><dt>Ausgerüstet</dt><dd>${sel.on ? 'ja' : 'nein'}</dd>${sel.qty > 1 ? `<dt>Anzahl</dt><dd>×${sel.qty}</dd>` : ''}</dl>
     <div class="stack" style="margin-top:1rem;gap:.5rem">${btn('LAUFZEIT ÄNDERN', { v: 'dark', cls: 'block', icon: 'clock', act: 'akLife', dis: !can || !sel.timed })}${btn('AUFWERTEN', { v: 'dark', cls: 'block', icon: 'star', act: 'akUp', dis: !can || !sel.up || sel.stars >= 5 })}${btn('ENTZIEHEN', { v: 'red', cls: 'block', icon: 'trash', act: 'akTake', dis: !can })}</div></section>` : '<div></div>'}</div>
   <section class="panel"><div class="ptitle">${ic('hanger')}Loadout<span class="sp"></span>${btn('AUSRÜSTUNG ZURÜCKSETZEN', { v: 'dark', size: 'xs', icon: 'refresh', act: 'akLoadReset', dis: !can })}</div><div class="grid g4 stg">${d.load.map(([slot, n, art, tier]) => `<div class="lslot ${n ? '' : 'vacant'}" style="min-height:3.75rem"><span class="si">${n ? ART.weapon(art, tier) : `<span class="faint">${ic('plus')}</span>`}</span><span class="grow"><span class="sl">${slot}</span><br><span class="sn">${n || 'leer'}</span></span></div>`).join('')}</div></section>`;
 };
@@ -4085,25 +4259,27 @@ AKP.log = (a) => `<div class="tph" style="margin-bottom:.75rem"><div><p style="m
 /* ---------- Item geben: Katalog-Suche, Laufzeit, Anzahl, Sterne ---------- */
 function openItemGive(a) {
   const st = { q: '', id: 'helm', life: 2, qty: 1, stars: 0 };
-  const grid = () => { const q = st.q.toLowerCase(), l = SHOP.filter(x => !q || x.n.toLowerCase().includes(q) || x.ty.toLowerCase().includes(q)); return l.map(x => `<button type="button" class="tile t-${x.tier} ${x.id === st.id ? 'sel' : ''}" data-gid="${x.id}"><span class="art">${ART.weapon(x.art, x.tier)}</span><span class="nm">${x.n}</span><span class="ty">${x.ty.split(' · ')[0]}</span></button>`).join('') || `<div class="empty" style="grid-column:1/-1">${ic('search')}Nichts gefunden.</div>`; };
-  const side = () => { const x = SHOP.find(i => i.id === st.id), stack = ['verbrauch', 'gems'].includes(x.cat), up = ['waffen', 'kleidung', 'event'].includes(x.cat), timed = !stack; if (!stack) st.qty = 1; if (!up) st.stars = 0;
-    return `${tierLbl(x.tier)}<h3 class="disp" style="margin:0;font-size:1.6rem">${x.n}</h3><span class="small muted">${x.ty}</span><div class="wbox" style="height:5rem;margin:.25rem 0">${ART.weapon(x.art, x.tier)}</div>
+  const grid = () => { const q = st.q.toLowerCase(), l = SHOP.filter(x => !q || [x.n, x.ty, TIERS[x.tier][0], x.series ? SERIES[x.series][2] : ''].join(' ').toLowerCase().includes(q)); return l.map(x => `<button type="button" class="tile t-${x.tier} ${x.id === st.id ? 'sel' : ''}" data-gid="${x.id}">${x.serial ? `<span class="badges"><span></span><span class="serial">${x.serial}</span></span>` : ''}<span class="art">${ART.weapon(x.art, x.tier)}</span><span class="nm">${x.n}</span>${tileTier(x)}${tileTy(x, x.ty.split(' · ')[0])}</button>`).join('') || `<div class="empty" style="grid-column:1/-1">${ic('search')}Nichts gefunden.</div>`; };
+  const side = () => { const x = SHOP.find(i => i.id === st.id), stack = ['verbrauch', 'gems'].includes(x.cat), up = ['waffen', 'kleidung', 'event'].includes(x.cat) && x.tier !== 'basic', timed = !stack && !x.nobuy; if (!stack) st.qty = 1; if (!up) st.stars = 0;
+    if (x.serial) return `${itemTags(x)}<h3 class="disp" style="margin:0;font-size:1.6rem">${x.n}</h3><div class="wbox" style="height:5rem;margin:.25rem 0">${ART.weapon(x.art, x.tier)}</div>${uniqBox(x)}<div class="note gold">${ic('lock')}<span>Einzelstück: existiert nur einmal und kann nicht neu erzeugt oder verschenkt werden. Es wechselt nur, wenn der Besitzer es übergibt.</span></div>`;
+    return `${itemTags(x)}<h3 class="disp" style="margin:0;font-size:1.6rem">${x.n}</h3><span class="small muted">${x.ty}</span>${itemNote(x) ? `<span class="tiny faint">${itemNote(x)}</span>` : ''}<div class="wbox" style="height:5rem;margin:.25rem 0">${ART.weapon(x.art, x.tier)}</div>
       <span class="lbl" style="margin:.25rem 0 0">Laufzeit</span><div class="chips lifechips">${LIFES.map((l, k) => `<button type="button" class="chip ${st.life === k ? 'on' : ''}" data-glife="${k}" ${timed ? '' : 'aria-disabled="true"'}>${timed ? l : '–'}</button>`).join('')}</div>
       <span class="lbl" style="margin:.25rem 0 0">Anzahl</span>${numf('gQty', st.qty, { min: 1, max: stack ? 99 : 1, cls: 'sm', label: 'Anzahl', dis: !stack, on: v => { st.qty = v; } })}
       <span class="lbl" style="margin:.25rem 0 0">Sterne</span><div class="starpick">${[1, 2, 3, 4, 5].map(i => `<button type="button" class="${i <= st.stars ? 'on' : ''}" data-gstar="${i}" aria-label="${i} Sterne" ${up ? '' : 'disabled'}>${ic('star')}</button>`).join('')}</div>`; };
-  const d = openDlg({ title: 'Item geben', cls: 'xwide', body: `<div class="cw-who">${avatar(a.col)}<div><b>${esc(a.n)}</b><span>${a.id} · Inventar · ${akData(a).inv.length} Items</span></div></div><div class="ipick"><div><div class="field" style="margin-bottom:.75rem">${ic('search')}<input placeholder="Katalog durchsuchen: Name oder Typ …" aria-label="Katalog durchsuchen" id="gQ" data-autofocus></div><div class="ipgrid" id="gGrid">${grid()}</div></div><div class="stack" id="gSide" style="gap:.45rem;align-content:start">${side()}</div></div>`,
+  const d = openDlg({ title: 'Item geben', cls: 'xwide', body: `<div class="cw-who">${avatar(a.col)}<div><b>${esc(a.n)}</b><span>${a.id} · Inventar · ${akData(a).inv.length} Items</span></div></div><div class="ipick"><div><div class="field" style="margin-bottom:.75rem">${ic('search')}<input placeholder="Katalog durchsuchen: Name, Typ oder Seltenheit …" aria-label="Katalog durchsuchen" id="gQ" data-autofocus></div><div class="ipgrid" id="gGrid">${grid()}</div></div><div class="stack" id="gSide" style="gap:.45rem;align-content:start">${side()}</div></div>`,
     foot: btn('ABBRECHEN', { v: 'dark', attr: 'data-dclose' }) + btn('WEITER', { icon: 'right', attr: 'data-ok' }) });
-  const re = () => { d.box.querySelector('#gGrid').innerHTML = grid(); d.box.querySelector('#gSide').innerHTML = side(); };
+  const re = () => { d.box.querySelector('#gGrid').innerHTML = grid(); d.box.querySelector('#gSide').innerHTML = side(); d.box.querySelector('[data-ok]').setAttribute('aria-disabled', String(!!SHOP.find(i => i.id === st.id).serial)); };
   d.box.querySelector('#gQ').addEventListener('input', e => { st.q = e.target.value; d.box.querySelector('#gGrid').innerHTML = grid(); });
   d.box.addEventListener('click', e => {
     const g = e.target.closest('[data-gid]'), l = e.target.closest('[data-glife]'), s = e.target.closest('[data-gstar]');
     if (g) { st.id = g.dataset.gid; re(); } else if (l && l.getAttribute('aria-disabled') !== 'true') { st.life = +l.dataset.glife; re(); } else if (s && !s.disabled) { st.stars = st.stars === +s.dataset.gstar ? 0 : +s.dataset.gstar; re(); }
   });
   d.box.querySelector('[data-ok]').addEventListener('click', () => {
-    const x = SHOP.find(i => i.id === st.id), up = ['waffen', 'kleidung', 'event'].includes(x.cat), timed = !['verbrauch', 'gems'].includes(x.cat), life = timed ? LIFES[st.life] : '–';
-    const desc = `${x.n}${timed ? ' · ' + life : ''}${st.stars ? ' · ★' + st.stars : ''}${st.qty > 1 ? ' · ×' + st.qty : ''}`;
+    const x = SHOP.find(i => i.id === st.id); if (x.serial) return;
+    const up = ['waffen', 'kleidung', 'event'].includes(x.cat) && x.tier !== 'basic', timed = !['verbrauch', 'gems'].includes(x.cat) && !x.nobuy, life = timed ? LIFES[st.life] : 'Dauerhaft';
+    const desc = `${x.n} · ${TIERS[x.tier][0]}${x.series ? ' · ' + SERIES[x.series][0] : ''}${timed ? ' · ' + life : ''}${st.stars ? ' · ★' + st.stars : ''}${st.qty > 1 ? ' · ×' + st.qty : ''}`;
     staffWrite({ acct: a, area: 'Inventar', what: 'Item gegeben: ' + x.n, diff: [['Inventar', '–', desc]], done: () => d.close('ok'),
-      apply: ({ e }) => { const inv = akData(a).inv, it = { id: x.id, n: x.n, art: x.art, tier: x.tier, ty: x.ty.split(' · ')[0], cat: ({ waffen: 'waffen', verbrauch: 'verbrauch', bau: 'werkzeug', flug: 'werkzeug', gems: 'gems' })[x.cat] || 'kleidung', life, stars: st.stars, up, timed, on: false, qty: st.qty, got: ddmm(scnNow()), src: 'Staff (' + ME.name + ')' }; inv.unshift(it); S.team.invSel = 0; S.team.invF = 'alle'; e.undo = () => { const i = inv.indexOf(it); if (i >= 0) inv.splice(i, 1); }; } });
+      apply: ({ e }) => { const inv = akData(a).inv, it = { id: x.id, n: x.n, art: x.art, tier: x.tier, series: x.series, how: x.how, ty: x.ty.split(' · ')[0], cat: ({ waffen: 'waffen', verbrauch: 'verbrauch', bau: 'werkzeug', flug: 'werkzeug', gems: 'gems' })[x.cat] || 'kleidung', life, stars: st.stars, up, timed, on: false, qty: st.qty, got: ddmm(scnNow()), src: 'Staff (' + ME.name + ')' }; inv.unshift(it); S.team.invSel = 0; S.team.invF = 'alle'; e.undo = () => { const i = inv.indexOf(it); if (i >= 0) inv.splice(i, 1); }; } });
   });
 }
 
@@ -4159,7 +4335,7 @@ TP.sanktionen = acc => {
 };
 
 /* Wirtschaft: Laden-Verwaltung */
-const FEATURED = ['funke', 'helm', 'gemluck', 'jet'];
+const FEATURED = ['glut', 'sonne', 'funke', 'helm'];
 const LMULT = [0.15, 0.45, 1, 3];
 const lifePrice = (base, k) => Math.round(base * LMULT[k] / 10) * 10;
 const shopState = x => ({ price: x.price, disc: x.disc || 0, from: x.win ? x.win[0] : '2026-10-03T00:00', to: x.win ? x.win[1] : '2026-10-12T23:59', vis: !x.hidden, feat: FEATURED.indexOf(x.id) + 1 });
@@ -4178,15 +4354,15 @@ function shopPrev(x) { const n = S.team.shopEd; return LIFES.map((l, k) => `<div
 TP.laden = acc => {
   const can = acc === 'w', sel = SHOP.find(x => x.id === S.team.shopSel) || SHOP[1], n = shopEdFor(sel), ch = shopDiff(sel).length;
   const cols = [
-    { k: 'n', l: 'Item', f: x => `<span class="row" style="gap:.6rem"><span class="wbox" style="width:2.75rem;height:2.1rem">${ART.weapon(x.art, x.tier)}</span><span><b>${x.n}</b><br>${tierLbl(x.tier)}</span></span>`, v: x => x.n },
+    { k: 'n', l: 'Item', f: x => `<span class="row" style="gap:.6rem"><span class="wbox" style="width:2.75rem;height:2.1rem">${ART.weapon(x.art, x.tier)}</span><span><b>${x.n}</b><br>${itemTags(x)}</span></span>`, v: x => x.n },
     ...LIFES.map((l, k) => ({ k: 'p' + k, l, cls: 'r num', f: x => `<span class="${x.hidden ? 'faint' : ''}">${fmt(lifePrice(x.price, k))}</span>`, v: x => x.price })),
     { k: 'off', l: 'Angebot', f: x => x.disc ? tag(`−${x.disc} % bis ${x.win ? dtTxt(x.win[1]).slice(0, 6) : '12.10.'}`, 'red') : '<span class="faint">–</span>', v: x => x.disc || 0 },
     { k: 'vis', l: 'Sichtbar', cls: 'c', f: x => tgl(!x.hidden, { act: 'shopVis', arg: x.id, dis: !can, label: 'Sichtbar: ' + x.n }) },
     { k: 'feat', l: 'Empfohlen', cls: 'c', f: x => FEATURED.includes(x.id) ? tag('Platz ' + (FEATURED.indexOf(x.id) + 1)) : '<span class="faint">–</span>', v: x => FEATURED.includes(x.id) ? -FEATURED.indexOf(x.id) : -9 }
   ];
   return tph('Laden-Verwaltung', 'Preise je Laufzeit, Angebote mit Zeitfenster, Sichtbarkeit und die vier Plätze unter „Empfohlen“. Preise in Brix.', btn('ZUM LADEN', { v: 'dark', size: 'sm', icon: 'cart', act: 'goShop', arg: 'waffen' }), true) + roNote(acc)
-  + `<div class="split" style="grid-template-columns:minmax(0,1fr) 25rem">${stbl('shop', cols, SHOP.filter(x => x.cat !== 'gems'), { rowAttr: x => `class="click ${x === sel ? 'sel' : ''}" data-act="shopEdSel" data-arg="${x.id}"` })}
-  <section class="panel sticky" style="top:0"><div class="row">${`<span class="wbox" style="width:4rem;height:3.2rem">${ART.weapon(sel.art, sel.tier)}</span>`}<div class="grow">${tierLbl(sel.tier)}<h3 class="disp" style="margin:.15rem 0 0;font-size:1.5rem">${sel.n}</h3></div></div>
+  + `<div class="split" style="grid-template-columns:minmax(0,1fr) 25rem">${stbl('shop', cols, SHOP.filter(x => x.cat !== 'gems' && !x.nobuy), { rowAttr: x => `class="click ${x === sel ? 'sel' : ''}" data-act="shopEdSel" data-arg="${x.id}"` })}
+  <section class="panel sticky" style="top:0"><div class="row">${`<span class="wbox" style="width:4rem;height:3.2rem">${ART.weapon(sel.art, sel.tier)}</span>`}<div class="grow">${itemTags(sel)}<h3 class="disp" style="margin:.2rem 0 0;font-size:1.5rem">${sel.n}</h3></div></div>
     <div class="sect">Grundpreis · 30 Tage</div>${numf('sePrice', n.price, { min: 10, max: 99990, step: 50, label: 'Grundpreis', dis: !can, on: v => { S.team.shopEd.price = v; updShopEd(sel); } })}
     <div class="grid g2" id="sePrev" style="margin-top:.6rem;gap:.4rem">${shopPrev(sel)}</div>
     <div class="sect">Angebot</div><div class="row"><span class="grow">Rabatt</span>${numf('seDisc', n.disc, { min: 0, max: 90, step: 5, cls: 'sm', label: 'Rabatt in Prozent', dis: !can, on: v => { S.team.shopEd.disc = v; updShopEd(sel); } })}<span class="muted">%</span></div>
@@ -4207,12 +4383,12 @@ function updShopEd(x) {
 const SEASON = { n: 'Herbstlaub', end: '18.10.', coins: 18204, players: 6912 };
 TP.brett = acc => {
   const groups = {}; BOARD.forEach(b => { const k = b.prize + '|' + b.tier; (groups[k] = groups[k] || { prize: b.prize, tier: b.tier, n: 0, open: 0 }).n++; if (!b.open) groups[k].open++; });
-  const rows = Object.values(groups), order = Object.keys(TIERS), barC = { common: 'grey', uncommon: 'green', rare: 'blue', epic: 'purple', jackpot: '' };
+  const rows = Object.values(groups), order = Object.keys(BSTAGE), barC = { common: 'grey', uncommon: 'green', rare: 'blue', epic: 'purple', legendary: '' };
   return tph('Glücksbrett-Saison', `Saison „${SEASON.n}“ · endet ${SEASON.end} · ${BOARD.length} Felder · Quoten und Gewinne der laufenden Saison.`, btn('ZUM BRETT', { v: 'dark', size: 'sm', icon: 'grid', act: 'goTab', arg: 'laden|brett' }) + btn('NEUES BRETT', { size: 'sm', icon: 'refresh', act: 'boardNew', dis: acc !== 'w' }), true) + roNote(acc)
-  + `<div class="kpis stg"><div class="kpi"><span>Felder offen</span><b>${BOARD.filter(b => !b.open).length} / ${BOARD.length}</b><small>${S.flags.board ? 'Brett ist offen' : 'Brett ist geschlossen (Schalter)'}</small></div><div class="kpi"><span>Hauptgewinne übrig</span><b>${BOARD.filter(b => !b.open && b.tier === 'jackpot').length}</b><small>${esc((BOARD.find(b => b.tier === 'jackpot') || {}).prize || '–')}</small></div><div class="kpi"><span>Münzen eingesetzt</span><b>${fmt(SEASON.coins)}</b><small>diese Saison</small></div><div class="kpi"><span>Spieler</span><b>${fmt(SEASON.players)}</b><small>mind. 1 Feld aufgedeckt</small></div></div>
+  + `<div class="kpis stg"><div class="kpi"><span>Felder offen</span><b>${BOARD.filter(b => !b.open).length} / ${BOARD.length}</b><small>${S.flags.board ? 'Brett ist offen' : 'Brett ist geschlossen (Schalter)'}</small></div><div class="kpi"><span>Hauptgewinne übrig</span><b>${BOARD.filter(b => !b.open && b.tier === 'legendary').length}</b><small>${esc((BOARD.find(b => b.tier === 'legendary') || {}).prize || '–')}</small></div><div class="kpi"><span>Münzen eingesetzt</span><b>${fmt(SEASON.coins)}</b><small>diese Saison</small></div><div class="kpi"><span>Spieler</span><b>${fmt(SEASON.players)}</b><small>mind. 1 Feld aufgedeckt</small></div></div>
   <section class="panel"><div class="ptitle">${ic('stats')}Gewinne und Quoten</div>${stbl('board', [
     { k: 'prize', l: 'Gewinn', f: g => `<b>${esc(g.prize)}</b>`, v: g => g.prize },
-    { k: 'tier', l: 'Stufe', f: g => tierLbl(g.tier), v: g => order.indexOf(g.tier) },
+    { k: 'tier', l: 'Stufe', f: g => stageLbl(g.tier), v: g => order.indexOf(g.tier) },
     { k: 'n', l: 'Felder', cls: 'r num', f: g => g.n, v: g => g.n },
     { k: 'open', l: 'Noch offen', cls: 'r num', f: g => g.open, v: g => g.open },
     { k: 'p', l: 'Chance', f: g => `<span class="row" style="gap:.6rem;min-width:13rem">${bar(g.n / BOARD.length, 'sm ' + barC[g.tier])}<span class="num" style="width:3.6rem;text-align:right">${fmt1(g.n / BOARD.length * 100)} %</span></span>`, v: g => g.n }
@@ -4614,7 +4790,7 @@ function rvUpdate() {
 function renderComponents() {
   const states = [['', 'Normal'], ['is-hover', 'Hover'], ['is-press', 'Gedrückt'], ['is-dis', 'Deaktiviert'], ['is-focus', 'Fokussiert']];
   const row = (label, f) => `<span class="h" style="text-align:left">${label}</span>${states.map(([c]) => `<div class="cell">${f(c)}</div>`).join('')}`;
-  const ICONS = ['play', 'pause', 'gear', 'home', 'close', 'cart', 'user', 'mail', 'trophy', 'gift', 'left', 'right', 'refresh', 'info', 'question', 'eye', 'brick', 'hanger', 'users', 'shield', 'shieldchk', 'bell', 'crown', 'star', 'heart', 'lock', 'search', 'dots', 'plus', 'check', 'flag', 'bomb', 'target', 'hs', 'skull', 'cross', 'mic', 'speaker', 'mute', 'gamepad', 'camera', 'power', 'exit', 'film', 'next', 'clock', 'thumbup', 'chat', 'radio', 'swap', 'warn', 'sword', 'gun', 'pistol', 'grenade', 'hammer', 'map', 'sun', 'trash', 'upload', 'copy', 'globe', 'ban', 'bolt', 'potion', 'gem', 'coin', 'grid', 'stats', 'medal', 'sparkle', 'flame', 'ghost', 'bio', 'speed', 'feet', 'rotate', 'compass', 'pipette', 'wing', 'palette', 'blueprint', 'undo', 'redo', 'cube', 'tline', 'replace', 'sym', 'ammo', 'clan', 'layers', 'pin', 'whisper', 'report'];
+  const ICONS = ['play', 'pause', 'gear', 'home', 'close', 'cart', 'user', 'mail', 'trophy', 'gift', 'left', 'right', 'refresh', 'info', 'question', 'eye', 'brick', 'hanger', 'users', 'shield', 'shieldchk', 'bell', 'crown', 'star', 'heart', 'lock', 'search', 'dots', 'plus', 'check', 'flag', 'bomb', 'target', 'hs', 'skull', 'cross', 'mic', 'speaker', 'mute', 'gamepad', 'camera', 'power', 'exit', 'film', 'next', 'clock', 'thumbup', 'chat', 'radio', 'swap', 'warn', 'sword', 'gun', 'pistol', 'grenade', 'hammer', 'map', 'sun', 'trash', 'upload', 'copy', 'globe', 'ban', 'bolt', 'potion', 'gem', 'coin', 'grid', 'stats', 'medal', 'sparkle', 'flame', 'ghost', 'bio', 'speed', 'feet', 'rotate', 'compass', 'pipette', 'wing', 'palette', 'blueprint', 'undo', 'redo', 'cube', 'tline', 'replace', 'sym', 'ammo', 'clan', 'layers', 'pin', 'whisper', 'report', 'dot', 'sealstar', 'seal'];
   $('#screen').innerHTML = `<div class="scrbg"></div><div class="comp"><h1>Komponenten</h1><p>Alle Bausteine aus dem Asset-Sheet in allen Zuständen. Platten sind 9-Slices aus den Tokens, Glyphen sind Vektoren – scharf bei jeder Skalierung.</p>
   <div class="cgrid">
   <section class="panel cbox" style="grid-column:1/-1"><div class="ptitle">Platten · Zustände</div><div class="stategrid"><span></span>${states.map(s => `<span class="h">${s[1]}</span>`).join('')}
@@ -4627,13 +4803,16 @@ function renderComponents() {
   <section class="panel cbox"><div class="ptitle">Reiter · Chips · Unterreiter</div><div class="tabs" style="position:relative">${['Aktiv', 'Reiter', 'Reiter'].map((l, i) => `<button type="button" class="tab ${i ? '' : 'on'}">${l}</button>`).join('')}<span class="tabs-base"></span></div>${chips(['Alle', 'Waffen', 'Kleidung'], 'Alle', 'noop')}<div class="subtabs">${['Profil', 'Match-Verlauf'].map((l, i) => `<span class="stab ${i ? '' : 'on'}">${l}</span>`).join('')}</div></section>
   <section class="panel cbox"><div class="ptitle">Banner · Band · Wimpel</div><div class="demo" style="justify-content:space-around"><span class="bplate">Saison 4</span><span class="ribbon">Sieg</span><span class="pennant">23</span></div><div class="demo" style="justify-content:center"><span class="ribbon red">Niederlage</span></div></section>
   <section class="panel cbox"><div class="ptitle">Rollen-Badges</div><div class="demo">${['owner', 'admin', 'dev', 'mod', 'player'].map(r => `<div class="cell">${roleBadge(r, 'lg')}<span class="lab">${ROLES[r][2]}</span></div>`).join('')}</div></section>
-  <section class="panel cbox" style="grid-column:span 2"><div class="ptitle">Stufen (immer Name + Symbol)</div><div class="grid g5" style="grid-template-columns:repeat(5,minmax(0,1fr))">${Object.keys(TIERS).map((t, i) => `<div class="tile t-${t}"><span class="art">${ART.weapon(['potion', 'shirt', 'gun', 'hat', 'tool'][i], t)}</span>${tierLbl(t)}</div>`).join('')}</div></section>
+  <section class="panel cbox" style="grid-column:1/-1"><div class="ptitle">Seltenheit · Leiter von Basis bis Einzigartig (immer Name + Symbol)</div>
+    <div class="rstep" aria-hidden="true"><span>Basis</span><i></i><span>Einzigartig</span></div>
+    <div class="rladder">${TORDER.map(t => { const [art, fx] = RLADDER[t]; return `<div class="tile t-${t}">${t === 'unique' ? `<span class="badges"><span></span><span class="serial">#001</span></span>` : ''}<span class="art">${ART.weapon(art, t)}</span>${tierLbl(t)}<span class="fx">${fx}</span></div>`; }).join('')}</div>
+    <div class="rseries">${Object.keys(SERIES).map(k => `<div class="tile s-${k}"><span class="art">${ART.weapon(k === 'event' ? 'hat' : 'armor', k === 'event' ? 'legendary' : 'heroic')}</span>${serLbl(k, 'name')}<span class="fx">${k === 'event' ? 'Herbstlaub 2026 · limitiert' : 'Nicht kaufbar · Perlmutt'}</span></div>`).join('')}<div class="note">${ic('info')}<span>Serien sind ein Zusatz-Kennzeichen neben der Stufe – das Item hat trotzdem eine Stufe (z. B. Kürbis-Helm: Legendär + Event). Auf Kacheln steht die Serie als Symbol, im Detail mit Namen. Exklusiv kommt von Gründern, Turniersiegern, Clan des Monats und Staff-Geschenken. Das Glücksbrett behält seine 5 Gewinn-Stufen (oben „${BSTAGE.legendary}“ in der Optik von Legendär).</span></div></div></section>
   <section class="panel cbox"><div class="ptitle">Symbole · Abzeichen · Zähler</div><div class="demo">${rankBadge(23, 'lg')}${ART.medal('#FBB21D')}${ART.cur('kristalle', 'cur-i')}${ART.cur('splitter', 'cur-i')}${ART.cur('brix', 'cur-i')}${ART.cur('muenze', 'cur-i')}<span style="position:relative;display:inline-block">${ibtn('mail', { v: 'dark', label: 'Post', badge: cnt('99+', 'pulse') })}</span>${tag('Neu', 'neu')}${tag('Besitz', 'neu')}${tag('Aktiv')}${tag('-20 %', 'red')}${tag('Läuft', 'red live')}${tag('Offiziell', 'blue')}</div></section>
   <section class="panel cbox"><div class="ptitle">Karte mit Titel-Plakette</div><div class="panel plq-top"><span class="plq">Tägliche Belohnung</span><p class="muted" style="margin:0">Dunkles Panel mit dünnem goldenem Doppelrahmen und abgeschrägten Ecken.</p></div></section>
   <section class="cbox frame-o"><div class="ptitle noline" style="justify-content:center">Prunkrahmen</div><p class="muted" style="margin:0;text-align:center">Für legendäre Belohnungen, Bundles und Rang-Aufstiege.</p></section>
   <section class="panel cbox"><div class="ptitle">Fenster mit Chat-Feld</div><div class="chatwin panel soft"><div class="msgs"><div><b>Kiesel:</b> Revanche?</div><div><b>Du:</b> Klar, 20 Uhr.</div></div><div class="row"><div class="field grow"><input placeholder="Nachricht schreiben" aria-label="Nachricht"></div>${ibtn('right', { size: 'sm', label: 'Senden' })}</div></div></section>
   <section class="panel cbox"><div class="ptitle">Such-Pille · Toast · Benachrichtigung</div><div class="demo">${btn('SUCHE STARTEN', { size: 'sm', act: 'play' })}${btn('TOAST', { size: 'sm', v: 'dark', act: 'toast', arg: 'Foto gespeichert.' })}${btn('ABLEHNUNG', { size: 'sm', v: 'red', act: 'toastBad' })}${btn('EINLADUNG', { size: 'sm', v: 'dark', act: 'partyInvite' })}</div></section>
-  <section class="panel cbox" style="grid-column:1/-1"><div class="ptitle">Partikel</div><div class="demo">${[['Funken', 'sparks'], ['Glitzer', 'sparkle'], ['Münzen', 'coins'], ['Konfetti', 'confetti'], ['Glut', 'embers'], ['Ring', 'ring'], ['Strahlen', 'rays'], ['Selten', 'rare'], ['Episch', 'epic'], ['Hauptgewinn', 'jackpot'], ['Riss', 'crack'], ['Splitter', 'shards']].map(([l, k]) => btn(l, { size: 'sm', v: 'dark', act: 'fxTest', arg: k })).join('')}</div>${S.reduced ? `<div class="note">${ic('info')}<span>„Animationen reduzieren“ ist an – Partikel sind aus.</span></div>` : ''}</section>
+  <section class="panel cbox" style="grid-column:1/-1"><div class="ptitle">Partikel</div><div class="demo">${[['Funken', 'sparks'], ['Glitzer', 'sparkle'], ['Münzen', 'coins'], ['Konfetti', 'confetti'], ['Glut', 'embers'], ['Ring', 'ring'], ['Strahlen', 'rays'], ['Selten', 'rare'], ['Episch', 'epic'], ['Legendär', 'legendary'], ['Mythisch', 'mythic'], ['Göttlich', 'divine'], ['Einzigartig', 'unique'], ['Riss', 'crack'], ['Splitter', 'shards']].map(([l, k]) => btn(l, { size: 'sm', v: 'dark', act: 'fxTest', arg: k })).join('')}</div>${S.reduced ? `<div class="note">${ic('info')}<span>„Animationen reduzieren“ ist an – Partikel sind aus.</span></div>` : ''}</section>
   </div></div>`;
   animateBars($('#screen'));
 }
@@ -4874,10 +5053,11 @@ function openDaily(after) {
 }
 
 /* ---------- Kaufen, Werkstatt, Glücksbrett ---------- */
+const BUYRAYS = { epic: 'rgba(196,124,255,.5)', heroic: 'rgba(255,150,80,.5)', legendary: '', mythic: 'rgba(255,96,48,.55)', unique: 'rgba(242,204,106,.55)' };
 function buyFlow(id, price) {
   const x = SHOP.find(i => i.id === id); price = +price || x.price; const cur = x.kr ? 'kristalle' : 'brix', have = S.wallet[cur], enough = have >= price;
   const life = ['1 Tag', '7 Tage', '30 Tage', 'Dauerhaft'][S.view.life ?? 1];
-  const d = openDlg({ title: 'Kauf bestätigen', body: `<div class="row">${`<span class="wbox" style="width:6rem;height:5rem">${ART.weapon(x.art, x.tier)}</span>`}<div>${tierLbl(x.tier)}<h3 class="disp" style="margin:.2rem 0;font-size:1.6rem">${x.n}</h3><div class="small muted">${x.ty} · Laufzeit ${life}${S.gift ? ' · Geschenk für ' + esc(S.gift) : ''}</div></div></div>
+  const d = openDlg({ title: 'Kauf bestätigen', body: `<div class="row">${`<span class="wbox" style="width:6rem;height:5rem">${ART.weapon(x.art, x.tier)}</span>`}<div>${itemTags(x)}<h3 class="disp" style="margin:.3rem 0 .2rem;font-size:1.6rem">${x.n}</h3><div class="small muted">${x.ty} · Laufzeit ${life}${S.gift ? ' · Geschenk für ' + esc(S.gift) : ''}</div></div></div>
     <dl class="kv" style="margin-top:1rem"><dt>Preis</dt><dd>${ART.cur(cur)} ${fmt(price)}</dd><dt>Guthaben</dt><dd>${ART.cur(cur)} ${fmt(have)}</dd><dt>Danach</dt><dd class="${enough ? '' : 'gold'}">${enough ? ART.cur(cur) + ' ' + fmt(have - price) : 'Zu wenig ' + (cur === 'brix' ? 'Brix' : 'Kristalle')}</dd></dl>`,
     foot: btn('ABBRECHEN', { v: 'dark', attr: 'data-dclose' }) + btn(enough ? 'JETZT KAUFEN' : 'ZU WENIG ' + (cur === 'brix' ? 'BRIX' : 'KRISTALLE'), { attr: 'data-buy', dis: !enough, icon: 'cart' }) });
   const b = d.box.querySelector('[data-buy]');
@@ -4888,7 +5068,7 @@ function buyFlow(id, price) {
       d.close('ok'); x.own = true; setWallet(cur, have - price, { dur: 1100 });
       const anchor = $('#hub .detail') || $('#hub .frame-o') || $('#hub .pagewrap'); const p = FX.at(anchor);
       FX.sparkle(p.x, p.y - rem(4), { n: 28, spread: 130 }); FX.confetti(p.x, p.y - rem(6), { n: 70 }); FX.ring(p.x, p.y - rem(4), { r: 200 }); FX.tier(p.x, p.y - rem(4), x.tier);
-      if (x.tier === 'epic' || x.tier === 'jackpot') { const r = FX.rays({ x: p.x, y: p.y - rem(4) }, { r: 280, color: x.tier === 'epic' ? 'rgba(196,124,255,.5)' : undefined }); later(1700, () => r.stop()); }
+      if (x.tier in BUYRAYS) { const r = FX.rays({ x: p.x, y: p.y - rem(4) }, { r: 280, color: BUYRAYS[x.tier] || undefined }); later(1700, () => r.stop()); }   // Göttlich: Strahlen kommen aus FX.tier
       toast(`${S.gift ? 'Geschenk an ' + esc(S.gift) + ' gesendet' : 'Gekauft'}: ${x.n} (${life})`, 'good', 'check');
       if (S.gift) { S.gift = null; }
       if (S.hub && S.tab === 'laden') { S.view.shopSel = x.id; renderPage(0); }
@@ -4897,17 +5077,17 @@ function buyFlow(id, price) {
 }
 let wsTries = 0;
 function workshopTry() {
-  const btnEl = $('[data-act="wsTry"]'); if (!btnEl) return; if (S.wallet.brix < 1200) { toast('Zu wenig Brix.', 'bad'); btnEl.classList.add('shake'); return; }
+  const btnEl = $('[data-act="wsTry"]'); if (!btnEl) return; const fee = wsFee(wsItems()[S.view.wsSel || 0]); if (S.wallet.brix < fee) { toast('Zu wenig Brix.', 'bad'); btnEl.classList.add('shake'); return; }
   btnEl.classList.add('busy'); btnEl.insertAdjacentHTML('beforeend', '<span class="spin"></span>');
   later(S.reduced ? 250 : 800, () => {
     const ok = wsTries === 0 ? true : wsTries === 1 ? false : Math.random() < 0.65; wsTries++;
-    setWallet('brix', S.wallet.brix - 1200); const box = $('#wsbox'), p = FX.at(box);
-    const items = INV.filter(x => x.cat === 'waffen' || x.cat === 'kleidung'), it = items[S.view.wsSel || 0];
+    setWallet('brix', S.wallet.brix - fee); const box = $('#wsbox'), p = FX.at(box);
+    const it = wsItems()[S.view.wsSel || 0];
     if (ok) { it.stars = Math.min(5, it.stars + 1); FX.ring(p.x, p.y, { r: 300, width: 9 }); FX.sparkle(p.x, p.y, { n: 36, spread: 180 }); FX.coins(p.x, p.y, { n: 16 }); FX.embers(p.x, p.y + rem(4), { n: 30, w: 320 }); }
     else { FX.crack(p.x, p.y, { size: 1.2 }); box.classList.add('shake'); }
     later(ok ? 450 : 650, () => {
       let rays;
-      openDlg({ popup: true, ornate: ok, title: ok ? 'Erfolg!' : 'Kein Erfolg', body: `<div class="reward ${ok ? '' : 'fail'}"><span class="big">${ART.weapon(it.art, it.tier)}</span><h3>${ok ? 'Erfolg!' : 'Kein Erfolg'}</h3><p>${ok ? `${it.n} ist jetzt ${it.stars} ★. ${WSATTR[S.view.wsAttr ?? 0].join(' ')}.` : 'Das Gem ist verbraucht, das Item bleibt unverändert.'}</p>${stars(it.stars)}</div>`, foot: btn('WEITER', { attr: 'data-dclose' }),
+      openDlg({ popup: true, ornate: ok, title: ok ? 'Erfolg!' : 'Kein Erfolg', body: `<div class="reward ${ok ? '' : 'fail'} t-${it.tier}"><span class="big">${ART.weapon(it.art, it.tier)}</span>${itemTags(it)}<h3>${ok ? 'Erfolg!' : 'Kein Erfolg'}</h3><p>${ok ? `${it.n} ist jetzt ${it.stars} ★. ${WSATTR[S.view.wsAttr ?? 0].join(' ')}.` : 'Das Gem ist verbraucht, das Item bleibt unverändert.'}</p>${stars(it.stars)}</div>`, foot: btn('WEITER', { attr: 'data-dclose' }),
         onOpen: d => { if (ok) rays = FX.rays(() => FX.at(d.box.querySelector('.big')), { r: 260, host: d.box }); }, onClose: () => { rays && rays.stop(); rerender(); } });
     });
   });
@@ -4917,12 +5097,12 @@ function boardField(i) {
   const el = $(`[data-act="boardField"][data-arg="${i}"]`);
   if (S.wallet.muenzen <= 0) { toast('Keine Münze mehr. Hol dir die Tagesmünze oder spiele Tagesmissionen.', 'bad'); el.classList.add('shake'); later(400, () => el.classList.remove('shake')); return; }
   setWallet('muenzen', S.wallet.muenzen - 1);
-  f.open = true; el.classList.add('open', 't-' + f.tier); el.querySelector('.bk').innerHTML = ART.weapon(f.tier === 'jackpot' ? 'tool' : f.tier === 'epic' ? 'hat' : f.tier === 'rare' ? 'gem' : 'potion', f.tier, ''); el.setAttribute('aria-label', TIERS[f.tier][0] + ': ' + f.prize);
+  f.open = true; el.classList.add('open', 't-' + f.tier); el.querySelector('.bk').innerHTML = ART.weapon(boardArt(f.tier), f.tier, ''); el.setAttribute('aria-label', BSTAGE[f.tier] + ': ' + f.prize);
   const p = FX.at(el);
   later(S.reduced ? 50 : 380, () => FX.tier(p.x, p.y, f.tier));
   later(S.reduced ? 200 : 900, () => {
-    let rays; const big = f.tier === 'epic' || f.tier === 'jackpot';
-    openDlg({ popup: true, ornate: big, title: 'Gewinn', body: `<div class="reward t-${f.tier}"><span class="big">${ART.weapon(f.tier === 'jackpot' ? 'tool' : f.tier === 'epic' ? 'hat' : f.tier === 'rare' ? 'gem' : 'potion', f.tier)}</span>${tierLbl(f.tier)}<h3 style="color:var(--tier)">${esc(f.prize)}</h3><p>Liegt in deinem Inventar.</p></div>`, foot: btn('SUPER', { attr: 'data-dclose' }),
+    let rays; const big = f.tier === 'epic' || f.tier === 'legendary';
+    openDlg({ popup: true, ornate: big, title: 'Gewinn', body: `<div class="reward t-${f.tier}"><span class="big">${ART.weapon(boardArt(f.tier), f.tier)}</span>${stageLbl(f.tier)}<h3 style="color:var(--tier)">${esc(f.prize)}</h3><p>Liegt in deinem Inventar.</p></div>`, foot: btn('SUPER', { attr: 'data-dclose' }),
       onOpen: d => { if (big) rays = FX.rays(() => FX.at(d.box.querySelector('.big')), { r: 300, host: d.box, color: f.tier === 'epic' ? 'rgba(196,124,255,.5)' : undefined }); }, onClose: () => { rays && rays.stop(); } });
   });
 }
@@ -5027,12 +5207,13 @@ const A = {
     d.box.addEventListener('click', e => { if (e.target.closest('[data-gdl]')) return toast(`„${esc(a)}“ in Slot ${sel + 1} heruntergeladen.`, '', 'upload'); const c = e.target.closest('.chip'); if (!c || c.getAttribute('aria-disabled') === 'true') return; sel = +c.dataset.arg; d.box.querySelectorAll('.chip').forEach(x => x.classList.toggle('on', x === c)); d.box.querySelector('.note').hidden = SLOTS[sel].st === 'empty'; }); },
   mapReport(a) { const d = openDlg({ title: 'Map melden', body: `<p>„${esc(a)}“ melden.</p><label class="lbl">Grund</label>${chips(['Anstößiger Inhalt', 'Anstößiger Name', 'Spam', 'Farming', 'Sonstiges'], '', 'noop')}<div style="margin-top:1rem"><label class="lbl">Details (freiwillig)</label><div class="field"><textarea></textarea></div></div>`, foot: btn('ABBRECHEN', { v: 'dark', attr: 'data-dclose' }) + btn('MELDEN', { v: 'red', attr: 'data-dclose', act: 'toast', arg: 'Map gemeldet.' }) }); d.box.addEventListener('click', e => { const c = e.target.closest('.chip'); if (!c) return; d.box.querySelectorAll('.chip').forEach(x => x.classList.toggle('on', x === c)); }); },
   tplOwn(a) { S.view.tplOwn = a === 'mine'; S.sheet === 'plot' ? renderSheet(true) : renderPage(0); }, tplSort(a) { S.view.tplSort = a; S.sheet === 'plot' ? renderSheet(true) : renderPage(0); },
-  loadSlot(a) { const opts = INV.filter(x => x.cat === 'waffen').slice(0, 4); const d = openDlg({ title: `${esc(a)} belegen`, cls: 'wide', body: `<div class="grid g3"><button type="button" class="card" data-dclose style="display:grid;place-items:center;gap:.4rem;min-height:9rem">${ic('close')}<b class="disp">Ablegen</b></button>${opts.map((x, i) => `<div class="tile t-${x.tier}"><span class="art">${ART.weapon(x.art, x.tier)}</span><span class="nm">${x.n}</span>${stars(x.stars)}${btn(x.on ? 'AUSGERÜSTET' : 'AUSRÜSTEN', { size: 'xs', dis: x.on, attr: 'data-dclose', act: 'toast', arg: x.n + ' ausgerüstet.' })}</div>`).join('')}</div>`, foot: btn('ZURÜCK', { v: 'dark', attr: 'data-dclose' }) }); void d; },
+  loadSlot(a) { const opts = INV.filter(x => x.cat === 'waffen').slice(0, 4); const d = openDlg({ title: `${esc(a)} belegen`, cls: 'wide', body: `<div class="grid g3"><button type="button" class="card" data-dclose style="display:grid;place-items:center;gap:.4rem;min-height:9rem">${ic('close')}<b class="disp">Ablegen</b></button>${opts.map((x, i) => `<div class="tile t-${x.tier}"><span class="art">${ART.weapon(x.art, x.tier)}</span><span class="nm">${x.n}</span>${tileTier(x)}${stars(x.stars)}${btn(x.on ? 'AUSGERÜSTET' : 'AUSRÜSTEN', { size: 'xs', dis: x.on, attr: 'data-dclose', act: 'toast', arg: x.n + ' ausgerüstet.' })}</div>`).join('')}</div>`, foot: btn('ZURÜCK', { v: 'dark', attr: 'data-dclose' }) }); void d; },
   swatch(a) { const [k, c] = a.split('|'); S.lookBackup = S.lookBackup || { ...ME }; ME[k] = c; $$(`[data-act="swatch"][data-arg^="${k}|"]`).forEach(s => { const on = s.dataset.arg === a; s.classList.toggle('on', on); s.setAttribute('aria-pressed', on); }); updateCharPrev(); },
   lookSave() { S.lookBackup = null; const p = FX.at('.charprev'); FX.sparkle(p.x, p.y, { n: 20, spread: 120 }); toast('Aussehen gespeichert.', 'good'); },
   lookCancel() { if (S.lookBackup) Object.assign(ME, S.lookBackup); S.lookBackup = null; renderPage(0); },
   invF(a) { S.view.invF = a; S.view.invSel = 0; renderPage(0); }, invSel(a) { S.view.invSel = +a; renderPage(0); },
-  invEquip() { const f = S.view.invF || 'alle', list = INV.filter(x => f === 'alle' || x.cat === f), it = list[S.view.invSel || 0]; it.on = !it.on; toast(it.on ? it.n + ' ausgerüstet.' : it.n + ' abgelegt.'); renderPage(0); },
+  invT(a) { S.view.invT = a; S.view.invSel = 0; renderPage(0); }, invSort(a) { S.view.invSort = a; S.view.invSel = 0; renderPage(0); }, invLeg() { S.view.invLeg = !S.view.invLeg; renderPage(0); },
+  invEquip() { const it = invList()[S.view.invSel || 0]; if (!it) return; it.on = !it.on; toast(it.on ? it.n + ' ausgerüstet.' : it.n + ' abgelegt.'); renderPage(0); },
   invScrap() { const d = openDlg({ title: 'Item zerlegen', body: `<p>Das Item wird zu Splittern. Das lässt sich nicht rückgängig machen.</p><div class="row">${ART.cur('splitter')}<b class="disp" style="font-size:1.5rem">+35 Splitter</b></div>`, foot: btn('ABBRECHEN', { v: 'dark', attr: 'data-dclose' }) + btn('ENDGÜLTIG ZERLEGEN', { v: 'red', attr: 'data-ok' }) }); d.box.querySelector('[data-ok]').addEventListener('click', () => { d.close('ok'); setWallet('splitter', S.wallet.splitter + 35); const p = FX.at('[data-cur="splitter"]'); FX.sparkle(p.x, p.y, { n: 14, color: '#C08AF5' }); toast('+35 Splitter', 'good'); }); },
   wsSel(a) { S.view.wsSel = +a; renderPage(0); }, wsAttr(a) { S.view.wsAttr = +a; renderPage(0); }, wsGem(a) { S.view.wsGem = +a; renderPage(0); }, wsTry() { workshopTry(); },
   loan(a) { S.view.loan = +a; toast('Leihwaffe ausgerüstet – nur in der Plaza.', 'good', 'gun'); renderPage(0); }, loanReset() { S.view.loan = null; toast('Eigene Ausrüstung aktiv.'); renderPage(0); },
@@ -5041,7 +5222,7 @@ const A = {
   shopCat(a) { S.view.shopCat = a; S.view.shopSel = null; renderPage(0); }, wf(a) { S.view.wf = a; S.view.shopSel = null; renderPage(0); }, life(a) { S.view.life = +a; renderPage(0); },
   giftItem(a) { openNewMail('', a); }, giftBack() { const g = S.gift; S.gift = null; openNewMail(g); },
   boardCoin(_, el) { S.seen.coin = true; const p = FX.at(el); setWallet('muenzen', S.wallet.muenzen + 1); FX.coins(p.x, p.y, { n: 14, target: FX.at('[data-cur="muenzen"]') }); toast('+1 Münze', 'good', 'coin'); tabBadges(); renderSub(); later(500, () => renderPage(0)); },
-  boardOdds() { openDlg({ title: 'Quoten', cls: 'wide', body: `<table class="tbl"><thead><tr><th>Gewinn</th><th>Stufe</th><th class="r">Felder</th><th class="r">Chance</th></tr></thead><tbody>${[['Goldener Hammer', 'jackpot', 1, '2,1 %'], ['Bauhelm Gold', 'epic', 3, '6,3 %'], ['Funkenwerfer (7 Tage)', 'rare', 6, '12,5 %'], ['Gem des Glücks', 'uncommon', 12, '25,0 %'], ['200 Brix / Tränke', 'common', 26, '54,1 %']].map(([g, t, f, c]) => `<tr><td class="nm">${g}</td><td>${tierLbl(t)}</td><td class="r num">${f}</td><td class="r num">${c}</td></tr>`).join('')}</tbody></table>`, foot: btn('SCHLIESSEN', { attr: 'data-dclose' }) }); },
+  boardOdds() { openDlg({ title: 'Quoten', cls: 'wide', body: `<table class="tbl"><thead><tr><th>Gewinn</th><th>Stufe</th><th class="r">Felder</th><th class="r">Chance</th></tr></thead><tbody>${[['Goldener Hammer', 'legendary', 1, '2,1 %'], ['Bauhelm Gold', 'epic', 3, '6,3 %'], ['Funkenwerfer (7 Tage)', 'rare', 6, '12,5 %'], ['Gem des Glücks', 'uncommon', 12, '25,0 %'], ['200 Brix / Tränke', 'common', 26, '54,1 %']].map(([g, t, f, c]) => `<tr><td class="nm">${g}</td><td>${stageLbl(t)}</td><td class="r num">${f}</td><td class="r num">${c}</td></tr>`).join('')}</tbody></table>`, foot: btn('SCHLIESSEN', { attr: 'data-dclose' }) }); },
   boardField(a) { boardField(+a); },
   rseg(a) { S.view.rseg = a; renderPage(0); }, lb(a) { S.view.lb = a; renderPage(0); },
   profileOf(a) { openProfile(a); },
@@ -5056,7 +5237,7 @@ const A = {
   newMail(a) { openNewMail(a || ''); },
   readMail(a) { S.view.mail = +a; MAIL[+a].unread = false; openSheet('post', 'in'); },
   mailSel(a) { S.view.mail = +a; if (MAIL[+a]) MAIL[+a].unread = false; renderSheet(true); },
-  giftTake(_, el) { const p = FX.at(el); FX.sparkle(p.x, p.y, { n: 20 }); FX.tier(p.x, p.y, 'jackpot'); toast('Kürbis-Helm (7 Tage) liegt im Inventar.', 'good', 'gift'); el.setAttribute('aria-disabled', 'true'); },
+  giftTake(_, el) { const p = FX.at(el); FX.sparkle(p.x, p.y, { n: 20 }); FX.tier(p.x, p.y, 'legendary'); toast('Kürbis-Helm (7 Tage) liegt im Inventar.', 'good', 'gift'); el.setAttribute('aria-disabled', 'true'); },
   slotNew(a) { const reset = String(a).startsWith('r'), n = String(a).replace('r', ''); openDlg({ title: `Slot ${n} ${reset ? 'zurücksetzen' : 'anlegen'}`, cls: 'wide', body: `<label class="lbl">Vorlage</label>${chips(['Flach 50 x 50', 'Flach 100 x 100', '50 x 50 mit 5 Lagen'], 'Flach 50 x 50', 'noop')}<label class="lbl" style="margin-top:1rem">Material</label>${chips(['Wiese', 'Wüste', 'Schnee', 'Stadt'], 'Wiese', 'noop')}${reset ? `<div class="note gold" style="margin-top:1rem">${ic('warn')}<span>Alle Bricks in diesem Slot gehen verloren.</span></div>` : ''}`, foot: btn('ABBRECHEN', { v: 'dark', attr: 'data-dclose' }) + btn(reset ? 'ZURÜCKSETZEN' : 'ANLEGEN', { v: reset ? 'red' : '', attr: 'data-dclose', act: 'toast', arg: reset ? 'Slot zurückgesetzt.' : 'Slot angelegt.' }) }); },
   slotRename(a) { openDlg({ title: `Slot ${a} umbenennen`, body: `<div class="field"><input value="${SLOTS[+a - 1].n}" aria-label="Name" data-autofocus></div>`, foot: btn('ABBRECHEN', { v: 'dark', attr: 'data-dclose' }) + btn('SPEICHERN', { attr: 'data-dclose', act: 'toast', arg: 'Gespeichert.' }) }); },
   sky(a) { S.view.sky = +a; renderSheet(true); toast('Himmel geändert.'); },
@@ -5291,7 +5472,7 @@ function openNewMail(to, giftId) {
     foot: btn('ABBRECHEN', { v: 'dark', attr: 'data-dclose' }) + btn('SENDEN', { icon: 'right', attr: 'data-send' }) });
   d.box.querySelector('[data-send]').addEventListener('click', () => { d.close('ok'); toast('Nachricht gesendet.', 'good', 'mail'); });
   d.box.querySelector('[data-gshop]').addEventListener('click', () => { const n = d.box.querySelector('#mto').value || 'Kiesel'; closeAllDialogs(); if (S.sheet) closeSheet(); S.gift = n; A.goShop('waffen'); });
-  d.box.querySelector('[data-ginv]').addEventListener('click', () => { openDlg({ title: 'Geschenk aus dem Inventar', cls: 'wide', body: `<div class="grid g4">${INV.slice(3, 11).map(x => `<button type="button" class="tile t-${x.tier}" data-dclose data-act="toast" data-arg="${x.n} als Geschenk angehängt."><span class="art">${ART.weapon(x.art, x.tier)}</span><span class="nm">${x.n}</span></button>`).join('')}</div>`, foot: btn('ZURÜCK', { v: 'dark', attr: 'data-dclose' }) }); });
+  d.box.querySelector('[data-ginv]').addEventListener('click', () => { openDlg({ title: 'Geschenk aus dem Inventar', cls: 'wide', body: `<div class="grid g4">${INV.filter(x => x.tier !== 'basic').slice(3, 11).map(x => `<button type="button" class="tile t-${x.tier}" data-dclose data-act="toast" data-arg="${x.n} als Geschenk angehängt."><span class="art">${ART.weapon(x.art, x.tier)}</span><span class="nm">${x.n}</span>${tileTier(x)}</button>`).join('')}</div>`, foot: btn('ZURÜCK', { v: 'dark', attr: 'data-dclose' }) }); });
 }
 function partyInviteN() {
   notify({ k: 'Party', title: 'Kiesel lädt dich in eine Party ein', text: 'noch 15 s · 3 Mitglieder', icon: 'users', dur: 15, acts: [{ label: 'ANNEHMEN', fn: () => toast('Du bist jetzt in Kiesels Party.', 'good', 'users') }, { label: 'ABLEHNEN', v: 'dark', fn: () => toast('Einladung abgelehnt.') }] });
@@ -5304,7 +5485,7 @@ function subStep(d) { const s = SUBS[S.tab]; if (!s) return; const ids = s.map(x
 function fxTest(k) {
   if (S.reduced) { toast('Animationen reduzieren ist an – keine Partikel.'); return; }
   const x = innerWidth / 2, y = innerHeight * 0.45;
-  ({ sparks: () => FX.sparks(x, y, { n: 24 }), sparkle: () => FX.sparkle(x, y, { n: 30, spread: 140 }), coins: () => FX.coins(x, y, { n: 36, target: $('[data-cur="brix"]') ? FX.at('[data-cur="brix"]') : null }), confetti: () => FX.confetti(x, y, { n: 120 }), embers: () => FX.embers(x, y + 80, { n: 50, w: 420 }), ring: () => FX.ring(x, y, { r: 300 }), rays: () => { const r = FX.rays({ x, y }); later(2500, () => r.stop()); }, rare: () => FX.tier(x, y, 'rare'), epic: () => FX.tier(x, y, 'epic'), jackpot: () => FX.tier(x, y, 'jackpot'), crack: () => FX.crack(x, y), shards: () => FX.shards(x, y) }[k] || (() => {}))();
+  ({ sparks: () => FX.sparks(x, y, { n: 24 }), sparkle: () => FX.sparkle(x, y, { n: 30, spread: 140 }), coins: () => FX.coins(x, y, { n: 36, target: $('[data-cur="brix"]') ? FX.at('[data-cur="brix"]') : null }), confetti: () => FX.confetti(x, y, { n: 120 }), embers: () => FX.embers(x, y + 80, { n: 50, w: 420 }), ring: () => FX.ring(x, y, { r: 300 }), rays: () => { const r = FX.rays({ x, y }); later(2500, () => r.stop()); }, ...Object.fromEntries(TORDER.map(t => [t, () => FX.tier(x, y, t)])), crack: () => FX.crack(x, y), shards: () => FX.shards(x, y) }[k] || (() => {}))();
 }
 
 /* ---------- Zurück-Kette (Esc / B) ---------- */
@@ -5452,7 +5633,7 @@ function renderProto() {
     <div><div class="hint">UI-Größe</div>${sg('pSize', [['0.85', 'Klein 85 %'], ['1', 'Mittel 100 %'], ['1.2', 'Groß 120 %']], S.uiSize)}</div>
     <label class="ck"><input type="checkbox" id="pRed" ${S.reduced ? 'checked' : ''}> Animationen reduzieren</label>
     <label class="ck"><input type="checkbox" id="pPad"> Gamepad-Hinweise zeigen</label>
-    <div><div class="hint">Partikel-Test</div><div class="sg" id="pFx">${[['sparks', 'Funken'], ['coins', 'Münzen'], ['confetti', 'Konfetti'], ['embers', 'Glut'], ['ring', 'Ring'], ['rays', 'Strahlen'], ['sparkle', 'Glitzer'], ['rare', 'Selten'], ['epic', 'Episch'], ['jackpot', 'Hauptgewinn'], ['crack', 'Riss']].map(([v, l]) => `<button type="button" data-v="${v}">${l}</button>`).join('')}</div></div>
+    <div><div class="hint">Partikel-Test</div><div class="sg" id="pFx">${[['sparks', 'Funken'], ['coins', 'Münzen'], ['confetti', 'Konfetti'], ['embers', 'Glut'], ['ring', 'Ring'], ['rays', 'Strahlen'], ['sparkle', 'Glitzer'], ['rare', 'Selten'], ['epic', 'Episch'], ['legendary', 'Legendär'], ['mythic', 'Mythisch'], ['divine', 'Göttlich'], ['unique', 'Einzigartig'], ['crack', 'Riss']].map(([v, l]) => `<button type="button" data-v="${v}">${l}</button>`).join('')}</div></div>
     <div><div class="hint">HUD-Test (Match)</div><div class="sg" id="pHud">${[['dmg', 'Schaden nehmen'], ['heal', 'Heilen'], ['armor', 'Rüstung brechen'], ['low', 'Wenig Leben'], ['buff', 'Buff'], ['gren', 'Granate'], ['dead', 'Ausgeschaltet'], ['build', 'Bauphase']].map(([v, l]) => `<button type="button" data-v="${v}">${l}</button>`).join('')}</div></div>
     <div><div class="hint">Ereignisse</div><div class="sg" id="pEv">${[['pq', 'Popup-Warteschlange'], ['inv', 'Party-Einladung'], ['follow', 'Folgen-Karte'], ['sup', 'Support-Antwort'], ['stage', 'Bühnen-Banner'], ['toast', 'Toast'], ['bad', 'Ablehnung']].map(([v, l]) => `<button type="button" data-v="${v}">${l}</button>`).join('')}</div></div>
     <label>Fehlerart<select id="pErr">${ERRS.map((e, i) => `<option value="${i}">${e[0]}${i >= 5 ? ' (' + (i === 5 ? 'Version' : 'Hubs voll') + ')' : ''}</option>`).join('')}</select></label>
