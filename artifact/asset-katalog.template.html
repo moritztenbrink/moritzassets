@@ -76,10 +76,16 @@ details.asset[open] > summary{background:var(--panel-2);box-shadow:inset 3px 0 0
 .why{margin:0 0 14px;font-size:14px;border-left:2px solid var(--brass);padding-left:10px}
 @media (max-width:700px){details.asset > summary{grid-template-columns:38px minmax(0,1fr)}.quick{grid-column:1 / -1;justify-content:flex-start}}
 
-.body{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:20px;padding:14px 16px 18px;border-top:1px solid var(--line)}
+.body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;padding:14px 16px 18px;border-top:1px solid var(--line)}
 @media (max-width:860px){.body{grid-template-columns:minmax(0,1fr)}}
 .body h3{margin:0 0 6px;font-family:var(--f-display);font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass)}
 .motiv{font-size:14px;margin:0 0 14px}
+.info .lead{font-size:14px;margin:0 0 8px;color:var(--muted)}
+.info .kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;font-size:13px;margin:0 0 14px}
+.info .kv dt{color:var(--muted)}
+.info .kv dd{margin:0}
+.steps{margin:0 0 16px;padding-left:20px;font-size:13px;display:grid;gap:4px}
+.mono{font-family:var(--f-mono)}
 .files{list-style:none;margin:0;padding:0;display:grid;gap:3px;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 .files li span{color:var(--fg)}
 .prompts{display:grid;gap:12px;min-width:0}
@@ -329,10 +335,184 @@ function renderList(){
       </summary><div class="body"></div></details>`;}).join("")}</div></section>`;
   }).join("");
 }
+/* ---------- Aussehen + Funktionsweise ---------- */
+const nf=(n,d=0)=>(typeof n==="number"&&isFinite(n))?n.toLocaleString("de-DE",{minimumFractionDigits:d,maximumFractionDigits:d}):String(n);
+const pct=x=>Math.round(x*100)+" %";
+function parseOv(s){const o={};if(!s||s==="-")return o;String(s).split("/").forEach(p=>{const i=p.indexOf("=");if(i<0)return;const k=p.slice(0,i).trim(),v=p.slice(i+1).trim();o[k]=isNaN(+v)?v:+v;});return o;}
+const listRow=id=>DATA.list.find(r=>r.by_name===id);
+const ZONE_F={kopf:1.6,kern:2.2};
+const GUN_MECH={
+  PISTOLE:"Zweitwaffe im AUX-Slot. Wird schnell gezogen und ist beim ersten Schuss präzise. Man wird mit ihr nicht langsamer.",
+  MP:"Hauptwaffe für kurze Distanz. Streut beim Laufen deutlich stärker, ist dafür sehr mobil.",
+  STURMGEWEHR:"Allrounder. Mit Visier und Feuerstößen von 3 bis 5 Schuss präzise auf mittlere Distanz.",
+  KAMPFGEWEHR:"Starker Einzelschuss für mittlere bis weite Distanz. Jeder Schuss vergrößert die Streuung stark, ruhiges Timing wird belohnt.",
+  SCHARFSCHUETZE:"Ohne Visier fast nutzlos, mit Visier 98 % genau. Mit Visier prüft die Engine Kopftreffer gegen die Kern-Zone (CoreBrain).",
+  SCHROTFLINTE:"Jeder Schuss besteht aus mehreren Kugeln, die einzeln streuen. Auf kurze Distanz reicht meist ein Schuss.",
+  MG:"Sperrfeuer mit großem Gurt. Im Stehen ungenau. Ducken begrenzt die Streuung auf die halbe Spanne, wie ein Zweibein.",
+  LMG:"Mobileres MG mit großem Magazin. Streuung zwischen Sturmgewehr und MG.",
+  MINIGUN:"Höchster Schadensausstoß, aber sehr langsam. Der Schuss-Sound läuft als Schleife.",
+  WERFER:"Verschießt ein echtes Projektil (kein Sofort-Treffer), das beim Aufprall explodiert. Zerstört Bricks.",
+  ARMBRUST:"Verschießt einen echten Bolzen mit Schwerkraft. Er bleibt im Ziel stecken und hinterlässt keine Rauchspur."
+};
+function gunFor(a){
+  const r=listRow(a.id), cls=r?r.klasse:a.klasse, ov=r?parseOv(r.abweichungen):{};
+  const g={...DATA.guns.find(x=>x.klasse===cls)};
+  for(const [k,v] of Object.entries(ov)) g[k]=v;
+  if(ov.fReloadSpeed) g.nachladezeit_s=+(2/ov.fReloadSpeed).toFixed(2);
+  if(ov.fDrawSpeed) g.ziehzeit_s=+(0.6/ov.fDrawSpeed).toFixed(2);
+  const vis=r&&r.visier&&r.visier!=="-"?r.visier:g.standard_visier;
+  return {g,r,cls,ov,scope:DATA.scopes.find(s=>s.visier===vis)};
+}
+function kv(rows){return `<dl class="kv">${rows.filter(Boolean).map(([k,v])=>`<dt>${esc(k)}</dt><dd>${v}</dd>`).join("")}</dl>`;}
+function steps(list){return `<ol class="steps">${list.filter(Boolean).map(s=>`<li>${s}</li>`).join("")}</ol>`;}
+function scopeName(s){return s&&s.visier!=="KEINS"?`${esc(s.name)} (${String(s.vergroesserung).replace(".",",")}×)`:"keins";}
+
+function funktionGun(a){
+  const {g,r,cls,ov,scope}=gunFor(a);
+  const shotgun=g.maxBuckShot>0, pel=shotgun?(g.minBuckShot+g.maxBuckShot-1)/2:1, shot=g.fAtkPow*pel;
+  const proj=cls==="WERFER"||cls==="ARMBRUST";
+  const body=cls==="WERFER"?1:Math.ceil(100/shot), brain=cls==="WERFER"?1:Math.ceil(100/(shot*ZONE_F.kern));
+  const gap=60/g.fRateOfFire, spin=cls==="MINIGUN"?.5:0, ttk=(body-1)*gap+spin;
+  const mode=String(g.feuermodus), hasScope=scope&&scope.visier!=="KEINS";
+  const radius=g.Radius1stWpn||0;
+  const special=r&&r.besonderheit&&r.besonderheit!=="-"?r.besonderheit:"";
+  const fire = /Burst/.test(mode) ? `Ein Linksklick feuert eine Salve aus ${g.semiAutoMaxCyclicAmmo||3} Schuss im Abstand von ${Math.round(gap*1000)} ms.`
+    : /Anlauf/.test(mode)||cls==="MINIGUN" ? `Linksklick halten: 0,5 s Anlauf der Läufe, dann Dauerfeuer alle ${Math.round(gap*1000)} ms, bis du loslässt oder das Magazin leer ist.`
+    : /Auto/.test(mode) ? `Linksklick halten: feuert alle ${Math.round(gap*1000)} ms, bis du loslässt oder das Magazin leer ist.`
+    : mode==="Bolt" ? `Ein Linksklick feuert. Danach repetiert die Waffe automatisch, frühestens alle ${nf(gap,2)} s ein Schuss.${hasScope&&scope.zoomKeep==="false"?" Im Visier zoomt sie nach dem Schuss heraus.":""}`
+    : mode==="Pump" ? `Ein Linksklick feuert ${g.minBuckShot} bis ${g.maxBuckShot-1} Kugeln auf einmal. Danach wird automatisch gepumpt, frühestens alle ${nf(gap,2)} s ein Schuss.`
+    : proj ? `Ein Linksklick verschießt ${cls==="WERFER"?"die Rakete":"den Bolzen"} mit Startimpuls ${g.misSpeed}. ${cls==="WERFER"?`Beim Aufprall explodiert sie mit ${nf(radius,1)} m Radius.`:(radius?`Der Sprengbolzen explodiert mit ${nf(radius,1)} m Radius.`:"Der Bolzen fliegt im Bogen und bleibt stecken.")}`
+    : `Pro Linksklick ein Schuss, frühestens alle ${Math.round(gap*1000)} ms.`;
+  const dmgLine = cls==="WERFER" ? `${g.fAtkPow} im Zentrum, fällt bis ${nf(radius,1)} m Radius linear auf 0`
+    : shotgun ? `${g.fAtkPow} pro Kugel × ${g.minBuckShot}–${g.maxBuckShot-1} Kugeln (Ø ${nf(shot)} pro Schuss)`
+    : `${g.fAtkPow} pro Treffer · Kopf ${Math.floor(g.fAtkPow*ZONE_F.kopf)} · Kern ${Math.floor(g.fAtkPow*ZONE_F.kern)} · Arm ${Math.floor(g.fAtkPow*.75)} · Bein ${Math.floor(g.fAtkPow*.6)}`;
+  return `<h3>Funktionsweise</h3><p class="lead">${esc(GUN_MECH[cls]||"")}</p>${kv([
+    ["Klasse",esc(DATA.guns.find(x=>x.klasse===cls).name)+` · Slot ${esc(g.slot)}`],
+    ["Feuermodus",`${esc(mode)} · ${nf(g.fRateOfFire)} Schuss/min`],
+    ["Schaden",esc(dmgLine)],
+    cls!=="WERFER"&&["Bis zum Kill",`${body} Körper- / ${brain} Kerntreffer · TTK ${Math.round(ttk*1000)} ms`],
+    ["Reichweite",cls==="WERFER"?`bis ${g.fRange} m`:`voller Schaden bis ${g.fEffectiveRange} m, dann linear auf 0 bei ${g.fRange} m`],
+    ["Magazin",`${g.maxMagazine} im Magazin · ${g.maxAmmo} Reserve`],
+    ["Nachladen / Ziehen",`${nf(g.nachladezeit_s,1)} s / ${nf(g.ziehzeit_s,1)} s`],
+    ["Rückstoß",`${nf(g.fRecoilPitch,2)}° nach oben, ${nf(g.fRecoilYaw,2)}° seitlich pro Schuss`],
+    ["Wucht",`Getroffene laufen mit ${pct(1-g.fRigidity)} Tempo weiter`],
+    ["Laufen",`mit ${pct(g.fSpeedFactor)} Tempo`],
+    ["Hüft-Genauigkeit",`${g.fAccuracy} % der Schüsse im inneren Kegel · Laufen ×${nf(g.fMoveInaccuracyFactor,1)} Streuung`],
+    ["Visier",hasScope?`${scopeName(scope)} · Rechtsklick`:"keins"],
+    ov.Launcher&&["Zweitwaffe",`Unterlauf-Granatwerfer: ${ov.maxLauncherAmmo||2} Granaten, 100 Schaden, 4,5 m Radius`],
+    special&&["Besonderheit",esc(special)]
+  ])}<h3>Ablauf</h3>${steps([
+    esc(fire),
+    `Jeder Schuss hebt das Fadenkreuz um ${nf(g.fRecoilPitch,2)}° und vergrößert die Streuung. Sie erholt sich um ${nf(g.fAccurateCenter,3)} pro Sekunde.`,
+    hasScope?`Rechtsklick schaltet ${esc(scope.name)} ein (Sichtfeld ${nf(scope.fZFov,1)}°, Maus ×${nf(scope.fZCamSpeed,2)}).${scope.midstep>0?" Ein zweiter Rechtsklick schaltet auf die nächste Zoomstufe.":""}`:"",
+    ov.Launcher?"Der Granatwerfer braucht eine eigene Taste (NEU), weil Rechtsklick das Visier schaltet. Die Granate fliegt im Bogen.":"",
+    `Nachladen dauert ${nf(g.nachladezeit_s,1)} s. Bei leerem Magazin klickt der Abzug, mit dem Item „Auto-Nachladen“ lädt die Waffe selbst nach.`
+  ])}`;
+}
+function funktionMelee(a){
+  const r=listRow(a.id), cls=r?r.klasse:a.klasse, ov=r?parseOv(r.abweichungen):{}, b=DATA.melee.find(x=>x.klasse===cls), m={...b};
+  if(ov.fAtkPow!==undefined) m.fAtkPow_leicht=ov.fAtkPow;
+  if(ov.fSlashSpeed!==undefined){m.fSlashSpeed=ov.fSlashSpeed;m.dauer_leicht_s=+(b.dauer_leicht_s*b.fSlashSpeed/ov.fSlashSpeed).toFixed(2);m.dauer_schwer_s=+(b.dauer_schwer_s*b.fSlashSpeed/ov.fSlashSpeed).toFixed(2);}
+  const special=r&&r.besonderheit&&r.besonderheit!=="-"?r.besonderheit:"";
+  return `<h3>Funktionsweise</h3>${kv([
+    ["Klasse",esc(m.name)+" · Slot MELEE"],
+    ["Leichter Schlag",`${m.fAtkPow_leicht} Schaden · ${nf(m.dauer_leicht_s,2)} s · ${Math.ceil(100/m.fAtkPow_leicht)} Treffer bis Kill`],
+    ["Schwerer Schlag",`${m.schaden_schwer} Schaden · ${nf(m.dauer_schwer_s,2)} s · ${Math.ceil(100/m.schaden_schwer)} Treffer bis Kill`],
+    ["Reichweite",`${nf(m.reichweite_m,1)} m in einem ${m.winkel_grad}°-Bogen`],
+    ["Von hinten",`×${nf(m.rueckenschaden_faktor,1)} Schaden (NEU)`],
+    ["Wucht",`Getroffene laufen mit ${pct(1-m.fRigidity)} Tempo weiter`],
+    ["Laufen",`mit ${pct(m.fSpeedFactor)} Tempo`],
+    ["Brick-Schaden",esc(m.brick_schaden)],
+    special&&["Besonderheit",esc(special)]
+  ])}<h3>Ablauf</h3>${steps([
+    `Linksklick: leichter Schlag (Clip slash_h). Treffer zählen nur zwischen 30 und 55 % der Animation, höchstens einmal pro Ziel.`,
+    `Rechtsklick: schwerer Schlag (Clip slash_big_h). Ausholen bis 45 %, Treffer zwischen 45 und 65 %.`,
+    `Steht das Ziel mit dem Rücken zu dir (Winkel unter 60°), wird der Schaden mit ${nf(m.rueckenschaden_faktor,1)} multipliziert.`
+  ])}`;
+}
+function funktionThrow(a){
+  const r=listRow(a.id), cls=r?r.klasse:a.klasse, ov=r?parseOv(r.abweichungen):{}, t={...DATA.throw.find(x=>x.klasse===cls)};
+  if(ov.fAtkPow!==undefined)t.fAtkPow=ov.fAtkPow; if(ov.Radius!==undefined)t.radius_m=ov.Radius; if(ov.fRigidity!==undefined)t.fRigidity=ov.fRigidity; if(ov.continueTime!==undefined)t.continueTime_s=ov.continueTime;
+  const special=r&&r.besonderheit&&r.besonderheit!=="-"?r.besonderheit:(t.besonderheit||"");
+  const trig={SPLITTER:`Explodiert ${nf(t.fExplosionTime_s,1)} s nach dem Loslassen. Wer die Taste nach dem Stiftziehen hält, lässt den Zünder schon laufen (Kochen, NEU).`,
+    ZEITBOMBE:`Bleibt an Bricks und Wänden haften (NEU) und explodiert nach ${nf(t.fExplosionTime_s,1)} s.`,
+    SENSOR:`Wird ${nf(t.fExplosionTime_s,1)} s nach dem Wurf scharf. Kommt jemand näher als 2,5 m, piept sie 0,4 s und explodiert. Sie liegt bis zu ${t.persistTime_s} s.`,
+    FERNZUENDER:`Liegt nach dem Wurf still. Ein zweiter Linksklick zündet sie.`,
+    BLEND:`Zündet nach ${nf(t.fExplosionTime_s,1)} s. Wer hinschaut, ist bis zu ${nf(t.continueTime_s,1)} s geblendet, seitlich die Hälfte, mit dem Rücken 0,5 s.`,
+    RAUCH:`Zündet nach ${nf(t.fExplosionTime_s,1)} s und bildet ${t.persistTime_s} s lang eine Wolke mit ${nf(t.radius_m,1)} m Radius. Kugeln gehen durch.`,
+    GIFT:`Zerplatzt beim Aufprall. Die Wolke macht ${t.persistTime_s} s lang 8 Schaden pro Sekunde und verlangsamt.`}[cls];
+  return `<h3>Funktionsweise</h3>${kv([
+    ["Klasse",esc(t.name)+" · Slot BOMB"],
+    ["Auslöser",esc(t.ausloeser)],
+    t.fAtkPow>0&&["Schaden",`${t.fAtkPow} im Zentrum, fällt linear bis ${nf(t.radius_m,1)} m auf 0 · Körpertreffer bis ${nf(t.radius_m*(1-100/t.fAtkPow),1)} m tödlich`],
+    ["Radius",`${nf(t.radius_m,1)} m`],
+    t.fExplosionTime_s>0&&["Zünder",`${nf(t.fExplosionTime_s,1)} s`],
+    ["Wurfkraft",`${t.fThrowForce} (Rechtsklick: halbe Kraft, NEU)`],
+    t.fRigidity>0&&["Wucht",`Getroffene laufen mit ${pct(1-t.fRigidity)} Tempo weiter`],
+    t.persistTime_s>0&&["Wirkdauer",`${t.persistTime_s} s`],
+    t.continueTime_s>0&&["Blenddauer",`bis ${nf(t.continueTime_s,1)} s`],
+    ["Anzahl",`${t.maxAmmo} pro Leben`],
+    ["Brick-Schaden",esc(t.brick_schaden)],
+    special&&["Besonderheit",esc(special)]
+  ])}<h3>Ablauf</h3>${steps([
+    "Linksklick: Stift ziehen und ausholen (Clip throw_h, 0,8 s). Bei 60 % fliegt die Granate los.",
+    esc(trig),
+    "Gegner im Radius sehen eine Warnung (ProjectileAlert)."
+  ])}`;
+}
+function funktionScope(a){
+  const s=DATA.scopes.find(x=>x.visier===a.id), users=DATA.list.filter(r=>r.visier===a.id).map(r=>r.anzeigename), cls=DATA.guns.filter(g=>g.standard_visier===a.id).map(g=>g.name);
+  return `<h3>Funktionsweise</h3>${kv([
+    ["Vergrößerung",`${String(s.vergroesserung).replace(".",",")}× · Sichtfeld ${nf(s.fZFov,1)}°${s.midstep>0?` (erste Stufe ${nf(s.midfovs,1)}°)`:""}`],
+    ["Maus",`×${nf(s.fZCamSpeed,2)} Empfindlichkeit im Visier`],
+    ["Zielzeit",`${nf(s.ads_zeit_s,2)} s (NEU)`],
+    ["Nach dem Schuss",s.zoomKeep==="true"?"bleibt im Visier":"zoomt heraus"],
+    ["Genauigkeit",`${s.fZAccuracy} % im inneren Kegel · Streuung ${s.fZAccurateMin}–${s.fZAccurateMax} · Laufen ×${s.fZMoveInaccuracyFactor}`],
+    ["Glanz",s.glanz==="ja"?"Gegner sehen ein Linsenblitzen (NEU)":"nein"],
+    ["Standard für",esc([...cls,...users].join(", ")||"–")]
+  ])}<h3>Ablauf</h3>${steps([
+    "Rechtsklick schaltet das Visier ein. Bis die Zielzeit vorbei ist, gilt noch die Hüft-Genauigkeit.",
+    s.midstep>0?"Ein zweiter Rechtsklick schaltet auf 10×, ein dritter wieder heraus.":"Ein zweiter Rechtsklick schaltet das Visier aus.",
+    s.vergroesserung>=6?"Ab 6× schwankt das Bild leicht. Shift hält 3 s den Atem an (NEU).":""
+  ])}`;
+}
+function funktionItem(a){
+  const c=DATA.cons.find(x=>x.engine_name===a.id);
+  return `<h3>Funktionsweise</h3>${kv([
+    ["Engine-Name",`<span class="mono">${esc(c.engine_name)}</span> · ${esc(c.status)}`],
+    ["Typ",esc(c.typ)],["Effekt",esc(c.effekt)],["Wert",esc(c.wert)],
+    ["Dauer",c.dauer_s?esc(String(c.dauer_s))+(isNaN(+c.dauer_s)?"":" s"):"sofort"],
+    ["Abklingzeit",c.cooldown_s?`${c.cooldown_s} s`:"keine"],
+    ["Nutzzeit",c.nutzzeit_s?`${nf(c.nutzzeit_s,1)} s · Clip ${esc(c.animation)}`:"keine"],
+    ["Effekt sichtbar",esc(c.fx)]
+  ])}<h3>Ablauf</h3>${steps([
+    String(c.typ).startsWith("passiv")?"Wirkt passiv, solange das Item ausgerüstet ist.":`Item-Taste drücken${c.nutzzeit_s?`: Waffe senkt sich ${nf(c.nutzzeit_s,1)} s (Schießen oder Sprinten bricht ab, ohne die Abklingzeit zu verbrauchen)`:""}.`,
+    `Dann: ${esc(c.effekt)} (${esc(c.wert)}).`,
+    /^heal/.test(c.engine_name)?"Bei vollen HP passiert nichts und ein Fehler-Sound spielt. Heilung geht nie über 100 HP.":"",
+    c.cooldown_s?`Danach ${c.cooldown_s} s Abklingzeit.`:""
+  ])}`;
+}
+function funktionPrj(a){
+  const users=DATA.guns.filter(g=>g.klasse===a.klasse).map(g=>g.name), phys=a.klasse==="WERFER"||a.klasse==="ARMBRUST";
+  return `<h3>Funktionsweise</h3>${kv([
+    ["Kaliber",esc(a.kurz_de)],
+    ["Genutzt von",esc(users.join(", ")||a.name)],
+    ["Treffer",phys?"echtes Projektil mit Flugzeit":"Sofort-Treffer per Raycast, die Leuchtspur ist nur optisch (ca. 400 m/s)"]
+  ])}`;
+}
+function funktionFx(a){
+  return `<h3>Funktionsweise</h3>${kv([["Wird ausgelöst bei",esc(a.kurz_de)],["Format","Flipbook 8×8 Bilder, 2048², additive Überblendung auf Schwarz"]])}`;
+}
+function funktion(a){
+  try{
+    return ({WAFFE:funktionGun,NAHKAMPF:funktionMelee,GRANATE:funktionThrow,VISIER:funktionScope,ITEM:funktionItem,PROJEKTIL:funktionPrj,FX:funktionFx})[a.kategorie](a);
+  }catch(e){ return ""; }
+}
+
 function renderBody(det){
   const a=ASSETS.find(x=>x.id===det.dataset.id);
   $(".body",det).innerHTML=`
-    <div>${a.basis==="ja"?`<h3>Im Basis-Set für</h3><p class="why">${esc(a.basis_grund)}</p>`:""}<h3>Motiv</h3><p class="motiv">${esc(a.motiv_en)}</p>${DATA.list.some(r=>r.by_name===a.id)?`<p style="margin:0 0 14px"><button class="btn" type="button" data-wk="${esc(a.id)}">In der Waffenkammer öffnen</button></p>`:""}
+    <div class="info">${a.basis==="ja"?`<h3>Im Basis-Set für</h3><p class="why">${esc(a.basis_grund)}</p>`:""}<h3>Aussehen</h3><p class="motiv">${esc(a.aussehen_de)}</p>${funktion(a)}${DATA.list.some(r=>r.by_name===a.id)?`<p style="margin:0 0 14px"><button class="btn" type="button" data-wk="${esc(a.id)}">In der Waffenkammer öffnen</button></p>`:""}
       <h3>Benötigte Dateien</h3><ul class="files">${files(a).map(([l,n,s])=>`<li>${esc(l)}: <span>${esc(n)}</span>${s?` · ${esc(s)}`:""}</li>`).join("")}</ul></div>
     <div class="prompts">${TYPES_BY_CAT[a.kategorie].map(t=>`<div class="pblock"><div class="phead"><span><b>${TYPES[t].l}</b>${TYPES[t].hint?`<em>${TYPES[t].hint}</em>`:""}</span><button class="qb" type="button" data-copy="${t}">Kopieren</button></div><pre class="ptext">${esc(prompt(t,a))}</pre></div>`).join("")}</div>`;
 }

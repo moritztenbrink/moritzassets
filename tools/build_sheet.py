@@ -8,11 +8,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data"
-INTRO_BASIS = (
-    "Nur das Basis-Set: pro Mechanik aus dem Waffen-Sheet genau ein Asset, damit alles einmal spielbar ist. "
-    "Varianten, Event-Skins und Größen stehen im Gesamtkatalog. Die Prompts sind auf Englisch, weil Generatoren "
-    "damit am besten arbeiten. Stil, Hintergrund und Generator gelten für alle Prompts."
-)
 INTRO_ALLE = (
     "Alle Basis-Waffen, Nahkampfwaffen, Granaten, Visiere, Items, Projektile und Effekte. Assets mit dem Abzeichen "
     "<b style=\"color:var(--brass)\">Basis</b> gehören zum Basis-Set, also eins pro Mechanik. Skin-Varianten wie "
@@ -23,13 +18,6 @@ INTRO_ALLE = (
 # (Vorlage, Ausgabe, Ersetzungen)
 PAGES = [
     ("waffenkammer", "waffenkammer", {}),
-    ("asset-katalog", "asset-katalog-basis", {
-        "__TITLE__": "Brick-Force Basis-Set",
-        "__EYEBROW__": "Brick-Force · Basis-Set &amp; Prompts",
-        "__H1__": "Basis-Set",
-        "__INTRO__": INTRO_BASIS,
-        '/*__MODE__*/"alle"': '"basis"',
-    }),
     ("asset-katalog", "asset-katalog", {
         "__TITLE__": "Brick-Force Asset-Katalog",
         "__EYEBROW__": "Brick-Force · Alle Assets &amp; Prompts",
