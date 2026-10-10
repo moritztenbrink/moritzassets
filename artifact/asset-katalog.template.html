@@ -22,6 +22,12 @@ button,input,select,textarea{font:inherit;color:inherit}
 .wrap{max-width:1180px;margin:0 auto;padding-inline:16px}
 header.top{border-bottom:1px solid var(--line)}
 header.top .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;justify-content:space-between;padding-block:18px 14px}
+.views{flex-basis:100%;display:flex;gap:2px;margin-top:6px}
+.view{background:none;border:0;border-bottom:2px solid transparent;padding:6px 12px 6px 0;margin-right:14px;font-family:var(--f-display);font-weight:600;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);cursor:pointer}
+.view:hover{color:var(--fg)}
+.view[aria-selected="true"]{color:var(--brass);border-bottom-color:var(--brass)}
+#wk-view iframe{display:block;width:100%;border:0;min-height:80vh;background:var(--bg)}
+.wk-load{padding:40px 16px;text-align:center;color:var(--muted)}
 h1{margin:0;font-family:var(--f-display);font-weight:700;font-size:30px;letter-spacing:.04em;text-transform:uppercase;line-height:1}
 .eyebrow{font-family:var(--f-display);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .counts{font-family:var(--f-mono);font-size:12px;color:var(--muted);line-height:1.6}
@@ -92,9 +98,14 @@ pre.ptext{margin:0;padding:10px;font-family:var(--f-mono);font-size:12.5px;line-
 <header class="top"><div class="wrap">
   <div><div class="eyebrow">__EYEBROW__</div><h1>__H1__</h1></div>
   <div class="counts" id="counts"></div>
+  <nav class="views" role="tablist" aria-label="Ansicht">
+    <button class="view" role="tab" id="v-assets" data-view="assets" aria-selected="true">Assets &amp; Prompts</button>
+    <button class="view" role="tab" id="v-waffenkammer" data-view="waffenkammer" aria-selected="false">Waffenkammer</button>
+  </nav>
 </div></header>
+<section id="wk-view" hidden><div class="wk-load" id="wk-load">Waffenkammer wird geladen …</div></section>
 
-<main class="wrap">
+<main class="wrap" id="assets-view">
   <p class="intro">__INTRO__</p>
 
   <div class="controls" id="controls">
@@ -321,7 +332,7 @@ function renderList(){
 function renderBody(det){
   const a=ASSETS.find(x=>x.id===det.dataset.id);
   $(".body",det).innerHTML=`
-    <div>${a.basis==="ja"?`<h3>Im Basis-Set für</h3><p class="why">${esc(a.basis_grund)}</p>`:""}<h3>Motiv</h3><p class="motiv">${esc(a.motiv_en)}</p>
+    <div>${a.basis==="ja"?`<h3>Im Basis-Set für</h3><p class="why">${esc(a.basis_grund)}</p>`:""}<h3>Motiv</h3><p class="motiv">${esc(a.motiv_en)}</p>${DATA.list.some(r=>r.by_name===a.id)?`<p style="margin:0 0 14px"><button class="btn" type="button" data-wk="${esc(a.id)}">In der Waffenkammer öffnen</button></p>`:""}
       <h3>Benötigte Dateien</h3><ul class="files">${files(a).map(([l,n,s])=>`<li>${esc(l)}: <span>${esc(n)}</span>${s?` · ${esc(s)}`:""}</li>`).join("")}</ul></div>
     <div class="prompts">${TYPES_BY_CAT[a.kategorie].map(t=>`<div class="pblock"><div class="phead"><span><b>${TYPES[t].l}</b>${TYPES[t].hint?`<em>${TYPES[t].hint}</em>`:""}</span><button class="qb" type="button" data-copy="${t}">Kopieren</button></div><pre class="ptext">${esc(prompt(t,a))}</pre></div>`).join("")}</div>`;
 }
@@ -360,6 +371,39 @@ $("#bulk").addEventListener("click",()=>{
   catch(e){$("#bulk-text").select();}
 });
 
+/* ---------- Waffenkammer als zweite Ansicht ---------- */
+const WK_HTML = /*__WK__*/"";
+let wkFrame=null, wkPending=null;
+function wkPick(id){ try{ wkFrame.contentWindow.pick(id); }catch(e){} }
+function loadWk(){
+  if(wkFrame) return;
+  wkFrame=document.createElement("iframe"); wkFrame.title="Waffenkammer";
+  wkFrame.addEventListener("load",()=>{
+    $("#wk-load").hidden=true;
+    const w=wkFrame.contentWindow, d=wkFrame.contentDocument;
+    const fit=()=>{ wkFrame.style.height=Math.ceil(d.body.scrollHeight)+"px"; };
+    try{ new ResizeObserver(fit).observe(d.body); }catch(e){} fit();
+    // Tab-Wechsel in der Waffenkammer scrollt die Seite zum Anfang der Waffenkammer
+    w.scrollTo=()=>window.scrollTo({top:Math.max(0,wkFrame.getBoundingClientRect().top+window.scrollY-8)});
+    if(wkPending){ wkPick(wkPending); wkPending=null; }
+  });
+  wkFrame.srcdoc=WK_HTML;
+  $("#wk-view").appendChild(wkFrame);
+}
+function setView(v){
+  $$("[data-view]").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.view===v)));
+  $("#assets-view").hidden = v!=="assets"; $("#wk-view").hidden = v!=="waffenkammer";
+  if(v==="waffenkammer") loadWk();
+  try{ history.replaceState(null,"",v==="waffenkammer"?"#waffenkammer":location.pathname+location.search); }catch(e){}
+}
+$$("[data-view]").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.view)));
+$("#list").addEventListener("click",e=>{
+  const b=e.target.closest("[data-wk]"); if(!b) return;
+  setView("waffenkammer"); window.scrollTo({top:0});
+  if(wkFrame&&wkFrame.contentWindow&&wkFrame.contentWindow.pick) wkPick(b.dataset.wk); else wkPending=b.dataset.wk;
+});
+
 renderControls(); renderList();
+if(location.hash==="#waffenkammer") setView("waffenkammer");
 const first=$("details.asset"); if(first){first.open=true;renderBody(first);}
 </script>
