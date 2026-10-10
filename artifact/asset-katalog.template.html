@@ -1,4 +1,4 @@
-<title>Brick-Force Asset-Katalog</title>
+<title>__TITLE__</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -68,10 +68,6 @@ details.asset[open] > summary{background:var(--panel-2);box-shadow:inset 3px 0 0
 .qb.done{border-color:var(--good);color:var(--good)}
 .basis{display:inline-block;font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#1a1307;background:var(--brass);border-radius:3px;padding:1px 5px;margin-right:8px;vertical-align:2px}
 .why{margin:0 0 14px;font-size:14px;border-left:2px solid var(--brass);padding-left:10px}
-.scope-seg{display:inline-flex;border:1px solid var(--line-2);border-radius:5px;overflow:hidden}
-.scope-seg button{background:var(--panel);border:0;padding:6px 12px;font-size:14px;color:var(--muted);cursor:pointer}
-.scope-seg button+button{border-left:1px solid var(--line-2)}
-.scope-seg button[aria-pressed="true"]{background:var(--brass);color:#1a1307}
 @media (max-width:700px){details.asset > summary{grid-template-columns:38px minmax(0,1fr)}.quick{grid-column:1 / -1;justify-content:flex-start}}
 
 .body{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:20px;padding:14px 16px 18px;border-top:1px solid var(--line)}
@@ -94,12 +90,12 @@ pre.ptext{margin:0;padding:10px;font-family:var(--f-mono);font-size:12.5px;line-
 </style>
 
 <header class="top"><div class="wrap">
-  <div><div class="eyebrow">Brick-Force · Basis-Assets &amp; Prompts</div><h1>Asset-Katalog</h1></div>
+  <div><div class="eyebrow">__EYEBROW__</div><h1>__H1__</h1></div>
   <div class="counts" id="counts"></div>
 </div></header>
 
 <main class="wrap">
-  <p class="intro">Standardmäßig siehst du nur das <b style="color:var(--brass)">Basis-Set</b>: pro Mechanik aus dem Waffen-Sheet genau ein Asset, damit alles einmal spielbar ist. Varianten, Event-Skins und Größen kommen danach und stehen unter „Alle Assets“. Die Prompts sind auf Englisch, weil Generatoren damit am besten arbeiten. Stil, Hintergrund und Generator gelten für alle Prompts.</p>
+  <p class="intro">__INTRO__</p>
 
   <div class="controls" id="controls">
     <div class="crow">
@@ -110,7 +106,7 @@ pre.ptext{margin:0;padding:10px;font-family:var(--f-mono);font-size:12.5px;line-
       <div class="field grow"><label for="extra">Eigener Zusatz</label><input id="extra" type="text" placeholder="z. B. Unreal Engine render, 4k"></div>
     </div>
     <div class="crow" style="justify-content:space-between">
-      <div class="crow"><span class="scope-seg" role="group" aria-label="Umfang"><button type="button" data-scope="basis" id="sc-basis">Basis-Set</button><button type="button" data-scope="alle" id="sc-alle">Alle Assets</button></span><div class="cats" id="cats" role="group" aria-label="Kategorie"></div></div>
+      <div class="cats" id="cats" role="group" aria-label="Kategorie"></div>
       <div class="crow">
         <div class="field"><label for="btype">Alle sichtbaren</label><select id="btype"></select></div>
         <button class="btn" id="bulk">Kopieren</button>
@@ -126,6 +122,7 @@ pre.ptext{margin:0;padding:10px;font-family:var(--f-mono);font-size:12.5px;line-
 
 <script>
 const DATA = /*__DATA__*/null;
+const MODE = /*__MODE__*/"alle";
 const ASSETS = DATA.assets;
 
 const CATS = [["ALLE","Alle"],["WAFFE","Schusswaffen"],["NAHKAMPF","Nahkampf"],["GRANATE","Granaten"],["VISIER","Visiere"],["ITEM","Items"],["PROJEKTIL","Projektile"],["FX","Effekte"]];
@@ -165,9 +162,10 @@ const TYPES_BY_CAT = {WAFFE:["icon","render","model","sound"],NAHKAMPF:["icon","
   VISIER:["icon","render","model","overlay"],ITEM:["icon","render","model","sound"],PROJEKTIL:["sprite","model"],FX:["fx","sound"]};
 
 /* ---------- Einstellungen ---------- */
-const S = {cat:"ALLE",q:"",scope:"basis",style:"brick",bg:"dark",gen:"generic",extra:"",btype:"icon"};
-try{Object.assign(S,JSON.parse(localStorage.getItem("ak-settings")||"{}"));S.q="";}catch(e){}
-const save=()=>{try{localStorage.setItem("ak-settings",JSON.stringify(S));}catch(e){}};
+const S = {cat:"ALLE",q:"",style:"brick",bg:"dark",gen:"generic",extra:"",btype:"icon"};
+try{Object.assign(S,JSON.parse(localStorage.getItem("ak-settings")||"{}"));}catch(e){}
+S.q=""; S.scope=MODE; delete S.scopeSaved;
+const save=()=>{try{const {scope,q,...keep}=S;localStorage.setItem("ak-settings",JSON.stringify(keep));}catch(e){}};
 const $=(s,el=document)=>el.querySelector(s), $$=(s,el=document)=>[...el.querySelectorAll(s)];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
@@ -302,11 +300,10 @@ function renderControls(){
   $("#extra").value=S.extra;
   const pool=ASSETS.filter(a=>S.scope==="alle"||a.basis==="ja");
   const counts=Object.fromEntries(CATS.map(([k])=>[k,k==="ALLE"?pool.length:pool.filter(a=>a.kategorie===k).length]));
-  $$("[data-scope]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.scope===S.scope)));
   $("#cats").innerHTML=CATS.map(([k,l])=>`<button class="cat" data-cat="${k}" aria-pressed="${S.cat===k}">${l}<span>${counts[k]}</span></button>`).join("");
   const nPrompts=ASSETS.reduce((s,a)=>s+TYPES_BY_CAT[a.kategorie].length,0);
   const basisN=ASSETS.filter(a=>a.basis==="ja"), basisP=basisN.reduce((s,a)=>s+TYPES_BY_CAT[a.kategorie].length,0);
-  $("#counts").innerHTML=`Basis-Set <b>${basisN.length}</b> Assets · <b>${basisP}</b> Prompts<br>Gesamt ${ASSETS.length} Assets · ${nPrompts} Prompts`;
+  $("#counts").innerHTML= MODE==="basis" ? `<b>${basisN.length}</b> Assets · <b>${basisP}</b> Prompts<br>von ${ASSETS.length} Assets im Gesamtkatalog` : `<b>${ASSETS.length}</b> Assets · <b>${nPrompts}</b> Prompts<br>davon Basis-Set ${basisN.length} Assets`;
 }
 function renderList(){
   const vis=visible(), list=$("#list");
@@ -344,7 +341,6 @@ $("#controls").addEventListener("change",e=>{
 });
 $("#extra").addEventListener("input",e=>{S.extra=e.target.value;save();refreshOpen();});
 $("#q").addEventListener("input",e=>{S.q=e.target.value;renderList();});
-$$("[data-scope]").forEach(b=>b.addEventListener("click",()=>{S.scope=b.dataset.scope;save();renderControls();renderList();}));
 $("#cats").addEventListener("click",e=>{const b=e.target.closest("[data-cat]");if(!b)return;S.cat=b.dataset.cat;save();renderControls();renderList();});
 $("#list").addEventListener("toggle",e=>{const d=e.target; if(d.matches("details.asset")&&d.open) renderBody(d);},true);
 $("#list").addEventListener("click",e=>{
